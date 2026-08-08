@@ -1,0 +1,3270 @@
+{
+  "@@locale": "en",
+  "appName": "Alaya",
+  "@appName": {
+    "description": "The app's name, shown in the drawer header."
+  },
+  "navDashboard": "Dashboard",
+  "navExpenses": "Expenses",
+  "navInventory": "Inventory",
+  "navShopping": "Shopping",
+  "navRecurring": "Recurring",
+  "navServices": "Services",
+  "navCalendar": "Calendar",
+  "navInsights": "Insights",
+  "navSettings": "Settings",
+  "navThemeLab": "Theme Lab",
+  "actionSave": "Save",
+  "@actionSave": {
+    "description": "Commits an edit. Active voice, and the same word appears in the resulting confirmation."
+  },
+  "actionSaved": "Saved",
+  "actionCancel": "Cancel",
+  "actionDelete": "Delete",
+  "actionDeleted": "Deleted",
+  "actionUndo": "Undo",
+  "actionRetry": "Try again",
+  "actionAdd": "Add",
+  "actionEdit": "Edit",
+  "actionDone": "Done",
+  "actionClose": "Close",
+  "actionSelect": "Select",
+  "actionClear": "Clear",
+  "actionClearAll": "Clear all",
+  "actionSearch": "Search",
+  "actionConfirm": "Confirm",
+  "actionDiscard": "Discard",
+  "actionKeepEditing": "Keep editing",
+  "actionRemoveTag": "Remove tag",
+  "@actionRemoveTag": {
+    "description": "Accessibility label for the dismiss affordance on a removable tag chip."
+  },
+  "actionClearSearch": "Clear search",
+  "@actionClearSearch": {
+    "description": "Accessibility label for the clear button inside AlayaSearchField."
+  },
+  "addExpense": "Add expense",
+  "addIncome": "Add income",
+  "addTransfer": "Add transfer",
+  "addItem": "Add item",
+  "addToShoppingList": "Add to shopping list",
+  "dateToday": "Today",
+  "@dateToday": {
+    "description": "DateText.relative, when the date is the clock's today. Sentence case; it can begin a row."
+  },
+  "dateYesterday": "Yesterday",
+  "dateTomorrow": "Tomorrow",
+  "emptyTitleNoTransactions": "No transactions yet",
+  "emptyBodyNoTransactions": "Add your first expense and it will appear here.",
+  "@emptyBodyNoTransactions": {
+    "description": "An empty screen is an invitation to act, so this names the action rather than describing the emptiness."
+  },
+  "emptyTitleNoItems": "Nothing in your inventory",
+  "emptyBodyNoItems": "Add an item to start tracking what you have at home.",
+  "emptyTitleNoShopping": "Your list is empty",
+  "emptyBodyNoShopping": "Add something, or let Alaya suggest items you are low on.",
+  "emptyTitleNoRecurring": "No recurring bills",
+  "emptyBodyNoRecurring": "Set up a bill or subscription and Alaya will remind you when it is due.",
+  "emptyTitleNoResults": "No matches",
+  "emptyBodyNoResults": "Try a shorter search, or check the spelling.",
+  "loadingLabel": "Loading",
+  "loadingTransactions": "Loading transactions",
+  "errorTitleGeneric": "That did not work",
+  "@errorTitleGeneric": {
+    "description": "Errors do not apologise and are never vague. This pairs with a specific body message."
+  },
+  "errorBodyGeneric": "Something went wrong on our side. Try again.",
+  "errorTitleNotFound": "Not found",
+  "errorBodyNotFound": "This item may have been deleted.",
+  "errorBodyNoConnection": "You are offline. Alaya works offline, but rates will not refresh.",
+  "errorFieldRequired": "This is required",
+  "errorAmountInvalid": "Enter an amount",
+  "errorAmountZero": "Enter an amount greater than zero",
+  "errorAmountInvalidCharacter": "Digits only",
+  "errorAmountNegativeNotAllowed": "Enter a positive amount",
+  "errorAmountTooManyDecimals": "Too many decimal places",
+  "errorAmountTooLarge": "That amount is too large",
+  "errorQuantityTooLarge": "That quantity is too large",
+  "errorQuantityInvalid": "Enter a quantity",
+  "errorQuantityInvalidCharacter": "Digits only",
+  "errorQuantityNegativeNotAllowed": "Enter a positive quantity",
+  "errorQuantityTooPrecise": "Too precise for this unit",
+  "@errorQuantityTooPrecise": {
+    "description": "The typed quantity is finer than the chosen unit can express exactly. Shown rather than rounded, because rounding a quantity silently changes what the user recorded."
+  },
+  "errorDateInvalid": "Choose a date",
+  "confirmDeleteTitle": "Delete this?",
+  "confirmDeleteBody": "You can undo this for the next few seconds.",
+  "confirmDiscardTitle": "Discard your changes?",
+  "confirmDiscardBody": "What you have typed will not be saved.",
+  "labelAmount": "Amount",
+  "labelQuantity": "Quantity",
+  "labelUnit": "Unit",
+  "labelDate": "Date",
+  "labelAccount": "Account",
+  "labelPaymentMethod": "Payment method",
+  "labelPayee": "Payee",
+  "labelCategory": "Category",
+  "labelTags": "Tags",
+  "labelNote": "Note",
+  "labelFrom": "From",
+  "labelTo": "To",
+  "labelItem": "Item",
+  "labelExpiry": "Expiry",
+  "labelTotal": "Total",
+  "hintSelectAccount": "Choose an account",
+  "hintSelectUnit": "Choose a unit",
+  "hintSelectTags": "Choose tags",
+  "hintSelectDate": "Choose a date",
+  "hintSearchItems": "Search items",
+  "hintNote": "Add a note",
+  "amountUnconverted": "{count, plural, =1{1 amount not converted} other{{count} amounts not converted}}",
+  "@amountUnconverted": {
+    "description": "The chip beside a total when some amounts had no exchange rate. Surfaced rather than hidden, because a total missing a row is otherwise indistinguishable from a complete one.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "amountApproximate": "Approximate rate",
+  "@amountApproximate": {
+    "description": "Shown when a conversion used the nearest earlier rate rather than the exact date's."
+  },
+  "tagCountMore": "+{count}",
+  "@tagCountMore": {
+    "description": "Overflow indicator when a row cannot show every tag.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statusNeedsReview": "Needs details",
+  "@statusNeedsReview": {
+    "description": "StatusChip on a transaction saved by quick-add. Names what is missing, not that a flag is set."
+  },
+  "statusUnallocated": "Unallocated",
+  "@statusUnallocated": {
+    "description": "StatusChip label when a transaction's lines do not sum to its amount. The figure is a separate AmountText (U7); never auto-balanced (anomaly A11)."
+  },
+  "statusDetached": "Receipt deleted",
+  "@statusDetached": {
+    "description": "StatusChip on a batch whose source transaction was deleted. The food did not un-exist."
+  },
+  "statusApproximate": "Approximate",
+  "lowStockLabel": "Low",
+  "expiringSoonLabel": "Expiring soon",
+  "expiredLabel": "Expired",
+  "overdueLabel": "Overdue",
+  "dueTodayLabel": "Due today",
+  "paidLabel": "Paid",
+  "skippedLabel": "Skipped",
+  "kindDeposit": "Money in",
+  "kindWithdrawal": "Money out",
+  "kindTransfer": "Transfer",
+  "kindAdjustmentIncrease": "Correction up",
+  "kindAdjustmentDecrease": "Correction down",
+  "subtypeGrocery": "Groceries",
+  "subtypeHousehold": "Household",
+  "subtypeElectronics": "Electronics",
+  "subtypeBill": "Bill",
+  "subtypeTransferSelf": "Between my accounts",
+  "subtypeTransferOut": "Sent to someone",
+  "subtypeSalaryIn": "Salary",
+  "subtypeOtherIn": "Other income",
+  "subtypeOtherOut": "Other spending",
+  "needsReviewBanner": "{count, plural, =1{1 transaction needs details} other{{count} transactions need details}}",
+  "@needsReviewBanner": {
+    "description": "Surfaces transactions.needsReview. Quick-add saves an amount and nothing else by design; without this row that deliberate shortcut becomes silent data rot.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "needsReviewAction": "Review",
+  "filterTitle": "Filter",
+  "filterDateRange": "Date range",
+  "filterKind": "Type",
+  "filterSubtype": "Category",
+  "filterApply": "Show results",
+  "filterReset": "Reset",
+  "filterChipAccount": "Account: {name}",
+  "@filterChipAccount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "filterChipPayee": "Payee: {name}",
+  "@filterChipPayee": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "filterChipRange": "{label}",
+  "@filterChipRange": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "rangeToday": "Today",
+  "rangeLast7Days": "Last 7 days",
+  "rangeLast30Days": "Last 30 days",
+  "rangeThisMonth": "This month",
+  "rangeLastMonth": "Last month",
+  "rangeThisYear": "This year",
+  "rangeAllTime": "All time",
+  "rangeCustom": "Custom",
+  "searchTransactionsHint": "Search notes",
+  "transactionDeleted": "Transaction deleted",
+  "quickAddTitle": "Quick add",
+  "quickAddMoneyIn": "Money in",
+  "quickAddMoneyOut": "Money out",
+  "quickAddSave": "Save",
+  "actionAddDetails": "Add details",
+  "editorTitleNew": "New transaction",
+  "editorTitleEdit": "Edit transaction",
+  "sectionWhatAndHowMuch": "What and how much",
+  "sectionWhereItCameFrom": "Where it came from",
+  "sectionWhereItWent": "Where it went",
+  "sectionWhatYouBought": "What you bought",
+  "sectionWarranty": "Warranty",
+  "sectionSchedule": "Schedule",
+  "transferOwnAccount": "To my own account",
+  "transferSomeoneElse": "To someone else",
+  "transferOwnAccountHelp": "Moves money between your accounts. Your total does not change.",
+  "transferSomeoneElseHelp": "Money leaves your accounts. This is a withdrawal.",
+  "alsoAddToInventory": "Also add to inventory",
+  "destinationNone": "Just an expense",
+  "destinationInventory": "Save to Inventory",
+  "destinationAsset": "Save to Services",
+  "destinationRecurring": "Save to Recurring",
+  "lineAdd": "Add item",
+  "lineDescription": "Item",
+  "lineUnitPrice": "Unit price",
+  "lineAmount": "Line total",
+  "lineCreatedLink": "Created: {name}",
+  "@lineCreatedLink": {
+    "description": "Surfaces transaction_lines.created*Id — the artefact this line produced, tappable through to it.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "payeeCreate": "New payee “{name}”",
+  "@payeeCreate": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "saveExpense": "Save expense",
+  "saveIncome": "Save income",
+  "saveTransfer": "Save transfer",
+  "detailSectionLines": "Items",
+  "detailSectionDetails": "Details",
+  "actionFreezeConversion": "Show in another currency",
+  "frozenConversionNote": "Frozen on {date} at {rate}",
+  "@frozenConversionNote": {
+    "description": "Surfaces transactions.converted*/conversionRateRaw. A separate artefact that is never recomputed (Law L9).",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteReasonHint": "Why? (optional)",
+  "actionDeleteTransaction": "Delete transaction",
+  "labelSubtype": "Category",
+  "labelKind": "Type",
+  "themeLabTitle": "Theme Lab",
+  "themeLabSubtitle": "Every token, component and semantic colour, light and dark.",
+  "themeLabSectionSpacing": "Spacing",
+  "themeLabSectionRadii": "Radii",
+  "themeLabSectionTypography": "Typography",
+  "themeLabSectionElevation": "Elevation",
+  "themeLabSectionSemantic": "Semantic colours",
+  "themeLabSectionSurfaces": "Surface tiers",
+  "themeLabSectionComponents": "Components",
+  "themeLabSectionPalettes": "Palettes",
+  "themeLabLight": "Light",
+  "themeLabDark": "Dark",
+  "semanticIncome": "Income",
+  "semanticExpense": "Expense",
+  "semanticTransfer": "Transfer",
+  "semanticWarning": "Warning",
+  "semanticDanger": "Danger",
+  "semanticSuccess": "Success",
+  "semanticMuted": "Muted",
+  "drawerSectionMoney": "Money",
+  "drawerSectionHome": "Home",
+  "drawerSectionMore": "More",
+  "inventoryGroupFavourites": "Favourites",
+  "@inventoryGroupFavourites": {
+    "description": "Phase 6B — inventory."
+  },
+  "inventoryGroupUntagged": "Everything else",
+  "@inventoryGroupUntagged": {
+    "description": "Phase 6B — inventory."
+  },
+  "itemKindGeneric": "General",
+  "@itemKindGeneric": {
+    "description": "Phase 6B — inventory."
+  },
+  "itemKindFood": "Food",
+  "@itemKindFood": {
+    "description": "Phase 6B — inventory."
+  },
+  "itemKindMedicine": "Medicine",
+  "@itemKindMedicine": {
+    "description": "Phase 6B — inventory."
+  },
+  "itemKindBeauty": "Beauty",
+  "@itemKindBeauty": {
+    "description": "Phase 6B — inventory."
+  },
+  "itemKindHousehold": "Household",
+  "@itemKindHousehold": {
+    "description": "Phase 6B — inventory."
+  },
+  "itemKindOther": "Other",
+  "@itemKindOther": {
+    "description": "Phase 6B — inventory."
+  },
+  "filterFavouritesOnly": "Favourites only",
+  "@filterFavouritesOnly": {
+    "description": "Phase 6B — inventory."
+  },
+  "actionFavourite": "Add to favourites",
+  "@actionFavourite": {
+    "description": "Phase 6B — inventory."
+  },
+  "actionUnfavourite": "Remove from favourites",
+  "@actionUnfavourite": {
+    "description": "Phase 6B — inventory."
+  },
+  "outOfStockLabel": "Out of stock",
+  "@outOfStockLabel": {
+    "description": "Phase 6B — inventory."
+  },
+  "itemBatchCount": "{count, plural, =1{1 batch} other{{count} batches}}",
+  "@itemBatchCount": {
+    "description": "Phase 6B — inventory.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "loadingInventory": "Loading inventory",
+  "@loadingInventory": {
+    "description": "Phase 6B — inventory."
+  },
+  "detailSectionBatches": "Batches",
+  "@detailSectionBatches": {
+    "description": "Phase 6B — inventory."
+  },
+  "batchOriginPurchase": "From a purchase",
+  "@batchOriginPurchase": {
+    "description": "Phase 6B — inventory."
+  },
+  "batchOriginManual": "Added by hand",
+  "@batchOriginManual": {
+    "description": "Phase 6B — inventory."
+  },
+  "batchOriginImported": "Imported",
+  "@batchOriginImported": {
+    "description": "Phase 6B — inventory."
+  },
+  "batchOriginAdjustment": "From an adjustment",
+  "@batchOriginAdjustment": {
+    "description": "Phase 6B — inventory."
+  },
+  "labelPurchased": "Purchased",
+  "@labelPurchased": {
+    "description": "Phase 6B — inventory."
+  },
+  "labelStorageLocation": "Stored in",
+  "@labelStorageLocation": {
+    "description": "Phase 6B — inventory."
+  },
+  "labelUnitCost": "Unit cost",
+  "@labelUnitCost": {
+    "description": "Phase 6B — inventory."
+  },
+  "labelInitial": "Bought",
+  "@labelInitial": {
+    "description": "Phase 6B — inventory."
+  },
+  "labelNearestExpiry": "Nearest expiry",
+  "@labelNearestExpiry": {
+    "description": "Phase 6B — inventory."
+  },
+  "labelDisplayUnit": "Shown in",
+  "@labelDisplayUnit": {
+    "description": "Phase 6B — inventory."
+  },
+  "labelItemKind": "Kind",
+  "@labelItemKind": {
+    "description": "Phase 6B — inventory."
+  },
+  "labelLowStockThreshold": "Low-stock level",
+  "@labelLowStockThreshold": {
+    "description": "Phase 6B — inventory."
+  },
+  "labelExpiryNotifyDays": "Warn before expiry",
+  "@labelExpiryNotifyDays": {
+    "description": "Phase 6B — inventory."
+  },
+  "actionConsume": "Use some",
+  "@actionConsume": {
+    "description": "Phase 6B — inventory."
+  },
+  "actionAddBatch": "Add a batch",
+  "@actionAddBatch": {
+    "description": "Phase 6B — inventory."
+  },
+  "actionViewHistory": "Movement history",
+  "@actionViewHistory": {
+    "description": "Phase 6B — inventory."
+  },
+  "actionDeleteItem": "Delete item",
+  "@actionDeleteItem": {
+    "description": "Phase 6B — inventory."
+  },
+  "confirmDeleteItemTitle": "Delete this item?",
+  "@confirmDeleteItemTitle": {
+    "description": "Phase 6B — inventory."
+  },
+  "confirmDeleteItemBody": "Its {count, plural, =1{1 batch} other{{count} batches}} go with it. The movement history stays, so what you already used is still recorded.",
+  "@confirmDeleteItemBody": {
+    "description": "Phase 6B — inventory.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "itemDeleted": "Item deleted",
+  "@itemDeleted": {
+    "description": "Phase 6B — inventory."
+  },
+  "expiresInDays": "{days, plural, =0{Expires today} =1{Expires tomorrow} other{Expires in {days} days}}",
+  "@expiresInDays": {
+    "description": "Phase 6B — inventory.",
+    "placeholders": {
+      "days": {}
+    }
+  },
+  "expiredDaysAgo": "{days, plural, =1{Expired yesterday} other{Expired {days} days ago}}",
+  "@expiredDaysAgo": {
+    "description": "Phase 6B — inventory.",
+    "placeholders": {
+      "days": {}
+    }
+  },
+  "sectionWhatItIs": "What it is",
+  "@sectionWhatItIs": {
+    "description": "Phase 6B — inventory."
+  },
+  "sectionStockRules": "Stock rules",
+  "@sectionStockRules": {
+    "description": "Phase 6B — inventory."
+  },
+  "unitCategoryWeight": "Weight",
+  "@unitCategoryWeight": {
+    "description": "Phase 6B — inventory."
+  },
+  "unitCategoryVolume": "Volume",
+  "@unitCategoryVolume": {
+    "description": "Phase 6B — inventory."
+  },
+  "unitCategoryCount": "Count",
+  "@unitCategoryCount": {
+    "description": "Phase 6B — inventory."
+  },
+  "unitCategoryLocked": "Measured in {category}",
+  "@unitCategoryLocked": {
+    "description": "Phase 6B — inventory.",
+    "placeholders": {
+      "category": {}
+    }
+  },
+  "unitCategoryLockedHelp": "This cannot change. Every batch and movement already recorded is stored in this measure, and there is no conversion between weight, volume and count.",
+  "@unitCategoryLockedHelp": {
+    "description": "Phase 6B — inventory."
+  },
+  "expiryNotifyDaysHelp": "Days of warning before a batch expires.",
+  "@expiryNotifyDaysHelp": {
+    "description": "Phase 6B — inventory."
+  },
+  "labelFavourite": "Favourite",
+  "@labelFavourite": {
+    "description": "Phase 6B — inventory."
+  },
+  "saveItem": "Save item",
+  "@saveItem": {
+    "description": "Phase 6B — inventory."
+  },
+  "sectionHowMuch": "How much",
+  "@sectionHowMuch": {
+    "description": "Phase 6B — inventory."
+  },
+  "sectionBatchDetails": "Batch details",
+  "@sectionBatchDetails": {
+    "description": "Phase 6B — inventory."
+  },
+  "saveBatch": "Save batch",
+  "@saveBatch": {
+    "description": "Phase 6B — inventory."
+  },
+  "batchSaved": "Batch saved",
+  "@batchSaved": {
+    "description": "Phase 6B — inventory."
+  },
+  "hintStorageLocation": "Freezer, pantry, bathroom shelf…",
+  "@hintStorageLocation": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeTitle": "Use stock",
+  "@consumeTitle": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeKindConsume": "Used",
+  "@consumeKindConsume": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeKindWaste": "Thrown away",
+  "@consumeKindWaste": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeKindExpired": "Expired",
+  "@consumeKindExpired": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeRecorded": "Recorded",
+  "@consumeRecorded": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeFromLabel": "Taking from",
+  "@consumeFromLabel": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeFefoNote": "Oldest expiry first.",
+  "@consumeFefoNote": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeSpansBatches": "{count, plural, =1{Takes all of 1 batch} other{Spans {count} batches, writing {count} movements}}",
+  "@consumeSpansBatches": {
+    "description": "Phase 6B — inventory.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "consumeOverAvailable": "More than you have on hand",
+  "@consumeOverAvailable": {
+    "description": "Phase 6B — inventory."
+  },
+  "historyTitle": "Movement history",
+  "@historyTitle": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementKindOpeningIn": "Opening stock",
+  "@movementKindOpeningIn": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementKindPurchaseIn": "Bought",
+  "@movementKindPurchaseIn": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementKindManualIn": "Added by hand",
+  "@movementKindManualIn": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementKindConsume": "Used",
+  "@movementKindConsume": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementKindWaste": "Thrown away",
+  "@movementKindWaste": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementKindExpired": "Expired",
+  "@movementKindExpired": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementKindAdjustIn": "Adjusted up",
+  "@movementKindAdjustIn": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementKindAdjustOut": "Adjusted down",
+  "@movementKindAdjustOut": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementReversed": "Reversed",
+  "@movementReversed": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementIsReversal": "Reverses an earlier movement",
+  "@movementIsReversal": {
+    "description": "Phase 6B — inventory."
+  },
+  "actionReverse": "Reverse",
+  "@actionReverse": {
+    "description": "Phase 6B — inventory."
+  },
+  "confirmReverseTitle": "Reverse this movement?",
+  "@confirmReverseTitle": {
+    "description": "Phase 6B — inventory."
+  },
+  "confirmReverseBody": "An opposite movement is appended. Nothing is erased — both entries stay in the history.",
+  "@confirmReverseBody": {
+    "description": "Phase 6B — inventory."
+  },
+  "movementReversedSnack": "Movement reversed",
+  "@movementReversedSnack": {
+    "description": "Phase 6B — inventory."
+  },
+  "emptyTitleNoMovements": "Nothing recorded yet",
+  "@emptyTitleNoMovements": {
+    "description": "Phase 6B — inventory."
+  },
+  "emptyBodyNoMovements": "Using, wasting or adjusting this batch will show up here.",
+  "@emptyBodyNoMovements": {
+    "description": "Phase 6B — inventory."
+  },
+  "emptyBodyNoBatches": "Add a batch and it will appear here with its expiry.",
+  "@emptyBodyNoBatches": {
+    "description": "Phase 6B — inventory."
+  },
+  "batchQuantityLockedHelp": "How much is left is worked out from the movement history. Use, waste or adjust the batch to change it.",
+  "@batchQuantityLockedHelp": {
+    "description": "Phase 6B — inventory."
+  },
+  "daysCount": "{days, plural, =1{1 day} other{{days} days}}",
+  "@daysCount": {
+    "description": "Phase 6B — inventory.",
+    "placeholders": {
+      "days": {}
+    }
+  },
+  "groupByFavourites": "Group favourites first",
+  "@groupByFavourites": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeCommitUsed": "Record as used",
+  "@consumeCommitUsed": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeCommitWaste": "Record as thrown away",
+  "@consumeCommitWaste": {
+    "description": "Phase 6B — inventory."
+  },
+  "consumeCommitExpired": "Record as expired",
+  "@consumeCommitExpired": {
+    "description": "Phase 6B — inventory."
+  },
+  "lowStockWithCount": "Low · {count}",
+  "@lowStockWithCount": {
+    "description": "Phase 6B — inventory.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "actionDeleteBatch": "Delete batch",
+  "@actionDeleteBatch": {
+    "description": "Phase 6B — inventory."
+  },
+  "confirmDeleteBatchTitle": "Delete this batch?",
+  "@confirmDeleteBatchTitle": {
+    "description": "Phase 6B — inventory."
+  },
+  "confirmDeleteBatchBody": "The stock it still holds disappears from your on-hand total. What you already used stays in the movement history.",
+  "@confirmDeleteBatchBody": {
+    "description": "Phase 6B — inventory."
+  },
+  "batchDeleted": "Batch deleted",
+  "@batchDeleted": {
+    "description": "Phase 6B — inventory."
+  },
+  "itemCreate": "New item",
+  "@itemCreate": {
+    "description": "Creates a catalogued item inline while itemising a receipt."
+  },
+  "itemCreateHint": "No items yet — create one so this line becomes stock.",
+  "@itemCreateHint": {
+    "description": "Shown in the line editor when the item catalogue is empty."
+  },
+  "itemCreateCategoryPrompt": "How is it measured? This cannot change later.",
+  "@itemCreateCategoryPrompt": {
+    "description": "Prompt for unitCategory on inline creation; immutable after create (Law L8)."
+  },
+  "itemDuplicateBody": "You already have this item, measured the same way. Open the one you have instead of adding a second.",
+  "@itemDuplicateBody": {
+    "description": "Shown when an item with the same normalized name and unit category exists."
+  },
+  "itemUnitsMissingBody": "No units are set up for this measure yet. Pick a different measure, or add units in Settings first.",
+  "@itemUnitsMissingBody": {
+    "description": "Shown when the chosen UnitCategory has no rows in units."
+  },
+  "itemSimilarNote": "You also have this name under a different measure. That is fine — weight, volume and count never convert into each other.",
+  "@itemSimilarNote": {
+    "description": "Informational note, never a block: Law L8 makes same-name/different-category distinct items."
+  },
+  "actionOpenExisting": "Open the one I have",
+  "@actionOpenExisting": {
+    "description": "Opens the existing item a duplicate collides with."
+  },
+  "shoppingEstimate": "Estimated",
+  "@shoppingEstimate": {
+    "description": "Running total of estimated prices on a shopping list."
+  },
+  "shoppingSwitchList": "Switch list",
+  "@shoppingSwitchList": {
+    "description": "Opens the list manager from the app bar."
+  },
+  "shoppingCheckedCount": "{checked} of {total} ticked",
+  "@shoppingCheckedCount": {
+    "description": "Progress line above a shopping list.",
+    "placeholders": {
+      "checked": {},
+      "total": {}
+    }
+  },
+  "emptyTitleNoEntries": "Nothing on this list yet",
+  "@emptyTitleNoEntries": {
+    "description": "Shopping list empty state."
+  },
+  "emptyBodyNoEntries": "Add what you need, or pull in suggestions from what is running low.",
+  "@emptyBodyNoEntries": {
+    "description": "Shopping list empty state body."
+  },
+  "addEntry": "Add",
+  "@addEntry": {
+    "description": "Adds one entry to a shopping list."
+  },
+  "shoppingGroupUntagged": "Everything else",
+  "@shoppingGroupUntagged": {
+    "description": "Header for entries with no tag."
+  },
+  "actionUncheckAll": "Untick everything",
+  "@actionUncheckAll": {
+    "description": "Clears every tick on a shopping list."
+  },
+  "entryEditorTitle": "What do you need?",
+  "@entryEditorTitle": {
+    "description": "Entry editor sheet title."
+  },
+  "entryFreeTextLabel": "Name it",
+  "@entryFreeTextLabel": {
+    "description": "Free-text label for a shopping entry."
+  },
+  "entryFreeTextHint": "Television, birthday card, light bulbs…",
+  "@entryFreeTextHint": {
+    "description": "Hint showing that an entry need not be an inventory item."
+  },
+  "entryLinkItem": "Link to an item",
+  "@entryLinkItem": {
+    "description": "Optional link from a shopping entry to a catalogued item."
+  },
+  "entryNoItem": "Not in my inventory",
+  "@entryNoItem": {
+    "description": "Dropdown option leaving itemId null."
+  },
+  "labelEstimatedPrice": "Estimated price",
+  "@labelEstimatedPrice": {
+    "description": "Optional per-entry price estimate."
+  },
+  "entryNeedsSomething": "Give it a name, or link it to an item",
+  "@entryNeedsSomething": {
+    "description": "Rejection when neither freeText nor itemId is set."
+  },
+  "originAutoLowStock": "Suggested",
+  "@originAutoLowStock": {
+    "description": "Chip marking an auto-generated low-stock entry."
+  },
+  "originPromoted": "Yours now",
+  "@originPromoted": {
+    "description": "Chip shown once an auto entry has been edited into a manual one."
+  },
+  "actionSnooze": "Snooze a week",
+  "@actionSnooze": {
+    "description": "Hides an auto suggestion until a later date."
+  },
+  "actionDismiss": "Not now",
+  "@actionDismiss": {
+    "description": "Dismisses an auto suggestion until stock recovers and drops again."
+  },
+  "snoozedUntilLabel": "Snoozed until",
+  "@snoozedUntilLabel": {
+    "description": "Precedes a DateText on a snoozed entry."
+  },
+  "generateTitle": "Running low",
+  "@generateTitle": {
+    "description": "Low-stock suggestion sheet title."
+  },
+  "generateBody": "These are below the level you set. Add the ones you want.",
+  "@generateBody": {
+    "description": "Low-stock suggestion sheet body."
+  },
+  "generateShortBy": "Short by",
+  "@generateShortBy": {
+    "description": "Precedes a QtyText giving threshold minus stock on hand."
+  },
+  "generateRefresh": "Check again",
+  "@generateRefresh": {
+    "description": "Re-runs low-stock generation."
+  },
+  "generateEmptyTitle": "Nothing is running low",
+  "@generateEmptyTitle": {
+    "description": "Generate sheet empty state."
+  },
+  "generateEmptyBody": "Set a low-stock level on an item and it will show up here when it drops.",
+  "@generateEmptyBody": {
+    "description": "Generate sheet empty state body."
+  },
+  "generateAdded": "{count, plural, =1{1 suggestion added} other{{count} suggestions added}}",
+  "@generateAdded": {
+    "description": "Result snack after regeneration.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "convertTitle": "Turn into a purchase",
+  "@convertTitle": {
+    "description": "Convert-to-purchase screen title."
+  },
+  "convertBody": "Each ticked entry becomes one line, marked for inventory. You confirm the amount and account next.",
+  "@convertBody": {
+    "description": "Explains the handoff to the expense editor."
+  },
+  "convertConfirm": "Open the expense",
+  "@convertConfirm": {
+    "description": "Primary action; hands off to the 6A editor."
+  },
+  "convertNothingTitle": "Nothing is ticked",
+  "@convertNothingTitle": {
+    "description": "Convert screen empty state."
+  },
+  "convertNothingBody": "Tick what you actually bought, then come back.",
+  "@convertNothingBody": {
+    "description": "Convert screen empty state body."
+  },
+  "convertLineCount": "{count, plural, =1{1 line} other{{count} lines}}",
+  "@convertLineCount": {
+    "description": "How many lines the draft will carry.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "listManagerTitle": "Your lists",
+  "@listManagerTitle": {
+    "description": "List manager sheet title."
+  },
+  "listNameLabel": "List name",
+  "@listNameLabel": {
+    "description": "Field label when creating or renaming a list."
+  },
+  "listCreate": "New list",
+  "@listCreate": {
+    "description": "Creates a shopping list."
+  },
+  "listRename": "Rename",
+  "@listRename": {
+    "description": "Renames a shopping list."
+  },
+  "listSetDefault": "Make default",
+  "@listSetDefault": {
+    "description": "Marks a list as the one that opens by default."
+  },
+  "listDefaultBadge": "Default",
+  "@listDefaultBadge": {
+    "description": "Chip on the default list."
+  },
+  "listArchive": "Archive",
+  "@listArchive": {
+    "description": "Archives a shopping list."
+  },
+  "listUnarchive": "Restore",
+  "@listUnarchive": {
+    "description": "Un-archives a shopping list."
+  },
+  "listArchivedBadge": "Archived",
+  "@listArchivedBadge": {
+    "description": "Chip on an archived list."
+  },
+  "listArchivedSection": "Archived",
+  "@listArchivedSection": {
+    "description": "Section header for archived lists."
+  },
+  "emptyTitleNoLists": "No lists yet",
+  "@emptyTitleNoLists": {
+    "description": "List manager empty state."
+  },
+  "emptyBodyNoLists": "Create one and it becomes your default.",
+  "@emptyBodyNoLists": {
+    "description": "List manager empty state body."
+  },
+  "loadingShopping": "Loading your list",
+  "@loadingShopping": {
+    "description": "Skeleton label for shopping surfaces."
+  },
+  "actionAddToList": "Add to my list",
+  "@actionAddToList": {
+    "description": "Accepts a low-stock suggestion, promoting it to origin=manual so regeneration leaves it alone."
+  },
+  "suggestionDismissed": "Turned down",
+  "@suggestionDismissed": {
+    "description": "Chip on a dismissed suggestion; it stays listed so it can be accepted later."
+  },
+  "lineItemsTitle": "What you bought",
+  "@lineItemsTitle": {
+    "description": "Title of the dedicated line-items page."
+  },
+  "lineItemsManage": "Add or edit items",
+  "@lineItemsManage": {
+    "description": "Opens the line-items page from the transaction editor."
+  },
+  "lineItemsAdd": "Add an item",
+  "@lineItemsAdd": {
+    "description": "Adds one line from the line-items page."
+  },
+  "lineItemsSaveAndAnother": "Save & add another",
+  "@lineItemsSaveAndAnother": {
+    "description": "Commits the line and reopens the editor blank, so a receipt is entered without leaving the sheet."
+  },
+  "lineItemsCount": "{count, plural, =0{No items yet} =1{1 item} other{{count} items}}",
+  "@lineItemsCount": {
+    "description": "Running count on the line-items page.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "emptyTitleNoLineItems": "Nothing itemised yet",
+  "@emptyTitleNoLineItems": {
+    "description": "Line-items page empty state."
+  },
+  "emptyBodyNoLineItems": "Add what was on the receipt. Anything you leave out still counts toward the total.",
+  "@emptyBodyNoLineItems": {
+    "description": "Line-items page empty state body."
+  },
+  "actionRemove": "Remove",
+  "@actionRemove": {
+    "description": "Removes one line from a transaction."
+  },
+  "lineRemoved": "Item removed",
+  "@lineRemoved": {
+    "description": "Snack after removing a line."
+  },
+  "lineItemsAllocated": "Itemised",
+  "@lineItemsAllocated": {
+    "description": "Precedes the summed line total on the line-items page."
+  },
+  "recurringOutflow": "Going out",
+  "@recurringOutflow": {
+    "description": "Group header for outflow templates."
+  },
+  "recurringInflow": "Coming in",
+  "@recurringInflow": {
+    "description": "Group header for inflow templates — salary reads as income, not a negative bill."
+  },
+  "recurringNextDue": "Next",
+  "@recurringNextDue": {
+    "description": "Precedes a DateText giving the next due date."
+  },
+  "recurringOverdue": "Overdue",
+  "@recurringOverdue": {
+    "description": "Chip on an occurrence past its due date. Derived from the clock, never stored."
+  },
+  "recurringPaused": "Paused",
+  "@recurringPaused": {
+    "description": "Chip on a paused template."
+  },
+  "recurringDueToday": "Due today",
+  "@recurringDueToday": {
+    "description": "Chip when the next occurrence falls today."
+  },
+  "emptyTitleNoTemplates": "Nothing recurring yet",
+  "@emptyTitleNoTemplates": {
+    "description": "Template list empty state."
+  },
+  "emptyBodyNoTemplates": "Add a bill, a subscription or a salary and it will appear here when it is next due.",
+  "@emptyBodyNoTemplates": {
+    "description": "Template list empty state body."
+  },
+  "addTemplate": "Add",
+  "@addTemplate": {
+    "description": "Adds a recurring template."
+  },
+  "actionPause": "Pause",
+  "@actionPause": {
+    "description": "Pauses a template."
+  },
+  "actionResume": "Resume",
+  "@actionResume": {
+    "description": "Resumes a paused template."
+  },
+  "loadingRecurring": "Loading your schedule",
+  "@loadingRecurring": {
+    "description": "Skeleton label for recurring surfaces."
+  },
+  "builderSectionWhat": "What it is",
+  "@builderSectionWhat": {
+    "description": "First section of the template builder."
+  },
+  "builderSectionWhen": "How often",
+  "@builderSectionWhen": {
+    "description": "Frequency section of the template builder."
+  },
+  "builderSectionDefaults": "Defaults",
+  "@builderSectionDefaults": {
+    "description": "Amount and account section of the template builder."
+  },
+  "labelTemplateName": "Name",
+  "@labelTemplateName": {
+    "description": "Template name field."
+  },
+  "labelRecurringKind": "Kind",
+  "@labelRecurringKind": {
+    "description": "Bill, subscription, rent or salary."
+  },
+  "labelDirection": "Direction",
+  "@labelDirection": {
+    "description": "Whether money goes out or comes in."
+  },
+  "directionOutflow": "Money out",
+  "@directionOutflow": {
+    "description": "RecurringDirection.outflow."
+  },
+  "directionInflow": "Money in",
+  "@directionInflow": {
+    "description": "RecurringDirection.inflow."
+  },
+  "kindBill": "Bill",
+  "@kindBill": {
+    "description": "RecurringKind.bill."
+  },
+  "kindSubscription": "Subscription",
+  "@kindSubscription": {
+    "description": "RecurringKind.subscription."
+  },
+  "kindRent": "Rent",
+  "@kindRent": {
+    "description": "RecurringKind.rent."
+  },
+  "kindSalary": "Salary",
+  "@kindSalary": {
+    "description": "RecurringKind.salary."
+  },
+  "labelEvery": "Every",
+  "@labelEvery": {
+    "description": "Precedes the interval count and unit."
+  },
+  "unitDay": "{count, plural, =1{day} other{days}}",
+  "@unitDay": {
+    "description": "RecurringIntervalUnit.day.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "unitWeek": "{count, plural, =1{week} other{weeks}}",
+  "@unitWeek": {
+    "description": "RecurringIntervalUnit.week.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "unitMonth": "{count, plural, =1{month} other{months}}",
+  "@unitMonth": {
+    "description": "RecurringIntervalUnit.month.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "unitYear": "{count, plural, =1{year} other{years}}",
+  "@unitYear": {
+    "description": "RecurringIntervalUnit.year.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "labelAnchorDay": "On day of the month",
+  "@labelAnchorDay": {
+    "description": "anchorDayOfMonth. Stored once, clamped at render (anomaly A13)."
+  },
+  "anchorDayHelp": "Kept as you set it. Anchored on the 31st, a short month falls on its last day and the next long month returns to the 31st.",
+  "@anchorDayHelp": {
+    "description": "Explains that the anchor never walks backwards."
+  },
+  "labelStartDate": "Starts",
+  "@labelStartDate": {
+    "description": "startDateKey."
+  },
+  "labelEndDate": "Ends",
+  "@labelEndDate": {
+    "description": "endDateKey, optional."
+  },
+  "labelDefaultAmount": "Usual amount",
+  "@labelDefaultAmount": {
+    "description": "defaultAmount — a default, not a fixed figure."
+  },
+  "labelRemindBefore": "Remind me",
+  "@labelRemindBefore": {
+    "description": "remindDaysBefore."
+  },
+  "saveTemplate": "Save",
+  "@saveTemplate": {
+    "description": "Commits the template."
+  },
+  "previewTitle": "Next three",
+  "@previewTitle": {
+    "description": "Header of the frequency preview."
+  },
+  "previewEmpty": "Set a start date to see when this lands.",
+  "@previewEmpty": {
+    "description": "Frequency preview with nothing to show."
+  },
+  "previewClamped": "Shortened to fit the month",
+  "@previewClamped": {
+    "description": "Marks a previewed date the anchor could not reach."
+  },
+  "payTitle": "Record this payment",
+  "@payTitle": {
+    "description": "Pay sheet title."
+  },
+  "payTitleInflow": "Record this receipt",
+  "@payTitleInflow": {
+    "description": "Pay sheet title for an inflow."
+  },
+  "labelActualAmount": "Amount actually paid",
+  "@labelActualAmount": {
+    "description": "The real figure, which may differ from the default."
+  },
+  "labelActualAmountInflow": "Amount actually received",
+  "@labelActualAmountInflow": {
+    "description": "Inflow wording for the same field."
+  },
+  "payUsualWas": "Usually",
+  "@payUsualWas": {
+    "description": "Precedes the default amount when the actual differs from it."
+  },
+  "labelPaidOn": "Paid on",
+  "@labelPaidOn": {
+    "description": "paidDateKey."
+  },
+  "payCommit": "Record it",
+  "@payCommit": {
+    "description": "Commits the payment and creates the transaction."
+  },
+  "payRecorded": "Recorded",
+  "@payRecorded": {
+    "description": "Result snack after paying."
+  },
+  "payNeedsAccount": "Choose which account it came from",
+  "@payNeedsAccount": {
+    "description": "Rejection when no account is selected."
+  },
+  "payUndoTitle": "Undo this payment?",
+  "@payUndoTitle": {
+    "description": "Confirmation before undoing."
+  },
+  "payUndoBody": "The obligation goes back to due and the transaction it created is deleted. Anything that transaction produced — stock, an asset — goes with it.",
+  "@payUndoBody": {
+    "description": "Says exactly what undo reverses, in the order it happens (ARCH_5 §5.4)."
+  },
+  "payUndone": "Payment undone",
+  "@payUndone": {
+    "description": "Result snack after undoing."
+  },
+  "actionSkip": "Skip this one",
+  "@actionSkip": {
+    "description": "Marks an occurrence deliberately skipped."
+  },
+  "occurrenceSkipped": "Skipped",
+  "@occurrenceSkipped": {
+    "description": "Chip on a skipped occurrence, and the snack after skipping."
+  },
+  "historyRecurringTitle": "Payment history",
+  "@historyRecurringTitle": {
+    "description": "Occurrence history screen title."
+  },
+  "historyDefaultVsActual": "Differed from the usual amount",
+  "@historyDefaultVsActual": {
+    "description": "Badge when paidAmount != defaultAmount."
+  },
+  "emptyTitleNoOccurrences": "Nothing due yet",
+  "@emptyTitleNoOccurrences": {
+    "description": "Occurrence history empty state."
+  },
+  "emptyBodyNoOccurrences": "Occurrences appear as their due dates arrive. Nothing is ever paid for you.",
+  "@emptyBodyNoOccurrences": {
+    "description": "Empty state body, stating anomaly A14 plainly."
+  },
+  "statusDue": "Due",
+  "@statusDue": {
+    "description": "RecurringOccurrenceStatus.due."
+  },
+  "statusPaid": "Paid",
+  "@statusPaid": {
+    "description": "RecurringOccurrenceStatus.paid."
+  },
+  "statusDismissed": "Dismissed",
+  "@statusDismissed": {
+    "description": "RecurringOccurrenceStatus.dismissed."
+  },
+  "kindServiceFee": "Service fee",
+  "@kindServiceFee": {
+    "description": "RecurringKind.serviceFee — a recurring charge tied to an asset."
+  },
+  "kindOther": "Something else",
+  "@kindOther": {
+    "description": "RecurringKind.other — anything the named kinds do not cover."
+  },
+  "billDueSection": "Due now",
+  "@billDueSection": {
+    "description": "Header above the recurring bills a payment can settle."
+  },
+  "billSetUpAction": "Set up a recurring bill",
+  "@billSetUpAction": {
+    "description": "Opens the template builder from the bill form."
+  },
+  "billNothingDue": "Nothing is due right now.",
+  "@billNothingDue": {
+    "description": "Shown in the bill form when no occurrence is outstanding."
+  },
+  "recurringScheduleNext": "Saved. Now set how often it repeats.",
+  "@recurringScheduleNext": {
+    "description": "Snack after a line asked to become recurring."
+  },
+  "recurringNotYetDue": "Not due yet",
+  "@recurringNotYetDue": {
+    "description": "Chip when the next occurrence has not materialised."
+  },
+  "billSettlesLabel": "Settling",
+  "@billSettlesLabel": {
+    "description": "Precedes the recurring bill this payment will settle."
+  },
+  "billSettleNone": "Not a recurring bill",
+  "@billSettleNone": {
+    "description": "Option that leaves the payment unlinked to any template."
+  },
+  "billSettleHelp": "Pick one and the amount below becomes what you actually paid. Saving records it once.",
+  "@billSettleHelp": {
+    "description": "Explains that the editor is the single write path for a bill payment."
+  },
+  "billAmountBecomesPaid": "This amount is what gets recorded",
+  "@billAmountBecomesPaid": {
+    "description": "Helper under the amount when a bill is selected."
+  },
+  "billAccountAuto": "Paid from",
+  "@billAccountAuto": {
+    "description": "Precedes the account resolved automatically for a bill payment."
+  },
+  "billAccountAskOnce": "Which account does this come from? Alaya remembers it on the bill.",
+  "@billAccountAskOnce": {
+    "description": "Shown only when no template default, no app default and more than one account exist."
+  },
+  "assetGroupAppliance": "Appliances",
+  "@assetGroupAppliance": {
+    "description": "AssetType.appliance group header."
+  },
+  "assetGroupElectronics": "Electronics",
+  "@assetGroupElectronics": {
+    "description": "AssetType.electronics."
+  },
+  "assetGroupVehicle": "Vehicles",
+  "@assetGroupVehicle": {
+    "description": "AssetType.vehicle."
+  },
+  "assetGroupFurniture": "Furniture",
+  "@assetGroupFurniture": {
+    "description": "AssetType.furniture."
+  },
+  "assetGroupProperty": "Property",
+  "@assetGroupProperty": {
+    "description": "AssetType.property."
+  },
+  "assetGroupServiceProvider": "People",
+  "@assetGroupServiceProvider": {
+    "description": "AssetType.serviceProvider — a maid or gardener lives here, not in a second system."
+  },
+  "assetGroupSubscription": "Subscriptions",
+  "@assetGroupSubscription": {
+    "description": "AssetType.subscription."
+  },
+  "assetGroupOther": "Other",
+  "@assetGroupOther": {
+    "description": "AssetType.other."
+  },
+  "assetUnderWarranty": "In warranty",
+  "@assetUnderWarranty": {
+    "description": "Chip when warrantyEndDateKey is still ahead."
+  },
+  "assetWarrantyEnding": "Warranty ending",
+  "@assetWarrantyEnding": {
+    "description": "Chip when the warranty ends soon."
+  },
+  "assetWarrantyExpired": "Out of warranty",
+  "@assetWarrantyExpired": {
+    "description": "Chip when the warranty has passed."
+  },
+  "assetServiceDue": "Service due",
+  "@assetServiceDue": {
+    "description": "Chip when nextServiceDueDateKey has passed."
+  },
+  "assetServiceSoon": "Service soon",
+  "@assetServiceSoon": {
+    "description": "Chip when a service is close."
+  },
+  "assetDisposedChip": "Disposed",
+  "@assetDisposedChip": {
+    "description": "Chip on a disposed asset."
+  },
+  "assetUnderRepair": "Being repaired",
+  "@assetUnderRepair": {
+    "description": "AssetStatus.underRepair."
+  },
+  "filterShowDisposed": "Include disposed",
+  "@filterShowDisposed": {
+    "description": "Filter that brings disposed assets back into the list."
+  },
+  "emptyTitleNoAssets": "Nothing tracked yet",
+  "@emptyTitleNoAssets": {
+    "description": "Asset list empty state."
+  },
+  "emptyBodyNoAssets": "Add an appliance, a vehicle, or the person who helps around the house — they all live here.",
+  "@emptyBodyNoAssets": {
+    "description": "Asset list empty state body, stating the serviceProvider case plainly."
+  },
+  "addAsset": "Add",
+  "@addAsset": {
+    "description": "Adds an asset."
+  },
+  "loadingAssets": "Loading your things",
+  "@loadingAssets": {
+    "description": "Skeleton label for service surfaces."
+  },
+  "assetSectionIdentity": "Details",
+  "@assetSectionIdentity": {
+    "description": "Identity section on the detail screen."
+  },
+  "assetSectionWarranty": "Warranty",
+  "@assetSectionWarranty": {
+    "description": "Warranty section."
+  },
+  "assetSectionContact": "Contact",
+  "@assetSectionContact": {
+    "description": "Contact block."
+  },
+  "assetSectionService": "Service history",
+  "@assetSectionService": {
+    "description": "Service records section."
+  },
+  "assetSectionSalary": "Salary history",
+  "@assetSectionSalary": {
+    "description": "Service records section for a serviceProvider."
+  },
+  "assetLifetimeCost": "Spent on service so far",
+  "@assetLifetimeCost": {
+    "description": "Sum of every service record cost."
+  },
+  "assetLifetimeSalary": "Paid so far",
+  "@assetLifetimeSalary": {
+    "description": "The same figure for a serviceProvider."
+  },
+  "labelBrand": "Brand",
+  "@labelBrand": {
+    "description": "assets.brand."
+  },
+  "labelModelNo": "Model",
+  "@labelModelNo": {
+    "description": "assets.modelNo."
+  },
+  "labelSerialNo": "Serial",
+  "@labelSerialNo": {
+    "description": "assets.serialNo."
+  },
+  "labelPurchasePrice": "Bought for",
+  "@labelPurchasePrice": {
+    "description": "assets.purchasePrice."
+  },
+  "labelWarrantyStart": "Warranty from",
+  "@labelWarrantyStart": {
+    "description": "assets.warrantyStartDateKey."
+  },
+  "labelWarrantyEnd": "Warranty until",
+  "@labelWarrantyEnd": {
+    "description": "assets.warrantyEndDateKey."
+  },
+  "labelWarrantyProvider": "Covered by",
+  "@labelWarrantyProvider": {
+    "description": "assets.warrantyProvider."
+  },
+  "labelServiceInterval": "Service every",
+  "@labelServiceInterval": {
+    "description": "assets.serviceIntervalDays."
+  },
+  "labelNextService": "Next service",
+  "@labelNextService": {
+    "description": "assets.nextServiceDueDateKey."
+  },
+  "labelContactName": "Name",
+  "@labelContactName": {
+    "description": "assets.primaryContactName."
+  },
+  "labelContactPhone": "Phone",
+  "@labelContactPhone": {
+    "description": "assets.primaryContactPhone."
+  },
+  "labelLocation": "Kept in",
+  "@labelLocation": {
+    "description": "assets.location."
+  },
+  "actionCall": "Call",
+  "@actionCall": {
+    "description": "Dials primaryContactPhone."
+  },
+  "callFailed": "No app on this phone can place that call.",
+  "@callFailed": {
+    "description": "Shown when the tel: intent finds no handler."
+  },
+  "actionAddService": "Record a service",
+  "@actionAddService": {
+    "description": "Adds a service record."
+  },
+  "actionAddSalary": "Record a payment",
+  "@actionAddSalary": {
+    "description": "The same action for a serviceProvider."
+  },
+  "actionDispose": "Dispose of it",
+  "@actionDispose": {
+    "description": "Opens the dispose sheet."
+  },
+  "actionUndispose": "Bring it back",
+  "@actionUndispose": {
+    "description": "Reverses a disposal."
+  },
+  "assetLinkedRecurring": "Paid on a schedule",
+  "@assetLinkedRecurring": {
+    "description": "Chip when linkedRecurringTemplateId is set."
+  },
+  "emptyBodyNoServices": "Nothing recorded against this yet.",
+  "@emptyBodyNoServices": {
+    "description": "Empty service history."
+  },
+  "labelAssetName": "What is it?",
+  "@labelAssetName": {
+    "description": "assets.name."
+  },
+  "labelAssetType": "Kind",
+  "@labelAssetType": {
+    "description": "assets.type."
+  },
+  "assetTypeHelpPerson": "A person you pay regularly belongs here too — their payments become service records.",
+  "@assetTypeHelpPerson": {
+    "description": "Explains AssetType.serviceProvider when it is chosen."
+  },
+  "saveAsset": "Save",
+  "@saveAsset": {
+    "description": "Commits an asset."
+  },
+  "serviceIntervalHelp": "Days between services. The next due date moves on each time you record one.",
+  "@serviceIntervalHelp": {
+    "description": "Explains serviceIntervalDays."
+  },
+  "labelServiceType": "What happened",
+  "@labelServiceType": {
+    "description": "service_records.type."
+  },
+  "serviceTypeService": "Serviced",
+  "@serviceTypeService": {
+    "description": "ServiceRecordType.service."
+  },
+  "serviceTypeRepair": "Repaired",
+  "@serviceTypeRepair": {
+    "description": "ServiceRecordType.repair."
+  },
+  "serviceTypeMaintenance": "Maintenance",
+  "@serviceTypeMaintenance": {
+    "description": "ServiceRecordType.maintenance."
+  },
+  "serviceTypeInspection": "Inspection",
+  "@serviceTypeInspection": {
+    "description": "ServiceRecordType.inspection."
+  },
+  "serviceTypeSalaryPaid": "Salary paid",
+  "@serviceTypeSalaryPaid": {
+    "description": "ServiceRecordType.salaryPaid — the maid case."
+  },
+  "serviceTypeOther": "Something else",
+  "@serviceTypeOther": {
+    "description": "ServiceRecordType.other."
+  },
+  "labelProviderName": "Who did it",
+  "@labelProviderName": {
+    "description": "service_records.providerName."
+  },
+  "labelProviderPhone": "Their number",
+  "@labelProviderPhone": {
+    "description": "service_records.providerPhone."
+  },
+  "labelServiceDate": "When",
+  "@labelServiceDate": {
+    "description": "service_records.serviceDateKey."
+  },
+  "labelServiceCost": "Cost",
+  "@labelServiceCost": {
+    "description": "service_records.cost."
+  },
+  "labelNextDue": "Next one due",
+  "@labelNextDue": {
+    "description": "service_records.nextDueDateKey."
+  },
+  "alsoRecordAsExpense": "Also record it as an expense",
+  "@alsoRecordAsExpense": {
+    "description": "The alsoRecordAsExpense toggle."
+  },
+  "alsoRecordHelp": "Writes a withdrawal for the cost as well, so it shows in your ledger.",
+  "@alsoRecordHelp": {
+    "description": "Explains what the toggle writes."
+  },
+  "alsoRecordNeedsAccount": "Choose which account it comes from",
+  "@alsoRecordNeedsAccount": {
+    "description": "Rejection when the toggle is on with no account."
+  },
+  "alsoRecordNeedsCost": "Add a cost first",
+  "@alsoRecordNeedsCost": {
+    "description": "Rejection when the toggle is on with no cost."
+  },
+  "saveService": "Save",
+  "@saveService": {
+    "description": "Commits a service record."
+  },
+  "disposeTitle": "What happened to it?",
+  "@disposeTitle": {
+    "description": "Dispose sheet title."
+  },
+  "disposeBody": "It stays in your records either way — what you spent on it still counts. This just stops it appearing as something you own.",
+  "@disposeBody": {
+    "description": "States anomaly A30 plainly: an asset is never deleted."
+  },
+  "disposeReasonSold": "Sold it",
+  "@disposeReasonSold": {
+    "description": "AssetDisposalReason.sold."
+  },
+  "disposeReasonExpired": "Wore out",
+  "@disposeReasonExpired": {
+    "description": "AssetDisposalReason.expired."
+  },
+  "disposeReasonDamaged": "Broke",
+  "@disposeReasonDamaged": {
+    "description": "AssetDisposalReason.damaged."
+  },
+  "disposeReasonGifted": "Gave it away",
+  "@disposeReasonGifted": {
+    "description": "AssetDisposalReason.gifted."
+  },
+  "disposeReasonLost": "Lost it",
+  "@disposeReasonLost": {
+    "description": "AssetDisposalReason.lost."
+  },
+  "disposeReasonReplaced": "Replaced it",
+  "@disposeReasonReplaced": {
+    "description": "AssetDisposalReason.replaced."
+  },
+  "disposeReasonOther": "Something else",
+  "@disposeReasonOther": {
+    "description": "AssetDisposalReason.other."
+  },
+  "labelDisposalAmount": "Got back",
+  "@labelDisposalAmount": {
+    "description": "assets.disposalAmount — what the disposal recovered."
+  },
+  "labelDisposalDate": "When",
+  "@labelDisposalDate": {
+    "description": "assets.disposedAtDateKey."
+  },
+  "disposeCommit": "Record it",
+  "@disposeCommit": {
+    "description": "Commits the disposal."
+  },
+  "disposeDone": "Recorded",
+  "@disposeDone": {
+    "description": "Snack after disposing."
+  },
+  "undisposeDone": "Back in your list",
+  "@undisposeDone": {
+    "description": "Snack after un-disposing."
+  },
+  "disposeNeedsReason": "Pick what happened",
+  "@disposeNeedsReason": {
+    "description": "Rejection when no reason is chosen."
+  },
+  "hintSearchAssets": "Search your things and people",
+  "@hintSearchAssets": {
+    "description": "Search hint on the asset list."
+  },
+  "errorWarrantyBackwards": "The warranty cannot end before it starts",
+  "@errorWarrantyBackwards": {
+    "description": "Field error when warrantyEndDateKey precedes warrantyStartDateKey."
+  },
+  "sectionMoney": "Money",
+  "@sectionMoney": {
+    "description": "Header above the cost and expense controls on the service editor."
+  },
+  "assetCreatedFromPurchase": "Saved. Now say what it is and how long it is covered.",
+  "@assetCreatedFromPurchase": {
+    "description": "Snack after a purchase line created an asset."
+  },
+  "destinationHelpNone": "Recorded as spending and nothing else.",
+  "@destinationHelpNone": {
+    "description": "Explains destination none."
+  },
+  "destinationHelpInventory": "Groceries, refills, anything measured and consumed. Needs an item and a quantity, and creates stock you can run down.",
+  "@destinationHelpInventory": {
+    "description": "Explains destination inventory."
+  },
+  "destinationHelpAsset": "A phone, a fridge, a chair. Creates something you own, with its own warranty and service history.",
+  "@destinationHelpAsset": {
+    "description": "Explains destination asset."
+  },
+  "destinationHelpRecurring": "Sets up a schedule so this comes back every month.",
+  "@destinationHelpRecurring": {
+    "description": "Explains destination recurring."
+  },
+  "assetSameNameNote": "You already have one called this. That is fine — this will be a separate one, with its own warranty and service history.",
+  "@assetSameNameNote": {
+    "description": "Informational note when an asset name repeats. Never a block: five iPhones are five assets."
+  },
+  "@destinationNone": {
+    "description": "No artefact. Recorded as spending and nothing else."
+  },
+  "@destinationInventory": {
+    "description": "Creates stock. Names the Inventory module, matching navInventory."
+  },
+  "@destinationAsset": {
+    "description": "Creates an asset. Names the Services module, matching navServices."
+  },
+  "@destinationRecurring": {
+    "description": "Hands off to the template builder. Matches navRecurring."
+  },
+  "actionSetWarranty": "Set the warranty",
+  "@actionSetWarranty": {
+    "description": "Snack action opening the asset a purchase line created."
+  },
+  "labelPaymentMethodOptional": "How you paid (optional)",
+  "@labelPaymentMethodOptional": {
+    "description": "Optional payment method on the service editor. Travels to the expense, never onto the record."
+  },
+  "dashboardTitle": "Home",
+  "@dashboardTitle": {
+    "description": "Dashboard screen title."
+  },
+  "fundsAvailable": "Total available funds",
+  "@fundsAvailable": {
+    "description": "Label above the one headline figure on the dashboard."
+  },
+  "fundsUnconverted": "{count, plural, =1{1 balance not converted} other{{count} balances not converted}}",
+  "@fundsUnconverted": {
+    "description": "Chip when BalanceService could not convert some accounts. Excluded from the headline, never summed (anomaly A34).",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "fundsApproximate": "Rate is older than today",
+  "@fundsApproximate": {
+    "description": "Chip when the conversion used the most recent rate on or before today."
+  },
+  "fundsWhyExcluded": "Balances Alaya has no rate for are left out rather than guessed at.",
+  "@fundsWhyExcluded": {
+    "description": "Explains why the headline may be lower than the sum of every account."
+  },
+  "rangeLast30": "Last 30 days",
+  "@rangeLast30": {
+    "description": "Range label. Always stated, never implied (anomaly A33)."
+  },
+  "rangeMoneyIn": "In",
+  "@rangeMoneyIn": {
+    "description": "Deposits over the labelled range."
+  },
+  "rangeMoneyOut": "Out",
+  "@rangeMoneyOut": {
+    "description": "Withdrawals over the labelled range."
+  },
+  "rangeNothingYet": "Nothing yet",
+  "@rangeNothingYet": {
+    "description": "Shown in place of a figure when a range holds no transactions."
+  },
+  "rangeExcluded": "{count, plural, =1{1 left out} other{{count} left out}}",
+  "@rangeExcluded": {
+    "description": "Chip when transactions in a foreign currency could not be converted into the range total.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "insightUpcoming": "Coming up",
+  "@insightUpcoming": {
+    "description": "The calendar side of the switchable insight card."
+  },
+  "insightSpending": "Where it went",
+  "@insightSpending": {
+    "description": "The analytics side of the switchable insight card."
+  },
+  "insightSwitchLabel": "Show",
+  "@insightSwitchLabel": {
+    "description": "Semantics label for the insight card switch."
+  },
+  "insightNothingUpcoming": "Nothing needs attention in the next fortnight.",
+  "@insightNothingUpcoming": {
+    "description": "Empty state for the upcoming side."
+  },
+  "insightBillDue": "Bill due",
+  "@insightBillDue": {
+    "description": "Upcoming row for a recurring occurrence."
+  },
+  "insightServiceDue": "Service due",
+  "@insightServiceDue": {
+    "description": "Upcoming row for an asset needing service."
+  },
+  "insightWarrantyEnding": "Warranty ending",
+  "@insightWarrantyEnding": {
+    "description": "Upcoming row for an expiring warranty."
+  },
+  "insightBatchExpiring": "Expiring",
+  "@insightBatchExpiring": {
+    "description": "Upcoming row for a batch past or near its expiry."
+  },
+  "moduleGridTitle": "Where to next",
+  "@moduleGridTitle": {
+    "description": "Header above the navigation tiles."
+  },
+  "moduleExpenses": "{count, plural, =0{none this month} =1{1 this month} other{{count} this month}}",
+  "@moduleExpenses": {
+    "description": "Live number on the Expenses tile.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "moduleInventory": "{count, plural, =0{nothing tracked} =1{1 running low} other{{count} running low}}",
+  "@moduleInventory": {
+    "description": "Live number on the Inventory tile.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "moduleShopping": "{count, plural, =0{list is clear} =1{1 to buy} other{{count} to buy}}",
+  "@moduleShopping": {
+    "description": "Live number on the Shopping tile.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "moduleRecurring": "{count, plural, =0{all settled} =1{1 due} other{{count} due}}",
+  "@moduleRecurring": {
+    "description": "Live number on the Recurring tile.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "moduleServices": "{count, plural, =0{nothing needs doing} =1{1 needs attention} other{{count} need attention}}",
+  "@moduleServices": {
+    "description": "Live number on the Services tile.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "fabAddIncome": "Money in",
+  "@fabAddIncome": {
+    "description": "FAB action opening the editor as a deposit."
+  },
+  "fabAddItem": "New item",
+  "@fabAddItem": {
+    "description": "FAB action opening the item editor."
+  },
+  "loadingDashboard": "Adding it up",
+  "@loadingDashboard": {
+    "description": "Skeleton label for the dashboard."
+  },
+  "fabOpenLabel": "Add something",
+  "@fabOpenLabel": {
+    "description": "Semantics label for the closed expandable FAB."
+  },
+  "fabCloseLabel": "Close",
+  "@fabCloseLabel": {
+    "description": "Semantics label for the open expandable FAB."
+  },
+  "eventTypeTransaction": "Transaction",
+  "eventTypeRecurringDue": "Recurring bill",
+  "eventTypeBatchExpiry": "Expiring",
+  "eventTypeWarrantyEnd": "Warranty ending",
+  "eventTypeServiceDue": "Service due",
+  "eventTypeShoppingTarget": "Shopping target",
+  "calendarSeverityWarning": "Needs attention",
+  "calendarSeverityDanger": "Past its date",
+  "calendarLoadingDay": "Loading this day…",
+  "calendarDayErrorTitle": "Could not load this day",
+  "calendarDayEmptyTitle": "Nothing on this day",
+  "calendarDayEmptyBody": "No transactions, bills, expiries or services fall here.",
+  "calendarRetry": "Try again",
+  "calendarLoadingMonth": "Loading this month…",
+  "calendarErrorTitle": "Could not load the calendar",
+  "calendarPreviousMonth": "Previous month",
+  "calendarNextMonth": "Next month",
+  "calendarOnDay": "On this day",
+  "calendarRangeOn": "Select a range",
+  "calendarRangeOff": "Stop selecting a range",
+  "calendarRangePickEnd": "From {start} — tap another day to finish.",
+  "calendarInRange": "{count, plural, =1{1 day} other{{count} days}}",
+  "calendarRangeEmptyTitle": "Nothing in these days",
+  "calendarRangeEmptyBody": "No transactions, bills, expiries or services fall inside the range.",
+  "@calendarRangePickEnd": {
+    "description": "Prompt after the range start is chosen.",
+    "placeholders": {
+      "start": {
+        "type": "String"
+      }
+    }
+  },
+  "@calendarInRange": {
+    "description": "How many days the chosen range spans.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarBackToToday": "Back to this month",
+  "calendarTotalOut": "Spent",
+  "calendarTotalIn": "Received",
+  "dashboardOpenCalendar": "Open calendar",
+  "dashboardCalendarSemantics": "{month} at a glance. Opens the calendar.",
+  "@dashboardCalendarSemantics": {
+    "description": "Screen-reader label for the dashboard month card where days are too narrow to tap.",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "navBackToDashboard": "Back to dashboard",
+  "chartLoading": "Working it out…",
+  "@chartLoading": {
+    "description": "Shown in a ChartCard while its figure computes. A line rather than a spinner: a card about to hold a chart reads as slow behind one (ARCH_5 §5.2)."
+  },
+  "chartApproximate": "{count, plural, =1{1 figure is indicative} other{{count} figures are indicative}}",
+  "@chartApproximate": {
+    "description": "How many of a series' data points converted against a rate from a different day (ARCH_3 §1.3). Says what it means rather than naming the rate quality.",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "chartUnconverted": "{count, plural, =1{1 amount left out} other{{count} amounts left out}}",
+  "@chartUnconverted": {
+    "description": "How many amounts had no usable rate and are excluded from the figure, never counted as zero (anomaly A15).",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "analyticsTotalSpent": "Spent",
+  "@analyticsTotalSpent": {
+    "description": "Label above the analytics screen's one displayAmount."
+  },
+  "analyticsRangeLabel": "Reporting window",
+  "@analyticsRangeLabel": {
+    "description": "Semantics label for the range chip row."
+  },
+  "analyticsComparisonUp": "{percent} more than the window before",
+  "@analyticsComparisonUp": {
+    "description": "Period-over-period comparison, rising. The window compared against is the same length, not a calendar month.",
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "analyticsComparisonDown": "{percent} less than the window before",
+  "@analyticsComparisonDown": {
+    "description": "Period-over-period comparison, falling.",
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "analyticsUnconvertedTotal": "{count, plural, =1{1 amount needs a rate} other{{count} amounts need a rate}}",
+  "@analyticsUnconvertedTotal": {
+    "description": "The app-wide unconverted count, distinct from one figure's own exclusions. A transaction outside the window can still be unconvertible.",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "analyticsInflationTitle": "Your own inflation",
+  "@analyticsInflationTitle": {
+    "description": "Title of the personal-inflation card, queries 12 and 24."
+  },
+  "analyticsInflationSubtitle": "What one thing costs you, purchase by purchase",
+  "@analyticsInflationSubtitle": {
+    "description": "Explains that the trend is per base unit, so 2 kg and 500 g are comparable."
+  },
+  "analyticsInflationUp": "{percent} more than the first time in this window",
+  "@analyticsInflationUp": {
+    "description": "The personal-inflation sentence, rising. The date is rendered separately through DateText (Law U7).",
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "analyticsInflationDown": "{percent} less than the first time in this window",
+  "@analyticsInflationDown": {
+    "description": "The personal-inflation sentence, falling.",
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "analyticsInflationSince": "First bought",
+  "@analyticsInflationSince": {
+    "description": "Precedes a DateText giving the earliest purchase in the window."
+  },
+  "analyticsInflationEmpty": "Buy something twice and its price trend appears here. Widen the window if you have.",
+  "@analyticsInflationEmpty": {
+    "description": "Empty state: fewer than two priced purchases means there is no trend to draw. Names both ways out."
+  },
+  "analyticsSectionSpend": "Where it went",
+  "@analyticsSectionSpend": {
+    "description": "Section header over the spend breakdowns."
+  },
+  "analyticsSectionTime": "Over time",
+  "@analyticsSectionTime": {
+    "description": "Section header over the trends."
+  },
+  "analyticsSectionWhat": "Who and what",
+  "@analyticsSectionWhat": {
+    "description": "Section header over payees and items."
+  },
+  "analyticsSectionHome": "Your home",
+  "@analyticsSectionHome": {
+    "description": "Section header over stock, waste and expiry."
+  },
+  "analyticsSectionCommitments": "Already committed",
+  "@analyticsSectionCommitments": {
+    "description": "Section header over recurring commitments and assets."
+  },
+  "analyticsBySubtype": "By kind",
+  "@analyticsBySubtype": {
+    "description": "Query 1. \"Kind\" rather than \"subtype\": the schema's word is not the user's."
+  },
+  "analyticsByTag": "By tag",
+  "@analyticsByTag": {
+    "description": "Query 2."
+  },
+  "analyticsByTagNote": "A purchase with two tags counts in both, so these add up to more than the total",
+  "@analyticsByTagNote": {
+    "description": "The caveat belongs on the card: a reader comparing tag figures against the headline deserves to know why they differ."
+  },
+  "analyticsByMethod": "By payment method",
+  "@analyticsByMethod": {
+    "description": "Query 3."
+  },
+  "analyticsConcentration": "How concentrated",
+  "@analyticsConcentration": {
+    "description": "Query 22, with query 8's grocery share beneath it."
+  },
+  "analyticsTopShare": "{percent} of your spending sits in three kinds",
+  "@analyticsTopShare": {
+    "description": "Query 22's headline.",
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "analyticsGroceryShare": "Groceries are {percent} of it",
+  "@analyticsGroceryShare": {
+    "description": "Query 8, stated beneath the concentration figure.",
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "analyticsTagChildren": "{count, plural, =1{1 tag inside} other{{count} tags inside}}",
+  "@analyticsTagChildren": {
+    "description": "Marks a parent tag that can be opened. One level only, which is all the schema permits.",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "analyticsTagDirect": "{tag} on its own",
+  "@analyticsTagDirect": {
+    "description": "The parent tag's own spending, as a sibling of its children rather than folded into them.",
+    "placeholders": {
+      "tag": {}
+    }
+  },
+  "analyticsTagBack": "Back to all tags",
+  "@analyticsTagBack": {
+    "description": "Tooltip on the in-place drill's back button."
+  },
+  "analyticsNothingSpent": "Nothing spent in this window",
+  "@analyticsNothingSpent": {
+    "description": "Empty state for a spend breakdown."
+  },
+  "analyticsNoTaggedSpend": "Tag a purchase and it will appear here",
+  "@analyticsNoTaggedSpend": {
+    "description": "Empty state for the tag breakdown: names the action, not the absence."
+  },
+  "analyticsNoMethodSpend": "Record how you paid and it will appear here",
+  "@analyticsNoMethodSpend": {
+    "description": "Empty state for the payment-method breakdown."
+  },
+  "analyticsIncomeVsExpense": "In and out",
+  "@analyticsIncomeVsExpense": {
+    "description": "Query 5."
+  },
+  "analyticsNeedTwoMonths": "Two months of records and the trend appears here",
+  "@analyticsNeedTwoMonths": {
+    "description": "Empty state: one month is a pair of figures, not a trend."
+  },
+  "analyticsNetFlow": "What you kept",
+  "@analyticsNetFlow": {
+    "description": "Query 6. Named for what the figure means rather than for the ledger it comes from."
+  },
+  "analyticsNetFlowNote": "Moving money between your own accounts does not count",
+  "@analyticsNetFlowNote": {
+    "description": "Explains why a transfer is absent: the ledger nets it to zero across its two legs."
+  },
+  "analyticsNoFlow": "Nothing moved in this window",
+  "@analyticsNoFlow": {
+    "description": "Empty state for net flow."
+  },
+  "analyticsBalanceTrend": "Balance over time",
+  "@analyticsBalanceTrend": {
+    "description": "Query 7."
+  },
+  "analyticsBalanceIn": "{account}, in {currency}",
+  "@analyticsBalanceIn": {
+    "description": "Names the account and its currency: this is the one figure on the screen not in the home currency, because converting each point would make the line move when rates moved.",
+    "placeholders": {
+      "account": {},
+      "currency": {}
+    }
+  },
+  "analyticsAccount": "Account",
+  "@analyticsAccount": {
+    "description": "Label on the balance-trend account picker."
+  },
+  "analyticsNoBalanceMovement": "No movement on this account in this window",
+  "@analyticsNoBalanceMovement": {
+    "description": "Empty state for the balance trend."
+  },
+  "analyticsHeatmap": "When you spend",
+  "@analyticsHeatmap": {
+    "description": "Query 21."
+  },
+  "analyticsByWeekday": "By day of week",
+  "@analyticsByWeekday": {
+    "description": "Heatmap segment."
+  },
+  "analyticsByDayOfMonth": "By date",
+  "@analyticsByDayOfMonth": {
+    "description": "Heatmap segment."
+  },
+  "analyticsTopPayees": "Who you paid most",
+  "@analyticsTopPayees": {
+    "description": "Query 4."
+  },
+  "analyticsNoPayees": "Name who you paid and they will appear here",
+  "@analyticsNoPayees": {
+    "description": "Empty state for top payees."
+  },
+  "analyticsTopItems": "What cost you most",
+  "@analyticsTopItems": {
+    "description": "Query 9."
+  },
+  "analyticsNoItemisedSpend": "Itemise a purchase and it will appear here",
+  "@analyticsNoItemisedSpend": {
+    "description": "Empty state for top items by spend."
+  },
+  "analyticsTopByQuantity": "What you buy most of",
+  "@analyticsTopByQuantity": {
+    "description": "Query 10."
+  },
+  "analyticsTopByQuantityNote": "Grouped by measure, because weight and count cannot be compared",
+  "@analyticsTopByQuantityNote": {
+    "description": "Explains the grouping: Law L8 makes cross-category comparison meaningless."
+  },
+  "analyticsNoQuantities": "Record how much you bought and it will appear here",
+  "@analyticsNoQuantities": {
+    "description": "Empty state for top items by quantity."
+  },
+  "analyticsPurchaseCount": "{count, plural, =1{1 purchase} other{{count} purchases}}",
+  "@analyticsPurchaseCount": {
+    "description": "How many times an item was bought in the window.",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "analyticsDearest": "The most you have paid",
+  "@analyticsDearest": {
+    "description": "Query 11."
+  },
+  "analyticsDearestItem": "Item",
+  "@analyticsDearestItem": {
+    "description": "Key on the dearest-purchase card."
+  },
+  "analyticsDearestPrice": "Unit price",
+  "@analyticsDearestPrice": {
+    "description": "Key on the dearest-purchase card. The figure is in the currency it was bought in, unconverted."
+  },
+  "analyticsDearestWhen": "When",
+  "@analyticsDearestWhen": {
+    "description": "Key on the dearest-purchase card, paired with a DateText."
+  },
+  "analyticsNoUnitPrices": "Record a unit price and this appears here",
+  "@analyticsNoUnitPrices": {
+    "description": "Empty state for the dearest purchase."
+  },
+  "analyticsAverageBasket": "Your average shop",
+  "@analyticsAverageBasket": {
+    "description": "Query 23."
+  },
+  "analyticsBasketValue": "Average value",
+  "@analyticsBasketValue": {
+    "description": "Key on the basket card."
+  },
+  "analyticsBasketLines": "Average items",
+  "@analyticsBasketLines": {
+    "description": "Key on the basket card."
+  },
+  "analyticsBasketCount": "Shops counted",
+  "@analyticsBasketCount": {
+    "description": "Key on the basket card. Counts the baskets that converted, which is what the average divides by."
+  },
+  "analyticsNoBaskets": "Record a grocery shop and it will appear here",
+  "@analyticsNoBaskets": {
+    "description": "Empty state for the basket card."
+  },
+  "analyticsInventoryValue": "What is on your shelves",
+  "@analyticsInventoryValue": {
+    "description": "Query 13."
+  },
+  "analyticsInventoryValueNote": "Right now, whatever window you have chosen",
+  "@analyticsInventoryValueNote": {
+    "description": "Explains why the range chip does not change this figure."
+  },
+  "analyticsBatchesValued": "{count, plural, =1{1 batch valued} other{{count} batches valued}}",
+  "@analyticsBatchesValued": {
+    "description": "How many batches had both a cost and a resolvable purchase unit.",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "analyticsBatchesNoCost": "{count, plural, =1{1 batch has no cost} other{{count} batches have no cost}}",
+  "@analyticsBatchesNoCost": {
+    "description": "Uncosted stock, reported rather than omitted: a valuation that skipped it would look complete while understating the shelf.",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "analyticsNoStockValue": "Record what a batch cost and its value appears here",
+  "@analyticsNoStockValue": {
+    "description": "Empty state for the inventory valuation."
+  },
+  "analyticsWaste": "What you threw away",
+  "@analyticsWaste": {
+    "description": "Query 14, one of the app's differentiating insights."
+  },
+  "analyticsNoWaste": "Nothing wasted in this window",
+  "@analyticsNoWaste": {
+    "description": "Empty state, and it is good news: worded as a fact rather than as missing data."
+  },
+  "analyticsExpiring": "Expiring within {days} days",
+  "@analyticsExpiring": {
+    "description": "Query 15.",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "analyticsNothingExpiring": "Nothing expires soon",
+  "@analyticsNothingExpiring": {
+    "description": "Empty state for the expiry card."
+  },
+  "analyticsDaysLeft": "{days, plural, =1{1 day left} other{{days} days left}}",
+  "@analyticsDaysLeft": {
+    "description": "How long a batch has. Paired with a tone, because colour is never the only signal (Law U17).",
+    "placeholders": {
+      "days": {
+        "type": "num"
+      }
+    }
+  },
+  "analyticsExpiredAlready": "Past its date",
+  "@analyticsExpiredAlready": {
+    "description": "Chip on a batch whose expiry has passed and still holds stock."
+  },
+  "analyticsLowStock": "Running low",
+  "@analyticsLowStock": {
+    "description": "Query 16."
+  },
+  "analyticsLowStockNote": "A count for today, not a history: stock levels are not kept over time",
+  "@analyticsLowStockNote": {
+    "description": "Explains why this is one figure rather than a trend."
+  },
+  "analyticsLowStockCount": "{count, plural, =1{1 item below its threshold} other{{count} items below their threshold}}",
+  "@analyticsLowStockCount": {
+    "description": "Query 16's figure.",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "analyticsAsOf": "As of",
+  "@analyticsAsOf": {
+    "description": "Precedes a DateText on the low-stock count."
+  },
+  "analyticsNothingLow": "Nothing is running low",
+  "@analyticsNothingLow": {
+    "description": "Empty state for the low-stock card."
+  },
+  "analyticsCommitment": "Every month, before anything else",
+  "@analyticsCommitment": {
+    "description": "Query 17."
+  },
+  "analyticsCommitmentNote": "Bills and subscriptions only. Income is not netted off",
+  "@analyticsCommitmentNote": {
+    "description": "Explains the outflow-only filter: netting salary against rent would report a household as having no fixed costs."
+  },
+  "analyticsCommitmentCount": "{count, plural, =1{from 1 commitment} other{from {count} commitments}}",
+  "@analyticsCommitmentCount": {
+    "description": "How many active templates the monthly figure covers.",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "analyticsNoCommitments": "Add a bill or subscription and it will appear here",
+  "@analyticsNoCommitments": {
+    "description": "Empty state for the commitment total."
+  },
+  "analyticsRecurringSplit": "Fixed against chosen",
+  "@analyticsRecurringSplit": {
+    "description": "Query 18."
+  },
+  "analyticsRecurring": "Fixed",
+  "@analyticsRecurring": {
+    "description": "Query 18's recurring side. The user's word, not the schema's."
+  },
+  "analyticsDiscretionary": "Chosen",
+  "@analyticsDiscretionary": {
+    "description": "Query 18's discretionary side."
+  },
+  "analyticsRecurringShare": "{percent} of your spending was already committed",
+  "@analyticsRecurringShare": {
+    "description": "Query 18's headline.",
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "analyticsServiceCost": "What your things cost to keep",
+  "@analyticsServiceCost": {
+    "description": "Query 19. Includes disposed assets, which is the point of a status change rather than a delete."
+  },
+  "analyticsServiceCount": "{count, plural, =1{1 visit} other{{count} visits}}",
+  "@analyticsServiceCount": {
+    "description": "How many service records an asset has in the window.",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "analyticsNoServiceCost": "Record a service or repair and it will appear here",
+  "@analyticsNoServiceCost": {
+    "description": "Empty state for the service-cost card."
+  },
+  "analyticsWarranty": "Warranties",
+  "@analyticsWarranty": {
+    "description": "Query 20."
+  },
+  "analyticsCovered": "Covered",
+  "@analyticsCovered": {
+    "description": "Chip on an asset still inside its warranty window."
+  },
+  "analyticsCoverageEnded": "Cover ended",
+  "@analyticsCoverageEnded": {
+    "description": "Chip on an asset whose warranty has run out."
+  },
+  "analyticsNoWarranties": "Add a warranty date and it will appear here",
+  "@analyticsNoWarranties": {
+    "description": "Empty state for the warranty card."
+  },
+  "analyticsEmptyTitle": "Nothing to show for this window",
+  "@analyticsEmptyTitle": {
+    "description": "Screen-level empty state. The house section stays visible beneath it, because stock is a \"right now\" figure."
+  },
+  "analyticsEmptyBody": "Widen the window above, or record something and it will appear here.",
+  "@analyticsEmptyBody": {
+    "description": "Names both ways out: on a fresh install the second is the answer, on a quiet month the first is."
+  },
+  "analyticsCacheClear": "Recalculate everything",
+  "@analyticsCacheClear": {
+    "description": "The clear-cache action, named for what the reader gets rather than for the table it empties."
+  },
+  "analyticsCacheClearing": "Recalculating…",
+  "@analyticsCacheClearing": {
+    "description": "The action's in-progress label."
+  },
+  "analyticsCacheExplain": "Some figures are kept between visits so this screen opens quickly. Clear them if a number looks stale.",
+  "@analyticsCacheExplain": {
+    "description": "Explains what the action does. The only place analytics_cache is ever visible (ARCH_5 §7.3)."
+  },
+  "analyticsCacheCleared": "Recalculated",
+  "@analyticsCacheCleared": {
+    "description": "Precedes a DateText giving when the cache was last cleared."
+  },
+  "analyticsCacheClearedSnack": "Figures recalculated",
+  "@analyticsCacheClearedSnack": {
+    "description": "Success snack. Same word as the button, per ARCH_5 §2.8."
+  },
+  "analyticsCacheFailed": "Could not clear the saved figures",
+  "@analyticsCacheFailed": {
+    "description": "Failure snack. Names what failed rather than apologising."
+  },
+  "analyticsDrillTitle": "Behind this figure",
+  "@analyticsDrillTitle": {
+    "description": "Fallback title for the drill-down while its label resolves."
+  },
+  "analyticsDrillTotal": "These come to",
+  "@analyticsDrillTotal": {
+    "description": "Precedes the drill-down's per-currency subtotals."
+  },
+  "analyticsDrillLoading": "Loading these transactions…",
+  "@analyticsDrillLoading": {
+    "description": "Semantics label on the drill-down's skeleton."
+  },
+  "analyticsDrillEmptyTitle": "Nothing here in this window",
+  "@analyticsDrillEmptyTitle": {
+    "description": "Drill-down empty state."
+  },
+  "analyticsDrillEmptyBody": "The window is set on the insights screen. Widen it and these may appear.",
+  "@analyticsDrillEmptyBody": {
+    "description": "Names the likely cause: the filter is what the reader just chose, the window is what they may have forgotten."
+  },
+  "analyticsDrillUnknownTitle": "This link does not point anywhere",
+  "@analyticsDrillUnknownTitle": {
+    "description": "Shown when the route's parameters name no filter this version knows."
+  },
+  "analyticsDrillUnknownBody": "Open insights and choose a figure to look behind.",
+  "analyticsOtherSlices": "Everything else",
+  "@analyticsOtherSlices": {
+    "description": "The grouped remainder wedge of a donut, past the sixth slice. A ring of twelve slivers is not readable, so the tail becomes one wedge that says what it is."
+  },
+  "analyticsTopThree": "in three kinds",
+  "@analyticsTopThree": {
+    "description": "The quiet line under the percentage in the concentration donut's centre, saying what that percentage is of."
+  },
+  "@analyticsDrillUnknownBody": {
+    "description": "Offers the way on rather than throwing: the route is reachable from outside the app."
+  },
+  "aboutHowItWorksHeader": "How it works",
+  "aboutLicences": "Open source licences",
+  "aboutLicencesHelp": "The libraries Alaya is built on.",
+  "aboutOfflineBody": "Everything is stored on this device. Alaya only reaches the internet to fetch exchange rates, once a day.",
+  "aboutStorageBody": "Your data is not encrypted, and no copy of it exists anywhere else unless you make a backup yourself.",
+  "@aboutStorageBody": {
+    "description": "The same threat model the lock screen states, in the place somebody comes looking for it. Two locations is not duplication: one is a decision point, the other is where a question gets answered."
+  },
+  "aboutTagline": "A finance and home manager that works entirely on your phone.",
+  "accountCurrencyHeader": "Currency",
+  "accountCurrencyLockedHelp": "Fixed, because changing it would reinterpret every amount already recorded here.",
+  "@accountCurrencyLockedHelp": {
+    "description": "Law L9 at its sharpest: the home currency is a display choice, but an account’s own currency is what its money is."
+  },
+  "accountCurrencyNewHelp": "What this account holds. It cannot be changed once you start recording against it.",
+  "accountEditorEditTitle": "Edit account",
+  "accountEditorSave": "Save account",
+  "@accountEditorSave": {
+    "description": "Names the thing, per archetype B — never a bare \"Save\"."
+  },
+  "accountEditorTitle": "New account",
+  "accountIncludeInNetWorth": "Count in net worth",
+  "accountIncludeInNetWorthHelp": "Off means the balance still shows here, but is left out of your total. Useful for an account you hold for someone else.",
+  "@accountIncludeInNetWorthHelp": {
+    "description": "ARCH_5 §7.2 requires the toggle be explained: without this line the reader cannot tell whether off means hidden or merely uncounted."
+  },
+  "accountKindBank": "Bank",
+  "accountKindCard": "Card",
+  "accountKindCash": "Cash",
+  "accountKindHeader": "What kind?",
+  "accountKindOther": "Other",
+  "accountKindWallet": "Wallet",
+  "accountNameLabel": "Name",
+  "accountOpeningBalanceLabel": "Opening balance",
+  "accountOpeningDateLabel": "True on",
+  "@accountOpeningDateLabel": {
+    "description": "Not \"date\": the question is which day the balance was correct, and \"date\" invites today by default."
+  },
+  "accountsAdd": "Add an account",
+  "accountsArchive": "Archive this account",
+  "accountsArchiveConfirmBody": "It will stop appearing when you record anything. Its history stays, and you can restore it here at any time.",
+  "accountsArchiveConfirmTitle": "Archive this account?",
+  "accountsArchiveHelp": "An archived account keeps all its history. It just stops appearing when you record something.",
+  "@accountsArchiveHelp": {
+    "description": "Says what survives, because \"archive\" does not tell the reader whether their transactions go with it."
+  },
+  "accountsArchived": "Account archived",
+  "accountsArchivedChip": "Archived",
+  "accountsArchivedHeader": "Archived",
+  "accountsEmptyBody": "Add one so Alaya knows where your money is.",
+  "accountsEmptyTitle": "No accounts yet",
+  "accountsExcludedChip": "Not in net worth",
+  "accountsLoading": "Loading your accounts…",
+  "accountsMissingBody": "It may have been removed. Go back and pick another.",
+  "@accountsMissingBody": {
+    "description": "A stale deep link, or a row removed in another window. Stated rather than rendering a blank form that would silently create a second account on save."
+  },
+  "accountsMissingTitle": "That account is not here",
+  "accountsRestore": "Restore this account",
+  "accountsRestoreConfirmBody": "It will appear again everywhere you choose an account.",
+  "@accountsRestoreConfirmBody": {
+    "description": "Confirmed in both directions: restoring puts an account back into every picker, which is worth stating before it happens."
+  },
+  "accountsRestoreConfirmTitle": "Restore this account?",
+  "accountsRestored": "Account restored",
+  "accountsSaved": "Account saved",
+  "actionBack": "Back",
+  "actionContinue": "Continue",
+  "appearanceModeDark": "Always dark",
+  "appearanceModeHeader": "Light or dark",
+  "appearanceModeLight": "Always light",
+  "appearanceModeSystem": "Match my phone",
+  "appearanceModeSystemHelp": "Follows your phone’s light and dark setting.",
+  "appearancePaletteHeader": "Colours",
+  "appearanceThemeLabHelp": "See every colour, spacing and text style the app uses.",
+  "backupNotEncryptedWarning": "This backup is not encrypted. Anyone who opens this file can read every transaction, balance and account name. Only share it somewhere you trust.",
+  "@backupNotEncryptedWarning": {
+    "description": "ARCH_3 §3.4 verbatim, on every export confirmation — not in settings, not a tooltip. Corrected in 8B: the 8A wording was a paraphrase that dropped the third sentence."
+  },
+  "currenciesHomeLocked": "Cannot be turned off — your totals are added up in this.",
+  "@currenciesHomeLocked": {
+    "description": "Law L9: disabling it would leave the dashboard with no currency to aggregate into. Disabled rather than hidden, so it reads as an explanation and not a rendering fault."
+  },
+  "currenciesLoading": "Loading currencies…",
+  "currenciesToggleFailed": "That could not be changed",
+  "dataBackupHeader": "Backup",
+  "dataExportBody": "Sends a copy of your data to WhatsApp, Drive, or anywhere else you choose.",
+  "dataExportConfirmAction": "Share it",
+  "dataExportConfirmTitle": "Share a backup?",
+  "dataExportFailed": "The backup could not be made",
+  "dataExportTitle": "Share a backup",
+  "dataRestoreHeader": "Restore",
+  "dataRestorePending": "Coming in the next update.",
+  "@dataRestorePending": {
+    "description": "Stated as not-yet-here rather than offered and broken: restore needs the Storage Access Framework picker and a merge strategy, both of which are 8B’s."
+  },
+  "dataRestoreTitle": "Restore from a backup",
+  "lockBackspace": "Delete last digit",
+  "lockBiometricFailed": "Not recognised. Enter your PIN instead.",
+  "lockBiometricReason": "Unlock Alaya",
+  "@lockBiometricReason": {
+    "description": "Shown by the system prompt, so it must be localised before it reaches the plugin (Law U5)."
+  },
+  "lockEraseFailed": "The data could not be deleted. Your PIN is unchanged.",
+  "@lockEraseFailed": {
+    "description": "Says what did not change, so a failed erase does not leave the user unsure whether they are locked out of a half-wiped app."
+  },
+  "lockErasing": "Deleting everything on this device…",
+  "@lockErasing": {
+    "description": "The ten-failure auto-erase is running. It takes the whole screen, because there is nothing left to enter a PIN against."
+  },
+  "lockForgotPin": "I have forgotten my PIN",
+  "lockHonestBody": "This PIN stops someone who picks up your unlocked phone from opening Alaya. It does not encrypt your data — anyone with access to the phone's files can still read them. Your phone's own lock screen is what protects the file itself.",
+  "@lockHonestBody": {
+    "description": "ARCH_3 §2.5, and the most important string in the app. No \"bank-grade\", no \"military-grade\", and no padlock glyph beside it: the database is plaintext by design (ARCH_1 §2.1) and claiming otherwise would be dishonest and a Play listing risk."
+  },
+  "lockThrottledWhy": "The wait gets longer after each wrong attempt.",
+  "@lockThrottledWhy": {
+    "description": "Says why the delay exists, so a throttle reads as deliberate rather than as the app having frozen."
+  },
+  "lockTitle": "Enter your PIN",
+  "lockUseBiometric": "Use fingerprint",
+  "@lockUseBiometric": {
+    "description": "The keypad key is an icon, so this is its Semantics label (ARCH_5 §2.7)."
+  },
+  "lockWrongPin": "That PIN is not right.",
+  "onboardingAccountsBody": "Where do you keep your money? Add the ones you use.",
+  "onboardingAccountsTitle": "Your accounts",
+  "onboardingAddAccount": "Add an account",
+  "onboardingCurrencyBody": "Which currency should Alaya add your totals up in?",
+  "onboardingCurrencyNote": "This changes how totals are shown. It does not change any amount you have already recorded, and each account keeps its own currency.",
+  "@onboardingCurrencyNote": {
+    "description": "Law L9 in plain words. Somebody who thinks they are converting their history would be very surprised later."
+  },
+  "onboardingCurrencyTitle": "Your currency",
+  "onboardingFinish": "Finish",
+  "onboardingLoading": "Getting things ready…",
+  "onboardingLockOnBody": "Alaya will ask for your PIN when you open it. You can change or remove it in Settings › Security.",
+  "onboardingLockOnHeader": "Lock is on",
+  "onboardingNext": "Next",
+  "onboardingNoAccountsBody": "Add at least one so Alaya knows where your money is.",
+  "onboardingNoAccountsTitle": "No accounts yet",
+  "onboardingOpeningNote": "The opening balance is what was there on the date you give. Alaya needs both: a balance with no date cannot be placed in your ledger, and anything you record before that date would not be counted.",
+  "@onboardingOpeningNote": {
+    "description": "Anomaly A03. This is the paragraph that stops an opening balance being captured without its date."
+  },
+  "onboardingRemoveAccount": "Remove this account",
+  "onboardingSaveAccounts": "Save accounts",
+  "onboardingSecurityBody": "You can put a PIN on Alaya. This is optional and you can add one later.",
+  "onboardingSecurityTitle": "Lock the app?",
+  "onboardingSkip": "Skip",
+  "onboardingSkipBody": "You can change all of this later in Settings.",
+  "onboardingSkipTitle": "Skip setting up?",
+  "onboardingTitle": "Welcome to Alaya",
+  "payeeKindEmployer": "Employer",
+  "payeeKindMerchant": "Shop",
+  "payeeKindOther": "Other",
+  "payeeKindPerson": "Person",
+  "payeeKindUtility": "Utility",
+  "payeeNameLabel": "Name",
+  "payeePhoneOptionalLabel": "Phone (optional)",
+  "@payeePhoneOptionalLabel": {
+    "description": "Marked optional, because an unmarked second field reads as required and is the commonest reason a two-field sheet feels like a form."
+  },
+  "payeesAdd": "Add a payee",
+  "payeesDelete": "Delete",
+  "payeesDeleteConfirmBody": "Transactions that named them keep their record. They just stop being suggested.",
+  "payeesDeleteConfirmTitle": "Delete this payee?",
+  "payeesDeleteFailed": "That could not be deleted",
+  "payeesDeleted": "Payee deleted",
+  "payeesEditTitle": "Edit payee",
+  "payeesEmptyBody": "These build up as you record who you paid.",
+  "payeesEmptyTitle": "No payees yet",
+  "payeesLoading": "Loading payees…",
+  "payeesNoMatchBody": "Try part of the name.",
+  "payeesNoMatchTitle": "No payees match that",
+  "payeesSave": "Save payee",
+  "payeesSaveFailed": "That could not be saved",
+  "payeesSaved": "Payee saved",
+  "payeesSearchHint": "Search payees",
+  "paymentKindBankTransfer": "Bank transfer",
+  "paymentKindCard": "Card",
+  "paymentKindCash": "Cash",
+  "paymentKindCheque": "Cheque",
+  "paymentKindOther": "Other",
+  "paymentKindUpi": "UPI",
+  "paymentKindWallet": "Wallet",
+  "paymentMethodNameLabel": "Name",
+  "paymentMethodsAdd": "Add a payment method",
+  "paymentMethodsDelete": "Delete",
+  "paymentMethodsDeleteConfirmBody": "Transactions that used it keep their record of having done so. It just stops being offered.",
+  "paymentMethodsDeleteConfirmTitle": "Delete this payment method?",
+  "paymentMethodsDeleteFailed": "That could not be deleted",
+  "paymentMethodsDeleted": "Payment method deleted",
+  "paymentMethodsEditTitle": "Edit payment method",
+  "paymentMethodsEmptyBody": "Add how you usually pay — cash, UPI, a card.",
+  "paymentMethodsEmptyTitle": "No payment methods",
+  "paymentMethodsLoading": "Loading payment methods…",
+  "paymentMethodsSave": "Save payment method",
+  "paymentMethodsSaveFailed": "That could not be saved",
+  "paymentMethodsSaved": "Payment method saved",
+  "paymentMethodsSystemChip": "Built in",
+  "@paymentMethodsSystemChip": {
+    "description": "Renameable but not removable, and the chip says so before the user hunts for a delete that is not there."
+  },
+  "pinSetupBackupBody": "You have just put a lock on this app. A backup means a forgotten PIN never costs you your records.",
+  "pinSetupBackupHeader": "Make a backup?",
+  "pinSetupBackupLater": "Not now",
+  "pinSetupBackupNow": "Back up now",
+  "pinSetupConfirmPrompt": "Enter it again",
+  "pinSetupDone": "Your PIN is set",
+  "pinSetupDoneBody": "Alaya will ask for it when you open the app, and again after a minute in the background.",
+  "pinSetupEnterPrompt": "Choose a PIN",
+  "pinSetupMismatch": "Those did not match. Start again.",
+  "@pinSetupMismatch": {
+    "description": "Both entries are cleared, because somebody who mistyped does not know which of the two was wrong."
+  },
+  "pinSetupRecoveryAck": "I have saved this code somewhere safe",
+  "@pinSetupRecoveryAck": {
+    "description": "The one confirmation, and it gates the button rather than warning after the fact."
+  },
+  "pinSetupRecoveryBody": "This is the only way back in if you forget your PIN. It is shown once and cannot be shown again.",
+  "@pinSetupRecoveryBody": {
+    "description": "True rather than cautious: PinService stores only a hash, so the app genuinely cannot redisplay it."
+  },
+  "pinSetupRecoveryCopied": "Recovery code copied",
+  "pinSetupRecoveryCopy": "Copy code",
+  "pinSetupRecoveryHeader": "Your recovery code",
+  "pinSetupRecoveryWhereToKeep": "A password manager is a good place for it. A photo in your gallery is not.",
+  "pinSetupTitle": "Set a PIN",
+  "recoveryCodeLabel": "Recovery code",
+  "recoveryCodePrompt": "Enter the recovery code you saved when you set your PIN.",
+  "recoveryDone": "Your PIN has been changed",
+  "recoveryEraseEverything": "Erase everything",
+  "recoveryExportFirst": "Export a copy first",
+  "recoveryExported": "A copy has been shared. Check it arrived before you erase.",
+  "@recoveryExported": {
+    "description": "Asks the user to verify: a backup nobody confirmed is not a backup."
+  },
+  "recoveryForgotBoth": "I do not have the recovery code either",
+  "recoveryForgotBothBody": "Without your PIN or your recovery code there is no way back into this data. You can export a copy first, then erase everything and start again.",
+  "@recoveryForgotBothBody": {
+    "description": "The export is possible only because the database is plaintext — with encryption the copy would be unreadable without the key the user has lost. ARCH_4 records that as the improvement dropping encryption bought."
+  },
+  "recoveryForgotBothTitle": "Starting over",
+  "recoveryNewPinPrompt": "Choose a new PIN",
+  "recoveryTitle": "Forgotten PIN",
+  "securityAutoEraseConfirmAction": "Turn it on",
+  "securityAutoEraseConfirmTitle": "Turn on erase after repeated failures?",
+  "securityAutoEraseFailed": "That could not be changed",
+  "securityAutoEraseHeader": "If the PIN is entered wrongly",
+  "securityAutoEraseOff": "Erase after repeated failures is off",
+  "securityAutoEraseOn": "Erase after repeated failures is on",
+  "securityAutoEraseTitle": "Erase everything after repeated failures",
+  "securityAutoLockHeader": "Auto-lock",
+  "securityAutoLockTitle": "Lock when I leave the app",
+  "securityChangePin": "Change PIN",
+  "securityChecking": "Checking…",
+  "@securityChecking": {
+    "description": "Neither branch is guessed: a row saying \"no PIN set\" for one frame to somebody who has one would be alarming for the wrong reason."
+  },
+  "securityPinHeader": "PIN",
+  "securityRemovePin": "Remove PIN",
+  "securityRemovePinConfirmBody": "Anyone who picks up your unlocked phone will be able to open Alaya. You will be asked for your current PIN next.",
+  "securityRemovePinConfirmTitle": "Remove the PIN?",
+  "securityRemovePinHelp": "You will need your current PIN to do this.",
+  "securitySetPin": "Set a PIN",
+  "securitySetPinHelp": "Alaya will ask for it when you open the app.",
+  "settingsAbout": "About",
+  "settingsAccounts": "Accounts",
+  "settingsAppearance": "Appearance",
+  "settingsCurrencies": "Currencies",
+  "settingsData": "Data",
+  "settingsGroupApp": "The app",
+  "settingsGroupMoney": "Your money",
+  "settingsGroupThings": "Your things",
+  "settingsNoMatchBody": "Try a different word — \"dark\", \"PIN\" and \"backup\" all find something.",
+  "@settingsNoMatchBody": {
+    "description": "Names the search rather than the tree: \"no settings\" in front of a list the user can see is a lie. The examples are the keywords the rows actually match on."
+  },
+  "settingsNoMatchTitle": "Nothing matches that",
+  "settingsPayees": "Payees",
+  "settingsPaymentMethods": "Payment methods",
+  "settingsSearchHint": "Search settings",
+  "settingsSecurity": "Security",
+  "settingsTags": "Tags",
+  "settingsUnits": "Units",
+  "tagColourHeader": "Colour",
+  "tagColourHelp": "Optional. Kept as chosen, so it stays the same if you change the app’s palette later.",
+  "@tagColourHelp": {
+    "description": "Honest about the freeze: colorArgb is a stored int, so a tag coloured under one preset keeps that colour when the palette changes."
+  },
+  "tagColourNone": "No colour",
+  "tagColourSwatch": "Use this colour",
+  "@tagColourSwatch": {
+    "description": "The swatches are colour-only, so each needs a Semantics label (Law U17)."
+  },
+  "tagEditorEditTitle": "Edit tag",
+  "tagEditorSave": "Save tag",
+  "tagEditorTitle": "New tag",
+  "tagNameLabel": "Name",
+  "tagParentHeader": "Group under",
+  "tagParentHelp": "Optional. Grouping keeps long tag lists readable. Only one level deep.",
+  "tagParentNone": "No group",
+  "tagScopeDeposit": "Money in",
+  "tagScopeDepositHelp": "Offered when you record money coming in.",
+  "tagScopeInventory": "Items",
+  "tagScopeInventoryHelp": "Offered on things you keep at home.",
+  "tagScopeRecurring": "Recurring",
+  "tagScopeRecurringHelp": "Offered on bills and subscriptions.",
+  "tagScopeService": "Services",
+  "tagScopeServiceHelp": "Offered on appliances and their service records.",
+  "tagScopeShopping": "Shopping lists",
+  "tagScopeShoppingHelp": "Used to group a shopping list under headings.",
+  "tagScopeWithdrawal": "Money out",
+  "tagScopeWithdrawalHelp": "Offered when you record spending.",
+  "tagScopesHeader": "Where it appears",
+  "tagScopesHelp": "A tag is only offered where you turn it on. This is what keeps \"Kitchen\" out of the list when you record your salary.",
+  "@tagScopesHelp": {
+    "description": "ARCH_5 §7.2’s allowedIn* row, said in the terms the requirement itself uses."
+  },
+  "tagsAdd": "Add a tag",
+  "tagsDelete": "Delete this tag",
+  "tagsDeleteConfirmBody": "Transactions and items already carrying it keep it in their history. It stops appearing when you tag something new.",
+  "@tagsDeleteConfirmBody": {
+    "description": "Says what survives, because a soft delete is not what \"delete\" usually promises (ARCH_3 §4)."
+  },
+  "tagsDeleteConfirmTitle": "Delete this tag?",
+  "tagsDeleteHelp": "Anything already tagged keeps its history. The tag just stops being offered.",
+  "tagsDeleted": "Tag deleted",
+  "tagsEmptyBody": "Tags let you group things across accounts — \"Kitchen\", \"Car\", \"Diwali\".",
+  "tagsEmptyTitle": "No tags yet",
+  "tagsLoading": "Loading tags…",
+  "tagsMissingBody": "It may have been deleted. Go back and pick another.",
+  "tagsMissingTitle": "That tag is not here",
+  "tagsNoScopesWarning": "This tag is not offered anywhere. Turn on at least one place below, or it will never appear.",
+  "@tagsNoScopesWarning": {
+    "description": "A tag with no scopes cannot appear anywhere in the app, which makes it invisible everywhere except this screen — exactly the dead row somebody would hunt for in the pickers first."
+  },
+  "tagsSaved": "Tag saved",
+  "tagsSystemChip": "Built in",
+  "unitBaseGrams": "grams",
+  "unitBaseMillilitres": "millilitres",
+  "unitBasePieces": "pieces",
+  "unitCategoryHeader": "What does it measure?",
+  "unitCategoryNewHelp": "Choose carefully: this cannot be changed later.",
+  "unitCodeHelp": "What you will see beside a quantity — kg, ml, pc.",
+  "unitCodeLabel": "Short code",
+  "unitCodeLockedHelp": "Fixed once the unit exists, because other records point at it.",
+  "unitEditorEditTitle": "Edit unit",
+  "unitEditorSave": "Save unit",
+  "unitEditorTitle": "New unit",
+  "unitFactorHeader": "How big is it?",
+  "unitFactorMustBePositive": "That has to be more than zero.",
+  "@unitFactorMustBePositive": {
+    "description": "Guarded rather than trusted: a zero factor would convert every quantity in the unit to nothing and divide the inventory valuation by zero."
+  },
+  "unitFactorThisUnit": "this unit",
+  "@unitFactorThisUnit": {
+    "description": "Stands in for the name while the field is still empty, so the question reads as a sentence either way."
+  },
+  "unitFactorVaries": "It varies — I cannot give one number",
+  "unitNameLabel": "Name",
+  "unitVariesBack": "Actually, I can give a number",
+  "@unitVariesBack": {
+    "description": "A way back, for somebody who realises on reading this that they can state an amount."
+  },
+  "unitVariesCreateItem": "Create an item instead",
+  "unitVariesInsteadBody": "Add \"Biscuit packet\" as its own item, counted in pieces. Then two packets is two of that item, and Alaya can price and track them properly.",
+  "unitVariesInsteadTitle": "Make it an item instead",
+  "unitVariesTitle": "Then it is not a unit",
+  "unitVariesWhy": "A unit has to be the same amount every time. One packet of biscuits and one packet of rice are different weights, so Alaya could not add two packets together or work out what one cost.",
+  "@unitVariesWhy": {
+    "description": "ARCH_1 §5.3 explained by consequence rather than by quoting the rule. This is what makes the alternative obviously better instead of merely mandated."
+  },
+  "unitsAdd": "Add a unit",
+  "unitsCategoriesFixedNote": "Weight, volume and count are the only three kinds there are. Alaya never converts between them, so a kilo can never become a litre by accident.",
+  "@unitsCategoriesFixedNote": {
+    "description": "ARCH_1 §5.3 and Law L8, stated where somebody about to add a unit reads it before trying rather than as a refusal afterwards."
+  },
+  "unitsDelete": "Delete this unit",
+  "unitsDeleteConfirmBody": "Anything already bought in this unit keeps its quantity, but that quantity would no longer be readable. Only delete a unit you have not used.",
+  "@unitsDeleteConfirmBody": {
+    "description": "The R18 failure from the other direction: a quantity whose unit has gone cannot be converted or valued."
+  },
+  "unitsDeleteConfirmTitle": "Delete this unit?",
+  "unitsDeleteHelp": "Only possible while nothing is measured in it.",
+  "unitsDeleted": "Unit deleted",
+  "unitsEmptyBody": "Alaya ships with the common ones. Add one if you measure something differently.",
+  "unitsEmptyTitle": "No units",
+  "unitsLoading": "Loading units…",
+  "unitsMissingBody": "It may have been deleted. Go back and pick another.",
+  "unitsMissingTitle": "That unit is not here",
+  "unitsSaved": "Unit saved",
+  "unitsSystemChip": "Built in",
+  "currenciesRowSubtitle": "{symbol} · {digits, plural, =0{no decimal places} =1{1 decimal place} other{{digits} decimal places}}",
+  "@currenciesRowSubtitle": {
+    "description": "The precision matters to the reader: JPY has none, so an amount typed as 1200 is ¥1,200 and not ¥12.00.",
+    "placeholders": {
+      "symbol": {
+        "type": "String"
+      },
+      "digits": {
+        "type": "int"
+      }
+    }
+  },
+  "currenciesRowTitle": "{code} · {name}",
+  "@currenciesRowTitle": {
+    "description": "A currency row: the code first, because it is what the pickers show.",
+    "placeholders": {
+      "code": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "dataExportDone": "Backup saved as {fileName}",
+  "@dataExportDone": {
+    "description": "Names the file, because a backup the user cannot identify later is one they will not trust when they need it (ARCH_3 §3.4).",
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "lockThrottled": "Too many attempts. Try again in {time}",
+  "@lockThrottled": {
+    "description": "The countdown ticks. Formatted in Dart as m:ss, because a plural on \"second\" cannot express 1:05.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingCurrencyChip": "{code} {symbol}",
+  "@onboardingCurrencyChip": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      },
+      "symbol": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingStepOf": "Step {step} of {total}",
+  "@onboardingStepOf": {
+    "description": "Words and a count rather than dots: the one question people abandon a setup flow over is how long it will take.",
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pinSetupLength": "{length} digits",
+  "@pinSetupLength": {
+    "placeholders": {
+      "length": {
+        "type": "int"
+      }
+    }
+  },
+  "recoveryTypeToConfirm": "Type {word} to confirm",
+  "@recoveryTypeToConfirm": {
+    "description": "The word is passed in from DataTransferPort.eraseConfirmationWord and is deliberately not translated, so a support article can tell anyone what to type.",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "securityAutoEraseBody": "When on, {count} wrong PIN attempts in a row will delete everything on this device.",
+  "@securityAutoEraseBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "securityAutoEraseConfirmBody": "After {count} failed attempts, every account, transaction and item on this device is deleted. There is no undo, and no copy unless you have made a backup.",
+  "@securityAutoEraseConfirmBody": {
+    "description": "The scary confirm names the number. A generic \"are you sure?\" would not earn consent to a setting that destroys a household’s records.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "securityAutoLockBody": "Locks again after {seconds} seconds in the background.",
+  "@securityAutoLockBody": {
+    "description": "Stated rather than configurable in 8A: autoLockDelay is a constant, and a picker writing a setting nothing reads would be a dead control.",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsAccountCount": "{count, plural, =0{No accounts} =1{1 account} other{{count} accounts}}",
+  "@settingsAccountCount": {
+    "description": "Archived accounts included, because this row is the only way to reach one and restore it.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsCurrencyCount": "{enabled} of {total} enabled",
+  "@settingsCurrencyCount": {
+    "placeholders": {
+      "enabled": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsPayeeCount": "{count, plural, =0{No payees} =1{1 payee} other{{count} payees}}",
+  "@settingsPayeeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsPaymentMethodCount": "{count, plural, =0{No payment methods} =1{1 payment method} other{{count} payment methods}}",
+  "@settingsPaymentMethodCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsTagCount": "{count, plural, =0{No tags} =1{1 tag} other{{count} tags}}",
+  "@settingsTagCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsUnitCount": "{count, plural, =0{No units} =1{1 unit} other{{count} units}}",
+  "@settingsUnitCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unitFactorHelp": "One of this unit has to be the same number of {base} every time.",
+  "@unitFactorHelp": {
+    "description": "The condition for being a unit at all. Somebody who reads this and cannot meet it has found the \"make it an item\" path.",
+    "placeholders": {
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "unitFactorQuestion": "How many {base} is one {unit}?",
+  "@unitFactorQuestion": {
+    "description": "Asked in base units, never in the stored thousandths — reproducing that arithmetic is what ARCH_4 R18 got wrong three times.",
+    "placeholders": {
+      "base": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "unitsEquals": "1 {code} = {amount} {base}",
+  "@unitsEquals": {
+    "description": "What the unit is, assembled from the stored thousandths so the reader never meets them.",
+    "placeholders": {
+      "code": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "unitsRowTitle": "{name} ({code})",
+  "@unitsRowTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "attachmentsAdd": "Add an attachment",
+  "attachmentsAddFailed": "That could not be attached",
+  "attachmentsAdded": "Attached",
+  "attachmentsChoosePhoto": "Choose a photo",
+  "@attachmentsChoosePhoto": {
+    "description": "Not \"take a photo\": capture needs image_picker, which ARCH_1 §7 does not pin."
+  },
+  "attachmentsDelete": "Remove",
+  "attachmentsDeleteConfirmBody": "The file is deleted from this phone. Backups you have already made still contain it.",
+  "attachmentsDeleteConfirmTitle": "Remove this attachment?",
+  "attachmentsDeleteFailed": "That could not be removed",
+  "attachmentsDeleted": "Attachment removed",
+  "attachmentsMissing": "That file is missing from this phone.",
+  "attachmentsNone": "Nothing attached",
+  "attachmentsOpen": "Open attachment",
+  "attachmentsStoredLocally": "Kept on this phone only, and included in your backups.",
+  "backupConfirmAction": "Make the backup",
+  "backupConfirmTitle": "Make a backup?",
+  "backupDone": "Backup saved",
+  "backupFailed": "The backup could not be made",
+  "backupForget": "Forget",
+  "backupForgetConfirmBody": "This removes it from the list only. The backup file itself stays wherever you put it — Alaya cannot reach into your Drive or your chats.",
+  "@backupForgetConfirmBody": {
+    "description": "Says what does *not* happen: \"remove\" over a backup reads as deleting the file."
+  },
+  "backupForgetConfirmTitle": "Forget this entry?",
+  "backupForgetFailed": "That entry could not be removed",
+  "backupForgotten": "Entry removed",
+  "backupHistoryEmptyBody": "Make one now, and keep it somewhere that is not this phone.",
+  "@backupHistoryEmptyBody": {
+    "description": "Says where, because a backup sitting on the device it protects is not a backup."
+  },
+  "backupHistoryEmptyTitle": "No backups yet",
+  "backupHistoryHeader": "Backups you have made",
+  "backupHistoryLoading": "Loading your backups…",
+  "backupMakeHeader": "Make a backup",
+  "backupRestoreBody": "Merge a backup into what you have, or replace everything with it.",
+  "backupRestoreHeader": "Restore",
+  "backupRestoreTitle": "Restore from a backup",
+  "backupSaveBody": "Choose where to put it. Alaya needs no storage permission — you pick the folder.",
+  "backupSaveTitle": "Save a copy",
+  "backupShareBody": "Send it to WhatsApp, Drive, or anywhere else.",
+  "backupShareTitle": "Share a copy",
+  "backupTitle": "Backup",
+  "reminderKindExpiry": "Things going off",
+  "reminderKindExpiryHelp": "Food and medicine reaching their use-by date.",
+  "reminderKindLowStock": "Running low",
+  "reminderKindLowStockHelp": "Not offered as a reminder: being low on something has no date, so it would arrive every morning until you shopped.",
+  "@reminderKindLowStockHelp": {
+    "description": "The row exists because the enum does; the help says why it is not in the digest."
+  },
+  "reminderKindRecurring": "Bills and subscriptions",
+  "reminderKindRecurringHelp": "When a recurring payment falls due.",
+  "reminderKindService": "Appliance servicing",
+  "reminderKindServiceHelp": "When something is due for its next service.",
+  "reminderKindWarranty": "Warranties ending",
+  "reminderKindWarrantyHelp": "Before a warranty runs out, while you can still use it.",
+  "remindersBlocked": "Notifications are turned off for Alaya. Turn them on in your phone’s Settings › Apps › Alaya › Notifications.",
+  "@remindersBlocked": {
+    "description": "Names the place. \"Notifications are blocked\" without saying where is a dead end."
+  },
+  "remindersDenied": "Alaya needs permission to send notifications.",
+  "remindersDigestExplainer": "Alaya sends one message a day about what is coming up — not a notification for every item.",
+  "@remindersDigestExplainer": {
+    "description": "ARCH_3 §7’s \"fewer, better notifications\", stated before the toggles so somebody knows what turning one on means."
+  },
+  "remindersDigestRow": "Daily summary",
+  "remindersKindsHeader": "What to remind me about",
+  "remindersLoading": "Loading your reminders…",
+  "remindersNoneScheduledBody": "Turn on a reminder above and Alaya will show what it has planned here.",
+  "@remindersNoneScheduledBody": {
+    "description": "Explains rather than apologises: empty is the normal state with everything off."
+  },
+  "remindersNoneScheduledTitle": "Nothing scheduled",
+  "remindersScheduledHeader": "Currently scheduled",
+  "remindersTimeHeader": "When",
+  "remindersTimeSaved": "Reminder time changed",
+  "remindersTimeTitle": "Daily summary time",
+  "remindersTitle": "Reminders",
+  "remindersToggleFailed": "That could not be changed",
+  "restoreApplyMerge": "Merge the backup",
+  "restoreApplyReplace": "Replace everything",
+  "restoreChooseAnother": "Choose another file",
+  "restoreChooseFile": "Choose a file",
+  "restoreChosenHeader": "Chosen file",
+  "restoreContinueReplace": "Continue to replace",
+  "restoreDone": "Restored",
+  "restoreLockNotRestored": "Your PIN is never restored. It is kept outside the backup, so opening someone else’s backup can never change who can open this app.",
+  "@restoreLockNotRestored": {
+    "description": "ARCH_3 §3.2’s last line, on the one screen where somebody might expect otherwise. Shown at all three stages."
+  },
+  "restoreMergeBody": "Adds what the backup has and updates what is newer. Nothing you have now is lost.",
+  "@restoreMergeBody": {
+    "description": "The default, and the description says why: merge keeps rows the backup does not have."
+  },
+  "restoreMergeTitle": "Merge",
+  "restoreModeHeader": "How should it be applied?",
+  "restoreNotADatabase": "That file is not an Alaya backup.",
+  "restorePickBody": "Choose a backup file. Alaya will check it before anything changes.",
+  "restoreReplaceBody": "Throws away what is on this phone and uses the backup instead.",
+  "restoreReplaceTitle": "Replace everything",
+  "restoreReplaceWarning": "Everything currently on this phone will be thrown away and replaced by the backup. Anything recorded since that backup was made will be gone.",
+  "restoreRollbackAvailable": "Restored the wrong file? You can put your previous data back.",
+  "restoreRollbackPromise": "Alaya takes a snapshot of your current data first, so you can undo this straight afterwards.",
+  "@restoreRollbackPromise": {
+    "description": "Said before the typed confirmation, because somebody who knows there is a way back reads the warning as information rather than a threat."
+  },
+  "restoreTitle": "Restore",
+  "restoreUndo": "Undo the replace",
+  "supportConsentUnavailable": "Adverts need a choice about personalisation that could not be loaded right now. Nothing has been requested.",
+  "@supportConsentUnavailable": {
+    "description": "Says what happened rather than showing a button that cannot work: without consent settled, no ad is requested at all."
+  },
+  "supportIntro": "Alaya is free, works offline, and has no accounts to sign up for. If it is useful to you, there are two ways to help.",
+  "supportLoading": "Loading…",
+  "supportNoAd": "No advert available right now",
+  "supportNoPaidFeatures": "Nothing here unlocks anything. There are no paid features — the whole app is already yours.",
+  "@supportNoPaidFeatures": {
+    "description": "Keeps this a tip rather than a paywall wearing a friendly label, and says so where somebody decides."
+  },
+  "supportThanks": "Thank you. That genuinely helps.",
+  "supportTipBody": "A one-time thank-you through the Play Store. It is not a subscription.",
+  "supportTipHeader": "Leave a tip",
+  "supportTipUnavailable": "Tips are not available on this device right now.",
+  "supportTitle": "Support Alaya",
+  "supportWatchAction": "Watch an advert",
+  "supportWatchBody": "One advert, when you choose to. Alaya never shows one anywhere else in the app.",
+  "@supportWatchBody": {
+    "description": "True by construction: one file imports the SDK and only this screen starts it."
+  },
+  "supportWatchHeader": "Watch a short advert",
+  "trashDeletedOn": "Deleted",
+  "trashEmptyBody": "Things you delete are kept here for 30 days before they go for good.",
+  "trashEmptyNow": "Empty now",
+  "trashEmptyNowConfirmBody": "Everything in the trash is deleted permanently. This is not the trash — there is nowhere left for it to go.",
+  "@trashEmptyNowConfirmBody": {
+    "description": "The only hard delete a user can reach, so the body says it plainly."
+  },
+  "trashEmptyNowConfirmTitle": "Empty the trash?",
+  "trashEmptyTitle": "The trash is empty",
+  "trashGoesOn": "· kept for 30 days",
+  "@trashGoesOn": {
+    "description": "Every row says when it goes: a trash that silently empties is one people stop trusting."
+  },
+  "trashKindAsset": "Appliances",
+  "trashKindItem": "Items",
+  "trashKindPayee": "Payees",
+  "trashKindRecurring": "Recurring",
+  "trashKindShoppingList": "Shopping lists",
+  "trashKindTag": "Tags",
+  "trashKindTransaction": "Transactions",
+  "trashLoading": "Loading the trash…",
+  "trashNoMatchBody": "Remove a filter to see the rest.",
+  "trashNoMatchTitle": "Nothing matches that filter",
+  "trashPurgeConfirmBody": "It will not go back to the trash. There is no undo.",
+  "trashPurgeConfirmTitle": "Delete this for good?",
+  "trashPurgeFailed": "That could not be deleted",
+  "trashPurgeOne": "Delete for good",
+  "trashPurgedOne": "Deleted for good",
+  "trashRestore": "Restore",
+  "trashRestoreFailed": "That could not be restored",
+  "trashRestored": "Restored",
+  "trashTitle": "Trash",
+  "backupDoneNamed": "Backup saved as {fileName}",
+  "@backupDoneNamed": {
+    "description": "Names the file, because a backup you cannot identify later is one you will not trust when you need it.",
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "backupHistorySize": "· {size}",
+  "@backupHistorySize": {
+    "description": "The unit changes with the magnitude, so the number is formatted in Dart — a translator cannot choose between KB and MB inside a placeholder.",
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "remindersTimeBody": "Sent at {time} each day",
+  "@remindersTimeBody": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "restoreDoneDetail": "{tables, plural, =1{1 table restored} other{{tables} tables restored}}",
+  "@restoreDoneDetail": {
+    "placeholders": {
+      "tables": {
+        "type": "int"
+      }
+    }
+  },
+  "restoreNewerSchema": "That backup is from a newer version of Alaya (version {backup}) than this app understands (version {app}). Update Alaya and try again.",
+  "@restoreNewerSchema": {
+    "description": "ARCH_3 §3.2’s gate, stated with both numbers. A refusal without them is one nobody can act on.",
+    "placeholders": {
+      "backup": {
+        "type": "int"
+      },
+      "app": {
+        "type": "int"
+      }
+    }
+  },
+  "restoreTypeToConfirm": "Type {word} to confirm",
+  "@restoreTypeToConfirm": {
+    "description": "The word is not translated, so a support article can tell anyone what to type.",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "supportTipAction": "Leave a tip · {price}",
+  "@supportTipAction": {
+    "description": "The store’s own formatted price, never reformatted: Play localises it for the user’s account, which need not match this app’s home currency.",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "trashPurged": "{count, plural, =0{Nothing to delete} =1{1 item deleted for good} other{{count} items deleted for good}}",
+  "@trashPurged": {
+    "description": "\"For good\" rather than \"deleted\", because this is the one hard delete in the app.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dataBackupRowBody": "Save a copy, share it, or restore from one.",
+  "dataTrashRowBody": "Things you delete are kept here for 30 days.",
+  "settingsRemindersHelp": "One daily summary of what is coming up.",
+  "settingsSupportHelp": "Optional, and nothing here unlocks anything.",
+  "@settingsSupportHelp": {
+    "description": "Says on the row itself that this is not a paywall, so the entry cannot read as one."
+  },
+  "settingsTrashCount": "{count, plural, =0{Nothing in the trash} =1{1 item} other{{count} items}}",
+  "@settingsTrashCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "supportWatchTooltip": "Watch an advert to support Alaya",
+  "@supportWatchTooltip": {
+    "description": "The app bar action. Says what the tap does, because a joined-hands icon alone does not — and no advert is fetched until it is pressed."
+  },
+  "ledgerRowSemantics": "{title}, {amount}",
+  "@ledgerRowSemantics": {
+    "description": "A ledger row spoken as one thing (ARCH_5 §6). The comma is the pause a screen reader takes, which is why it is punctuation rather than a word.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "ledgerRowSemanticsDetailed": "{title}, {amount}, {detail}",
+  "@ledgerRowSemanticsDetailed": {
+    "description": "The same, with the row’s metadata line — an account, a payment method or a review flag.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "detail": {
+        "type": "String"
+      }
+    }
+  }
+}

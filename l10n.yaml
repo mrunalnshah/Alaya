@@ -1,0 +1,7 @@
+arb-dir: lib/app/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+output-class: AlayaStrings
+output-dir: lib/app/l10n/generated
+nullable-getter: false
+required-resource-attributes: false

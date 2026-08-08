@@ -1,0 +1,53 @@
+import '../tables/inventory_tables.dart';
+
+-- Per-item stock rollup. `total_remaining_milli` is the SUMMED mixed-unit figure the item row
+-- displays ("4 kg 450 g"); the individual batches are shown only when the row is expanded
+-- (ARCH_1 §5.4, anomaly A21).
+--
+-- Batches with zero remaining are excluded from every aggregate here, which is why
+-- `batch_count` means "batches still holding stock" and `nearest_expiry_date_key` cannot be
+-- dragged earlier by an empty batch. MIN() ignores NULLs, so a no-expiry batch never wins the
+-- nearest-expiry slot either.
+CREATE VIEW v_item_stock AS ItemStockRow AS
+  SELECT i.id AS item_id, i.unit_category, i.low_stock_threshold_milli,
+         COALESCE(SUM(b.remaining_quantity_milli), 0) AS total_remaining_milli,
+         COUNT(b.id) AS batch_count,
+         MIN(b.expiry_date_key) AS nearest_expiry_date_key,
+         CASE WHEN i.low_stock_threshold_milli IS NOT NULL
+               AND COALESCE(SUM(b.remaining_quantity_milli), 0) < i.low_stock_threshold_milli
+              THEN 1 ELSE 0 END AS is_low_stock
+    FROM items i
+    LEFT JOIN inventory_batches b
+           ON b.item_id = i.id AND b.deleted_at IS NULL AND b.remaining_quantity_milli > 0
+   WHERE i.deleted_at IS NULL
+   GROUP BY i.id;
+
+-- The reconciliation probe for Law L3. `inventory_batches.remaining_quantity_milli` is the
+-- schema's only stored total, and this view is how you prove it still matches the append-only
+-- ledger: `discrepancy_milli` must be 0 for every row, always.
+--
+-- The direction of each movement comes from its `kind`, since `quantity_milli` is always
+-- positive. Reversal rows need no special handling — a reversing `adjustIn` cancels the
+-- `consume` it points at simply by being summed with the opposite sign.
+CREATE VIEW v_batch_stock_check AS BatchStockCheckRow AS
+  SELECT b.id AS batch_id, b.item_id,
+         b.remaining_quantity_milli AS cached_remaining_milli,
+         COALESCE((SELECT SUM(CASE WHEN m.kind IN ('openingIn','purchaseIn','manualIn','adjustIn')
+                                   THEN m.quantity_milli ELSE -m.quantity_milli END)
+                     FROM stock_movements m WHERE m.batch_id = b.id), 0) AS ledger_remaining_milli,
+         b.remaining_quantity_milli
+           - COALESCE((SELECT SUM(CASE WHEN m.kind IN ('openingIn','purchaseIn','manualIn','adjustIn')
+                                       THEN m.quantity_milli ELSE -m.quantity_milli END)
+                         FROM stock_movements m WHERE m.batch_id = b.id), 0)
+           AS discrepancy_milli
+    FROM inventory_batches b
+   WHERE b.deleted_at IS NULL;
+
+-- Feeds the low-stock suggestion engine. `shortfall_milli` is how much to buy to reach the
+-- threshold, which the generated shopping entry uses as its quantity.
+CREATE VIEW v_low_stock AS LowStockRow AS
+  SELECT s.item_id, s.unit_category, s.total_remaining_milli, s.low_stock_threshold_milli,
+         s.low_stock_threshold_milli - s.total_remaining_milli AS shortfall_milli,
+         s.nearest_expiry_date_key
+    FROM v_item_stock s
+   WHERE s.is_low_stock = 1;

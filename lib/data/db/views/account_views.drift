@@ -1,0 +1,46 @@
+import '../tables/money_tables.dart';
+
+-- The keystone of the read model (ARCH_2 §12.1), reproduced verbatim. Every transaction becomes
+-- signed per-account legs, and a `transfer` appears TWICE with opposite signs — which is why a
+-- self-transfer nets to zero across v_account_balances by construction, rather than by any Dart
+-- code getting it right (anomaly A02).
+--
+-- `account_id` is nullable in the generated row class because it selects from the nullable
+-- `from_account_id` / `to_account_id`. The WHERE clauses plus the shape CHECK on `transactions`
+-- guarantee non-null in practice, but SQL cannot express that. Do not "fix" it with COALESCE: a
+-- null here would mean a malformed row the CHECK should have rejected, and mapping it to a
+-- placeholder account would hide exactly that.
+CREATE VIEW v_account_ledger AS AccountLedgerRow AS
+  SELECT id AS tx_id, to_account_id   AS account_id,
+         original_amount_minor        AS signed_minor,
+         original_currency_code AS currency_code, date_key, kind
+    FROM transactions
+   WHERE deleted_at IS NULL AND kind IN ('deposit','adjustmentIncrease')
+  UNION ALL
+  SELECT id, from_account_id, -original_amount_minor,
+         original_currency_code, date_key, kind
+    FROM transactions
+   WHERE deleted_at IS NULL AND kind IN ('withdrawal','adjustmentDecrease')
+  UNION ALL
+  SELECT id, from_account_id, -original_amount_minor,
+         original_currency_code, date_key, kind
+    FROM transactions
+   WHERE deleted_at IS NULL AND kind = 'transfer'
+  UNION ALL
+  SELECT id, to_account_id,   original_amount_minor,
+         original_currency_code, date_key, kind
+    FROM transactions
+   WHERE deleted_at IS NULL AND kind = 'transfer';
+
+-- Opening balance plus that account's ledger legs, in the account's own currency
+-- (ARCH_2 §12.1, verbatim). Never SUM `balance_minor` across accounts without converting first:
+-- accounts may hold different currencies (anomaly A34).
+CREATE VIEW v_account_balances AS AccountBalanceRow AS
+  SELECT a.id            AS account_id,
+         a.currency_code AS currency_code,
+         a.opening_balance_minor
+           + COALESCE((SELECT SUM(l.signed_minor)
+                         FROM v_account_ledger l
+                        WHERE l.account_id = a.id), 0) AS balance_minor
+    FROM accounts a
+   WHERE a.deleted_at IS NULL;

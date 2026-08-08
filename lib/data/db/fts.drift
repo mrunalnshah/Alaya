@@ -1,0 +1,62 @@
+import 'tables/inventory_tables.dart';
+import 'tables/money_tables.dart';
+
+-- FTS5 full-text search (ARCH_2 §10). `LIKE '%x%'` over 10k rows is unusable, and external
+-- content plus sync triggers cannot be bolted on cheaply later — which is why this is Phase 1C
+-- and not Phase 7 (anomaly A40).
+--
+-- `content=` makes these EXTERNAL CONTENT tables: the index stores no copy of the text, it reads
+-- column values back from the base table by rowid. Two consequences that callers must respect:
+--
+-- 1. A match gives you a rowid, not an id. Join back through it and filter soft deletes, because
+--    FTS knows nothing about `deleted_at` (Law L7):
+--      SELECT i.* FROM items_fts f JOIN items i ON i.rowid = f.rowid
+--       WHERE items_fts MATCH ? AND i.deleted_at IS NULL;
+--
+-- 2. That rowid link is only as stable as the rowids. These tables have TEXT primary keys, so
+--    they have no INTEGER PRIMARY KEY aliasing rowid, and SQLite's VACUUM documentation
+--    explicitly permits renumbering rowids in exactly that case. ARCH_3 §3.1 backs up with
+--    `VACUUM INTO`. Testing on current SQLite shows rowids are in fact preserved, but that is
+--    unspecified behaviour to depend on, so Phase 4C's Replace-restore must run
+--    `INSERT INTO items_fts(items_fts) VALUES('rebuild');` (and the same for transactions_fts)
+--    after swapping the file in. Merge-restore needs nothing: it writes through the triggers.
+CREATE VIRTUAL TABLE items_fts USING fts5(
+  name,
+  notes,
+  content = items,
+  content_rowid = rowid
+);
+
+CREATE TRIGGER items_fts_after_insert AFTER INSERT ON items BEGIN
+  INSERT INTO items_fts(rowid, name, notes) VALUES (new.rowid, new.name, new.notes);
+END;
+
+CREATE TRIGGER items_fts_after_delete AFTER DELETE ON items BEGIN
+  INSERT INTO items_fts(items_fts, rowid, name, notes)
+    VALUES ('delete', old.rowid, old.name, old.notes);
+END;
+
+CREATE TRIGGER items_fts_after_update AFTER UPDATE ON items BEGIN
+  INSERT INTO items_fts(items_fts, rowid, name, notes)
+    VALUES ('delete', old.rowid, old.name, old.notes);
+  INSERT INTO items_fts(rowid, name, notes) VALUES (new.rowid, new.name, new.notes);
+END;
+
+CREATE VIRTUAL TABLE transactions_fts USING fts5(
+  note,
+  content = transactions,
+  content_rowid = rowid
+);
+
+CREATE TRIGGER transactions_fts_after_insert AFTER INSERT ON transactions BEGIN
+  INSERT INTO transactions_fts(rowid, note) VALUES (new.rowid, new.note);
+END;
+
+CREATE TRIGGER transactions_fts_after_delete AFTER DELETE ON transactions BEGIN
+  INSERT INTO transactions_fts(transactions_fts, rowid, note) VALUES ('delete', old.rowid, old.note);
+END;
+
+CREATE TRIGGER transactions_fts_after_update AFTER UPDATE ON transactions BEGIN
+  INSERT INTO transactions_fts(transactions_fts, rowid, note) VALUES ('delete', old.rowid, old.note);
+  INSERT INTO transactions_fts(rowid, note) VALUES (new.rowid, new.note);
+END;

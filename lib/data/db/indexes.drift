@@ -1,0 +1,50 @@
+import 'tables/inventory_tables.dart';
+import 'tables/meta_tables.dart';
+import 'tables/money_tables.dart';
+import 'tables/recurring_tables.dart';
+import 'tables/service_tables.dart';
+import 'tables/shopping_tables.dart';
+import 'tables/tag_tables.dart';
+
+-- ARCH_2 §11 verbatim. Declared as raw SQL in a .drift file rather than through Dart
+-- annotations, because partial indexes (`WHERE ...`) are only reliably expressible here.
+
+-- ── identity / uniqueness ────────────────────────────────────────────────────────────────
+-- Every uniqueness index is PARTIAL on `deleted_at IS NULL`. Without that, soft-deleting
+-- "Tomato" and re-adding it would hit a constraint violation on a row the user can no longer
+-- see — anomaly A19, and the single most common soft-delete bug.
+CREATE UNIQUE INDEX idx_items_identity
+  ON items(normalized_name, unit_category)            WHERE deleted_at IS NULL;
+CREATE UNIQUE INDEX idx_accounts_name
+  ON accounts(normalized_name)                        WHERE deleted_at IS NULL;
+CREATE UNIQUE INDEX idx_tags_name
+  ON tags(normalized_name)                            WHERE deleted_at IS NULL;
+CREATE UNIQUE INDEX idx_payees_name
+  ON payees(normalized_name)                          WHERE deleted_at IS NULL;
+-- Doubly partial: scoped to auto-generated rows only, so the suggestion engine's upsert is
+-- idempotent while a user's own manual entry for the same item is untouched (anomaly A22).
+CREATE UNIQUE INDEX idx_shopping_auto
+  ON shopping_entries(list_id, item_id)
+  WHERE origin = 'autoLowStock' AND deleted_at IS NULL;
+-- Makes double-materialisation of the same due date a no-op rather than a crash.
+CREATE UNIQUE INDEX idx_recurring_occ
+  ON recurring_occurrences(template_id, due_date_key) WHERE deleted_at IS NULL;
+CREATE UNIQUE INDEX idx_rates_point
+  ON currency_rates(base_code, quote_code, rate_date_key);
+
+-- ── read paths ───────────────────────────────────────────────────────────────────────────
+CREATE INDEX idx_tx_date        ON transactions(date_key)             WHERE deleted_at IS NULL;
+CREATE INDEX idx_tx_month_kind  ON transactions(month_key, kind)      WHERE deleted_at IS NULL;
+CREATE INDEX idx_tx_from        ON transactions(from_account_id, date_key);
+CREATE INDEX idx_tx_to          ON transactions(to_account_id, date_key);
+CREATE INDEX idx_tx_subtype     ON transactions(subtype, month_key);
+CREATE INDEX idx_tx_recurring   ON transactions(recurring_template_id);
+CREATE INDEX idx_lines_item     ON transaction_lines(item_id);
+CREATE INDEX idx_lines_tx       ON transaction_lines(transaction_id);
+CREATE INDEX idx_batch_item     ON inventory_batches(item_id)         WHERE deleted_at IS NULL;
+CREATE INDEX idx_batch_expiry   ON inventory_batches(expiry_date_key) WHERE deleted_at IS NULL;
+CREATE INDEX idx_move_batch     ON stock_movements(batch_id);
+CREATE INDEX idx_move_item_date ON stock_movements(item_id, date_key);
+CREATE INDEX idx_occ_due        ON recurring_occurrences(due_date_key, status);
+CREATE INDEX idx_asset_service  ON assets(next_service_due_date_key)  WHERE deleted_at IS NULL;
+CREATE INDEX idx_asset_warranty ON assets(warranty_end_date_key)      WHERE deleted_at IS NULL;

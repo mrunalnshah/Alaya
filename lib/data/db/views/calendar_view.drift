@@ -1,0 +1,70 @@
+import '../tables/inventory_tables.dart';
+import '../tables/money_tables.dart';
+import '../tables/recurring_tables.dart';
+import '../tables/service_tables.dart';
+import '../tables/shopping_tables.dart';
+
+-- The heterogeneous calendar feed (ARCH_3 §6). A view, not a physical events table: six
+-- subsystems writing into one events table would be a permanent synchronisation-bug factory, and
+-- a UNION ALL has no synchronisation code to get wrong (anomaly A37).
+--
+-- Six event types across seven arms — `serviceDue` has two sources, `assets.next_service_due_date_key`
+-- and `service_records.next_due_date_key`, exactly as ARCH_3 §6 specifies.
+--
+-- `severity` here is the STATIC baseline for each type. The date-relative escalation ARCH_3 §6
+-- describes (warning within 7 days, danger once past) is applied in Dart by the calendar
+-- aggregator using the injected Clock — see the note in schedule_views.drift for why no view in
+-- this schema references the current time.
+--
+-- ALWAYS query with a bounded range (`WHERE date_key BETWEEN ? AND ?`). Unbounded, this scans
+-- seven tables; bounded, each arm uses its own date index.
+--
+-- "Medicine expiry" needs no arm of its own: it is a `batchExpiry` on an item whose `item_kind`
+-- is `medicine`, which is the whole reason `item_kind` exists.
+CREATE VIEW v_calendar_events AS CalendarEventRow AS
+  SELECT t.date_key AS date_key, 'transaction' AS event_type,
+         'transaction' AS ref_type, t.id AS ref_id,
+         COALESCE(p.name, t.note, t.subtype) AS title,
+         t.original_amount_minor AS amount_minor,
+         t.original_currency_code AS currency_code,
+         'info' AS severity
+    FROM transactions t
+    LEFT JOIN payees p ON p.id = t.payee_id
+   WHERE t.deleted_at IS NULL
+  UNION ALL
+  SELECT o.due_date_key, 'recurringDue', 'recurringOccurrence', o.id,
+         rt.name, COALESCE(o.paid_amount_minor, rt.default_amount_minor), rt.currency_code,
+         'warning'
+    FROM recurring_occurrences o
+    JOIN recurring_templates rt ON rt.id = o.template_id
+   WHERE o.deleted_at IS NULL AND o.status = 'due' AND rt.deleted_at IS NULL
+  UNION ALL
+  SELECT b.expiry_date_key, 'batchExpiry', 'inventoryBatch', b.id,
+         i.name, NULL, NULL, 'warning'
+    FROM inventory_batches b
+    JOIN items i ON i.id = b.item_id
+   WHERE b.deleted_at IS NULL AND b.expiry_date_key IS NOT NULL
+     AND b.remaining_quantity_milli > 0 AND i.deleted_at IS NULL
+  UNION ALL
+  SELECT a.warranty_end_date_key, 'warrantyEnd', 'asset', a.id,
+         a.name, NULL, NULL, 'warning'
+    FROM assets a
+   WHERE a.deleted_at IS NULL AND a.warranty_end_date_key IS NOT NULL
+     AND a.status <> 'disposed'
+  UNION ALL
+  SELECT a.next_service_due_date_key, 'serviceDue', 'asset', a.id,
+         a.name, NULL, NULL, 'warning'
+    FROM assets a
+   WHERE a.deleted_at IS NULL AND a.next_service_due_date_key IS NOT NULL
+     AND a.status <> 'disposed'
+  UNION ALL
+  SELECT sr.next_due_date_key, 'serviceDue', 'serviceRecord', sr.id,
+         a.name, NULL, NULL, 'warning'
+    FROM service_records sr
+    JOIN assets a ON a.id = sr.asset_id
+   WHERE sr.deleted_at IS NULL AND sr.next_due_date_key IS NOT NULL AND a.deleted_at IS NULL
+  UNION ALL
+  SELECT sl.target_date_key, 'shoppingTarget', 'shoppingList', sl.id,
+         sl.name, NULL, NULL, 'info'
+    FROM shopping_lists sl
+   WHERE sl.deleted_at IS NULL AND sl.target_date_key IS NOT NULL AND sl.is_archived = 0;

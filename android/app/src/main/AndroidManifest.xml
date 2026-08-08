@@ -1,0 +1,72 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- android:allowBackup="false" is MANDATORY (ARCH_3 §2.4, anomaly A42).
+         The database is plaintext. Android's auto-backup defaults to ON, which would silently upload the
+         complete financial database to the user's Google Drive — outside the app's control and outside
+         anything the Play data-safety form declares. This also blocks `adb backup` extraction.
+         Do not remove either attribute.
+
+         allowBackup="false" disables backup on API 30 and below; dataExtractionRules covers API 31+, where
+         cloud-backup and device-transfer are controlled separately.
+
+         PHASE 9 GATE: verify this in the BUILT artefact, not here. A manifest merger, or any library
+         shipping allowBackup="true", can flip it silently, so the source is not evidence.
+         The command is in PHASE_09_POLISH.md, not here: an XML comment may not contain a double hyphen,
+         and every aapt2 invocation needs one. -->
+
+    <!-- Phase 9. Declared explicitly rather than left to the manifest merger.
+         `google_mobile_ads` adds AD_ID on its own, which means the permission appears in the built artefact
+         while appearing nowhere in this project — and a permission nobody can find in source is one nobody
+         remembers to declare on the Play data-safety form. Alaya *does* need it: the Support screen requests
+         adverts, and Play requires the declaration for any app that reads the advertising ID.
+
+         Removing it would mean non-personalised ads only. That is a revenue decision, not a technical one; if
+         it is ever taken, replace this with tools:node="remove" and update the data-safety form. -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
+    <application
+        android:label="Alaya"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- The Mobile Ads SDK reads this at initialisation and throws if absent, so without it the Support
+             screen would crash the first time somebody opened it. The value comes from `manifestPlaceholders`,
+             set per build type in app/build.gradle.kts: Google's test App ID for debug, the real one for
+             release. -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${admobAppId}"/>
+
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+</manifest>

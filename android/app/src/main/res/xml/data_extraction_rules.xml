@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- API 31+ backup controls. Excludes everything from both cloud backup and device-to-device
+     transfer, because the app's database is plaintext (ARCH_1 §2.1) and must never leave the
+     device except through the user's own explicit export (ARCH_3 §3). See anomaly A42. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="root" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="root" path="." />
+    </device-transfer>
+</data-extraction-rules>

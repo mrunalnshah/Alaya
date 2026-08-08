@@ -1,0 +1,36 @@
+targets:
+  $default:
+    builders:
+      drift_dev:
+        options:
+          # PINNED DELIBERATELY. snake_case is drift's current default, but every CHECK
+          # constraint in money_tables.dart, every index in Phase 1C's indexes.drift and
+          # every view in ARCH_2 §12 is written against snake_case SQL identifiers. If a
+          # future drift release changed this default, the whole schema would break at once
+          # and the cause would be very hard to see. Stating it costs nothing.
+          case_from_dart_to_sql: snake_case
+
+          # Drift's Manager API (`db.managers.x`) is never used in this project: Law L7 requires
+          # repositories to read from views, and the Phase 2A-2C DAOs are typed SQL and nothing
+          # more. Generating it produces a large amount of dead code for 26 tables, and it is
+          # also the sole source of the "Duplicate orderings/filters detected" warnings — drift
+          # cannot auto-name a reverse relation when two foreign keys point at the same table,
+          # which happens twice here by design:
+          #   currency_rates.base_code + quote_code  -> currencies
+          #   transactions.from_account_id + to_account_id -> accounts   (the L02/A02 transfer shape)
+          # Turning the feature off addresses the cause rather than silencing the symptom. If you
+          # ever do want managers, re-enable this and add @ReferenceName('...') to those four
+          # columns instead.
+          generate_manager: false
+
+          sql:
+            dialect: sqlite
+            options:
+              # Conservative floor, well below what `sqlite3` 3.x bundles. Raise only with a
+              # reason — declaring a version the bundled library does not have would let
+              # drift's analyzer accept SQL that fails at runtime.
+              version: "3.38"
+              # Required so Phase 1C's items_fts / transactions_fts virtual tables and their
+              # sync triggers pass drift's compile-time SQL analysis (ARCH_2 §10).
+              modules:
+                - fts5

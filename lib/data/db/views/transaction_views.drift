@@ -1,0 +1,53 @@
+import '../tables/money_tables.dart';
+
+-- Active transactions joined to the display names a repository would otherwise fetch per row.
+-- Reading this rather than the base table is what makes forgetting `deleted_at IS NULL`
+-- impossible (Law L7, anomaly A20).
+CREATE VIEW v_active_transactions AS ActiveTransactionRow AS
+  SELECT t.id AS tx_id, t.kind, t.subtype, t.occurred_at, t.date_key, t.month_key,
+         t.original_amount_minor, t.original_currency_code,
+         t.from_account_id, fa.name AS from_account_name,
+         t.to_account_id,   ta.name AS to_account_name,
+         t.payment_method_id, pm.name AS payment_method_name,
+         t.payee_id, p.name AS payee_name,
+         t.note, t.needs_review, t.recurring_template_id, t.recurring_occurrence_id,
+         t.converted_amount_minor, t.converted_currency_code,
+         t.conversion_rate, t.conversion_rate_raw, t.conversion_date_key,
+         t.created_at, t.updated_at
+    FROM transactions t
+    LEFT JOIN accounts        fa ON fa.id = t.from_account_id
+    LEFT JOIN accounts        ta ON ta.id = t.to_account_id
+    LEFT JOIN payment_methods pm ON pm.id = t.payment_method_id
+    LEFT JOIN payees          p  ON p.id  = t.payee_id
+   WHERE t.deleted_at IS NULL;
+
+-- The "unallocated ₹20" chip (anomaly A11). The transaction amount is the source of truth and the
+-- lines are optional detail, so a mismatch is surfaced, never auto-balanced.
+--
+-- With no lines at all, `allocated_minor` is 0 and `unallocated_minor` equals the full amount.
+-- Check `line_count` to tell "no lines yet" apart from "lines that happen to sum exactly" — the
+-- UI must not show an unallocated chip for a transaction nobody has itemised.
+CREATE VIEW v_transaction_allocation AS TransactionAllocationRow AS
+  SELECT t.id AS tx_id,
+         t.original_amount_minor AS amount_minor,
+         t.original_currency_code AS currency_code,
+         COALESCE((SELECT SUM(l.line_amount_minor) FROM transaction_lines l
+                    WHERE l.transaction_id = t.id AND l.deleted_at IS NULL), 0) AS allocated_minor,
+         t.original_amount_minor
+           - COALESCE((SELECT SUM(l.line_amount_minor) FROM transaction_lines l
+                        WHERE l.transaction_id = t.id AND l.deleted_at IS NULL), 0)
+           AS unallocated_minor,
+         (SELECT COUNT(*) FROM transaction_lines l
+           WHERE l.transaction_id = t.id AND l.deleted_at IS NULL) AS line_count
+    FROM transactions t
+   WHERE t.deleted_at IS NULL;
+
+-- Grouped by currency as well as month and kind, so nothing here can add rupees to yen
+-- (anomaly A34). Conversion to the home currency happens per data point in the currency service.
+CREATE VIEW v_monthly_totals AS MonthlyTotalRow AS
+  SELECT month_key, kind, original_currency_code AS currency_code,
+         SUM(original_amount_minor) AS sum_minor,
+         COUNT(*) AS tx_count
+    FROM transactions
+   WHERE deleted_at IS NULL
+   GROUP BY month_key, kind, original_currency_code;

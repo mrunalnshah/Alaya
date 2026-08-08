@@ -1,0 +1,34 @@
+# Alaya static analysis configuration. See ARCH_1_FOUNDATION.md §6 for the layering rule
+# this file documents and `tool/check_layering.dart` enforces.
+#
+# LAYERING RULE (Law L12): features/ -> domain/ -> core/, and data/ -> domain/ -> core/.
+#   - lib/domain/ must NEVER import package:flutter/*, package:drift/*, or anything under
+#     lib/data/. It is pure Dart so every business rule is unit-testable without a device.
+#   - lib/core/ must NEVER import package:flutter/* either, so that a future domain/ import
+#     of a core/ file can never transitively drag Flutter into the domain layer.
+#   The Dart analyzer has no built-in "banned import per path glob" lint, and adding a
+#   third-party lint plugin isn't in ARCH_1 §7's pinned tech stack, so this rule is checked
+#   by a small, dependency-free script instead: run `dart run tool/check_layering.dart`
+#   (wire this into CI once CI exists). It exits non-zero and names the offending file and
+#   import if the rule is violated.
+
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.drift.dart"
+    - "lib/data/db/migrations/schema/**"
+  errors:
+    # Doc comments are a project convention (one line per public API, more only when the
+    # logic is genuinely non-obvious) rather than an analyzer-enforced rule.
+    public_member_api_docs: ignore
+
+linter:
+  rules:
+    prefer_relative_imports: false
+    unnecessary_final: false

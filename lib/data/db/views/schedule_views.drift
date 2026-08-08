@@ -1,0 +1,37 @@
+import '../tables/recurring_tables.dart';
+import '../tables/service_tables.dart';
+
+-- Active, unpaused templates joined to their outstanding `due` occurrence.
+--
+-- NOTE ON "overdue": this view deliberately does NOT compute an overdue flag. ARCH_2 §7.2's
+-- requirement is that overdue is *derived rather than stored*, and it is — from
+-- `occurrence_due_date_key` compared against today. That comparison happens in Dart with the
+-- injected Clock, not here, for two reasons. A view containing `strftime('now','localtime')`
+-- would be non-deterministic (impossible to test against a FixedClock) and would make a civil
+-- date's meaning depend on the process timezone at query time, which is precisely what Law L4
+-- exists to prevent. No view in this schema references the current time.
+CREATE VIEW v_recurring_due AS RecurringDueRow AS
+  SELECT t.id AS template_id, t.name, t.kind, t.direction,
+         t.default_amount_minor, t.currency_code,
+         t.next_due_date_key, t.interval_unit, t.interval_count,
+         t.payee_id, t.default_account_id, t.default_payment_method_id, t.tag_id,
+         t.auto_remind, t.remind_days_before,
+         o.id AS occurrence_id, o.due_date_key AS occurrence_due_date_key, o.status
+    FROM recurring_templates t
+    LEFT JOIN recurring_occurrences o
+           ON o.template_id = t.id AND o.deleted_at IS NULL AND o.status = 'due'
+   WHERE t.deleted_at IS NULL AND t.is_paused = 0;
+
+-- Assets carrying a warranty end or a next-service date, excluding disposed ones.
+--
+-- ARCH_2 §12 describes this as "within N days", but a view takes no parameters, so the window is
+-- applied by the caller: `WHERE warranty_end_date_key BETWEEN ? AND ?`. That is also what lets
+-- the query hit idx_asset_warranty / idx_asset_service instead of scanning.
+CREATE VIEW v_asset_alerts AS AssetAlertRow AS
+  SELECT a.id AS asset_id, a.name, a.type, a.status,
+         a.warranty_end_date_key, a.next_service_due_date_key,
+         a.service_interval_days, a.primary_contact_name, a.primary_contact_phone
+    FROM assets a
+   WHERE a.deleted_at IS NULL
+     AND a.status <> 'disposed'
+     AND (a.warranty_end_date_key IS NOT NULL OR a.next_service_due_date_key IS NOT NULL);

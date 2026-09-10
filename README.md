@@ -1,3 +1,5 @@
+**Documentation is being written. I apologize for inconvenience.**
+
 # alaya
 
 A Home Management App by WildeWulf

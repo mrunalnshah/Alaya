@@ -109,6 +109,25 @@ enum PayeeKind {
 
   /// Anything not covered by the above.
   other,
+
+  /// A participant on a split whom nobody has named yet.
+  ///
+  /// **Not a person, and that distinction is the whole point.** `split_shares.payee_id` is
+  /// `NOT NULL REFERENCES payees(id)`, so saving a split with an unnamed participant needs a payee row
+  /// to exist — without one the split cannot be saved at all, which is friction charged at the moment
+  /// everybody is standing up to leave the restaurant.
+  ///
+  /// The first attempt made those rows ordinary [person] entries called "Person 4". They worked, and
+  /// they accumulated in Settings › Payees beside real contacts, which is not a trade anybody agreed
+  /// to. This kind keeps the row where balances need it and out of every list where it would be noise.
+  ///
+  /// **Adding a member needs no migration.** `SafeEnumConverter` stores an enum by its `name`, and
+  /// nothing reads `PayeeKind` by ordinal — which is exactly why Law L13 forbids *renaming* a member
+  /// while adding one is free.
+  ///
+  /// Naming a placeholder writes `kind: person` and the real name in one update. There is no flag to
+  /// clear, so a flag and a name can never disagree.
+  splitPlaceholder,
 }
 
 /// What a [TransactionLine] produced elsewhere in the app, if anything. A line produces at

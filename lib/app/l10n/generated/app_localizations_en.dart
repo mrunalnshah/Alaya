@@ -349,19 +349,19 @@ class AlayaStringsEn extends AlayaStrings {
   String get skippedLabel => 'Skipped';
 
   @override
-  String get kindDeposit => 'Money in';
+  String get kindDeposit => 'Income';
 
   @override
-  String get kindWithdrawal => 'Money out';
+  String get kindWithdrawal => 'Expense';
 
   @override
   String get kindTransfer => 'Transfer';
 
   @override
-  String get kindAdjustmentIncrease => 'Correction up';
+  String get kindAdjustmentIncrease => 'Stock added';
 
   @override
-  String get kindAdjustmentDecrease => 'Correction down';
+  String get kindAdjustmentDecrease => 'Stock removed';
 
   @override
   String get subtypeGrocery => 'Groceries';
@@ -388,7 +388,7 @@ class AlayaStringsEn extends AlayaStrings {
   String get subtypeOtherIn => 'Other income';
 
   @override
-  String get subtypeOtherOut => 'Other spending';
+  String get subtypeOtherOut => 'Other expense';
 
   @override
   String needsReviewBanner(int count) {
@@ -471,16 +471,16 @@ class AlayaStringsEn extends AlayaStrings {
   String get quickAddTitle => 'Quick add';
 
   @override
-  String get quickAddMoneyIn => 'Money in';
+  String get quickAddMoneyIn => 'Income';
 
   @override
-  String get quickAddMoneyOut => 'Money out';
+  String get quickAddMoneyOut => 'Expense';
 
   @override
   String get quickAddSave => 'Save';
 
   @override
-  String get actionAddDetails => 'Add details';
+  String get actionAddDetails => 'Save and add details';
 
   @override
   String get editorTitleNew => 'New transaction';
@@ -518,7 +518,7 @@ class AlayaStringsEn extends AlayaStrings {
 
   @override
   String get transferSomeoneElseHelp =>
-      'Money leaves your accounts. This is a withdrawal.';
+      'Money leaves your accounts, so it is recorded as an expense.';
 
   @override
   String get alsoAddToInventory => 'Also add to inventory';
@@ -1222,10 +1222,10 @@ class AlayaStringsEn extends AlayaStrings {
   String get lineItemsAllocated => 'Itemised';
 
   @override
-  String get recurringOutflow => 'Going out';
+  String get recurringOutflow => 'Expenses';
 
   @override
-  String get recurringInflow => 'Coming in';
+  String get recurringInflow => 'Income';
 
   @override
   String get recurringNextDue => 'Next';
@@ -1277,10 +1277,10 @@ class AlayaStringsEn extends AlayaStrings {
   String get labelDirection => 'Direction';
 
   @override
-  String get directionOutflow => 'Money out';
+  String get directionOutflow => 'Expense';
 
   @override
-  String get directionInflow => 'Money in';
+  String get directionInflow => 'Income';
 
   @override
   String get kindBill => 'Bill';
@@ -1678,7 +1678,7 @@ class AlayaStringsEn extends AlayaStrings {
 
   @override
   String get alsoRecordHelp =>
-      'Writes a withdrawal for the cost as well, so it shows in your ledger.';
+      'Records an expense for the cost too, so it shows in your ledger.';
 
   @override
   String get alsoRecordNeedsAccount => 'Choose which account it comes from';
@@ -1750,7 +1750,7 @@ class AlayaStringsEn extends AlayaStrings {
       'Saved. Now say what it is and how long it is covered.';
 
   @override
-  String get destinationHelpNone => 'Recorded as spending and nothing else.';
+  String get destinationHelpNone => 'Recorded as an expense and nothing else.';
 
   @override
   String get destinationHelpInventory =>
@@ -1910,7 +1910,7 @@ class AlayaStringsEn extends AlayaStrings {
   }
 
   @override
-  String get fabAddIncome => 'Money in';
+  String get fabAddIncome => 'Add income';
 
   @override
   String get fabAddItem => 'New item';
@@ -2012,10 +2012,10 @@ class AlayaStringsEn extends AlayaStrings {
   String get calendarBackToToday => 'Back to this month';
 
   @override
-  String get calendarTotalOut => 'Spent';
+  String get calendarTotalOut => 'Expenses';
 
   @override
-  String get calendarTotalIn => 'Received';
+  String get calendarTotalIn => 'Income';
 
   @override
   String get dashboardOpenCalendar => 'Open calendar';
@@ -2054,7 +2054,7 @@ class AlayaStringsEn extends AlayaStrings {
   }
 
   @override
-  String get analyticsTotalSpent => 'Spent';
+  String get analyticsTotalSpent => 'Expenses';
 
   @override
   String get analyticsRangeLabel => 'Reporting window';
@@ -3176,10 +3176,10 @@ class AlayaStringsEn extends AlayaStrings {
   String get tagParentNone => 'No group';
 
   @override
-  String get tagScopeDeposit => 'Money in';
+  String get tagScopeDeposit => 'Income';
 
   @override
-  String get tagScopeDepositHelp => 'Offered when you record money coming in.';
+  String get tagScopeDepositHelp => 'Offered when you record income.';
 
   @override
   String get tagScopeInventory => 'Items';
@@ -3208,10 +3208,10 @@ class AlayaStringsEn extends AlayaStrings {
       'Used to group a shopping list under headings.';
 
   @override
-  String get tagScopeWithdrawal => 'Money out';
+  String get tagScopeWithdrawal => 'Expenses';
 
   @override
-  String get tagScopeWithdrawalHelp => 'Offered when you record spending.';
+  String get tagScopeWithdrawalHelp => 'Offered when you record an expense.';
 
   @override
   String get tagScopesHeader => 'Where it appears';
@@ -4008,5 +4008,1415 @@ class AlayaStringsEn extends AlayaStrings {
     String detail,
   ) {
     return '$title, $amount, $detail';
+  }
+
+  @override
+  String get navRecipes => 'Recipes';
+
+  @override
+  String moduleRecipes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count you can make',
+      one: '1 you can make',
+      zero: 'Nothing you can make',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recipeSearchHint => 'Search recipes';
+
+  @override
+  String get recipeFilterCookable => 'Can cook now';
+
+  @override
+  String get recipeFilterFavourites => 'Favourites';
+
+  @override
+  String get recipeLoading => 'Loading your recipes…';
+
+  @override
+  String get recipeEmptyTitle => 'No recipes yet';
+
+  @override
+  String get recipeEmptyBody =>
+      'Add one and Alaya will tell you when you have everything for it.';
+
+  @override
+  String get recipeNoMatchTitle => 'Nothing matches';
+
+  @override
+  String get recipeNoMatchBody => 'Clear the filters to see every recipe.';
+
+  @override
+  String recipeServes(int count) {
+    return 'Serves $count';
+  }
+
+  @override
+  String recipeServesAndTime(int count, int minutes) {
+    return 'Serves $count · $minutes min';
+  }
+
+  @override
+  String get recipeReady => 'Ready';
+
+  @override
+  String recipeShortBy(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count short',
+      one: '1 short',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String recipeMissingCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count missing',
+      one: '1 missing',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recipeUncheckable => 'Can\'t tell';
+
+  @override
+  String get recipeNoIngredients => 'No ingredients';
+
+  @override
+  String get recipeDetailTitle => 'Recipe';
+
+  @override
+  String get recipeGoneTitle => 'That recipe is gone';
+
+  @override
+  String get recipeGoneBody =>
+      'It may have been deleted. Check the trash if you want it back.';
+
+  @override
+  String get recipeServingsLabel => 'Servings';
+
+  @override
+  String get recipeServingsFewer => 'Fewer servings';
+
+  @override
+  String get recipeServingsMore => 'More servings';
+
+  @override
+  String get recipeIngredientsHeader => 'Ingredients';
+
+  @override
+  String get recipeMethodHeader => 'Method';
+
+  @override
+  String get recipeNotesHeader => 'Notes';
+
+  @override
+  String get recipeCheckingStock => 'Checking what you have…';
+
+  @override
+  String recipeStepMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get recipeCookAction => 'Cook this';
+
+  @override
+  String get recipeCooking => 'Cooking…';
+
+  @override
+  String get recipeCooked => 'Cooked';
+
+  @override
+  String recipeCookedDeducted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Cooked. $count ingredients deducted',
+      one: 'Cooked. 1 ingredient deducted',
+      zero: 'Cooked. Nothing was deducted',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recipeCookFailed => 'That could not be cooked';
+
+  @override
+  String recipeCookWillSkip(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ingredients will not be deducted — nothing tracks them',
+      one: '1 ingredient will not be deducted — nothing tracks it',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recipeShortfall => 'Not enough on hand';
+
+  @override
+  String get recipeNoneLeft => 'None left';
+
+  @override
+  String get recipeUnitMismatch =>
+      'Measured differently from how you track it — can\'t compare';
+
+  @override
+  String get recipeNotTracked => 'Not tracked';
+
+  @override
+  String get recipeLinkedIngredient => 'Ingredient';
+
+  @override
+  String get recipeAddAction => 'New recipe';
+
+  @override
+  String get recipeNewTitle => 'New recipe';
+
+  @override
+  String get recipeEditTitle => 'Edit recipe';
+
+  @override
+  String get recipeNameLabel => 'Name';
+
+  @override
+  String get recipePrepLabel => 'Prep min';
+
+  @override
+  String get recipeCookLabel => 'Cook min';
+
+  @override
+  String get recipeAddIngredient => 'Add ingredient';
+
+  @override
+  String get recipeAddStep => 'Add step';
+
+  @override
+  String get recipeIngredientLabel => 'Ingredient';
+
+  @override
+  String get recipeQuantityLabel => 'Amount';
+
+  @override
+  String get recipeOptionalLabel => 'Optional — will not stop you cooking';
+
+  @override
+  String get recipeRemoveIngredient => 'Remove ingredient';
+
+  @override
+  String get recipeRemoveStep => 'Remove step';
+
+  @override
+  String recipeStepLabel(int number) {
+    return 'Step $number';
+  }
+
+  @override
+  String get recipeFavouriteToggle => 'Pin this recipe';
+
+  @override
+  String get recipeSaved => 'Recipe saved';
+
+  @override
+  String get recipeSaveFailed => 'That recipe could not be saved';
+
+  @override
+  String get recipeNotLinkedHelp =>
+      'Not linked to inventory — pick from the list to track it';
+
+  @override
+  String get recipeQuantityHint => 'Leave blank for \"to taste\"';
+
+  @override
+  String get sectionRecipeMeasures => 'Recipe measures';
+
+  @override
+  String get labelDensity => 'Weight of 1 ml';
+
+  @override
+  String get densityHelp =>
+      'Lets a recipe measure this in spoons or cups. Water is 1, oil about 0.92, honey about 1.4.';
+
+  @override
+  String get suffixGramsPerMl => 'g';
+
+  @override
+  String get labelPieceWeight => 'Weight of 1 piece';
+
+  @override
+  String get pieceWeightHelp =>
+      'Lets a recipe say \"2 of these\" and still know how much to take.';
+
+  @override
+  String get suffixGrams => 'g';
+
+  @override
+  String get labelGramsPerTbsp => '1 tablespoon weighs';
+
+  @override
+  String get gramsPerTbspHelp =>
+      'Flour about 8 g, sugar 12 g, oil 14 g, honey 21 g. Alaya works out teaspoons and cups from this.';
+
+  @override
+  String get recipeAmountHint => '2, 1/2, 1 1/2';
+
+  @override
+  String get recipeSpoonsNeedWeight =>
+      'To measure this in spoons or cups, set \"1 tablespoon weighs\" on the item.';
+
+  @override
+  String get recipeAmountHintVessel => '1/2, 1, 1 1/2';
+
+  @override
+  String get recipeAmountHintPlain => '200';
+
+  @override
+  String recipeNeedsTbspWeight(String item) {
+    return 'To measure $item in spoons or cups, set \"1 tablespoon weighs\" on the item.';
+  }
+
+  @override
+  String recipeNeedsPieceWeight(String item) {
+    return 'To count $item by the piece, set \"Weight of 1 piece\" on the item.';
+  }
+
+  @override
+  String recipeAmountReadout(String written, String converted) {
+    return '$written = $converted';
+  }
+
+  @override
+  String get sectionMoreDetails => 'More details';
+
+  @override
+  String tagCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tags',
+      one: '1 tag',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lineCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count items',
+      one: '1 item',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get quickAddNoteHint => 'What for? (optional)';
+
+  @override
+  String get remindersNothingDueTitle => 'Nothing due this week';
+
+  @override
+  String get remindersNothingDueBody =>
+      'Your reminders are on. Alaya looks a week ahead and there is nothing coming up yet — you will get a message the day something does.';
+
+  @override
+  String get remindersCheckNow => 'Check now';
+
+  @override
+  String get remindersChecking => 'Checking…';
+
+  @override
+  String remindersFoundCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count things coming up',
+      one: '1 thing coming up',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get remindersFoundNothing => 'Nothing coming up in the next week';
+
+  @override
+  String get remindersSendTest => 'Send a test notification';
+
+  @override
+  String get remindersTestSent => 'Sent — check your notifications';
+
+  @override
+  String get shoppingEntryDeleted => 'Removed';
+
+  @override
+  String get fundsBreakdownTitle => 'Where this comes from';
+
+  @override
+  String get fundsNoAccountsTitle => 'No accounts yet';
+
+  @override
+  String get fundsNoAccountsBody =>
+      'Add an account and its balance will show here.';
+
+  @override
+  String get fundsNotCounted => 'Not counted';
+
+  @override
+  String get fundsExcludedNote =>
+      'Greyed accounts are excluded from your available funds.';
+
+  @override
+  String remindersZone(String zone) {
+    return 'Using your phone’s time zone, $zone';
+  }
+
+  @override
+  String get remindersZoneUnknown =>
+      'Alaya could not work out your phone’s time zone, so the daily summary may arrive at the wrong hour. Check the date and time settings on your phone.';
+
+  @override
+  String get remindersOsHolding =>
+      'Your phone has this set and will deliver it.';
+
+  @override
+  String get remindersOsMissing =>
+      'Alaya has scheduled this, but your phone is not holding it. Allow Alaya to start in the background and turn off battery saver for it, then tap Check now.';
+
+  @override
+  String get recipeScaledRounding =>
+      'Amounts are scaled for this serving count. Anything marked ≈ is rounded to the nearest measuring spoon or cup.';
+
+  @override
+  String get recipeUsesExpired => 'Some of this is past its date';
+
+  @override
+  String get recipeExpiredTitle => 'Use food that is past its date?';
+
+  @override
+  String recipeExpiredBody(String detail) {
+    return '$detail\n\nAlaya will use up the good stock first and only take what it still needs from these. Check them before you cook.';
+  }
+
+  @override
+  String recipeExpiredLine(String name, String amount, String date) {
+    return '$name: $amount expired $date';
+  }
+
+  @override
+  String recipeExpiredMore(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count more ingredients',
+      one: '1 more ingredient',
+    );
+    return 'and $_temp0';
+  }
+
+  @override
+  String get recipeExpiredConfirm => 'Cook anyway';
+
+  @override
+  String get recipeCookBlockedExpired =>
+      'Some of what this needs is past its date.';
+
+  @override
+  String get splitSectionHeader => 'Who owes for this';
+
+  @override
+  String get splitAdd => 'Split with someone';
+
+  @override
+  String get splitEdit => 'Edit split';
+
+  @override
+  String get splitRemove => 'Remove split';
+
+  @override
+  String get splitUnknownPerson => 'Someone';
+
+  @override
+  String get splitUnallocated => 'Not assigned';
+
+  @override
+  String get splitOverAllocated => 'Over by';
+
+  @override
+  String get splitSheetTitle => 'Split this expense';
+
+  @override
+  String get splitMethodEqual => 'Equally';
+
+  @override
+  String get splitMethodShares => 'By shares';
+
+  @override
+  String get splitMethodPercent => 'By percentage';
+
+  @override
+  String get splitMethodExact => 'Exact amounts';
+
+  @override
+  String get splitPickPeople => 'Who is sharing this?';
+
+  @override
+  String get splitPickPeopleEmpty =>
+      'Add people in Settings first, then split a bill with them.';
+
+  @override
+  String get splitGroupLabel => 'Group';
+
+  @override
+  String get splitGroupNone => 'No group';
+
+  @override
+  String get splitPaidByYou => 'You';
+
+  @override
+  String splitPaidByOther(String name) {
+    return '$name paid';
+  }
+
+  @override
+  String get splitShareWeight => 'Shares';
+
+  @override
+  String get splitSharePercent => 'Percent';
+
+  @override
+  String get splitShareAmount => 'Amount';
+
+  @override
+  String splitPerPersonCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count people',
+      one: '1 person',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get splitNeedsAmount =>
+      'Enter the amount first, then choose who is sharing it.';
+
+  @override
+  String get splitApply => 'Done';
+
+  @override
+  String get splitSelfPayeeUnset =>
+      'Choose which person is you in Settings before splitting a bill.';
+
+  @override
+  String get navSplit => 'Split';
+
+  @override
+  String get splitGroupsTitle => 'Groups';
+
+  @override
+  String get splitOwedToYou => 'Owed to you';
+
+  @override
+  String get splitYouOwe => 'You owe';
+
+  @override
+  String get splitAllSettledTitle => 'All settled up';
+
+  @override
+  String get splitAllSettledBody => 'Nobody owes anybody anything right now.';
+
+  @override
+  String get splitNoSelfTitle => 'Who are you?';
+
+  @override
+  String splitOutstandingDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get splitGroupNew => 'New group';
+
+  @override
+  String get splitGroupEditTitle => 'Edit group';
+
+  @override
+  String get splitGroupNameLabel => 'Group name';
+
+  @override
+  String get splitNoGroupsTitle => 'No groups yet';
+
+  @override
+  String get splitNoGroupsBody =>
+      'A group saves entering the same people every time you split a bill with them.';
+
+  @override
+  String get splitHasWeights => 'Custom shares';
+
+  @override
+  String get splitArchived => 'Archived';
+
+  @override
+  String get splitArchiveLabel => 'Archive this group';
+
+  @override
+  String get splitArchiveHelp =>
+      'It keeps its history and its balances, and stops appearing when you split a bill.';
+
+  @override
+  String get splitDefaultShares => 'Default shares';
+
+  @override
+  String get splitDefaultSharesHelp =>
+      'Set a percentage for everybody to prefill a split — like rent at 40/30/30. Leave them all blank to split equally.';
+
+  @override
+  String get splitWeightsPartial => 'Set a share for everybody, or none';
+
+  @override
+  String get splitDeleteGroupTitle => 'Delete this group?';
+
+  @override
+  String get splitDeleteGroupBody =>
+      'A group with expenses cannot be deleted — archive it instead and its history stays.';
+
+  @override
+  String get splitBalancesHeader => 'Where you stand';
+
+  @override
+  String get splitActivityHeader => 'Activity';
+
+  @override
+  String get splitGroupEmptyTitle => 'Nothing here yet';
+
+  @override
+  String get splitGroupEmptyBody =>
+      'Split a bill with this group and it will show up here.';
+
+  @override
+  String splitOwesYou(String name) {
+    return '$name owes you';
+  }
+
+  @override
+  String splitYouOwePerson(String name) {
+    return 'You owe $name';
+  }
+
+  @override
+  String splitExpenseBy(String name) {
+    return '$name paid';
+  }
+
+  @override
+  String splitSettlementBy(String name) {
+    return '$name settled up';
+  }
+
+  @override
+  String splitSettleFrom(String name) {
+    return 'Settle up with $name';
+  }
+
+  @override
+  String splitSettleTo(String name) {
+    return 'Pay $name';
+  }
+
+  @override
+  String get splitOutstandingLabel => 'Outstanding';
+
+  @override
+  String get splitSettleAmount => 'Amount';
+
+  @override
+  String get splitSettleOverpay =>
+      'More than the balance — the difference will swing the other way.';
+
+  @override
+  String get splitSettleIntoAccount => 'Into which account?';
+
+  @override
+  String get splitSettleFromAccount => 'From which account?';
+
+  @override
+  String get splitSettleAction => 'Record payment';
+
+  @override
+  String get splitSimplifyTitle => 'Settle up';
+
+  @override
+  String splitSimplifySaves(int before, int after) {
+    return '$before payments become $after';
+  }
+
+  @override
+  String get splitSimplifyNoBetter =>
+      'There is no shorter way — these are already the fewest payments.';
+
+  @override
+  String get splitSimplifyApproximate =>
+      'A short way, not provably the shortest';
+
+  @override
+  String splitTransferLine(String from, String to) {
+    return '$from pays $to';
+  }
+
+  @override
+  String splitClearsDebt(String name) {
+    return 'clears what is owed to $name';
+  }
+
+  @override
+  String get splitShareTitle => 'Send this summary';
+
+  @override
+  String get splitShareCopied => 'Copied';
+
+  @override
+  String get splitShareAddUpi =>
+      'Add your UPI id in Settings and each line gets a link they can tap to pay you.';
+
+  @override
+  String get actionCopy => 'Copy';
+
+  @override
+  String get actionShare => 'Share';
+
+  @override
+  String get splitShareHeading => 'Where we stand';
+
+  @override
+  String get splitShareOwesYou => 'Owes you';
+
+  @override
+  String get splitShareYouOwe => 'You owe';
+
+  @override
+  String get reminderKindSettlement => 'Debts to settle';
+
+  @override
+  String get reminderKindSettlementHelp =>
+      'A reminder when a shared bill you agreed to settle by a date is coming up.';
+
+  @override
+  String get calendarSplitSettleBy => 'Settle by';
+
+  @override
+  String get eventTypeSplitSettleBy => 'Settle up';
+
+  @override
+  String get splitSettleByLabel => 'Settle by';
+
+  @override
+  String get splitSettleByHelp =>
+      'Optional. Setting a date puts this on your calendar and in the daily summary.';
+
+  @override
+  String get splitSettleByHint => 'No date';
+
+  @override
+  String moduleSplit(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count people',
+      one: '1 person',
+      zero: 'all settled',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get splitCardTitle => 'Shared expenses';
+
+  @override
+  String get splitCardNotSpendable =>
+      'Not part of your available funds until it arrives.';
+
+  @override
+  String splitCardOldest(int days) {
+    return 'Oldest is $days days';
+  }
+
+  @override
+  String get settingsSplit => 'Shared expenses';
+
+  @override
+  String get settingsSplitUnset => 'Not set up yet';
+
+  @override
+  String get settingsSplitSet => 'Ready';
+
+  @override
+  String get splitSettingsWhoAreYou => 'Which person is you?';
+
+  @override
+  String get splitSettingsWhoAreYouHelp =>
+      'Every balance is what somebody owes you, or what you owe them. Alaya needs to know which of these people is you.';
+
+  @override
+  String get splitSettingsNoPeople =>
+      'Add people under Payees first, then come back and pick yourself.';
+
+  @override
+  String splitSettingsClaimed(String name) {
+    return 'You are $name';
+  }
+
+  @override
+  String get splitSettingsUpi => 'Your UPI id';
+
+  @override
+  String get splitSettingsUpiLabel => 'UPI id';
+
+  @override
+  String get splitSettingsUpiHelp =>
+      'Optional. Add it and every summary you share carries a link people can tap to pay you.';
+
+  @override
+  String get analyticsSectionSplit => 'Shared';
+
+  @override
+  String get analyticsSplitLensesTitle => 'What shared bills cost you';
+
+  @override
+  String get analyticsSplitLensesSubtitle =>
+      'What left your account, and what you actually used';
+
+  @override
+  String get analyticsSplitOutflow => 'Left your account';
+
+  @override
+  String get analyticsSplitOutflowHelp => 'Full bills you paid';
+
+  @override
+  String get analyticsSplitMyShare => 'Your share';
+
+  @override
+  String get analyticsSplitMyShareHelp => 'What you actually used';
+
+  @override
+  String get analyticsSplitOutstanding => 'Still out';
+
+  @override
+  String get analyticsSplitOutstandingHelp =>
+      'Paid out, not yours, not back yet';
+
+  @override
+  String get analyticsSplitEmpty => 'No shared expenses in this window.';
+
+  @override
+  String get analyticsSplitNoSelf =>
+      'Choose which person is you in Settings to see your share.';
+
+  @override
+  String get analyticsSplitPartnersTitle => 'Who you split with';
+
+  @override
+  String get analyticsSplitPartnersSubtitle =>
+      'By their share of the bills you paid';
+
+  @override
+  String analyticsSplitPartnerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count expenses',
+      one: '1 expense',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get analyticsSplitOccasionTitle => 'By occasion';
+
+  @override
+  String get analyticsSplitOccasionSubtitle => 'Diwali, a birthday, a trip';
+
+  @override
+  String get analyticsSplitOccasionEmpty =>
+      'Add an occasion when you split a bill and it will appear here.';
+
+  @override
+  String get analyticsSplitPlaceTitle => 'By place';
+
+  @override
+  String get analyticsSplitPlaceSubtitle => 'Where the money went';
+
+  @override
+  String get analyticsSplitPlaceEmpty =>
+      'Add a place when you split a bill and it will appear here.';
+
+  @override
+  String get splitBillAction => 'Split a bill';
+
+  @override
+  String get splitBillAmount => 'How much was it?';
+
+  @override
+  String get splitBillWhatFor => 'What was it for?';
+
+  @override
+  String get splitBillWhatForHint => 'Dinner at Olive';
+
+  @override
+  String get splitBillHow => 'How does it split?';
+
+  @override
+  String get splitBillYourMoney => 'Your money';
+
+  @override
+  String get splitBillRecordExpense => 'Record this as an expense';
+
+  @override
+  String get splitBillRecordExpenseHelp =>
+      'The full bill left your account, so it belongs in your spending. Turn this off if somebody else paid, or if you have already recorded it.';
+
+  @override
+  String get splitBillSaved => 'Split saved';
+
+  @override
+  String get splitAddPerson => 'Add person';
+
+  @override
+  String get splitAddExtra => 'Extra';
+
+  @override
+  String get splitExtraLabel => 'Just for them';
+
+  @override
+  String get splitRemoveExtra => 'Remove extra';
+
+  @override
+  String splitShareBreakdown(String share, String extra) {
+    return '$share share + $extra just for them';
+  }
+
+  @override
+  String get splitTapToSettle => 'Tap anybody to record a payment';
+
+  @override
+  String get splitSettingsPayMe => 'How people can pay you';
+
+  @override
+  String get splitSettingsPayMeLabel => 'Payment details';
+
+  @override
+  String get splitSettingsPayMeHint =>
+      'UPI id, PayPal link, bank details, or anything else';
+
+  @override
+  String get splitSettingsPayMeHelp =>
+      'Optional, and free text — whatever works where you are. It is added to the end of any summary you share, so nobody has to ask.';
+
+  @override
+  String get splitSharePayMeAt => 'Pay me at:';
+
+  @override
+  String get splitShareAddHandle =>
+      'Add your payment details so nobody has to ask.';
+
+  @override
+  String get splitHowManyPeople => 'How many people?';
+
+  @override
+  String get splitHowManyPeopleHelp =>
+      'Names are optional — add them later if you want to keep this';
+
+  @override
+  String splitPersonN(int n) {
+    return 'Person $n';
+  }
+
+  @override
+  String get splitBillResultHint => 'Send this to the table — no names needed.';
+
+  @override
+  String get splitCopyResult => 'Copy the result';
+
+  @override
+  String get splitResultCopied => 'Copied';
+
+  @override
+  String get splitBillKeepIt => 'Keep it';
+
+  @override
+  String get splitBillKeepItHelp =>
+      'Everything below is optional. Save it only if you want the debt tracked until it is paid.';
+
+  @override
+  String get splitSaveToBalances => 'Save to balances';
+
+  @override
+  String splitNameEveryoneToSave(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Name $count more people to save this',
+      one: 'Name 1 more person to save this',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get splitPickName => 'Who is this?';
+
+  @override
+  String get splitNewPerson => 'New person';
+
+  @override
+  String get splitAlreadyOnSplit => 'Already on this split';
+
+  @override
+  String splitPercentOfBill(int percent) {
+    return '$percent%';
+  }
+
+  @override
+  String splitTipPercent(int percent) {
+    return '$percent% tip';
+  }
+
+  @override
+  String get splitRoundUp => 'Round up';
+
+  @override
+  String get splitTipAdded => 'Adding';
+
+  @override
+  String splitTipTotal(String tip, String total) {
+    return 'Adding $tip · total $total';
+  }
+
+  @override
+  String get splitBillTheSplit => 'The split';
+
+  @override
+  String get splitSaveAsGroup => 'Save these people as a group';
+
+  @override
+  String get splitSaveAsGroupHelp =>
+      'So next time you split with them it is one tap.';
+
+  @override
+  String get splitSaveAsGroupHint => 'Flatmates';
+
+  @override
+  String get splitSaveAsGroupWeights =>
+      'Their shares are saved too, so next time starts the same way.';
+
+  @override
+  String splitSaveAsGroupAction(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Save these $count as a group',
+      one: 'Save as a group',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get splitGroupNameRequired => 'Give the group a name';
+
+  @override
+  String splitMemberWithWeight(String name, int percent) {
+    return '$name · $percent%';
+  }
+
+  @override
+  String get splitGroupSaved => 'Group saved';
+
+  @override
+  String get splitQuickAmount => 'What was the bill?';
+
+  @override
+  String get splitQuickPeople => 'How many of you?';
+
+  @override
+  String get splitQuickIPaid => 'I paid it all';
+
+  @override
+  String get splitQuickEachTheirOwn => 'Each their own';
+
+  @override
+  String get splitQuickEach => 'Each pays';
+
+  @override
+  String get splitQuickOwed => 'Owed to you';
+
+  @override
+  String get splitQuickHint =>
+      'Type an amount and it splits as you go. Names are optional.';
+
+  @override
+  String get splitQuickAddNames => 'Add names';
+
+  @override
+  String splitQuickEachPays(String amount) {
+    return 'Each pays $amount';
+  }
+
+  @override
+  String splitQuickOwedToMe(String amount) {
+    return 'Owed to me: $amount';
+  }
+
+  @override
+  String splitQuickYouAbsorb(String amount) {
+    return 'You cover the odd $amount.';
+  }
+
+  @override
+  String splitQuickLeftOver(String amount) {
+    return '$amount left over — add names to place it.';
+  }
+
+  @override
+  String splitUnnamedWillBeSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '$count people are unnamed — they will be saved as \"Person N\" and you can rename them any time',
+      one:
+          '1 person is unnamed — they will be saved as \"Person N\" and you can rename them any time',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get splitNameThisPerson => 'Who is this?';
+
+  @override
+  String get splitAddPersonTitle => 'Add someone';
+
+  @override
+  String get splitAddPersonNameRequired => 'They need a name';
+
+  @override
+  String get splitAddPersonPhoneHelp =>
+      'Optional — shown only when two people share a name, so you can tell them apart.';
+
+  @override
+  String get splitSetupTitle => 'First, who are you?';
+
+  @override
+  String get splitSetupBody =>
+      'Alaya needs one name for you, so it can tell who owes whom. You can change it later in Settings.';
+
+  @override
+  String get splitSetupNameLabel => 'Your name';
+
+  @override
+  String get splitSetupNameRequired => 'Enter a name to continue';
+
+  @override
+  String get splitSetupAction => 'That\'s me';
+
+  @override
+  String get splitCreateSplit => 'Create a split';
+
+  @override
+  String get payeeKindSplitPlaceholder => 'Unnamed on a split';
+
+  @override
+  String get onboardingNameTitle => 'What should we call you?';
+
+  @override
+  String get onboardingNameBody =>
+      'Alaya uses this to know which share is yours when you split a bill, and to sign anything you share with friends.';
+
+  @override
+  String get onboardingNameLabel => 'Your name';
+
+  @override
+  String get onboardingNameRequired => 'Enter a name, or skip for now';
+
+  @override
+  String get splitHistoryEmptyTitle => 'Nothing split yet';
+
+  @override
+  String get splitHistoryEmptyBody =>
+      'Every bill you divide and every payment you record shows up here, newest first.';
+
+  @override
+  String splitHistoryPaidBy(String name) {
+    return '$name paid';
+  }
+
+  @override
+  String splitHistorySettledBy(String name) {
+    return '$name settled up';
+  }
+
+  @override
+  String get splitTabBalances => 'Balances';
+
+  @override
+  String get splitTabHistory => 'History';
+
+  @override
+  String get splitTabGroups => 'Groups';
+
+  @override
+  String get splitTransferNotYours =>
+      'Between two other people — nothing for you to record.';
+
+  @override
+  String get onboardingNameOptional =>
+      'Optional — leave it blank and continue if you would rather not.';
+
+  @override
+  String get splitTipTitle => 'Tip or service charge';
+
+  @override
+  String get splitTipNone => 'None';
+
+  @override
+  String splitTipPercentChip(int percent) {
+    return '$percent% tip';
+  }
+
+  @override
+  String get splitTipCustom => 'Custom %';
+
+  @override
+  String splitTipAdds(int percent) {
+    return '$percent% of the bill';
+  }
+
+  @override
+  String get splitMethodTitle => 'How it splits';
+
+  @override
+  String get splitMethodEqualHelp =>
+      'The same amount each. Anything one person owes on top goes in their row.';
+
+  @override
+  String get splitMethodSharesHelp =>
+      'Weights, not amounts — 2:1:1 means one person covers half.';
+
+  @override
+  String get splitMethodPercentHelp =>
+      'A percentage each. They needn\'t add to 100; anything left over is shown.';
+
+  @override
+  String get splitMethodExactHelp =>
+      'Type what each person owes. Any gap against the total is shown, never absorbed.';
+
+  @override
+  String get splitMethodPerLineHelp =>
+      'Each item on the receipt divided among whoever ordered it.';
+
+  @override
+  String get splitMethodPerLine => 'Item by item';
+
+  @override
+  String get splitTipTotalLabel => 'total';
+
+  @override
+  String splitNamePlaceholderBody(String placeholder) {
+    return '$placeholder is a stand-in Alaya created so the split could be saved. Who was it?';
+  }
+
+  @override
+  String get splitNameSomebodyKnown => 'Somebody you already have';
+
+  @override
+  String get splitNameOr => 'or';
+
+  @override
+  String get splitNameSomebodyNew => 'Somebody new — their name';
+
+  @override
+  String get splitNameRequired => 'Enter a name, or pick somebody above';
+
+  @override
+  String get splitWhoPaid => 'Who paid?';
+
+  @override
+  String get splitPaidBySomebodyElseHelp =>
+      'No money left your account, so nothing goes in your ledger until you settle up.';
+
+  @override
+  String get splitRecordTheyPaid => 'They paid me back';
+
+  @override
+  String get splitRecordYouPaid => 'I paid them back';
+
+  @override
+  String get splitDetailTotal => 'Total';
+
+  @override
+  String get splitDetailPaidBy => 'Paid by';
+
+  @override
+  String get splitDetailMethod => 'Split';
+
+  @override
+  String get splitDetailPlace => 'Place';
+
+  @override
+  String get splitDetailOccasion => 'Occasion';
+
+  @override
+  String splitSharePercentOf(double percent) {
+    final intl.NumberFormat percentNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String percentString = percentNumberFormat.format(percent);
+
+    return '$percentString% of the bill';
+  }
+
+  @override
+  String splitShareWeightOf(int weight) {
+    return '$weight share(s)';
+  }
+
+  @override
+  String get splitShareIsExtra => 'Just for them';
+
+  @override
+  String get splitDeleteConfirmTitle => 'Delete this split?';
+
+  @override
+  String get splitDeleteConfirmBody =>
+      'The balances it created go with it. Any expense already recorded in your ledger stays — the money did move.';
+
+  @override
+  String get splitDeleted => 'Split deleted';
+
+  @override
+  String get splitEditTitle => 'Edit split';
+
+  @override
+  String splitQuickSaveHelp(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Records that $count people owe you.',
+      one: 'Records that 1 person owes you.',
+    );
+    return '$_temp0 Your account balance isn\'t touched — use More options to record the expense too.';
+  }
+
+  @override
+  String get splitQuickMoreOptions => 'More options';
+
+  @override
+  String get supportActionLabel => 'Support Us';
+
+  @override
+  String splitNoteWays(int count) {
+    return 'Split $count ways';
+  }
+
+  @override
+  String splitNoteWaysWith(int count, String names) {
+    return 'Split $count ways with $names';
+  }
+
+  @override
+  String splitNoteTitled(String title, int count) {
+    return '$title — split $count ways';
+  }
+
+  @override
+  String splitNoteTitledWith(String title, int count, String names) {
+    return '$title — split $count ways with $names';
+  }
+
+  @override
+  String splitSettleNoteFrom(String name) {
+    return '$name paid you back';
+  }
+
+  @override
+  String splitSettleNoteTo(String name) {
+    return 'You paid $name back';
+  }
+
+  @override
+  String splitSettleNoteFromIn(String name, String group) {
+    return '$name paid you back — $group';
+  }
+
+  @override
+  String splitSettleNoteToIn(String name, String group) {
+    return 'You paid $name back — $group';
+  }
+
+  @override
+  String get lineItemRequired => 'Choose an item, or add a new one';
+
+  @override
+  String get lineQuantityRequired =>
+      'Enter how much you bought, and in what unit';
+
+  @override
+  String get inventoryKindUnfiled => 'No kind';
+
+  @override
+  String get inventoryKindLabel => 'Kind';
+
+  @override
+  String get inventoryKindNone => 'Not set';
+
+  @override
+  String get inventoryKindNew => 'New kind';
+
+  @override
+  String get inventoryKindNewTitle => 'Add a kind';
+
+  @override
+  String get inventoryKindNameLabel => 'Name';
+
+  @override
+  String get inventoryKindNameRequired => 'Enter a name';
+
+  @override
+  String get inventoryKindNameTaken => 'A tag with that name already exists';
+
+  @override
+  String tagsDeleteItemsMove(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count items are filed under this kind. They will move to Other.',
+      one: '1 item is filed under this kind. It will move to Other.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String tagsDeletedItemsMoved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Deleted. $count items moved to Other.',
+      one: 'Deleted. 1 item moved to Other.',
+    );
+    return '$_temp0';
   }
 }

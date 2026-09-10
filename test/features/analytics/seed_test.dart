@@ -64,15 +64,15 @@ void main() {
   });
 
   group('units', () {
-    test('eight units across the three fixed categories', () async {
+    test('eleven units across the three fixed categories', () async {
       final rows = await db.select(db.units).get();
-      expect(rows, hasLength(8));
+      expect(rows, hasLength(11));
       final byCategory = <UnitCategory, List<String>>{};
       for (final r in rows) {
         byCategory.putIfAbsent(r.category, () => []).add(r.code);
       }
       expect(byCategory[UnitCategory.weight]!.toSet(), {'mg', 'g', 'kg'});
-      expect(byCategory[UnitCategory.volume]!.toSet(), {'ml', 'l'});
+      expect(byCategory[UnitCategory.volume]!.toSet(), {'ml', 'l', 'tsp', 'tbsp', 'cup'});
       expect(byCategory[UnitCategory.count]!.toSet(), {'pc', 'dozen', 'pack'});
     });
 
@@ -89,6 +89,9 @@ void main() {
         expect(factor['pc'], 1000);
         expect(factor['dozen'], 12000, reason: 'a dozen is exactly 12 pieces');
         expect(factor['pack'], 1000);
+      expect(factor['tsp'], 4929);
+      expect(factor['tbsp'], 14787);
+      expect(factor['cup'], 240000);
       },
     );
 

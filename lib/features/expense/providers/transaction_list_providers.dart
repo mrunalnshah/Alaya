@@ -20,6 +20,19 @@ import 'package:alaya/domain/entities/transaction.dart';
 import 'package:alaya/domain/services/date_range_service.dart';
 import 'package:alaya/features/expense/state/transaction_filter.dart';
 
+// **`homeCurrencyCodeProvider` and `homeDecimalDigitsProvider` moved to `app/providers/`.**
+//
+// Neither was ever about a transaction list: the split module, the analytics cards and the dashboard
+// all needed a decimal precision and had to import this file to get one. The split module nearly
+// declared its own instead, which would have been two sources for one fact — the failure that makes
+// JPY render with 0 digits on some screens and 2 on others.
+//
+// Re-exported so every existing import of this file keeps resolving them. New code should import
+// `package:alaya/app/providers/currency_providers.dart`; this line can go once a grep for the two
+// names finds nothing pointing here.
+export 'package:alaya/app/providers/currency_providers.dart'
+    show homeCurrencyCodeProvider, homeDecimalDigitsProvider;
+
 /// The list's active filter.
 ///
 /// A plain `Notifier` rather than a family: there is one transaction list, and giving it a family
@@ -190,20 +203,3 @@ final payeesByIdProvider = StreamProvider<Map<String, Payee>>(
       .watchAll()
       .map((rows) => {for (final row in rows) row.id: row}),
 );
-
-/// The home currency's code, defaulting to INR before onboarding has run.
-final homeCurrencyCodeProvider = FutureProvider<String>(
-  (ref) async =>
-      await ref.watch(settingsRepositoryProvider).readHomeCurrencyCode() ??
-      'INR',
-);
-
-/// The home currency's decimal digits, so no amount hardcodes 2 (ARCH_1 §4.1).
-///
-/// JPY is 0 and the rest are 2, which is exactly why the figure is read from the `currencies` row
-/// rather than assumed at each call site.
-final homeDecimalDigitsProvider = FutureProvider<int>((ref) async {
-  final code = await ref.watch(homeCurrencyCodeProvider.future);
-  final currency = await ref.watch(currencyRepositoryProvider).byCode(code);
-  return currency?.decimalDigits ?? 2;
-});

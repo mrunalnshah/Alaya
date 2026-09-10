@@ -1,4 +1,3 @@
-import 'package:alaya/core/enums/inventory_enums.dart';
 import 'package:alaya/core/quantity/qty.dart';
 import 'package:alaya/core/quantity/unit_category.dart';
 import 'package:alaya/domain/entities/item.dart';
@@ -30,10 +29,12 @@ class ItemEditorState {
     this.thresholdUnitCode,
     this.id,
     this.name = '',
-    this.itemKind = ItemKind.generic,
+    this.kindTagId,
     this.isFavorite = false,
     this.lowStockThreshold,
     this.expiryNotifyDays,
+    this.densityMilliGramsPerMl,
+    this.milliGramsPerPiece,
     this.notes,
     this.submitting = false,
     this.nameMissing = false,
@@ -64,7 +65,12 @@ class ItemEditorState {
   final String? thresholdUnitCode;
 
   /// What sort of thing it is; also the catalogue's grouping axis.
-  final ItemKind itemKind;
+  /// Which kind the item is filed under — a `tags` row id, or null for none.
+  ///
+  /// **No default.** It used to default to `ItemKind.generic`, which is why every item created from a receipt
+  /// is unclassified: the field was always filled, so nothing ever prompted for it. Null means the user has
+  /// not chosen, and the editor can say so.
+  final String? kindTagId;
 
   /// Whether it is starred.
   final bool isFavorite;
@@ -74,6 +80,19 @@ class ItemEditorState {
 
   /// Days of warning before a batch expires, consumed by Phase 8B.
   final int? expiryNotifyDays;
+
+  /// How much one millilitre weighs, in milli-grams. Null when unknown.
+  ///
+  /// **Only meaningful for an item measured by weight.** It is what lets a recipe say "2 tbsp" of
+  /// this and have it deducted: a tablespoon is 14.787 ml for everything, and only the substance
+  /// knows what that weighs. Null keeps a cross-measure ingredient reading *"can't compare"* —
+  /// the honest answer rather than a guessed one.
+  final int? densityMilliGramsPerMl;
+
+  /// What one piece weighs, in milli-grams. Null when unknown.
+  ///
+  /// The same bridge for "2 onions" against onions kept by weight.
+  final int? milliGramsPerPiece;
 
   /// Free notes.
   final String? notes;
@@ -112,12 +131,16 @@ class ItemEditorState {
     String? name,
     String? displayUnitCode,
     String? thresholdUnitCode,
-    ItemKind? itemKind,
+    String? kindTagId,
     bool? isFavorite,
     Qty? lowStockThreshold,
     bool clearThreshold = false,
     int? expiryNotifyDays,
     bool clearNotifyDays = false,
+    int? densityMilliGramsPerMl,
+    bool clearDensity = false,
+    int? milliGramsPerPiece,
+    bool clearPieceWeight = false,
     String? notes,
     bool? submitting,
     bool? nameMissing,
@@ -133,7 +156,7 @@ class ItemEditorState {
     unitCategory: unitCategory,
     displayUnitCode: displayUnitCode ?? this.displayUnitCode,
     thresholdUnitCode: thresholdUnitCode ?? this.thresholdUnitCode,
-    itemKind: itemKind ?? this.itemKind,
+    kindTagId: kindTagId ?? this.kindTagId,
     isFavorite: isFavorite ?? this.isFavorite,
     lowStockThreshold: clearThreshold
         ? null
@@ -141,6 +164,12 @@ class ItemEditorState {
     expiryNotifyDays: clearNotifyDays
         ? null
         : (expiryNotifyDays ?? this.expiryNotifyDays),
+    densityMilliGramsPerMl: clearDensity
+        ? null
+        : (densityMilliGramsPerMl ?? this.densityMilliGramsPerMl),
+    milliGramsPerPiece: clearPieceWeight
+        ? null
+        : (milliGramsPerPiece ?? this.milliGramsPerPiece),
     notes: notes ?? this.notes,
     submitting: submitting ?? this.submitting,
     nameMissing: nameMissing ?? this.nameMissing,
@@ -159,7 +188,7 @@ class ItemEditorState {
     normalizedName: normalizedName,
     unitCategory: unitCategory,
     defaultDisplayUnitCode: displayUnitCode,
-    itemKind: itemKind,
+    kindTagId: kindTagId,
     isFavorite: isFavorite,
     lowStockThreshold: lowStockThreshold,
     expiryNotifyDays: expiryNotifyDays,
@@ -172,10 +201,12 @@ class ItemEditorState {
     name: item.name,
     unitCategory: item.unitCategory,
     displayUnitCode: item.defaultDisplayUnitCode,
-    itemKind: item.itemKind,
+    kindTagId: item.kindTagId,
     isFavorite: item.isFavorite,
     lowStockThreshold: item.lowStockThreshold,
     expiryNotifyDays: item.expiryNotifyDays,
+    densityMilliGramsPerMl: item.densityMilliGramsPerMl,
+    milliGramsPerPiece: item.milliGramsPerPiece,
     notes: item.notes,
   );
 }

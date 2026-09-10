@@ -75,7 +75,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byType(TemplateRowTile), findsOneWidget);
     expect(find.text('Rent'), findsOneWidget);
-    expect(find.text('Going out'), findsOneWidget);
+    expect(find.text('Expenses'), findsOneWidget);
   });
 
   testWidgets('an inflow reads as income, not a negative bill', (tester) async {
@@ -99,7 +99,7 @@ void main() {
     await tester.pumpAndSettle();
     // Its own group, and the amount unsigned. A salary shown as minus eighty-five thousand under a
     // list of bills is the §7.2 row this module exists to close.
-    expect(find.text('Coming in'), findsOneWidget);
+    expect(find.text('Income'), findsOneWidget);
     expect(find.text('Salary'), findsOneWidget);
     expect(find.textContaining('-'), findsNothing);
   });

@@ -20,22 +20,24 @@ class ItemDao extends DatabaseAccessor<AlayaDatabase> {
 
   /// Emits every active item, alphabetically.
   Stream<List<ItemRow>> watchAll() =>
-      (_activeRows()..orderBy([(t) => OrderingTerm(expression: t.normalizedName)])).watch();
+      (_activeRows()
+            ..orderBy([(t) => OrderingTerm(expression: t.normalizedName)]))
+          .watch();
 
   /// Emits active items measuring [category] — a picker must never offer a cross-category item,
   /// since cross-category conversion does not exist (Law L8).
   Stream<List<ItemRow>> watchByCategory(UnitCategory category) {
     return (_activeRows()
-      ..where((t) => t.unitCategory.equalsValue(category))
-      ..orderBy([(t) => OrderingTerm(expression: t.normalizedName)]))
+          ..where((t) => t.unitCategory.equalsValue(category))
+          ..orderBy([(t) => OrderingTerm(expression: t.normalizedName)]))
         .watch();
   }
 
   /// Emits favourited items, for a dashboard shortcut.
   Stream<List<ItemRow>> watchFavorites() {
     return (_activeRows()
-      ..where((t) => t.isFavorite.equals(true))
-      ..orderBy([(t) => OrderingTerm(expression: t.normalizedName)]))
+          ..where((t) => t.isFavorite.equals(true))
+          ..orderBy([(t) => OrderingTerm(expression: t.normalizedName)]))
         .watch();
   }
 
@@ -54,10 +56,11 @@ class ItemDao extends DatabaseAccessor<AlayaDatabase> {
     required String normalizedName,
     required UnitCategory unitCategory,
   }) {
-    return (_activeRows()
-      ..where((t) =>
-      t.normalizedName.equals(normalizedName) &
-      t.unitCategory.equalsValue(unitCategory)))
+    return (_activeRows()..where(
+          (t) =>
+              t.normalizedName.equals(normalizedName) &
+              t.unitCategory.equalsValue(unitCategory),
+        ))
         .getSingleOrNull();
   }
 
@@ -66,9 +69,9 @@ class ItemDao extends DatabaseAccessor<AlayaDatabase> {
   Stream<List<ItemRow>> watchMatching(String term) {
     final needle = '%${term.toLowerCase()}%';
     return (_activeRows()
-      ..where((t) => t.normalizedName.like(needle))
-      ..orderBy([(t) => OrderingTerm(expression: t.normalizedName)])
-      ..limit(50))
+          ..where((t) => t.normalizedName.like(needle))
+          ..orderBy([(t) => OrderingTerm(expression: t.normalizedName)])
+          ..limit(50))
         .watch();
   }
 
@@ -77,7 +80,53 @@ class ItemDao extends DatabaseAccessor<AlayaDatabase> {
   /// Does not, and cannot, guard `unitCategory` immutability (Law L8) — a `Companion` carries no
   /// memory of the row it is replacing. That check belongs to the repository, which reads the
   /// existing row first and rejects a companion that changes it.
-  Future<void> upsert(ItemsCompanion item) => into(_table).insertOnConflictUpdate(item);
+  Future<void> upsert(ItemsCompanion item) =>
+      into(_table).insertOnConflictUpdate(item);
+
+  /// How many live items are filed under [kindTagId] as their kind.
+  ///
+  /// **A `COUNT`, not a list the caller measures.** Settings asks this to say *"12 items will move to Other"*
+  /// before deleting a kind, and loading twelve rows to learn there are twelve would read every column of
+  /// every one of them for a number.
+  ///
+  /// Deleted items are excluded. An item in the trash has no kind worth reassigning, and counting it would
+  /// overstate the consequence in the one sentence whose entire job is to be accurate.
+  Future<int> countByKind(String kindTagId) async {
+    final total = _table.id.count();
+    final row =
+        await (selectOnly(_table)
+              ..addColumns([total])
+              ..where(
+                _table.kindTagId.equals(kindTagId) & _table.deletedAt.isNull(),
+              ))
+            .getSingle();
+    return row.read(total) ?? 0;
+  }
+
+  /// Moves every live item from [fromTagId] to [toTagId], returning how many moved.
+  ///
+  /// **One `UPDATE`, not a read-modify-write loop.** A loop that failed half way would leave some items on the
+  /// old kind and some on the new — and the caller deletes the old kind immediately afterwards, so the ones it
+  /// missed would point at a soft-deleted row with no way to tell which they were. A single statement moves all
+  /// of them or none.
+  ///
+  /// Returns the count so Settings can report what it actually changed rather than what it counted a moment
+  /// earlier. The two differ if anything wrote in between, and the number in a confirmation should be the
+  /// number that happened.
+  Future<int> reassignKind({
+    required String fromTagId,
+    required String toTagId,
+    required int nowUtcMillis,
+  }) =>
+      (update(_table)..where(
+            (t) => t.kindTagId.equals(fromTagId) & t.deletedAt.isNull(),
+          ))
+          .write(
+            ItemsCompanion(
+              kindTagId: Value(toTagId),
+              updatedAt: Value(nowUtcMillis),
+            ),
+          );
 
   /// Toggles the favourite flag.
   Future<void> setFavorite({
@@ -86,7 +135,10 @@ class ItemDao extends DatabaseAccessor<AlayaDatabase> {
     required int nowUtcMillis,
   }) {
     return (update(_table)..where((t) => t.id.equals(id))).write(
-      ItemsCompanion(isFavorite: Value(isFavorite), updatedAt: Value(nowUtcMillis)),
+      ItemsCompanion(
+        isFavorite: Value(isFavorite),
+        updatedAt: Value(nowUtcMillis),
+      ),
     );
   }
 
@@ -98,11 +150,14 @@ class ItemDao extends DatabaseAccessor<AlayaDatabase> {
   Future<void> softDelete({required String id, required int nowUtcMillis}) {
     return transaction(() async {
       await (update(_table)..where((t) => t.id.equals(id))).write(
-        ItemsCompanion(deletedAt: Value(nowUtcMillis), updatedAt: Value(nowUtcMillis)),
+        ItemsCompanion(
+          deletedAt: Value(nowUtcMillis),
+          updatedAt: Value(nowUtcMillis),
+        ),
       );
-      await (update(attachedDatabase.inventoryBatches)
-        ..where((t) => t.itemId.equals(id) & t.deletedAt.isNull()))
-          .write(
+      await (update(
+        attachedDatabase.inventoryBatches,
+      )..where((t) => t.itemId.equals(id) & t.deletedAt.isNull())).write(
         InventoryBatchesCompanion(
           deletedAt: Value(nowUtcMillis),
           updatedAt: Value(nowUtcMillis),
@@ -114,20 +169,24 @@ class ItemDao extends DatabaseAccessor<AlayaDatabase> {
   // ── derived stock: always from the views ───────────────────────────────────────────────
 
   /// Emits every active item's stock rollup from `v_item_stock`.
-  Stream<List<ItemStockRow>> watchAllStock() => select(attachedDatabase.vItemStock).watch();
+  Stream<List<ItemStockRow>> watchAllStock() =>
+      select(attachedDatabase.vItemStock).watch();
 
   /// Emits one item's stock rollup.
   Stream<ItemStockRow?> watchStockOf(String itemId) {
-    return (select(attachedDatabase.vItemStock)..where((t) => t.itemId.equals(itemId)))
-        .watchSingleOrNull();
+    return (select(
+      attachedDatabase.vItemStock,
+    )..where((t) => t.itemId.equals(itemId))).watchSingleOrNull();
   }
 
   /// Reads one item's stock rollup once.
   Future<ItemStockRow?> stockOf(String itemId) {
-    return (select(attachedDatabase.vItemStock)..where((t) => t.itemId.equals(itemId)))
-        .getSingleOrNull();
+    return (select(
+      attachedDatabase.vItemStock,
+    )..where((t) => t.itemId.equals(itemId))).getSingleOrNull();
   }
 
   /// Emits every item currently below its low-stock threshold, from `v_low_stock`.
-  Stream<List<LowStockRow>> watchLowStock() => select(attachedDatabase.vLowStock).watch();
+  Stream<List<LowStockRow>> watchLowStock() =>
+      select(attachedDatabase.vLowStock).watch();
 }

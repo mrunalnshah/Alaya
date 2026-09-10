@@ -125,6 +125,11 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
+      // Both moved behind the door in the density pass — Contact and Service are refinements once the
+      // asset is identified. The behaviour is unchanged and this asserts it: one tap, both fields
+      // present. A person is still asked for exactly what a person needs.
+      await tester.tap(find.text('More details'));
+      await tester.pumpAndSettle();
       // The two fields that matter for a person: how to reach her, and how often she comes.
       expect(find.text('Phone'), findsOneWidget);
       expect(find.text('Service every'), findsOneWidget);

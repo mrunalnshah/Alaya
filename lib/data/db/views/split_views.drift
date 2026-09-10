@@ -1,0 +1,184 @@
+import '../tables/meta_tables.dart';
+import '../tables/money_tables.dart';
+import '../tables/split_tables.dart';
+
+-- The split module's read model. Repositories read these, never the base tables (L7).
+--
+-- **`meta_tables.dart` is imported for `app_settings`, and leaving it out was a real defect.** Every
+-- view below joins that table to find `split.selfPayeeId`, and drift resolves a `.drift` file's tables
+-- only from what it imports — so the analyser could not see it, could not type the columns that depend
+-- on it, and emitted forty warnings while the build still "succeeded". A `.drift` import list is not
+-- decoration; it is the whole visible universe for the statements underneath.
+--
+-- **No view here references the current time**, per ARCH_2 §12.2 — not `date('now')`, nowhere. The
+-- ageing nudge the notification digest wants ("Ravi has owed you ₹1,850 for three weeks") needs a day
+-- count, and that is computed in Dart against the injected Clock. These views supply the balance and the
+-- oldest unsettled date; "how long ago" is the service's job, exactly as the calendar's severity
+-- escalation already is.
+--
+-- **A missing `split.selfPayeeId` makes these views quiet rather than wrong.** The join finds nothing, so
+-- `my_share_minor` is a `SUM` over zero rows — null — and the balance arms produce no rows at all. That
+-- is the correct reading of "the app does not know who you are yet", and it is why the screens check for
+-- null instead of rendering a confident zero.
+
+-- One expense with its own share total, so the shortfall is answerable without a second query.
+--
+-- `my_share_minor` is DERIVED here rather than stored on the table (Law L3). It is the single most
+-- tempting column in this schema and it would drift the first time a share was edited.
+--
+-- `allocated_minor` is what the shares actually account for, and `unallocated_minor` is what they do
+-- not — percentages that sum to 90%, or a tip nobody assigned. `transaction_lines` already surfaces
+-- exactly this rather than adjusting a figure to make it balance (ARCH_2 §4.2), and a split is the
+-- same problem: quietly rounding a shortfall onto the last participant charges somebody for a
+-- discrepancy nobody told them about.
+CREATE VIEW v_split_expenses AS SplitExpenseSummaryRow AS
+  SELECT e.id                   AS split_expense_id,
+         e.group_id             AS group_id,
+         e.transaction_id       AS transaction_id,
+         e.paid_by_payee_id     AS paid_by_payee_id,
+         e.total_amount_minor   AS total_amount_minor,
+         e.currency_code        AS currency_code,
+         e.date_key             AS date_key,
+         e.month_key            AS month_key,
+         e.title               AS title,
+         e.place               AS place,
+         e.occasion            AS occasion,
+         e.split_method        AS split_method,
+         e.settle_by_date_key  AS settle_by_date_key,
+         COALESCE((SELECT SUM(s.share_amount_minor) FROM split_shares s
+                    WHERE s.split_expense_id = e.id AND s.deleted_at IS NULL), 0)
+           AS allocated_minor,
+         e.total_amount_minor
+           - COALESCE((SELECT SUM(s.share_amount_minor) FROM split_shares s
+                        WHERE s.split_expense_id = e.id AND s.deleted_at IS NULL), 0)
+           AS unallocated_minor,
+         (SELECT SUM(s.share_amount_minor) FROM split_shares s
+            JOIN app_settings st ON st.key = 'split.selfPayeeId'
+           WHERE s.split_expense_id = e.id AND s.deleted_at IS NULL
+             AND s.payee_id = st.value)
+           AS my_share_minor,
+         (SELECT COUNT(*) FROM split_shares s
+           WHERE s.split_expense_id = e.id AND s.deleted_at IS NULL) AS share_count
+    FROM split_expenses e
+   WHERE e.deleted_at IS NULL;
+
+-- **The keystone, and the reason Law L3 is a gift here.**
+--
+-- What each person owes you and what you owe them, per currency, derived from shares and settlements.
+-- Nothing about a balance is stored, so nothing about a balance can drift — which is the failure every
+-- app in this category has to reconcile against.
+--
+-- `owed_to_me_minor` is what others' shares came to on expenses **you** paid. `i_owe_minor` is what your
+-- share came to on expenses **they** paid. `net_minor` is positive when they owe you.
+--
+-- Settlements move in both directions and are subtracted from whichever side they discharge, which is
+-- what makes partial settlement work: "keep adding as they keep paying" needs no decremented column,
+-- only more rows.
+--
+-- Grouped by currency and never summed across it — netting INR against USD without a rate would produce
+-- a figure nobody can reproduce, and anomaly A34 already established that costs group by currency rather
+-- than collapsing.
+CREATE VIEW v_split_balances AS SplitBalanceRow AS
+  SELECT p.id            AS payee_id,
+         b.currency_code AS currency_code,
+         SUM(b.owed_to_me_minor) AS owed_to_me_minor,
+         SUM(b.i_owe_minor)      AS i_owe_minor,
+         SUM(b.owed_to_me_minor) - SUM(b.i_owe_minor) AS net_minor,
+         MIN(b.oldest_date_key)  AS oldest_unsettled_date_key
+    FROM payees p
+    JOIN (
+      -- Their share of an expense you paid: they owe you.
+      SELECT s.payee_id AS payee_id, e.currency_code AS currency_code,
+             s.share_amount_minor AS owed_to_me_minor, 0 AS i_owe_minor,
+             e.date_key AS oldest_date_key
+        FROM split_shares s
+        JOIN split_expenses e ON e.id = s.split_expense_id
+        JOIN app_settings st ON st.key = 'split.selfPayeeId'
+       WHERE s.deleted_at IS NULL AND e.deleted_at IS NULL
+         AND e.paid_by_payee_id = st.value AND s.payee_id <> st.value
+      UNION ALL
+      -- Your share of an expense they paid: you owe them.
+      SELECT e.paid_by_payee_id, e.currency_code,
+             0, s.share_amount_minor, e.date_key
+        FROM split_shares s
+        JOIN split_expenses e ON e.id = s.split_expense_id
+        JOIN app_settings st ON st.key = 'split.selfPayeeId'
+       WHERE s.deleted_at IS NULL AND e.deleted_at IS NULL
+         AND e.paid_by_payee_id <> st.value AND s.payee_id = st.value
+      UNION ALL
+      -- They paid you: reduces what they owe.
+      SELECT t.from_payee_id, t.currency_code, -t.amount_minor, 0, NULL
+        FROM split_settlements t
+        JOIN app_settings st ON st.key = 'split.selfPayeeId'
+       WHERE t.deleted_at IS NULL AND t.to_payee_id = st.value
+      UNION ALL
+      -- You paid them: reduces what you owe.
+      SELECT t.to_payee_id, t.currency_code, 0, -t.amount_minor, NULL
+        FROM split_settlements t
+        JOIN app_settings st ON st.key = 'split.selfPayeeId'
+       WHERE t.deleted_at IS NULL AND t.from_payee_id = st.value
+    ) b ON b.payee_id = p.id
+   WHERE p.deleted_at IS NULL
+   GROUP BY p.id, b.currency_code;
+
+-- The same question, per group. What a group detail screen reads.
+--
+-- Deliberately a separate view rather than a `group_id` column on `v_split_balances`: settlements
+-- outside any group have no group id, and folding them in would make every per-group figure depend on
+-- how a one-off debt happened to be filed.
+CREATE VIEW v_split_group_balances AS SplitGroupBalanceRow AS
+  SELECT g.id            AS group_id,
+         b.payee_id      AS payee_id,
+         b.currency_code AS currency_code,
+         SUM(b.owed_to_me_minor) AS owed_to_me_minor,
+         SUM(b.i_owe_minor)      AS i_owe_minor,
+         SUM(b.owed_to_me_minor) - SUM(b.i_owe_minor) AS net_minor
+    FROM split_groups g
+    JOIN (
+      SELECT e.group_id AS group_id, s.payee_id AS payee_id,
+             e.currency_code AS currency_code,
+             s.share_amount_minor AS owed_to_me_minor, 0 AS i_owe_minor
+        FROM split_shares s
+        JOIN split_expenses e ON e.id = s.split_expense_id
+        JOIN app_settings st ON st.key = 'split.selfPayeeId'
+       WHERE s.deleted_at IS NULL AND e.deleted_at IS NULL AND e.group_id IS NOT NULL
+         AND e.paid_by_payee_id = st.value AND s.payee_id <> st.value
+      UNION ALL
+      SELECT e.group_id, e.paid_by_payee_id, e.currency_code,
+             0, s.share_amount_minor
+        FROM split_shares s
+        JOIN split_expenses e ON e.id = s.split_expense_id
+        JOIN app_settings st ON st.key = 'split.selfPayeeId'
+       WHERE s.deleted_at IS NULL AND e.deleted_at IS NULL AND e.group_id IS NOT NULL
+         AND e.paid_by_payee_id <> st.value AND s.payee_id = st.value
+      UNION ALL
+      SELECT t.group_id, t.from_payee_id, t.currency_code, -t.amount_minor, 0
+        FROM split_settlements t
+        JOIN app_settings st ON st.key = 'split.selfPayeeId'
+       WHERE t.deleted_at IS NULL AND t.group_id IS NOT NULL AND t.to_payee_id = st.value
+      UNION ALL
+      SELECT t.group_id, t.to_payee_id, t.currency_code, 0, -t.amount_minor
+        FROM split_settlements t
+        JOIN app_settings st ON st.key = 'split.selfPayeeId'
+       WHERE t.deleted_at IS NULL AND t.group_id IS NOT NULL AND t.from_payee_id = st.value
+    ) b ON b.group_id = g.id
+   WHERE g.deleted_at IS NULL
+   GROUP BY g.id, b.payee_id, b.currency_code;
+
+-- Expenses and settlements interleaved, newest first — a group's activity feed.
+--
+-- A UNION ALL rather than an events table, for the same reason `v_calendar_events` is one: two
+-- subsystems writing into a shared feed table is a synchronisation-bug factory, and a view has no
+-- synchronisation code to get wrong (anomaly A37).
+CREATE VIEW v_split_activity AS SplitActivityRow AS
+  SELECT e.id AS ref_id, 'expense' AS activity_kind, e.group_id AS group_id,
+         e.date_key AS date_key, e.total_amount_minor AS amount_minor,
+         e.currency_code AS currency_code, e.paid_by_payee_id AS payee_id,
+         COALESCE(e.title, e.occasion, e.place) AS label
+    FROM split_expenses e
+   WHERE e.deleted_at IS NULL
+  UNION ALL
+  SELECT t.id, 'settlement', t.group_id, t.date_key, t.amount_minor,
+         t.currency_code, t.from_payee_id, t.note
+    FROM split_settlements t
+   WHERE t.deleted_at IS NULL;

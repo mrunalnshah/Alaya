@@ -88,6 +88,29 @@ void main() {
     expect(find.text('Produce'), findsOneWidget);
   });
 
+  testWidgets('every entry can be swiped away', (tester) async {
+    // The capability was fully built and unreachable: `ShoppingActions.delete` existed, called a soft
+    // delete, and nothing in the UI called it. Same shape as `QuickAddSheet` — a finished thing with no
+    // door.
+    await pumpShopping(
+      tester,
+      const ShoppingListScreen(),
+      overrides: overrides(
+        AsyncValue.data([
+          ShoppingGroup(entries: [sampleEntry()]),
+        ]),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final dismissible = tester.widget<Dismissible>(find.byType(Dismissible));
+    // **`endToStart`, not a hard-coded left.** It means the trailing edge, so the gesture stays natural
+    // when the locale flips — and Alaya localises, so that is not hypothetical.
+    expect(dismissible.direction, DismissDirection.endToStart);
+    // Keyed on the entry rather than the index: a list that reorders mid-swipe would otherwise remove
+    // whichever row slid into that position.
+    expect(dismissible.key, isA<ValueKey<String>>());
+  });
+
   testWidgets('a free-text entry needs no inventory item', (tester) async {
     await pumpShopping(
       tester,

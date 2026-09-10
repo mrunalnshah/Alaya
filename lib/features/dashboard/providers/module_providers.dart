@@ -9,6 +9,8 @@ import 'package:alaya/app/providers/service_providers.dart';
 import 'package:alaya/core/time/clock.dart';
 import 'package:alaya/features/dashboard/providers/insight_providers.dart';
 import 'package:alaya/features/inventory/providers/inventory_list_providers.dart';
+import 'package:alaya/features/recipe/providers/recipe_list_providers.dart';
+import 'package:alaya/features/split/providers/split_providers.dart';
 
 /// How many transactions were recorded this calendar month.
 ///
@@ -31,6 +33,31 @@ final expenseCountProvider = FutureProvider.autoDispose<int>((ref) async {
 /// second definition of "low" to keep in step (ARCH_4 P7).
 final inventoryCountProvider = Provider.autoDispose<int>(
   (ref) => ref.watch(lowStockCountProvider),
+);
+
+/// How many recipes can be cooked right now.
+///
+/// **Phase R3a's provider, not a second one.** `cookableCountProvider` is derived from the same single
+/// pass the recipe catalogue makes, so the tile and the list can never disagree about what "cookable"
+/// means — the same argument `inventoryCountProvider` makes about "low" (ARCH_4 P7).
+///
+/// Counts only `ready`. A recipe the engine could not judge is not one the tile can promise.
+final recipeCountProvider = Provider.autoDispose<int?>(
+  (ref) => ref.watch(cookableCountProvider),
+);
+
+/// How many people have something outstanding with you, either way.
+///
+/// **Counterparties, not amounts**, because a tile holds one small number and "3 people" is a thing a
+/// person can act on where "₹4,150" invites the question of which direction it runs. The card below the
+/// grid carries the two figures; this only says how many conversations are open.
+///
+/// **Not `SplitBalanceService.totals`, and not a second definition of "outstanding".**
+/// `splitBalancesProvider` already drops anyone who nets to zero, so this counts exactly what the split
+/// screen lists — the same argument `inventoryCountProvider` and `recipeCountProvider` both make about
+/// reusing their module's own provider rather than re-deriving (ARCH_4 P7).
+final splitCountProvider = Provider.autoDispose<int?>(
+  (ref) => ref.watch(splitBalancesProvider).valueOrNull?.length,
 );
 
 /// How many things are still to buy on the default list.

@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Modify this file to customize your launch splash screen -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@android:color/white" />
+<!--
+    The window background shown before Flutter's first frame.
 
-    <!-- You can insert your own image assets here -->
+    This is a DRAWABLE and must live in res/drawable/. It is referenced from
+    values/styles.xml as @drawable/launch_background. Putting a layer-list inside
+    styles.xml is what produced "Unrecognized child element" at build time.
+
+    The colour is written literally rather than as @color/... so this file cannot
+    fail on a resource that does not exist yet. To add the logo, uncomment the
+    bitmap item below and set src to whatever your icon generator produced.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="#FFFFFFFF"/>
+    </item>
+
     <!-- <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/launch_image" />
+            android:src="@mipmap/ic_launcher_foreground"/>
     </item> -->
 </layer-list>

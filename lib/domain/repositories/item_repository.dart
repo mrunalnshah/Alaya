@@ -54,6 +54,32 @@ abstract interface class ItemRepository {
   /// **Rejects a change to `unitCategory` on an existing item** with a [BusinessRuleFailure]
   /// (Law L8): changing it would silently reinterpret every quantity ever recorded against the
   /// item. Rejects a duplicate identity with a [ConflictFailure].
+  /// How many live items are filed under [kindTagId] as their kind.
+  ///
+  /// **Asked before a kind is deleted, so the confirmation can state what it costs.** A kind is
+  /// `items.kind_tag_id`; soft-deleting the tag would leave those items pointing at a row no scoped query
+  /// returns, and they would drop out of every group into "No kind". The count is what turns that from a
+  /// surprise into a sentence.
+  ///
+  /// Zero for a tag no item uses, which is every non-inventory tag — so deleting `Rent` says nothing about
+  /// items and reads exactly as it always did.
+  Future<int> countByKind(String kindTagId);
+
+  /// Moves every live item from [fromTagId] to [toTagId], returning how many moved.
+  ///
+  /// **One statement, and it must run before the old kind is deleted.** Deleting first would leave any item
+  /// the move missed pointing at a soft-deleted row with no way to recover which kind it had — the tag is
+  /// gone by then. This way a failure leaves both the kind and its items intact.
+  ///
+  /// **This is where a kind's delete path diverges from a tag's, deliberately.** A soft-deleted transaction
+  /// tag is correct as it stands: the transaction happened and was tagged that way, and rendering it greyed
+  /// keeps history readable (ARCH_3 §4). An item is *current* — a reference to a deleted tag is not a fact
+  /// about the past, it is an item with no working kind.
+  Future<Result<int, Failure>> reassignKind({
+    required String fromTagId,
+    required String toTagId,
+  });
+
   Future<Result<Item, Failure>> save(Item item);
 
   /// Toggles the favourite flag.

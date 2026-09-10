@@ -31,19 +31,23 @@ final class ItemRepositoryImpl implements ItemRepository {
       _dao.watchAll().map((rows) => rows.map((r) => r.toEntity()).toList());
 
   @override
-  Stream<List<Item>> watchByCategory(UnitCategory category) =>
-      _dao.watchByCategory(category).map((rows) => rows.map((r) => r.toEntity()).toList());
+  Stream<List<Item>> watchByCategory(UnitCategory category) => _dao
+      .watchByCategory(category)
+      .map((rows) => rows.map((r) => r.toEntity()).toList());
 
   @override
-  Stream<List<Item>> watchFavorites() =>
-      _dao.watchFavorites().map((rows) => rows.map((r) => r.toEntity()).toList());
+  Stream<List<Item>> watchFavorites() => _dao.watchFavorites().map(
+    (rows) => rows.map((r) => r.toEntity()).toList(),
+  );
 
   @override
-  Stream<List<Item>> watchMatching(String term) =>
-      _dao.watchMatching(term).map((rows) => rows.map((r) => r.toEntity()).toList());
+  Stream<List<Item>> watchMatching(String term) => _dao
+      .watchMatching(term)
+      .map((rows) => rows.map((r) => r.toEntity()).toList());
 
   @override
-  Future<Item?> byId(String id) async => (await _dao.byIdIncludingDeleted(id))?.toEntity();
+  Future<Item?> byId(String id) async =>
+      (await _dao.byIdIncludingDeleted(id))?.toEntity();
 
   @override
   Future<Item?> findByIdentity({
@@ -73,7 +77,8 @@ final class ItemRepositoryImpl implements ItemRepository {
       // Cheap pre-filter: a length difference greater than the threshold guarantees the edit
       // distance exceeds it too, since each edit changes length by at most one. Verified over
       // 4000 random pairs never to exclude a genuine match.
-      if ((candidate.length - name.length).abs() > _maxSuggestionDistance) continue;
+      if ((candidate.length - name.length).abs() > _maxSuggestionDistance)
+        continue;
 
       final distance = _levenshtein(candidate, name);
       // Distance 0 is the exact identity match, which is [findByIdentity]'s job — a merge, not a
@@ -93,16 +98,50 @@ final class ItemRepositoryImpl implements ItemRepository {
   }
 
   @override
-  Stream<List<ItemStock>> watchAllStock() =>
-      _dao.watchAllStock().map((rows) => rows.map((r) => r.toEntity()).toList());
+  Stream<List<ItemStock>> watchAllStock() => _dao.watchAllStock().map(
+    (rows) => rows.map((r) => r.toEntity()).toList(),
+  );
 
   @override
   Stream<ItemStock?> watchStockOf(String itemId) =>
       _dao.watchStockOf(itemId).map((row) => row?.toEntity());
 
   @override
-  Stream<List<ItemStock>> watchLowStock() =>
-      _dao.watchLowStock().map((rows) => rows.map((r) => r.toEntity()).toList());
+  Stream<List<ItemStock>> watchLowStock() => _dao.watchLowStock().map(
+    (rows) => rows.map((r) => r.toEntity()).toList(),
+  );
+
+  @override
+  Future<int> countByKind(String kindTagId) => _dao.countByKind(kindTagId);
+
+  @override
+  Future<Result<int, Failure>> reassignKind({
+    required String fromTagId,
+    required String toTagId,
+  }) async {
+    if (fromTagId == toTagId) {
+      // Not an error worth a failure sentence — moving items onto the kind they already have is a no-op, and
+      // the caller reaches this when somebody deletes `Other` itself, which `is_system` refuses one layer down.
+      return const Result.ok(0);
+    }
+    try {
+      final moved = await _dao.reassignKind(
+        fromTagId: fromTagId,
+        toTagId: toTagId,
+        nowUtcMillis: _clock.nowUtcMillis(),
+      );
+      return Result.ok(moved);
+    } on Object catch (error) {
+      // A foreign-key violation is the realistic case: `toTagId` naming a row that is gone. Returned rather
+      // than thrown, because the caller deletes a tag next and has to decide not to on a failure.
+      return Result.failure(
+        UnexpectedFailure(
+          'Those items could not be moved.',
+          cause: error,
+        ),
+      );
+    }
+  }
 
   @override
   Future<Result<Item, Failure>> save(Item item) async {
@@ -120,7 +159,7 @@ final class ItemRepositoryImpl implements ItemRepository {
         return Result.failure(
           ConflictFailure(
             'An item named "${item.name}" already exists in this category. '
-                'Add a new batch to it instead of creating a second item.',
+            'Add a new batch to it instead of creating a second item.',
           ),
         );
       }
@@ -132,8 +171,8 @@ final class ItemRepositoryImpl implements ItemRepository {
       return Result.failure(
         BusinessRuleFailure(
           'An item\'s unit category cannot be changed once it exists — every quantity already '
-              'recorded against "${existing.name}" is measured in '
-              '${existing.unitCategory.baseUnitCode}. Create a separate item instead.',
+          'recorded against "${existing.name}" is measured in '
+          '${existing.unitCategory.baseUnitCode}. Create a separate item instead.',
           rule: 'unitCategoryImmutable',
         ),
       );
@@ -144,7 +183,11 @@ final class ItemRepositoryImpl implements ItemRepository {
       clock: _clock,
     );
     await _dao.upsert(
-      itemToCompanion(item, createdAt: stamps.createdAt, updatedAt: stamps.updatedAt),
+      itemToCompanion(
+        item,
+        createdAt: stamps.createdAt,
+        updatedAt: stamps.updatedAt,
+      ),
     );
     return Result.ok(item);
   }
@@ -189,7 +232,9 @@ int _levenshtein(String a, String b) {
   for (var i = 1; i <= a.length; i++) {
     current[0] = i;
     for (var j = 1; j <= b.length; j++) {
-      final substitution = previous[j - 1] + (a.codeUnitAt(i - 1) == b.codeUnitAt(j - 1) ? 0 : 1);
+      final substitution =
+          previous[j - 1] +
+          (a.codeUnitAt(i - 1) == b.codeUnitAt(j - 1) ? 0 : 1);
       final deletion = previous[j] + 1;
       final insertion = current[j - 1] + 1;
       current[j] = substitution < deletion

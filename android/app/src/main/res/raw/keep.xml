@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    android/app/src/main/res/raw/keep.xml
+
+    Resources the shrinker cannot see a reference to, and must keep anyway.
+
+    **`isShrinkResources = true` removes any resource nothing references**, and it decides that by reading
+    compiled code and XML. It finds `R.drawable.foo` and it finds `@drawable/foo` inside another resource. It
+    cannot find a resource named by a string at runtime — and that is exactly how
+    `flutter_local_notifications` resolves a notification icon:
+
+        context.getResources().getIdentifier("ic_notification", "drawable", packageName)
+
+    The only place `ic_notification` appears in this project is a Dart constant. aapt2 does not read Dart,
+    R8 does not read Dart, so nothing static points at the drawable and the shrinker strips it. The file is
+    merged — it survives as far as `intermediates/packaged_res/release/` — and is then dropped before the
+    APK is written.
+
+    The failure is release-only and total: `initialize` throws `PlatformException(invalid_icon, ...)`, so
+    every call that touches the plugin fails. Reminder switches will not stay on, the daily digest never
+    fires, and a test notification never arrives. In debug, with shrinking off, all three work.
+
+    **This file is the documented remedy**, not a workaround. `tools:keep` is the shrinker's own escape hatch
+    for exactly this case: a resource reached dynamically.
+
+    Anything else resolved by name later — a channel icon, a custom sound, a per-kind glyph — must be added
+    to the list below at the same time, because nothing will fail until release and nothing will name the
+    cause.
+-->
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/ic_notification" />

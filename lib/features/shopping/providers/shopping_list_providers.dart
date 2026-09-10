@@ -236,6 +236,20 @@ class ShoppingActions {
     return result.failureOrNull?.message;
   }
 
+  /// Puts a deleted entry back.
+  ///
+  /// **`saveEntry`, not an unrelated undelete.** The repository has no restore method and does not need
+  /// one: `saveEntry` writes the whole entity, and the caller still holds the row it just removed, so
+  /// re-saving it is the restore.
+  ///
+  /// It **promotes an auto-generated suggestion to manual** (anomaly A22), and that is the right outcome
+  /// rather than a side effect: swiping a suggestion away and immediately asking for it back is the user
+  /// saying they want it kept, so the engine should stop deciding for them.
+  Future<String?> restore(ShoppingEntry entry) async {
+    final result = await _ref.read(shoppingRepositoryProvider).saveEntry(entry);
+    return result.failureOrNull?.message;
+  }
+
   /// Unticks every entry on a list.
   Future<void> uncheckAll(List<ShoppingEntry> entries) async {
     final repository = _ref.read(shoppingRepositoryProvider);

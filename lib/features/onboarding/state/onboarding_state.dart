@@ -8,6 +8,17 @@ import 'package:alaya/domain/entities/account.dart';
 /// Stored by name, so resuming survives a restart and a reorder of this enum does not silently move
 /// somebody to a different step (Law L13's reasoning, applied to a settings row rather than a column).
 enum OnboardingStep {
+  /// What to call the user.
+  ///
+  /// **First, and deliberately the friendliest thing in the flow.** A name is a warmer opening question
+  /// than a currency picker, and it is the one answer several unrelated features want: which share is
+  /// yours on a split, who a shared summary is from, what a dashboard greets you by.
+  ///
+  /// It is also the step that unblocks a whole module. Nothing in Split works until the app knows which
+  /// payee the user is, and the screens that noticed used to point at a settings branch whose list of
+  /// candidates was empty — four screens deferring to each other, with a dead end at the end of it.
+  name,
+
   /// Which currency totals are shown in.
   currency,
 
@@ -25,17 +36,22 @@ abstract final class OnboardingKeys {
 
   /// The `app_settings` key holding the furthest step reached.
   ///
-  /// **Written on every step change, which is what "resumable" costs.** A flow that only records
+  /// **Written on every step change, which is what "resumable" costs.** A flow that only recorded
   /// completion would restart from the beginning after a phone call at step two, and re-asking someone
   /// for their opening balances is the fastest way to have them skip the flow entirely.
   static const String step = 'onboarding.step';
 
   /// Parses a stored step name, falling back to the first step.
+  ///
+  /// **The fallback is now `name` rather than `currency`, and that is a real behaviour change.** A
+  /// half-finished install stores its own step by name and resumes exactly where it was, so nobody is
+  /// moved; only a database with a missing or unrecognisable value lands here, and starting such a
+  /// session at the first step is what "fall back" has always meant.
   static OnboardingStep parseStep(String? stored) {
     for (final step in OnboardingStep.values) {
       if (step.name == stored) return step;
     }
-    return OnboardingStep.currency;
+    return OnboardingStep.name;
   }
 }
 
@@ -88,8 +104,8 @@ class DraftAccount {
 
   /// The date the balance was true on.
   ///
-  /// **This is the half of the pair that gets forgotten** (anomaly A03). A balance without a date
-  /// cannot be placed in a ledger, so every transaction before it would be silently unaccounted for.
+  /// **This is the half of the pair that gets forgotten** (anomaly A03). A balance without a date cannot
+  /// be placed in a ledger, so every transaction before it would be silently unaccounted for.
   final DateKey openingDate;
 
   /// Whether it counts toward net worth.
@@ -97,9 +113,9 @@ class DraftAccount {
 
   /// Whether the user has chosen this account's currency themselves.
   ///
-  /// **Why a flag and not a comparison.** Changing the home currency on step one should carry the
-  /// seeded accounts with it — nobody choosing yen wants two rupee accounts they did not ask for — but
-  /// it must not overwrite a currency the user set deliberately. Comparing against the old home
+  /// **Why a flag and not a comparison.** Changing the home currency on the currency step should carry
+  /// the seeded accounts with it — nobody choosing yen wants two rupee accounts they did not ask for —
+  /// but it must not overwrite a currency the user set deliberately. Comparing against the old home
   /// currency cannot tell those apart when they happen to match.
   final bool currencyTouched;
 
@@ -137,6 +153,7 @@ class OnboardingDraft {
     required this.step,
     required this.homeCurrencyCode,
     required this.accounts,
+    this.displayName = '',
     this.isLoaded = false,
     this.isSaving = false,
     this.failureMessage,
@@ -150,6 +167,13 @@ class OnboardingDraft {
 
   /// The accounts being set up, seeded ones included.
   final List<DraftAccount> accounts;
+
+  /// What the user has typed as their name, or empty when they have not.
+  ///
+  /// **Held in the draft rather than read from the payee on every rebuild**, because this is a field
+  /// somebody is part-way through typing. Reading the saved value would fight the keystroke; the payee is
+  /// written once, on commit, and `_load` seeds this from it so resuming shows what was already given.
+  final String displayName;
 
   /// Whether the existing accounts and settings have been read yet.
   final bool isLoaded;
@@ -173,6 +197,7 @@ class OnboardingDraft {
     OnboardingStep? step,
     String? homeCurrencyCode,
     List<DraftAccount>? accounts,
+    String? displayName,
     bool? isLoaded,
     bool? isSaving,
     String? failureMessage,
@@ -181,6 +206,7 @@ class OnboardingDraft {
     step: step ?? this.step,
     homeCurrencyCode: homeCurrencyCode ?? this.homeCurrencyCode,
     accounts: accounts ?? this.accounts,
+    displayName: displayName ?? this.displayName,
     isLoaded: isLoaded ?? this.isLoaded,
     isSaving: isSaving ?? this.isSaving,
     failureMessage: clearFailure

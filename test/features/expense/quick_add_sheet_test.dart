@@ -66,6 +66,23 @@ void main() {
     },
   );
 
+  testWidgets('offers a note, and it stays optional', (tester) async {
+    // The one detail nobody can reconstruct three months later is what the money was for. A tag says
+    // *groceries*; this says *the birthday cake*. It belongs on the fast path because the only moment
+    // anybody knows it is at the till.
+    await pumpExpense(tester, host(), overrides: overrides());
+    await tester.pumpAndSettle();
+    expect(
+      find.widgetWithText(TextFormField, 'What for? (optional)'),
+      findsOneWidget,
+    );
+
+    // Still one required field (Law U11): saving with the note untouched must work.
+    await tester.enterText(find.byType(TextField).first, '200');
+    await tester.pumpAndSettle();
+    expect(find.text('Save'), findsOneWidget);
+  });
+
   testWidgets('survives 320dp at a doubled text scale', (tester) async {
     await pumpExpense(tester, host(), overrides: overrides(), textScale: 2);
     expect(tester.takeException(), isNull);

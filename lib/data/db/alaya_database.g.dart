@@ -812,6 +812,1054 @@ class UnitsCompanion extends UpdateCompanion<UnitRow> {
   }
 }
 
+class $TagsTable extends Tags with TableInfo<$TagsTable, TagRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TagsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _normalizedNameMeta = const VerificationMeta(
+    'normalizedName',
+  );
+  @override
+  late final GeneratedColumn<String> normalizedName = GeneratedColumn<String>(
+    'normalized_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _colorArgbMeta = const VerificationMeta(
+    'colorArgb',
+  );
+  @override
+  late final GeneratedColumn<int> colorArgb = GeneratedColumn<int>(
+    'color_argb',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _iconKeyMeta = const VerificationMeta(
+    'iconKey',
+  );
+  @override
+  late final GeneratedColumn<String> iconKey = GeneratedColumn<String>(
+    'icon_key',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _parentTagIdMeta = const VerificationMeta(
+    'parentTagId',
+  );
+  @override
+  late final GeneratedColumn<String> parentTagId = GeneratedColumn<String>(
+    'parent_tag_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES tags (id)',
+    ),
+  );
+  static const VerificationMeta _allowedInDepositMeta = const VerificationMeta(
+    'allowedInDeposit',
+  );
+  @override
+  late final GeneratedColumn<bool> allowedInDeposit = GeneratedColumn<bool>(
+    'allowed_in_deposit',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("allowed_in_deposit" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _allowedInWithdrawalMeta =
+      const VerificationMeta('allowedInWithdrawal');
+  @override
+  late final GeneratedColumn<bool> allowedInWithdrawal = GeneratedColumn<bool>(
+    'allowed_in_withdrawal',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("allowed_in_withdrawal" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _allowedInInventoryMeta =
+      const VerificationMeta('allowedInInventory');
+  @override
+  late final GeneratedColumn<bool> allowedInInventory = GeneratedColumn<bool>(
+    'allowed_in_inventory',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("allowed_in_inventory" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _allowedInShoppingMeta = const VerificationMeta(
+    'allowedInShopping',
+  );
+  @override
+  late final GeneratedColumn<bool> allowedInShopping = GeneratedColumn<bool>(
+    'allowed_in_shopping',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("allowed_in_shopping" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _allowedInRecurringMeta =
+      const VerificationMeta('allowedInRecurring');
+  @override
+  late final GeneratedColumn<bool> allowedInRecurring = GeneratedColumn<bool>(
+    'allowed_in_recurring',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("allowed_in_recurring" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _allowedInServiceMeta = const VerificationMeta(
+    'allowedInService',
+  );
+  @override
+  late final GeneratedColumn<bool> allowedInService = GeneratedColumn<bool>(
+    'allowed_in_service',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("allowed_in_service" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _isSystemMeta = const VerificationMeta(
+    'isSystem',
+  );
+  @override
+  late final GeneratedColumn<bool> isSystem = GeneratedColumn<bool>(
+    'is_system',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_system" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _sortOrderMeta = const VerificationMeta(
+    'sortOrder',
+  );
+  @override
+  late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
+    'sort_order',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    normalizedName,
+    colorArgb,
+    iconKey,
+    parentTagId,
+    allowedInDeposit,
+    allowedInWithdrawal,
+    allowedInInventory,
+    allowedInShopping,
+    allowedInRecurring,
+    allowedInService,
+    isSystem,
+    sortOrder,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tags';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<TagRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('normalized_name')) {
+      context.handle(
+        _normalizedNameMeta,
+        normalizedName.isAcceptableOrUnknown(
+          data['normalized_name']!,
+          _normalizedNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_normalizedNameMeta);
+    }
+    if (data.containsKey('color_argb')) {
+      context.handle(
+        _colorArgbMeta,
+        colorArgb.isAcceptableOrUnknown(data['color_argb']!, _colorArgbMeta),
+      );
+    }
+    if (data.containsKey('icon_key')) {
+      context.handle(
+        _iconKeyMeta,
+        iconKey.isAcceptableOrUnknown(data['icon_key']!, _iconKeyMeta),
+      );
+    }
+    if (data.containsKey('parent_tag_id')) {
+      context.handle(
+        _parentTagIdMeta,
+        parentTagId.isAcceptableOrUnknown(
+          data['parent_tag_id']!,
+          _parentTagIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('allowed_in_deposit')) {
+      context.handle(
+        _allowedInDepositMeta,
+        allowedInDeposit.isAcceptableOrUnknown(
+          data['allowed_in_deposit']!,
+          _allowedInDepositMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_allowedInDepositMeta);
+    }
+    if (data.containsKey('allowed_in_withdrawal')) {
+      context.handle(
+        _allowedInWithdrawalMeta,
+        allowedInWithdrawal.isAcceptableOrUnknown(
+          data['allowed_in_withdrawal']!,
+          _allowedInWithdrawalMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_allowedInWithdrawalMeta);
+    }
+    if (data.containsKey('allowed_in_inventory')) {
+      context.handle(
+        _allowedInInventoryMeta,
+        allowedInInventory.isAcceptableOrUnknown(
+          data['allowed_in_inventory']!,
+          _allowedInInventoryMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_allowedInInventoryMeta);
+    }
+    if (data.containsKey('allowed_in_shopping')) {
+      context.handle(
+        _allowedInShoppingMeta,
+        allowedInShopping.isAcceptableOrUnknown(
+          data['allowed_in_shopping']!,
+          _allowedInShoppingMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_allowedInShoppingMeta);
+    }
+    if (data.containsKey('allowed_in_recurring')) {
+      context.handle(
+        _allowedInRecurringMeta,
+        allowedInRecurring.isAcceptableOrUnknown(
+          data['allowed_in_recurring']!,
+          _allowedInRecurringMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_allowedInRecurringMeta);
+    }
+    if (data.containsKey('allowed_in_service')) {
+      context.handle(
+        _allowedInServiceMeta,
+        allowedInService.isAcceptableOrUnknown(
+          data['allowed_in_service']!,
+          _allowedInServiceMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_allowedInServiceMeta);
+    }
+    if (data.containsKey('is_system')) {
+      context.handle(
+        _isSystemMeta,
+        isSystem.isAcceptableOrUnknown(data['is_system']!, _isSystemMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_isSystemMeta);
+    }
+    if (data.containsKey('sort_order')) {
+      context.handle(
+        _sortOrderMeta,
+        sortOrder.isAcceptableOrUnknown(data['sort_order']!, _sortOrderMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sortOrderMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TagRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TagRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      normalizedName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}normalized_name'],
+      )!,
+      colorArgb: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}color_argb'],
+      ),
+      iconKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon_key'],
+      ),
+      parentTagId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}parent_tag_id'],
+      ),
+      allowedInDeposit: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}allowed_in_deposit'],
+      )!,
+      allowedInWithdrawal: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}allowed_in_withdrawal'],
+      )!,
+      allowedInInventory: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}allowed_in_inventory'],
+      )!,
+      allowedInShopping: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}allowed_in_shopping'],
+      )!,
+      allowedInRecurring: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}allowed_in_recurring'],
+      )!,
+      allowedInService: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}allowed_in_service'],
+      )!,
+      isSystem: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_system'],
+      )!,
+      sortOrder: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sort_order'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $TagsTable createAlias(String alias) {
+    return $TagsTable(attachedDatabase, alias);
+  }
+}
+
+class TagRow extends DataClass implements Insertable<TagRow> {
+  /// Row identifier, UUIDv7.
+  final String id;
+
+  /// Display name as the user typed it.
+  final String name;
+
+  /// Normalised form used for identity matching only, never displayed
+  /// (Phase 1A `Normalizer`).
+  final String normalizedName;
+
+  /// Optional ARGB colour for the chip.
+  final int? colorArgb;
+
+  /// Optional icon identifier.
+  final String? iconKey;
+
+  /// Parent tag, permitting exactly **one** level of nesting (`Grocery > Vegetables`). Depth is
+  /// capped in the repository, not here. This single column is what makes drill-down analytics
+  /// possible (ARCH_2 §3).
+  final String? parentTagId;
+
+  /// Offered in the deposit tag picker.
+  final bool allowedInDeposit;
+
+  /// Offered in the withdrawal tag picker.
+  final bool allowedInWithdrawal;
+
+  /// Offered in the inventory tag picker.
+  final bool allowedInInventory;
+
+  /// Offered in the shopping tag picker, where it also acts as the group header.
+  final bool allowedInShopping;
+
+  /// Offered in the recurring tag picker.
+  final bool allowedInRecurring;
+
+  /// Offered in the service tag picker.
+  final bool allowedInService;
+
+  /// Whether this tag was seeded; system tags cannot be deleted (ARCH_3 §4.1).
+  final bool isSystem;
+
+  /// Manual ordering within pickers.
+  final int sortOrder;
+
+  /// Creation instant, epoch millis UTC.
+  final int createdAt;
+
+  /// Last-modification instant, epoch millis UTC.
+  final int updatedAt;
+
+  /// Soft-delete instant, epoch millis UTC. Null means active — a deleted tag keeps its links
+  /// so history stays readable (anomaly A36).
+  final int? deletedAt;
+  const TagRow({
+    required this.id,
+    required this.name,
+    required this.normalizedName,
+    this.colorArgb,
+    this.iconKey,
+    this.parentTagId,
+    required this.allowedInDeposit,
+    required this.allowedInWithdrawal,
+    required this.allowedInInventory,
+    required this.allowedInShopping,
+    required this.allowedInRecurring,
+    required this.allowedInService,
+    required this.isSystem,
+    required this.sortOrder,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    map['normalized_name'] = Variable<String>(normalizedName);
+    if (!nullToAbsent || colorArgb != null) {
+      map['color_argb'] = Variable<int>(colorArgb);
+    }
+    if (!nullToAbsent || iconKey != null) {
+      map['icon_key'] = Variable<String>(iconKey);
+    }
+    if (!nullToAbsent || parentTagId != null) {
+      map['parent_tag_id'] = Variable<String>(parentTagId);
+    }
+    map['allowed_in_deposit'] = Variable<bool>(allowedInDeposit);
+    map['allowed_in_withdrawal'] = Variable<bool>(allowedInWithdrawal);
+    map['allowed_in_inventory'] = Variable<bool>(allowedInInventory);
+    map['allowed_in_shopping'] = Variable<bool>(allowedInShopping);
+    map['allowed_in_recurring'] = Variable<bool>(allowedInRecurring);
+    map['allowed_in_service'] = Variable<bool>(allowedInService);
+    map['is_system'] = Variable<bool>(isSystem);
+    map['sort_order'] = Variable<int>(sortOrder);
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    return map;
+  }
+
+  TagsCompanion toCompanion(bool nullToAbsent) {
+    return TagsCompanion(
+      id: Value(id),
+      name: Value(name),
+      normalizedName: Value(normalizedName),
+      colorArgb: colorArgb == null && nullToAbsent
+          ? const Value.absent()
+          : Value(colorArgb),
+      iconKey: iconKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(iconKey),
+      parentTagId: parentTagId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(parentTagId),
+      allowedInDeposit: Value(allowedInDeposit),
+      allowedInWithdrawal: Value(allowedInWithdrawal),
+      allowedInInventory: Value(allowedInInventory),
+      allowedInShopping: Value(allowedInShopping),
+      allowedInRecurring: Value(allowedInRecurring),
+      allowedInService: Value(allowedInService),
+      isSystem: Value(isSystem),
+      sortOrder: Value(sortOrder),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory TagRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TagRow(
+      id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      normalizedName: serializer.fromJson<String>(json['normalizedName']),
+      colorArgb: serializer.fromJson<int?>(json['colorArgb']),
+      iconKey: serializer.fromJson<String?>(json['iconKey']),
+      parentTagId: serializer.fromJson<String?>(json['parentTagId']),
+      allowedInDeposit: serializer.fromJson<bool>(json['allowedInDeposit']),
+      allowedInWithdrawal: serializer.fromJson<bool>(
+        json['allowedInWithdrawal'],
+      ),
+      allowedInInventory: serializer.fromJson<bool>(json['allowedInInventory']),
+      allowedInShopping: serializer.fromJson<bool>(json['allowedInShopping']),
+      allowedInRecurring: serializer.fromJson<bool>(json['allowedInRecurring']),
+      allowedInService: serializer.fromJson<bool>(json['allowedInService']),
+      isSystem: serializer.fromJson<bool>(json['isSystem']),
+      sortOrder: serializer.fromJson<int>(json['sortOrder']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
+      'normalizedName': serializer.toJson<String>(normalizedName),
+      'colorArgb': serializer.toJson<int?>(colorArgb),
+      'iconKey': serializer.toJson<String?>(iconKey),
+      'parentTagId': serializer.toJson<String?>(parentTagId),
+      'allowedInDeposit': serializer.toJson<bool>(allowedInDeposit),
+      'allowedInWithdrawal': serializer.toJson<bool>(allowedInWithdrawal),
+      'allowedInInventory': serializer.toJson<bool>(allowedInInventory),
+      'allowedInShopping': serializer.toJson<bool>(allowedInShopping),
+      'allowedInRecurring': serializer.toJson<bool>(allowedInRecurring),
+      'allowedInService': serializer.toJson<bool>(allowedInService),
+      'isSystem': serializer.toJson<bool>(isSystem),
+      'sortOrder': serializer.toJson<int>(sortOrder),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+    };
+  }
+
+  TagRow copyWith({
+    String? id,
+    String? name,
+    String? normalizedName,
+    Value<int?> colorArgb = const Value.absent(),
+    Value<String?> iconKey = const Value.absent(),
+    Value<String?> parentTagId = const Value.absent(),
+    bool? allowedInDeposit,
+    bool? allowedInWithdrawal,
+    bool? allowedInInventory,
+    bool? allowedInShopping,
+    bool? allowedInRecurring,
+    bool? allowedInService,
+    bool? isSystem,
+    int? sortOrder,
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+  }) => TagRow(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    normalizedName: normalizedName ?? this.normalizedName,
+    colorArgb: colorArgb.present ? colorArgb.value : this.colorArgb,
+    iconKey: iconKey.present ? iconKey.value : this.iconKey,
+    parentTagId: parentTagId.present ? parentTagId.value : this.parentTagId,
+    allowedInDeposit: allowedInDeposit ?? this.allowedInDeposit,
+    allowedInWithdrawal: allowedInWithdrawal ?? this.allowedInWithdrawal,
+    allowedInInventory: allowedInInventory ?? this.allowedInInventory,
+    allowedInShopping: allowedInShopping ?? this.allowedInShopping,
+    allowedInRecurring: allowedInRecurring ?? this.allowedInRecurring,
+    allowedInService: allowedInService ?? this.allowedInService,
+    isSystem: isSystem ?? this.isSystem,
+    sortOrder: sortOrder ?? this.sortOrder,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  TagRow copyWithCompanion(TagsCompanion data) {
+    return TagRow(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      normalizedName: data.normalizedName.present
+          ? data.normalizedName.value
+          : this.normalizedName,
+      colorArgb: data.colorArgb.present ? data.colorArgb.value : this.colorArgb,
+      iconKey: data.iconKey.present ? data.iconKey.value : this.iconKey,
+      parentTagId: data.parentTagId.present
+          ? data.parentTagId.value
+          : this.parentTagId,
+      allowedInDeposit: data.allowedInDeposit.present
+          ? data.allowedInDeposit.value
+          : this.allowedInDeposit,
+      allowedInWithdrawal: data.allowedInWithdrawal.present
+          ? data.allowedInWithdrawal.value
+          : this.allowedInWithdrawal,
+      allowedInInventory: data.allowedInInventory.present
+          ? data.allowedInInventory.value
+          : this.allowedInInventory,
+      allowedInShopping: data.allowedInShopping.present
+          ? data.allowedInShopping.value
+          : this.allowedInShopping,
+      allowedInRecurring: data.allowedInRecurring.present
+          ? data.allowedInRecurring.value
+          : this.allowedInRecurring,
+      allowedInService: data.allowedInService.present
+          ? data.allowedInService.value
+          : this.allowedInService,
+      isSystem: data.isSystem.present ? data.isSystem.value : this.isSystem,
+      sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagRow(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('colorArgb: $colorArgb, ')
+          ..write('iconKey: $iconKey, ')
+          ..write('parentTagId: $parentTagId, ')
+          ..write('allowedInDeposit: $allowedInDeposit, ')
+          ..write('allowedInWithdrawal: $allowedInWithdrawal, ')
+          ..write('allowedInInventory: $allowedInInventory, ')
+          ..write('allowedInShopping: $allowedInShopping, ')
+          ..write('allowedInRecurring: $allowedInRecurring, ')
+          ..write('allowedInService: $allowedInService, ')
+          ..write('isSystem: $isSystem, ')
+          ..write('sortOrder: $sortOrder, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    normalizedName,
+    colorArgb,
+    iconKey,
+    parentTagId,
+    allowedInDeposit,
+    allowedInWithdrawal,
+    allowedInInventory,
+    allowedInShopping,
+    allowedInRecurring,
+    allowedInService,
+    isSystem,
+    sortOrder,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TagRow &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.normalizedName == this.normalizedName &&
+          other.colorArgb == this.colorArgb &&
+          other.iconKey == this.iconKey &&
+          other.parentTagId == this.parentTagId &&
+          other.allowedInDeposit == this.allowedInDeposit &&
+          other.allowedInWithdrawal == this.allowedInWithdrawal &&
+          other.allowedInInventory == this.allowedInInventory &&
+          other.allowedInShopping == this.allowedInShopping &&
+          other.allowedInRecurring == this.allowedInRecurring &&
+          other.allowedInService == this.allowedInService &&
+          other.isSystem == this.isSystem &&
+          other.sortOrder == this.sortOrder &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class TagsCompanion extends UpdateCompanion<TagRow> {
+  final Value<String> id;
+  final Value<String> name;
+  final Value<String> normalizedName;
+  final Value<int?> colorArgb;
+  final Value<String?> iconKey;
+  final Value<String?> parentTagId;
+  final Value<bool> allowedInDeposit;
+  final Value<bool> allowedInWithdrawal;
+  final Value<bool> allowedInInventory;
+  final Value<bool> allowedInShopping;
+  final Value<bool> allowedInRecurring;
+  final Value<bool> allowedInService;
+  final Value<bool> isSystem;
+  final Value<int> sortOrder;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> rowid;
+  const TagsCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.normalizedName = const Value.absent(),
+    this.colorArgb = const Value.absent(),
+    this.iconKey = const Value.absent(),
+    this.parentTagId = const Value.absent(),
+    this.allowedInDeposit = const Value.absent(),
+    this.allowedInWithdrawal = const Value.absent(),
+    this.allowedInInventory = const Value.absent(),
+    this.allowedInShopping = const Value.absent(),
+    this.allowedInRecurring = const Value.absent(),
+    this.allowedInService = const Value.absent(),
+    this.isSystem = const Value.absent(),
+    this.sortOrder = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TagsCompanion.insert({
+    required String id,
+    required String name,
+    required String normalizedName,
+    this.colorArgb = const Value.absent(),
+    this.iconKey = const Value.absent(),
+    this.parentTagId = const Value.absent(),
+    required bool allowedInDeposit,
+    required bool allowedInWithdrawal,
+    required bool allowedInInventory,
+    required bool allowedInShopping,
+    required bool allowedInRecurring,
+    required bool allowedInService,
+    required bool isSystem,
+    required int sortOrder,
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       name = Value(name),
+       normalizedName = Value(normalizedName),
+       allowedInDeposit = Value(allowedInDeposit),
+       allowedInWithdrawal = Value(allowedInWithdrawal),
+       allowedInInventory = Value(allowedInInventory),
+       allowedInShopping = Value(allowedInShopping),
+       allowedInRecurring = Value(allowedInRecurring),
+       allowedInService = Value(allowedInService),
+       isSystem = Value(isSystem),
+       sortOrder = Value(sortOrder),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<TagRow> custom({
+    Expression<String>? id,
+    Expression<String>? name,
+    Expression<String>? normalizedName,
+    Expression<int>? colorArgb,
+    Expression<String>? iconKey,
+    Expression<String>? parentTagId,
+    Expression<bool>? allowedInDeposit,
+    Expression<bool>? allowedInWithdrawal,
+    Expression<bool>? allowedInInventory,
+    Expression<bool>? allowedInShopping,
+    Expression<bool>? allowedInRecurring,
+    Expression<bool>? allowedInService,
+    Expression<bool>? isSystem,
+    Expression<int>? sortOrder,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (normalizedName != null) 'normalized_name': normalizedName,
+      if (colorArgb != null) 'color_argb': colorArgb,
+      if (iconKey != null) 'icon_key': iconKey,
+      if (parentTagId != null) 'parent_tag_id': parentTagId,
+      if (allowedInDeposit != null) 'allowed_in_deposit': allowedInDeposit,
+      if (allowedInWithdrawal != null)
+        'allowed_in_withdrawal': allowedInWithdrawal,
+      if (allowedInInventory != null)
+        'allowed_in_inventory': allowedInInventory,
+      if (allowedInShopping != null) 'allowed_in_shopping': allowedInShopping,
+      if (allowedInRecurring != null)
+        'allowed_in_recurring': allowedInRecurring,
+      if (allowedInService != null) 'allowed_in_service': allowedInService,
+      if (isSystem != null) 'is_system': isSystem,
+      if (sortOrder != null) 'sort_order': sortOrder,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TagsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? name,
+    Value<String>? normalizedName,
+    Value<int?>? colorArgb,
+    Value<String?>? iconKey,
+    Value<String?>? parentTagId,
+    Value<bool>? allowedInDeposit,
+    Value<bool>? allowedInWithdrawal,
+    Value<bool>? allowedInInventory,
+    Value<bool>? allowedInShopping,
+    Value<bool>? allowedInRecurring,
+    Value<bool>? allowedInService,
+    Value<bool>? isSystem,
+    Value<int>? sortOrder,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return TagsCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      normalizedName: normalizedName ?? this.normalizedName,
+      colorArgb: colorArgb ?? this.colorArgb,
+      iconKey: iconKey ?? this.iconKey,
+      parentTagId: parentTagId ?? this.parentTagId,
+      allowedInDeposit: allowedInDeposit ?? this.allowedInDeposit,
+      allowedInWithdrawal: allowedInWithdrawal ?? this.allowedInWithdrawal,
+      allowedInInventory: allowedInInventory ?? this.allowedInInventory,
+      allowedInShopping: allowedInShopping ?? this.allowedInShopping,
+      allowedInRecurring: allowedInRecurring ?? this.allowedInRecurring,
+      allowedInService: allowedInService ?? this.allowedInService,
+      isSystem: isSystem ?? this.isSystem,
+      sortOrder: sortOrder ?? this.sortOrder,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (normalizedName.present) {
+      map['normalized_name'] = Variable<String>(normalizedName.value);
+    }
+    if (colorArgb.present) {
+      map['color_argb'] = Variable<int>(colorArgb.value);
+    }
+    if (iconKey.present) {
+      map['icon_key'] = Variable<String>(iconKey.value);
+    }
+    if (parentTagId.present) {
+      map['parent_tag_id'] = Variable<String>(parentTagId.value);
+    }
+    if (allowedInDeposit.present) {
+      map['allowed_in_deposit'] = Variable<bool>(allowedInDeposit.value);
+    }
+    if (allowedInWithdrawal.present) {
+      map['allowed_in_withdrawal'] = Variable<bool>(allowedInWithdrawal.value);
+    }
+    if (allowedInInventory.present) {
+      map['allowed_in_inventory'] = Variable<bool>(allowedInInventory.value);
+    }
+    if (allowedInShopping.present) {
+      map['allowed_in_shopping'] = Variable<bool>(allowedInShopping.value);
+    }
+    if (allowedInRecurring.present) {
+      map['allowed_in_recurring'] = Variable<bool>(allowedInRecurring.value);
+    }
+    if (allowedInService.present) {
+      map['allowed_in_service'] = Variable<bool>(allowedInService.value);
+    }
+    if (isSystem.present) {
+      map['is_system'] = Variable<bool>(isSystem.value);
+    }
+    if (sortOrder.present) {
+      map['sort_order'] = Variable<int>(sortOrder.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagsCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('colorArgb: $colorArgb, ')
+          ..write('iconKey: $iconKey, ')
+          ..write('parentTagId: $parentTagId, ')
+          ..write('allowedInDeposit: $allowedInDeposit, ')
+          ..write('allowedInWithdrawal: $allowedInWithdrawal, ')
+          ..write('allowedInInventory: $allowedInInventory, ')
+          ..write('allowedInShopping: $allowedInShopping, ')
+          ..write('allowedInRecurring: $allowedInRecurring, ')
+          ..write('allowedInService: $allowedInService, ')
+          ..write('isSystem: $isSystem, ')
+          ..write('sortOrder: $sortOrder, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $ItemsTable extends Items with TableInfo<$ItemsTable, ItemRow> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -869,15 +1917,20 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, ItemRow> {
           'REFERENCES units (code)',
         ),
       );
+  static const VerificationMeta _kindTagIdMeta = const VerificationMeta(
+    'kindTagId',
+  );
   @override
-  late final GeneratedColumnWithTypeConverter<ItemKind, String> itemKind =
-      GeneratedColumn<String>(
-        'item_kind',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      ).withConverter<ItemKind>($ItemsTable.$converteritemKind);
+  late final GeneratedColumn<String> kindTagId = GeneratedColumn<String>(
+    'kind_tag_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES tags (id)',
+    ),
+  );
   static const VerificationMeta _lowStockThresholdMilliMeta =
       const VerificationMeta('lowStockThresholdMilli');
   @override
@@ -894,6 +1947,26 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, ItemRow> {
   @override
   late final GeneratedColumn<int> expiryNotifyDays = GeneratedColumn<int>(
     'expiry_notify_days',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _densityMilliGramsPerMlMeta =
+      const VerificationMeta('densityMilliGramsPerMl');
+  @override
+  late final GeneratedColumn<int> densityMilliGramsPerMl = GeneratedColumn<int>(
+    'density_milli_grams_per_ml',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _milliGramsPerPieceMeta =
+      const VerificationMeta('milliGramsPerPiece');
+  @override
+  late final GeneratedColumn<int> milliGramsPerPiece = GeneratedColumn<int>(
+    'milli_grams_per_piece',
     aliasedName,
     true,
     type: DriftSqlType.int,
@@ -962,9 +2035,11 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, ItemRow> {
     normalizedName,
     unitCategory,
     defaultDisplayUnitCode,
-    itemKind,
+    kindTagId,
     lowStockThresholdMilli,
     expiryNotifyDays,
+    densityMilliGramsPerMl,
+    milliGramsPerPiece,
     notes,
     isFavorite,
     createdAt,
@@ -1018,6 +2093,12 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, ItemRow> {
     } else if (isInserting) {
       context.missing(_defaultDisplayUnitCodeMeta);
     }
+    if (data.containsKey('kind_tag_id')) {
+      context.handle(
+        _kindTagIdMeta,
+        kindTagId.isAcceptableOrUnknown(data['kind_tag_id']!, _kindTagIdMeta),
+      );
+    }
     if (data.containsKey('low_stock_threshold_milli')) {
       context.handle(
         _lowStockThresholdMilliMeta,
@@ -1033,6 +2114,24 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, ItemRow> {
         expiryNotifyDays.isAcceptableOrUnknown(
           data['expiry_notify_days']!,
           _expiryNotifyDaysMeta,
+        ),
+      );
+    }
+    if (data.containsKey('density_milli_grams_per_ml')) {
+      context.handle(
+        _densityMilliGramsPerMlMeta,
+        densityMilliGramsPerMl.isAcceptableOrUnknown(
+          data['density_milli_grams_per_ml']!,
+          _densityMilliGramsPerMlMeta,
+        ),
+      );
+    }
+    if (data.containsKey('milli_grams_per_piece')) {
+      context.handle(
+        _milliGramsPerPieceMeta,
+        milliGramsPerPiece.isAcceptableOrUnknown(
+          data['milli_grams_per_piece']!,
+          _milliGramsPerPieceMeta,
         ),
       );
     }
@@ -1103,11 +2202,9 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, ItemRow> {
         DriftSqlType.string,
         data['${effectivePrefix}default_display_unit_code'],
       )!,
-      itemKind: $ItemsTable.$converteritemKind.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}item_kind'],
-        )!,
+      kindTagId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}kind_tag_id'],
       ),
       lowStockThresholdMilli: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
@@ -1116,6 +2213,14 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, ItemRow> {
       expiryNotifyDays: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}expiry_notify_days'],
+      ),
+      densityMilliGramsPerMl: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}density_milli_grams_per_ml'],
+      ),
+      milliGramsPerPiece: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}milli_grams_per_piece'],
       ),
       notes: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
@@ -1147,8 +2252,6 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, ItemRow> {
 
   static TypeConverter<UnitCategory, String> $converterunitCategory =
       const UnitCategoryConverter();
-  static TypeConverter<ItemKind, String> $converteritemKind =
-      const ItemKindConverter();
 }
 
 class ItemRow extends DataClass implements Insertable<ItemRow> {
@@ -1170,9 +2273,24 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
   /// The unit this item's quantities are rendered in by default.
   final String defaultDisplayUnitCode;
 
-  /// Rough classification. `medicine` is what makes medicine expiry appear on the calendar with
-  /// no extra table (ARCH_3 §6).
-  final ItemKind itemKind;
+  /// Which kind this item is filed under — a [Tags] row, or null.
+  ///
+  /// **A reference rather than an enum, so a user can add `Vegetables`.** `item_kind` was six fixed strings
+  /// through an `ItemKindConverter`, and nothing but a code change could add a seventh. The six are now seeded
+  /// `tags` rows with `is_system` set, scoped by [Tags.allowedInInventory], and a user's own kinds sit beside
+  /// them.
+  ///
+  /// **Nullable, and after v5's backfill never null in practice.** The migration had to add it nullable —
+  /// there was nothing to default it to until the tags existed — and then filled every row from the old
+  /// column. Making it `NOT NULL` afterwards would mean a second table rebuild for a constraint the data
+  /// already satisfies, and would leave no way to represent an item whose kind was deleted before the
+  /// Settings fallback ran.
+  ///
+  /// **The old comment claimed `medicine` was "what makes medicine expiry appear on the calendar".** It never
+  /// did: `v_calendar_events` emits `batchExpiry` for every item regardless of kind, and no view, service or
+  /// screen in the codebase branches on the value. The kind was a label and an icon. Distinguishing medicine
+  /// expiry is a real feature and an unbuilt one — recorded here so the next reader does not inherit the claim.
+  final String? kindTagId;
 
   /// Below this total remaining quantity the item is low on stock and the suggestion engine may
   /// generate a shopping entry. In base-milli units. Null means no threshold set.
@@ -1180,6 +2298,23 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
 
   /// How many days before a batch's expiry to remind. Null falls back to the global setting.
   final int? expiryNotifyDays;
+
+  /// How much one millilitre of this item weighs, in milli-grams. Null when unknown.
+  ///
+  /// **This is what lets a recipe say "2 tbsp" of something you weigh.** A tablespoon is a volume —
+  /// 14.787 ml, the same for everything — but turning that into grams needs to know the substance: a
+  /// tablespoon of butter is about 13.5 g and one of flour about 8 g. That is a property of the
+  /// item, not of the recipe line, so one number here serves every volume unit at once.
+  ///
+  /// Null is the honest default and nothing regresses without it: the engine keeps reporting a
+  /// cross-dimension ingredient as *unanswerable*, exactly as it does today.
+  final int? densityMilliGramsPerMl;
+
+  /// What one piece of this item weighs, in milli-grams. Null when unknown.
+  ///
+  /// The count-to-weight bridge, for "2 onions" against onions kept by weight. Same argument as
+  /// [densityMilliGramsPerMl]: a fact about onions, stored once.
+  final int? milliGramsPerPiece;
 
   /// Optional free-text notes. Indexed for full-text search in Phase 1C.
   final String? notes;
@@ -1201,9 +2336,11 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
     required this.normalizedName,
     required this.unitCategory,
     required this.defaultDisplayUnitCode,
-    required this.itemKind,
+    this.kindTagId,
     this.lowStockThresholdMilli,
     this.expiryNotifyDays,
+    this.densityMilliGramsPerMl,
+    this.milliGramsPerPiece,
     this.notes,
     required this.isFavorite,
     required this.createdAt,
@@ -1222,16 +2359,20 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
       );
     }
     map['default_display_unit_code'] = Variable<String>(defaultDisplayUnitCode);
-    {
-      map['item_kind'] = Variable<String>(
-        $ItemsTable.$converteritemKind.toSql(itemKind),
-      );
+    if (!nullToAbsent || kindTagId != null) {
+      map['kind_tag_id'] = Variable<String>(kindTagId);
     }
     if (!nullToAbsent || lowStockThresholdMilli != null) {
       map['low_stock_threshold_milli'] = Variable<int>(lowStockThresholdMilli);
     }
     if (!nullToAbsent || expiryNotifyDays != null) {
       map['expiry_notify_days'] = Variable<int>(expiryNotifyDays);
+    }
+    if (!nullToAbsent || densityMilliGramsPerMl != null) {
+      map['density_milli_grams_per_ml'] = Variable<int>(densityMilliGramsPerMl);
+    }
+    if (!nullToAbsent || milliGramsPerPiece != null) {
+      map['milli_grams_per_piece'] = Variable<int>(milliGramsPerPiece);
     }
     if (!nullToAbsent || notes != null) {
       map['notes'] = Variable<String>(notes);
@@ -1252,13 +2393,21 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
       normalizedName: Value(normalizedName),
       unitCategory: Value(unitCategory),
       defaultDisplayUnitCode: Value(defaultDisplayUnitCode),
-      itemKind: Value(itemKind),
+      kindTagId: kindTagId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(kindTagId),
       lowStockThresholdMilli: lowStockThresholdMilli == null && nullToAbsent
           ? const Value.absent()
           : Value(lowStockThresholdMilli),
       expiryNotifyDays: expiryNotifyDays == null && nullToAbsent
           ? const Value.absent()
           : Value(expiryNotifyDays),
+      densityMilliGramsPerMl: densityMilliGramsPerMl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(densityMilliGramsPerMl),
+      milliGramsPerPiece: milliGramsPerPiece == null && nullToAbsent
+          ? const Value.absent()
+          : Value(milliGramsPerPiece),
       notes: notes == null && nullToAbsent
           ? const Value.absent()
           : Value(notes),
@@ -1284,11 +2433,15 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
       defaultDisplayUnitCode: serializer.fromJson<String>(
         json['defaultDisplayUnitCode'],
       ),
-      itemKind: serializer.fromJson<ItemKind>(json['itemKind']),
+      kindTagId: serializer.fromJson<String?>(json['kindTagId']),
       lowStockThresholdMilli: serializer.fromJson<int?>(
         json['lowStockThresholdMilli'],
       ),
       expiryNotifyDays: serializer.fromJson<int?>(json['expiryNotifyDays']),
+      densityMilliGramsPerMl: serializer.fromJson<int?>(
+        json['densityMilliGramsPerMl'],
+      ),
+      milliGramsPerPiece: serializer.fromJson<int?>(json['milliGramsPerPiece']),
       notes: serializer.fromJson<String?>(json['notes']),
       isFavorite: serializer.fromJson<bool>(json['isFavorite']),
       createdAt: serializer.fromJson<int>(json['createdAt']),
@@ -1307,9 +2460,11 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
       'defaultDisplayUnitCode': serializer.toJson<String>(
         defaultDisplayUnitCode,
       ),
-      'itemKind': serializer.toJson<ItemKind>(itemKind),
+      'kindTagId': serializer.toJson<String?>(kindTagId),
       'lowStockThresholdMilli': serializer.toJson<int?>(lowStockThresholdMilli),
       'expiryNotifyDays': serializer.toJson<int?>(expiryNotifyDays),
+      'densityMilliGramsPerMl': serializer.toJson<int?>(densityMilliGramsPerMl),
+      'milliGramsPerPiece': serializer.toJson<int?>(milliGramsPerPiece),
       'notes': serializer.toJson<String?>(notes),
       'isFavorite': serializer.toJson<bool>(isFavorite),
       'createdAt': serializer.toJson<int>(createdAt),
@@ -1324,9 +2479,11 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
     String? normalizedName,
     UnitCategory? unitCategory,
     String? defaultDisplayUnitCode,
-    ItemKind? itemKind,
+    Value<String?> kindTagId = const Value.absent(),
     Value<int?> lowStockThresholdMilli = const Value.absent(),
     Value<int?> expiryNotifyDays = const Value.absent(),
+    Value<int?> densityMilliGramsPerMl = const Value.absent(),
+    Value<int?> milliGramsPerPiece = const Value.absent(),
     Value<String?> notes = const Value.absent(),
     bool? isFavorite,
     int? createdAt,
@@ -1339,13 +2496,19 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
     unitCategory: unitCategory ?? this.unitCategory,
     defaultDisplayUnitCode:
         defaultDisplayUnitCode ?? this.defaultDisplayUnitCode,
-    itemKind: itemKind ?? this.itemKind,
+    kindTagId: kindTagId.present ? kindTagId.value : this.kindTagId,
     lowStockThresholdMilli: lowStockThresholdMilli.present
         ? lowStockThresholdMilli.value
         : this.lowStockThresholdMilli,
     expiryNotifyDays: expiryNotifyDays.present
         ? expiryNotifyDays.value
         : this.expiryNotifyDays,
+    densityMilliGramsPerMl: densityMilliGramsPerMl.present
+        ? densityMilliGramsPerMl.value
+        : this.densityMilliGramsPerMl,
+    milliGramsPerPiece: milliGramsPerPiece.present
+        ? milliGramsPerPiece.value
+        : this.milliGramsPerPiece,
     notes: notes.present ? notes.value : this.notes,
     isFavorite: isFavorite ?? this.isFavorite,
     createdAt: createdAt ?? this.createdAt,
@@ -1365,13 +2528,19 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
       defaultDisplayUnitCode: data.defaultDisplayUnitCode.present
           ? data.defaultDisplayUnitCode.value
           : this.defaultDisplayUnitCode,
-      itemKind: data.itemKind.present ? data.itemKind.value : this.itemKind,
+      kindTagId: data.kindTagId.present ? data.kindTagId.value : this.kindTagId,
       lowStockThresholdMilli: data.lowStockThresholdMilli.present
           ? data.lowStockThresholdMilli.value
           : this.lowStockThresholdMilli,
       expiryNotifyDays: data.expiryNotifyDays.present
           ? data.expiryNotifyDays.value
           : this.expiryNotifyDays,
+      densityMilliGramsPerMl: data.densityMilliGramsPerMl.present
+          ? data.densityMilliGramsPerMl.value
+          : this.densityMilliGramsPerMl,
+      milliGramsPerPiece: data.milliGramsPerPiece.present
+          ? data.milliGramsPerPiece.value
+          : this.milliGramsPerPiece,
       notes: data.notes.present ? data.notes.value : this.notes,
       isFavorite: data.isFavorite.present
           ? data.isFavorite.value
@@ -1390,9 +2559,11 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
           ..write('normalizedName: $normalizedName, ')
           ..write('unitCategory: $unitCategory, ')
           ..write('defaultDisplayUnitCode: $defaultDisplayUnitCode, ')
-          ..write('itemKind: $itemKind, ')
+          ..write('kindTagId: $kindTagId, ')
           ..write('lowStockThresholdMilli: $lowStockThresholdMilli, ')
           ..write('expiryNotifyDays: $expiryNotifyDays, ')
+          ..write('densityMilliGramsPerMl: $densityMilliGramsPerMl, ')
+          ..write('milliGramsPerPiece: $milliGramsPerPiece, ')
           ..write('notes: $notes, ')
           ..write('isFavorite: $isFavorite, ')
           ..write('createdAt: $createdAt, ')
@@ -1409,9 +2580,11 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
     normalizedName,
     unitCategory,
     defaultDisplayUnitCode,
-    itemKind,
+    kindTagId,
     lowStockThresholdMilli,
     expiryNotifyDays,
+    densityMilliGramsPerMl,
+    milliGramsPerPiece,
     notes,
     isFavorite,
     createdAt,
@@ -1427,9 +2600,11 @@ class ItemRow extends DataClass implements Insertable<ItemRow> {
           other.normalizedName == this.normalizedName &&
           other.unitCategory == this.unitCategory &&
           other.defaultDisplayUnitCode == this.defaultDisplayUnitCode &&
-          other.itemKind == this.itemKind &&
+          other.kindTagId == this.kindTagId &&
           other.lowStockThresholdMilli == this.lowStockThresholdMilli &&
           other.expiryNotifyDays == this.expiryNotifyDays &&
+          other.densityMilliGramsPerMl == this.densityMilliGramsPerMl &&
+          other.milliGramsPerPiece == this.milliGramsPerPiece &&
           other.notes == this.notes &&
           other.isFavorite == this.isFavorite &&
           other.createdAt == this.createdAt &&
@@ -1443,9 +2618,11 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
   final Value<String> normalizedName;
   final Value<UnitCategory> unitCategory;
   final Value<String> defaultDisplayUnitCode;
-  final Value<ItemKind> itemKind;
+  final Value<String?> kindTagId;
   final Value<int?> lowStockThresholdMilli;
   final Value<int?> expiryNotifyDays;
+  final Value<int?> densityMilliGramsPerMl;
+  final Value<int?> milliGramsPerPiece;
   final Value<String?> notes;
   final Value<bool> isFavorite;
   final Value<int> createdAt;
@@ -1458,9 +2635,11 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
     this.normalizedName = const Value.absent(),
     this.unitCategory = const Value.absent(),
     this.defaultDisplayUnitCode = const Value.absent(),
-    this.itemKind = const Value.absent(),
+    this.kindTagId = const Value.absent(),
     this.lowStockThresholdMilli = const Value.absent(),
     this.expiryNotifyDays = const Value.absent(),
+    this.densityMilliGramsPerMl = const Value.absent(),
+    this.milliGramsPerPiece = const Value.absent(),
     this.notes = const Value.absent(),
     this.isFavorite = const Value.absent(),
     this.createdAt = const Value.absent(),
@@ -1474,9 +2653,11 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
     required String normalizedName,
     required UnitCategory unitCategory,
     required String defaultDisplayUnitCode,
-    required ItemKind itemKind,
+    this.kindTagId = const Value.absent(),
     this.lowStockThresholdMilli = const Value.absent(),
     this.expiryNotifyDays = const Value.absent(),
+    this.densityMilliGramsPerMl = const Value.absent(),
+    this.milliGramsPerPiece = const Value.absent(),
     this.notes = const Value.absent(),
     required bool isFavorite,
     required int createdAt,
@@ -1488,7 +2669,6 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
        normalizedName = Value(normalizedName),
        unitCategory = Value(unitCategory),
        defaultDisplayUnitCode = Value(defaultDisplayUnitCode),
-       itemKind = Value(itemKind),
        isFavorite = Value(isFavorite),
        createdAt = Value(createdAt),
        updatedAt = Value(updatedAt);
@@ -1498,9 +2678,11 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
     Expression<String>? normalizedName,
     Expression<String>? unitCategory,
     Expression<String>? defaultDisplayUnitCode,
-    Expression<String>? itemKind,
+    Expression<String>? kindTagId,
     Expression<int>? lowStockThresholdMilli,
     Expression<int>? expiryNotifyDays,
+    Expression<int>? densityMilliGramsPerMl,
+    Expression<int>? milliGramsPerPiece,
     Expression<String>? notes,
     Expression<bool>? isFavorite,
     Expression<int>? createdAt,
@@ -1515,10 +2697,14 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
       if (unitCategory != null) 'unit_category': unitCategory,
       if (defaultDisplayUnitCode != null)
         'default_display_unit_code': defaultDisplayUnitCode,
-      if (itemKind != null) 'item_kind': itemKind,
+      if (kindTagId != null) 'kind_tag_id': kindTagId,
       if (lowStockThresholdMilli != null)
         'low_stock_threshold_milli': lowStockThresholdMilli,
       if (expiryNotifyDays != null) 'expiry_notify_days': expiryNotifyDays,
+      if (densityMilliGramsPerMl != null)
+        'density_milli_grams_per_ml': densityMilliGramsPerMl,
+      if (milliGramsPerPiece != null)
+        'milli_grams_per_piece': milliGramsPerPiece,
       if (notes != null) 'notes': notes,
       if (isFavorite != null) 'is_favorite': isFavorite,
       if (createdAt != null) 'created_at': createdAt,
@@ -1534,9 +2720,11 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
     Value<String>? normalizedName,
     Value<UnitCategory>? unitCategory,
     Value<String>? defaultDisplayUnitCode,
-    Value<ItemKind>? itemKind,
+    Value<String?>? kindTagId,
     Value<int?>? lowStockThresholdMilli,
     Value<int?>? expiryNotifyDays,
+    Value<int?>? densityMilliGramsPerMl,
+    Value<int?>? milliGramsPerPiece,
     Value<String?>? notes,
     Value<bool>? isFavorite,
     Value<int>? createdAt,
@@ -1551,10 +2739,13 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
       unitCategory: unitCategory ?? this.unitCategory,
       defaultDisplayUnitCode:
           defaultDisplayUnitCode ?? this.defaultDisplayUnitCode,
-      itemKind: itemKind ?? this.itemKind,
+      kindTagId: kindTagId ?? this.kindTagId,
       lowStockThresholdMilli:
           lowStockThresholdMilli ?? this.lowStockThresholdMilli,
       expiryNotifyDays: expiryNotifyDays ?? this.expiryNotifyDays,
+      densityMilliGramsPerMl:
+          densityMilliGramsPerMl ?? this.densityMilliGramsPerMl,
+      milliGramsPerPiece: milliGramsPerPiece ?? this.milliGramsPerPiece,
       notes: notes ?? this.notes,
       isFavorite: isFavorite ?? this.isFavorite,
       createdAt: createdAt ?? this.createdAt,
@@ -1586,10 +2777,8 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
         defaultDisplayUnitCode.value,
       );
     }
-    if (itemKind.present) {
-      map['item_kind'] = Variable<String>(
-        $ItemsTable.$converteritemKind.toSql(itemKind.value),
-      );
+    if (kindTagId.present) {
+      map['kind_tag_id'] = Variable<String>(kindTagId.value);
     }
     if (lowStockThresholdMilli.present) {
       map['low_stock_threshold_milli'] = Variable<int>(
@@ -1598,6 +2787,14 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
     }
     if (expiryNotifyDays.present) {
       map['expiry_notify_days'] = Variable<int>(expiryNotifyDays.value);
+    }
+    if (densityMilliGramsPerMl.present) {
+      map['density_milli_grams_per_ml'] = Variable<int>(
+        densityMilliGramsPerMl.value,
+      );
+    }
+    if (milliGramsPerPiece.present) {
+      map['milli_grams_per_piece'] = Variable<int>(milliGramsPerPiece.value);
     }
     if (notes.present) {
       map['notes'] = Variable<String>(notes.value);
@@ -1628,9 +2825,11 @@ class ItemsCompanion extends UpdateCompanion<ItemRow> {
           ..write('normalizedName: $normalizedName, ')
           ..write('unitCategory: $unitCategory, ')
           ..write('defaultDisplayUnitCode: $defaultDisplayUnitCode, ')
-          ..write('itemKind: $itemKind, ')
+          ..write('kindTagId: $kindTagId, ')
           ..write('lowStockThresholdMilli: $lowStockThresholdMilli, ')
           ..write('expiryNotifyDays: $expiryNotifyDays, ')
+          ..write('densityMilliGramsPerMl: $densityMilliGramsPerMl, ')
+          ..write('milliGramsPerPiece: $milliGramsPerPiece, ')
           ..write('notes: $notes, ')
           ..write('isFavorite: $isFavorite, ')
           ..write('createdAt: $createdAt, ')
@@ -4419,1054 +5618,6 @@ class PayeesCompanion extends UpdateCompanion<PayeeRow> {
           ..write('kind: $kind, ')
           ..write('phone: $phone, ')
           ..write('note: $note, ')
-          ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt, ')
-          ..write('deletedAt: $deletedAt, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $TagsTable extends Tags with TableInfo<$TagsTable, TagRow> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $TagsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<String> id = GeneratedColumn<String>(
-    'id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
-  @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _normalizedNameMeta = const VerificationMeta(
-    'normalizedName',
-  );
-  @override
-  late final GeneratedColumn<String> normalizedName = GeneratedColumn<String>(
-    'normalized_name',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _colorArgbMeta = const VerificationMeta(
-    'colorArgb',
-  );
-  @override
-  late final GeneratedColumn<int> colorArgb = GeneratedColumn<int>(
-    'color_argb',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _iconKeyMeta = const VerificationMeta(
-    'iconKey',
-  );
-  @override
-  late final GeneratedColumn<String> iconKey = GeneratedColumn<String>(
-    'icon_key',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _parentTagIdMeta = const VerificationMeta(
-    'parentTagId',
-  );
-  @override
-  late final GeneratedColumn<String> parentTagId = GeneratedColumn<String>(
-    'parent_tag_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES tags (id)',
-    ),
-  );
-  static const VerificationMeta _allowedInDepositMeta = const VerificationMeta(
-    'allowedInDeposit',
-  );
-  @override
-  late final GeneratedColumn<bool> allowedInDeposit = GeneratedColumn<bool>(
-    'allowed_in_deposit',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("allowed_in_deposit" IN (0, 1))',
-    ),
-  );
-  static const VerificationMeta _allowedInWithdrawalMeta =
-      const VerificationMeta('allowedInWithdrawal');
-  @override
-  late final GeneratedColumn<bool> allowedInWithdrawal = GeneratedColumn<bool>(
-    'allowed_in_withdrawal',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("allowed_in_withdrawal" IN (0, 1))',
-    ),
-  );
-  static const VerificationMeta _allowedInInventoryMeta =
-      const VerificationMeta('allowedInInventory');
-  @override
-  late final GeneratedColumn<bool> allowedInInventory = GeneratedColumn<bool>(
-    'allowed_in_inventory',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("allowed_in_inventory" IN (0, 1))',
-    ),
-  );
-  static const VerificationMeta _allowedInShoppingMeta = const VerificationMeta(
-    'allowedInShopping',
-  );
-  @override
-  late final GeneratedColumn<bool> allowedInShopping = GeneratedColumn<bool>(
-    'allowed_in_shopping',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("allowed_in_shopping" IN (0, 1))',
-    ),
-  );
-  static const VerificationMeta _allowedInRecurringMeta =
-      const VerificationMeta('allowedInRecurring');
-  @override
-  late final GeneratedColumn<bool> allowedInRecurring = GeneratedColumn<bool>(
-    'allowed_in_recurring',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("allowed_in_recurring" IN (0, 1))',
-    ),
-  );
-  static const VerificationMeta _allowedInServiceMeta = const VerificationMeta(
-    'allowedInService',
-  );
-  @override
-  late final GeneratedColumn<bool> allowedInService = GeneratedColumn<bool>(
-    'allowed_in_service',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("allowed_in_service" IN (0, 1))',
-    ),
-  );
-  static const VerificationMeta _isSystemMeta = const VerificationMeta(
-    'isSystem',
-  );
-  @override
-  late final GeneratedColumn<bool> isSystem = GeneratedColumn<bool>(
-    'is_system',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("is_system" IN (0, 1))',
-    ),
-  );
-  static const VerificationMeta _sortOrderMeta = const VerificationMeta(
-    'sortOrder',
-  );
-  @override
-  late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
-    'sort_order',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
-  @override
-  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
-    'created_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
-  @override
-  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
-    'deletedAt',
-  );
-  @override
-  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
-    'deleted_at',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-  );
-  @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    name,
-    normalizedName,
-    colorArgb,
-    iconKey,
-    parentTagId,
-    allowedInDeposit,
-    allowedInWithdrawal,
-    allowedInInventory,
-    allowedInShopping,
-    allowedInRecurring,
-    allowedInService,
-    isSystem,
-    sortOrder,
-    createdAt,
-    updatedAt,
-    deletedAt,
-  ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'tags';
-  @override
-  VerificationContext validateIntegrity(
-    Insertable<TagRow> instance, {
-    bool isInserting = false,
-  }) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    } else if (isInserting) {
-      context.missing(_idMeta);
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    if (data.containsKey('normalized_name')) {
-      context.handle(
-        _normalizedNameMeta,
-        normalizedName.isAcceptableOrUnknown(
-          data['normalized_name']!,
-          _normalizedNameMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_normalizedNameMeta);
-    }
-    if (data.containsKey('color_argb')) {
-      context.handle(
-        _colorArgbMeta,
-        colorArgb.isAcceptableOrUnknown(data['color_argb']!, _colorArgbMeta),
-      );
-    }
-    if (data.containsKey('icon_key')) {
-      context.handle(
-        _iconKeyMeta,
-        iconKey.isAcceptableOrUnknown(data['icon_key']!, _iconKeyMeta),
-      );
-    }
-    if (data.containsKey('parent_tag_id')) {
-      context.handle(
-        _parentTagIdMeta,
-        parentTagId.isAcceptableOrUnknown(
-          data['parent_tag_id']!,
-          _parentTagIdMeta,
-        ),
-      );
-    }
-    if (data.containsKey('allowed_in_deposit')) {
-      context.handle(
-        _allowedInDepositMeta,
-        allowedInDeposit.isAcceptableOrUnknown(
-          data['allowed_in_deposit']!,
-          _allowedInDepositMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_allowedInDepositMeta);
-    }
-    if (data.containsKey('allowed_in_withdrawal')) {
-      context.handle(
-        _allowedInWithdrawalMeta,
-        allowedInWithdrawal.isAcceptableOrUnknown(
-          data['allowed_in_withdrawal']!,
-          _allowedInWithdrawalMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_allowedInWithdrawalMeta);
-    }
-    if (data.containsKey('allowed_in_inventory')) {
-      context.handle(
-        _allowedInInventoryMeta,
-        allowedInInventory.isAcceptableOrUnknown(
-          data['allowed_in_inventory']!,
-          _allowedInInventoryMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_allowedInInventoryMeta);
-    }
-    if (data.containsKey('allowed_in_shopping')) {
-      context.handle(
-        _allowedInShoppingMeta,
-        allowedInShopping.isAcceptableOrUnknown(
-          data['allowed_in_shopping']!,
-          _allowedInShoppingMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_allowedInShoppingMeta);
-    }
-    if (data.containsKey('allowed_in_recurring')) {
-      context.handle(
-        _allowedInRecurringMeta,
-        allowedInRecurring.isAcceptableOrUnknown(
-          data['allowed_in_recurring']!,
-          _allowedInRecurringMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_allowedInRecurringMeta);
-    }
-    if (data.containsKey('allowed_in_service')) {
-      context.handle(
-        _allowedInServiceMeta,
-        allowedInService.isAcceptableOrUnknown(
-          data['allowed_in_service']!,
-          _allowedInServiceMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_allowedInServiceMeta);
-    }
-    if (data.containsKey('is_system')) {
-      context.handle(
-        _isSystemMeta,
-        isSystem.isAcceptableOrUnknown(data['is_system']!, _isSystemMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_isSystemMeta);
-    }
-    if (data.containsKey('sort_order')) {
-      context.handle(
-        _sortOrderMeta,
-        sortOrder.isAcceptableOrUnknown(data['sort_order']!, _sortOrderMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_sortOrderMeta);
-    }
-    if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_createdAtMeta);
-    }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
-    if (data.containsKey('deleted_at')) {
-      context.handle(
-        _deletedAtMeta,
-        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
-      );
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  TagRow map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TagRow(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      normalizedName: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}normalized_name'],
-      )!,
-      colorArgb: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}color_argb'],
-      ),
-      iconKey: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}icon_key'],
-      ),
-      parentTagId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}parent_tag_id'],
-      ),
-      allowedInDeposit: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}allowed_in_deposit'],
-      )!,
-      allowedInWithdrawal: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}allowed_in_withdrawal'],
-      )!,
-      allowedInInventory: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}allowed_in_inventory'],
-      )!,
-      allowedInShopping: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}allowed_in_shopping'],
-      )!,
-      allowedInRecurring: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}allowed_in_recurring'],
-      )!,
-      allowedInService: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}allowed_in_service'],
-      )!,
-      isSystem: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}is_system'],
-      )!,
-      sortOrder: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}sort_order'],
-      )!,
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}updated_at'],
-      )!,
-      deletedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}deleted_at'],
-      ),
-    );
-  }
-
-  @override
-  $TagsTable createAlias(String alias) {
-    return $TagsTable(attachedDatabase, alias);
-  }
-}
-
-class TagRow extends DataClass implements Insertable<TagRow> {
-  /// Row identifier, UUIDv7.
-  final String id;
-
-  /// Display name as the user typed it.
-  final String name;
-
-  /// Normalised form used for identity matching only, never displayed
-  /// (Phase 1A `Normalizer`).
-  final String normalizedName;
-
-  /// Optional ARGB colour for the chip.
-  final int? colorArgb;
-
-  /// Optional icon identifier.
-  final String? iconKey;
-
-  /// Parent tag, permitting exactly **one** level of nesting (`Grocery > Vegetables`). Depth is
-  /// capped in the repository, not here. This single column is what makes drill-down analytics
-  /// possible (ARCH_2 §3).
-  final String? parentTagId;
-
-  /// Offered in the deposit tag picker.
-  final bool allowedInDeposit;
-
-  /// Offered in the withdrawal tag picker.
-  final bool allowedInWithdrawal;
-
-  /// Offered in the inventory tag picker.
-  final bool allowedInInventory;
-
-  /// Offered in the shopping tag picker, where it also acts as the group header.
-  final bool allowedInShopping;
-
-  /// Offered in the recurring tag picker.
-  final bool allowedInRecurring;
-
-  /// Offered in the service tag picker.
-  final bool allowedInService;
-
-  /// Whether this tag was seeded; system tags cannot be deleted (ARCH_3 §4.1).
-  final bool isSystem;
-
-  /// Manual ordering within pickers.
-  final int sortOrder;
-
-  /// Creation instant, epoch millis UTC.
-  final int createdAt;
-
-  /// Last-modification instant, epoch millis UTC.
-  final int updatedAt;
-
-  /// Soft-delete instant, epoch millis UTC. Null means active — a deleted tag keeps its links
-  /// so history stays readable (anomaly A36).
-  final int? deletedAt;
-  const TagRow({
-    required this.id,
-    required this.name,
-    required this.normalizedName,
-    this.colorArgb,
-    this.iconKey,
-    this.parentTagId,
-    required this.allowedInDeposit,
-    required this.allowedInWithdrawal,
-    required this.allowedInInventory,
-    required this.allowedInShopping,
-    required this.allowedInRecurring,
-    required this.allowedInService,
-    required this.isSystem,
-    required this.sortOrder,
-    required this.createdAt,
-    required this.updatedAt,
-    this.deletedAt,
-  });
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<String>(id);
-    map['name'] = Variable<String>(name);
-    map['normalized_name'] = Variable<String>(normalizedName);
-    if (!nullToAbsent || colorArgb != null) {
-      map['color_argb'] = Variable<int>(colorArgb);
-    }
-    if (!nullToAbsent || iconKey != null) {
-      map['icon_key'] = Variable<String>(iconKey);
-    }
-    if (!nullToAbsent || parentTagId != null) {
-      map['parent_tag_id'] = Variable<String>(parentTagId);
-    }
-    map['allowed_in_deposit'] = Variable<bool>(allowedInDeposit);
-    map['allowed_in_withdrawal'] = Variable<bool>(allowedInWithdrawal);
-    map['allowed_in_inventory'] = Variable<bool>(allowedInInventory);
-    map['allowed_in_shopping'] = Variable<bool>(allowedInShopping);
-    map['allowed_in_recurring'] = Variable<bool>(allowedInRecurring);
-    map['allowed_in_service'] = Variable<bool>(allowedInService);
-    map['is_system'] = Variable<bool>(isSystem);
-    map['sort_order'] = Variable<int>(sortOrder);
-    map['created_at'] = Variable<int>(createdAt);
-    map['updated_at'] = Variable<int>(updatedAt);
-    if (!nullToAbsent || deletedAt != null) {
-      map['deleted_at'] = Variable<int>(deletedAt);
-    }
-    return map;
-  }
-
-  TagsCompanion toCompanion(bool nullToAbsent) {
-    return TagsCompanion(
-      id: Value(id),
-      name: Value(name),
-      normalizedName: Value(normalizedName),
-      colorArgb: colorArgb == null && nullToAbsent
-          ? const Value.absent()
-          : Value(colorArgb),
-      iconKey: iconKey == null && nullToAbsent
-          ? const Value.absent()
-          : Value(iconKey),
-      parentTagId: parentTagId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(parentTagId),
-      allowedInDeposit: Value(allowedInDeposit),
-      allowedInWithdrawal: Value(allowedInWithdrawal),
-      allowedInInventory: Value(allowedInInventory),
-      allowedInShopping: Value(allowedInShopping),
-      allowedInRecurring: Value(allowedInRecurring),
-      allowedInService: Value(allowedInService),
-      isSystem: Value(isSystem),
-      sortOrder: Value(sortOrder),
-      createdAt: Value(createdAt),
-      updatedAt: Value(updatedAt),
-      deletedAt: deletedAt == null && nullToAbsent
-          ? const Value.absent()
-          : Value(deletedAt),
-    );
-  }
-
-  factory TagRow.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TagRow(
-      id: serializer.fromJson<String>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
-      normalizedName: serializer.fromJson<String>(json['normalizedName']),
-      colorArgb: serializer.fromJson<int?>(json['colorArgb']),
-      iconKey: serializer.fromJson<String?>(json['iconKey']),
-      parentTagId: serializer.fromJson<String?>(json['parentTagId']),
-      allowedInDeposit: serializer.fromJson<bool>(json['allowedInDeposit']),
-      allowedInWithdrawal: serializer.fromJson<bool>(
-        json['allowedInWithdrawal'],
-      ),
-      allowedInInventory: serializer.fromJson<bool>(json['allowedInInventory']),
-      allowedInShopping: serializer.fromJson<bool>(json['allowedInShopping']),
-      allowedInRecurring: serializer.fromJson<bool>(json['allowedInRecurring']),
-      allowedInService: serializer.fromJson<bool>(json['allowedInService']),
-      isSystem: serializer.fromJson<bool>(json['isSystem']),
-      sortOrder: serializer.fromJson<int>(json['sortOrder']),
-      createdAt: serializer.fromJson<int>(json['createdAt']),
-      updatedAt: serializer.fromJson<int>(json['updatedAt']),
-      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'name': serializer.toJson<String>(name),
-      'normalizedName': serializer.toJson<String>(normalizedName),
-      'colorArgb': serializer.toJson<int?>(colorArgb),
-      'iconKey': serializer.toJson<String?>(iconKey),
-      'parentTagId': serializer.toJson<String?>(parentTagId),
-      'allowedInDeposit': serializer.toJson<bool>(allowedInDeposit),
-      'allowedInWithdrawal': serializer.toJson<bool>(allowedInWithdrawal),
-      'allowedInInventory': serializer.toJson<bool>(allowedInInventory),
-      'allowedInShopping': serializer.toJson<bool>(allowedInShopping),
-      'allowedInRecurring': serializer.toJson<bool>(allowedInRecurring),
-      'allowedInService': serializer.toJson<bool>(allowedInService),
-      'isSystem': serializer.toJson<bool>(isSystem),
-      'sortOrder': serializer.toJson<int>(sortOrder),
-      'createdAt': serializer.toJson<int>(createdAt),
-      'updatedAt': serializer.toJson<int>(updatedAt),
-      'deletedAt': serializer.toJson<int?>(deletedAt),
-    };
-  }
-
-  TagRow copyWith({
-    String? id,
-    String? name,
-    String? normalizedName,
-    Value<int?> colorArgb = const Value.absent(),
-    Value<String?> iconKey = const Value.absent(),
-    Value<String?> parentTagId = const Value.absent(),
-    bool? allowedInDeposit,
-    bool? allowedInWithdrawal,
-    bool? allowedInInventory,
-    bool? allowedInShopping,
-    bool? allowedInRecurring,
-    bool? allowedInService,
-    bool? isSystem,
-    int? sortOrder,
-    int? createdAt,
-    int? updatedAt,
-    Value<int?> deletedAt = const Value.absent(),
-  }) => TagRow(
-    id: id ?? this.id,
-    name: name ?? this.name,
-    normalizedName: normalizedName ?? this.normalizedName,
-    colorArgb: colorArgb.present ? colorArgb.value : this.colorArgb,
-    iconKey: iconKey.present ? iconKey.value : this.iconKey,
-    parentTagId: parentTagId.present ? parentTagId.value : this.parentTagId,
-    allowedInDeposit: allowedInDeposit ?? this.allowedInDeposit,
-    allowedInWithdrawal: allowedInWithdrawal ?? this.allowedInWithdrawal,
-    allowedInInventory: allowedInInventory ?? this.allowedInInventory,
-    allowedInShopping: allowedInShopping ?? this.allowedInShopping,
-    allowedInRecurring: allowedInRecurring ?? this.allowedInRecurring,
-    allowedInService: allowedInService ?? this.allowedInService,
-    isSystem: isSystem ?? this.isSystem,
-    sortOrder: sortOrder ?? this.sortOrder,
-    createdAt: createdAt ?? this.createdAt,
-    updatedAt: updatedAt ?? this.updatedAt,
-    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
-  );
-  TagRow copyWithCompanion(TagsCompanion data) {
-    return TagRow(
-      id: data.id.present ? data.id.value : this.id,
-      name: data.name.present ? data.name.value : this.name,
-      normalizedName: data.normalizedName.present
-          ? data.normalizedName.value
-          : this.normalizedName,
-      colorArgb: data.colorArgb.present ? data.colorArgb.value : this.colorArgb,
-      iconKey: data.iconKey.present ? data.iconKey.value : this.iconKey,
-      parentTagId: data.parentTagId.present
-          ? data.parentTagId.value
-          : this.parentTagId,
-      allowedInDeposit: data.allowedInDeposit.present
-          ? data.allowedInDeposit.value
-          : this.allowedInDeposit,
-      allowedInWithdrawal: data.allowedInWithdrawal.present
-          ? data.allowedInWithdrawal.value
-          : this.allowedInWithdrawal,
-      allowedInInventory: data.allowedInInventory.present
-          ? data.allowedInInventory.value
-          : this.allowedInInventory,
-      allowedInShopping: data.allowedInShopping.present
-          ? data.allowedInShopping.value
-          : this.allowedInShopping,
-      allowedInRecurring: data.allowedInRecurring.present
-          ? data.allowedInRecurring.value
-          : this.allowedInRecurring,
-      allowedInService: data.allowedInService.present
-          ? data.allowedInService.value
-          : this.allowedInService,
-      isSystem: data.isSystem.present ? data.isSystem.value : this.isSystem,
-      sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
-      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
-      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
-      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TagRow(')
-          ..write('id: $id, ')
-          ..write('name: $name, ')
-          ..write('normalizedName: $normalizedName, ')
-          ..write('colorArgb: $colorArgb, ')
-          ..write('iconKey: $iconKey, ')
-          ..write('parentTagId: $parentTagId, ')
-          ..write('allowedInDeposit: $allowedInDeposit, ')
-          ..write('allowedInWithdrawal: $allowedInWithdrawal, ')
-          ..write('allowedInInventory: $allowedInInventory, ')
-          ..write('allowedInShopping: $allowedInShopping, ')
-          ..write('allowedInRecurring: $allowedInRecurring, ')
-          ..write('allowedInService: $allowedInService, ')
-          ..write('isSystem: $isSystem, ')
-          ..write('sortOrder: $sortOrder, ')
-          ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt, ')
-          ..write('deletedAt: $deletedAt')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-    id,
-    name,
-    normalizedName,
-    colorArgb,
-    iconKey,
-    parentTagId,
-    allowedInDeposit,
-    allowedInWithdrawal,
-    allowedInInventory,
-    allowedInShopping,
-    allowedInRecurring,
-    allowedInService,
-    isSystem,
-    sortOrder,
-    createdAt,
-    updatedAt,
-    deletedAt,
-  );
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is TagRow &&
-          other.id == this.id &&
-          other.name == this.name &&
-          other.normalizedName == this.normalizedName &&
-          other.colorArgb == this.colorArgb &&
-          other.iconKey == this.iconKey &&
-          other.parentTagId == this.parentTagId &&
-          other.allowedInDeposit == this.allowedInDeposit &&
-          other.allowedInWithdrawal == this.allowedInWithdrawal &&
-          other.allowedInInventory == this.allowedInInventory &&
-          other.allowedInShopping == this.allowedInShopping &&
-          other.allowedInRecurring == this.allowedInRecurring &&
-          other.allowedInService == this.allowedInService &&
-          other.isSystem == this.isSystem &&
-          other.sortOrder == this.sortOrder &&
-          other.createdAt == this.createdAt &&
-          other.updatedAt == this.updatedAt &&
-          other.deletedAt == this.deletedAt);
-}
-
-class TagsCompanion extends UpdateCompanion<TagRow> {
-  final Value<String> id;
-  final Value<String> name;
-  final Value<String> normalizedName;
-  final Value<int?> colorArgb;
-  final Value<String?> iconKey;
-  final Value<String?> parentTagId;
-  final Value<bool> allowedInDeposit;
-  final Value<bool> allowedInWithdrawal;
-  final Value<bool> allowedInInventory;
-  final Value<bool> allowedInShopping;
-  final Value<bool> allowedInRecurring;
-  final Value<bool> allowedInService;
-  final Value<bool> isSystem;
-  final Value<int> sortOrder;
-  final Value<int> createdAt;
-  final Value<int> updatedAt;
-  final Value<int?> deletedAt;
-  final Value<int> rowid;
-  const TagsCompanion({
-    this.id = const Value.absent(),
-    this.name = const Value.absent(),
-    this.normalizedName = const Value.absent(),
-    this.colorArgb = const Value.absent(),
-    this.iconKey = const Value.absent(),
-    this.parentTagId = const Value.absent(),
-    this.allowedInDeposit = const Value.absent(),
-    this.allowedInWithdrawal = const Value.absent(),
-    this.allowedInInventory = const Value.absent(),
-    this.allowedInShopping = const Value.absent(),
-    this.allowedInRecurring = const Value.absent(),
-    this.allowedInService = const Value.absent(),
-    this.isSystem = const Value.absent(),
-    this.sortOrder = const Value.absent(),
-    this.createdAt = const Value.absent(),
-    this.updatedAt = const Value.absent(),
-    this.deletedAt = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  TagsCompanion.insert({
-    required String id,
-    required String name,
-    required String normalizedName,
-    this.colorArgb = const Value.absent(),
-    this.iconKey = const Value.absent(),
-    this.parentTagId = const Value.absent(),
-    required bool allowedInDeposit,
-    required bool allowedInWithdrawal,
-    required bool allowedInInventory,
-    required bool allowedInShopping,
-    required bool allowedInRecurring,
-    required bool allowedInService,
-    required bool isSystem,
-    required int sortOrder,
-    required int createdAt,
-    required int updatedAt,
-    this.deletedAt = const Value.absent(),
-    this.rowid = const Value.absent(),
-  }) : id = Value(id),
-       name = Value(name),
-       normalizedName = Value(normalizedName),
-       allowedInDeposit = Value(allowedInDeposit),
-       allowedInWithdrawal = Value(allowedInWithdrawal),
-       allowedInInventory = Value(allowedInInventory),
-       allowedInShopping = Value(allowedInShopping),
-       allowedInRecurring = Value(allowedInRecurring),
-       allowedInService = Value(allowedInService),
-       isSystem = Value(isSystem),
-       sortOrder = Value(sortOrder),
-       createdAt = Value(createdAt),
-       updatedAt = Value(updatedAt);
-  static Insertable<TagRow> custom({
-    Expression<String>? id,
-    Expression<String>? name,
-    Expression<String>? normalizedName,
-    Expression<int>? colorArgb,
-    Expression<String>? iconKey,
-    Expression<String>? parentTagId,
-    Expression<bool>? allowedInDeposit,
-    Expression<bool>? allowedInWithdrawal,
-    Expression<bool>? allowedInInventory,
-    Expression<bool>? allowedInShopping,
-    Expression<bool>? allowedInRecurring,
-    Expression<bool>? allowedInService,
-    Expression<bool>? isSystem,
-    Expression<int>? sortOrder,
-    Expression<int>? createdAt,
-    Expression<int>? updatedAt,
-    Expression<int>? deletedAt,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (name != null) 'name': name,
-      if (normalizedName != null) 'normalized_name': normalizedName,
-      if (colorArgb != null) 'color_argb': colorArgb,
-      if (iconKey != null) 'icon_key': iconKey,
-      if (parentTagId != null) 'parent_tag_id': parentTagId,
-      if (allowedInDeposit != null) 'allowed_in_deposit': allowedInDeposit,
-      if (allowedInWithdrawal != null)
-        'allowed_in_withdrawal': allowedInWithdrawal,
-      if (allowedInInventory != null)
-        'allowed_in_inventory': allowedInInventory,
-      if (allowedInShopping != null) 'allowed_in_shopping': allowedInShopping,
-      if (allowedInRecurring != null)
-        'allowed_in_recurring': allowedInRecurring,
-      if (allowedInService != null) 'allowed_in_service': allowedInService,
-      if (isSystem != null) 'is_system': isSystem,
-      if (sortOrder != null) 'sort_order': sortOrder,
-      if (createdAt != null) 'created_at': createdAt,
-      if (updatedAt != null) 'updated_at': updatedAt,
-      if (deletedAt != null) 'deleted_at': deletedAt,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  TagsCompanion copyWith({
-    Value<String>? id,
-    Value<String>? name,
-    Value<String>? normalizedName,
-    Value<int?>? colorArgb,
-    Value<String?>? iconKey,
-    Value<String?>? parentTagId,
-    Value<bool>? allowedInDeposit,
-    Value<bool>? allowedInWithdrawal,
-    Value<bool>? allowedInInventory,
-    Value<bool>? allowedInShopping,
-    Value<bool>? allowedInRecurring,
-    Value<bool>? allowedInService,
-    Value<bool>? isSystem,
-    Value<int>? sortOrder,
-    Value<int>? createdAt,
-    Value<int>? updatedAt,
-    Value<int?>? deletedAt,
-    Value<int>? rowid,
-  }) {
-    return TagsCompanion(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      normalizedName: normalizedName ?? this.normalizedName,
-      colorArgb: colorArgb ?? this.colorArgb,
-      iconKey: iconKey ?? this.iconKey,
-      parentTagId: parentTagId ?? this.parentTagId,
-      allowedInDeposit: allowedInDeposit ?? this.allowedInDeposit,
-      allowedInWithdrawal: allowedInWithdrawal ?? this.allowedInWithdrawal,
-      allowedInInventory: allowedInInventory ?? this.allowedInInventory,
-      allowedInShopping: allowedInShopping ?? this.allowedInShopping,
-      allowedInRecurring: allowedInRecurring ?? this.allowedInRecurring,
-      allowedInService: allowedInService ?? this.allowedInService,
-      isSystem: isSystem ?? this.isSystem,
-      sortOrder: sortOrder ?? this.sortOrder,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      deletedAt: deletedAt ?? this.deletedAt,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<String>(id.value);
-    }
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
-    }
-    if (normalizedName.present) {
-      map['normalized_name'] = Variable<String>(normalizedName.value);
-    }
-    if (colorArgb.present) {
-      map['color_argb'] = Variable<int>(colorArgb.value);
-    }
-    if (iconKey.present) {
-      map['icon_key'] = Variable<String>(iconKey.value);
-    }
-    if (parentTagId.present) {
-      map['parent_tag_id'] = Variable<String>(parentTagId.value);
-    }
-    if (allowedInDeposit.present) {
-      map['allowed_in_deposit'] = Variable<bool>(allowedInDeposit.value);
-    }
-    if (allowedInWithdrawal.present) {
-      map['allowed_in_withdrawal'] = Variable<bool>(allowedInWithdrawal.value);
-    }
-    if (allowedInInventory.present) {
-      map['allowed_in_inventory'] = Variable<bool>(allowedInInventory.value);
-    }
-    if (allowedInShopping.present) {
-      map['allowed_in_shopping'] = Variable<bool>(allowedInShopping.value);
-    }
-    if (allowedInRecurring.present) {
-      map['allowed_in_recurring'] = Variable<bool>(allowedInRecurring.value);
-    }
-    if (allowedInService.present) {
-      map['allowed_in_service'] = Variable<bool>(allowedInService.value);
-    }
-    if (isSystem.present) {
-      map['is_system'] = Variable<bool>(isSystem.value);
-    }
-    if (sortOrder.present) {
-      map['sort_order'] = Variable<int>(sortOrder.value);
-    }
-    if (createdAt.present) {
-      map['created_at'] = Variable<int>(createdAt.value);
-    }
-    if (updatedAt.present) {
-      map['updated_at'] = Variable<int>(updatedAt.value);
-    }
-    if (deletedAt.present) {
-      map['deleted_at'] = Variable<int>(deletedAt.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TagsCompanion(')
-          ..write('id: $id, ')
-          ..write('name: $name, ')
-          ..write('normalizedName: $normalizedName, ')
-          ..write('colorArgb: $colorArgb, ')
-          ..write('iconKey: $iconKey, ')
-          ..write('parentTagId: $parentTagId, ')
-          ..write('allowedInDeposit: $allowedInDeposit, ')
-          ..write('allowedInWithdrawal: $allowedInWithdrawal, ')
-          ..write('allowedInInventory: $allowedInInventory, ')
-          ..write('allowedInShopping: $allowedInShopping, ')
-          ..write('allowedInRecurring: $allowedInRecurring, ')
-          ..write('allowedInService: $allowedInService, ')
-          ..write('isSystem: $isSystem, ')
-          ..write('sortOrder: $sortOrder, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
           ..write('deletedAt: $deletedAt, ')
@@ -19418,6 +19569,5346 @@ class ShoppingEntriesCompanion extends UpdateCompanion<ShoppingEntryRow> {
   }
 }
 
+class $SplitGroupsTable extends SplitGroups
+    with TableInfo<$SplitGroupsTable, SplitGroupRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SplitGroupsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _normalizedNameMeta = const VerificationMeta(
+    'normalizedName',
+  );
+  @override
+  late final GeneratedColumn<String> normalizedName = GeneratedColumn<String>(
+    'normalized_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+    'note',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _colorArgbMeta = const VerificationMeta(
+    'colorArgb',
+  );
+  @override
+  late final GeneratedColumn<int> colorArgb = GeneratedColumn<int>(
+    'color_argb',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _iconKeyMeta = const VerificationMeta(
+    'iconKey',
+  );
+  @override
+  late final GeneratedColumn<String> iconKey = GeneratedColumn<String>(
+    'icon_key',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<SplitMethod, String>
+  defaultSplitMethod = GeneratedColumn<String>(
+    'default_split_method',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  ).withConverter<SplitMethod>($SplitGroupsTable.$converterdefaultSplitMethod);
+  static const VerificationMeta _isArchivedMeta = const VerificationMeta(
+    'isArchived',
+  );
+  @override
+  late final GeneratedColumn<bool> isArchived = GeneratedColumn<bool>(
+    'is_archived',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_archived" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _sortOrderMeta = const VerificationMeta(
+    'sortOrder',
+  );
+  @override
+  late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
+    'sort_order',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    normalizedName,
+    note,
+    colorArgb,
+    iconKey,
+    defaultSplitMethod,
+    isArchived,
+    sortOrder,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'split_groups';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SplitGroupRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('normalized_name')) {
+      context.handle(
+        _normalizedNameMeta,
+        normalizedName.isAcceptableOrUnknown(
+          data['normalized_name']!,
+          _normalizedNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_normalizedNameMeta);
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+        _noteMeta,
+        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
+      );
+    }
+    if (data.containsKey('color_argb')) {
+      context.handle(
+        _colorArgbMeta,
+        colorArgb.isAcceptableOrUnknown(data['color_argb']!, _colorArgbMeta),
+      );
+    }
+    if (data.containsKey('icon_key')) {
+      context.handle(
+        _iconKeyMeta,
+        iconKey.isAcceptableOrUnknown(data['icon_key']!, _iconKeyMeta),
+      );
+    }
+    if (data.containsKey('is_archived')) {
+      context.handle(
+        _isArchivedMeta,
+        isArchived.isAcceptableOrUnknown(data['is_archived']!, _isArchivedMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_isArchivedMeta);
+    }
+    if (data.containsKey('sort_order')) {
+      context.handle(
+        _sortOrderMeta,
+        sortOrder.isAcceptableOrUnknown(data['sort_order']!, _sortOrderMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sortOrderMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SplitGroupRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SplitGroupRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      normalizedName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}normalized_name'],
+      )!,
+      note: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}note'],
+      ),
+      colorArgb: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}color_argb'],
+      ),
+      iconKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon_key'],
+      ),
+      defaultSplitMethod: $SplitGroupsTable.$converterdefaultSplitMethod
+          .fromSql(
+            attachedDatabase.typeMapping.read(
+              DriftSqlType.string,
+              data['${effectivePrefix}default_split_method'],
+            )!,
+          ),
+      isArchived: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_archived'],
+      )!,
+      sortOrder: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sort_order'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $SplitGroupsTable createAlias(String alias) {
+    return $SplitGroupsTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<SplitMethod, String> $converterdefaultSplitMethod =
+      const SplitMethodConverter();
+}
+
+class SplitGroupRow extends DataClass implements Insertable<SplitGroupRow> {
+  /// Row identifier, UUIDv7.
+  final String id;
+
+  /// Display name as the user typed it.
+  final String name;
+
+  /// Normalised form used for identity matching only, never displayed.
+  final String normalizedName;
+
+  /// Optional free-text note.
+  final String? note;
+
+  /// Optional ARGB colour.
+  final int? colorArgb;
+
+  /// Optional icon identifier.
+  final String? iconKey;
+
+  /// Which split method this group offers first.
+  ///
+  /// Flatmates who always split rent 40/30/30 should not re-choose "by shares" every month.
+  final SplitMethod defaultSplitMethod;
+
+  /// Retired but historical. Archived groups stay in totals but leave the pickers — the
+  /// distinction from soft delete that ARCH_3 §4 exists to preserve.
+  final bool isArchived;
+
+  /// Manual ordering within pickers.
+  final int sortOrder;
+
+  /// Creation instant, epoch millis UTC.
+  final int createdAt;
+
+  /// Last-modification instant, epoch millis UTC.
+  final int updatedAt;
+
+  /// Soft-delete instant, epoch millis UTC. Null means active.
+  final int? deletedAt;
+  const SplitGroupRow({
+    required this.id,
+    required this.name,
+    required this.normalizedName,
+    this.note,
+    this.colorArgb,
+    this.iconKey,
+    required this.defaultSplitMethod,
+    required this.isArchived,
+    required this.sortOrder,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    map['normalized_name'] = Variable<String>(normalizedName);
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    if (!nullToAbsent || colorArgb != null) {
+      map['color_argb'] = Variable<int>(colorArgb);
+    }
+    if (!nullToAbsent || iconKey != null) {
+      map['icon_key'] = Variable<String>(iconKey);
+    }
+    {
+      map['default_split_method'] = Variable<String>(
+        $SplitGroupsTable.$converterdefaultSplitMethod.toSql(
+          defaultSplitMethod,
+        ),
+      );
+    }
+    map['is_archived'] = Variable<bool>(isArchived);
+    map['sort_order'] = Variable<int>(sortOrder);
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    return map;
+  }
+
+  SplitGroupsCompanion toCompanion(bool nullToAbsent) {
+    return SplitGroupsCompanion(
+      id: Value(id),
+      name: Value(name),
+      normalizedName: Value(normalizedName),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+      colorArgb: colorArgb == null && nullToAbsent
+          ? const Value.absent()
+          : Value(colorArgb),
+      iconKey: iconKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(iconKey),
+      defaultSplitMethod: Value(defaultSplitMethod),
+      isArchived: Value(isArchived),
+      sortOrder: Value(sortOrder),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory SplitGroupRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SplitGroupRow(
+      id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      normalizedName: serializer.fromJson<String>(json['normalizedName']),
+      note: serializer.fromJson<String?>(json['note']),
+      colorArgb: serializer.fromJson<int?>(json['colorArgb']),
+      iconKey: serializer.fromJson<String?>(json['iconKey']),
+      defaultSplitMethod: serializer.fromJson<SplitMethod>(
+        json['defaultSplitMethod'],
+      ),
+      isArchived: serializer.fromJson<bool>(json['isArchived']),
+      sortOrder: serializer.fromJson<int>(json['sortOrder']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
+      'normalizedName': serializer.toJson<String>(normalizedName),
+      'note': serializer.toJson<String?>(note),
+      'colorArgb': serializer.toJson<int?>(colorArgb),
+      'iconKey': serializer.toJson<String?>(iconKey),
+      'defaultSplitMethod': serializer.toJson<SplitMethod>(defaultSplitMethod),
+      'isArchived': serializer.toJson<bool>(isArchived),
+      'sortOrder': serializer.toJson<int>(sortOrder),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+    };
+  }
+
+  SplitGroupRow copyWith({
+    String? id,
+    String? name,
+    String? normalizedName,
+    Value<String?> note = const Value.absent(),
+    Value<int?> colorArgb = const Value.absent(),
+    Value<String?> iconKey = const Value.absent(),
+    SplitMethod? defaultSplitMethod,
+    bool? isArchived,
+    int? sortOrder,
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+  }) => SplitGroupRow(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    normalizedName: normalizedName ?? this.normalizedName,
+    note: note.present ? note.value : this.note,
+    colorArgb: colorArgb.present ? colorArgb.value : this.colorArgb,
+    iconKey: iconKey.present ? iconKey.value : this.iconKey,
+    defaultSplitMethod: defaultSplitMethod ?? this.defaultSplitMethod,
+    isArchived: isArchived ?? this.isArchived,
+    sortOrder: sortOrder ?? this.sortOrder,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  SplitGroupRow copyWithCompanion(SplitGroupsCompanion data) {
+    return SplitGroupRow(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      normalizedName: data.normalizedName.present
+          ? data.normalizedName.value
+          : this.normalizedName,
+      note: data.note.present ? data.note.value : this.note,
+      colorArgb: data.colorArgb.present ? data.colorArgb.value : this.colorArgb,
+      iconKey: data.iconKey.present ? data.iconKey.value : this.iconKey,
+      defaultSplitMethod: data.defaultSplitMethod.present
+          ? data.defaultSplitMethod.value
+          : this.defaultSplitMethod,
+      isArchived: data.isArchived.present
+          ? data.isArchived.value
+          : this.isArchived,
+      sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SplitGroupRow(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('note: $note, ')
+          ..write('colorArgb: $colorArgb, ')
+          ..write('iconKey: $iconKey, ')
+          ..write('defaultSplitMethod: $defaultSplitMethod, ')
+          ..write('isArchived: $isArchived, ')
+          ..write('sortOrder: $sortOrder, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    normalizedName,
+    note,
+    colorArgb,
+    iconKey,
+    defaultSplitMethod,
+    isArchived,
+    sortOrder,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SplitGroupRow &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.normalizedName == this.normalizedName &&
+          other.note == this.note &&
+          other.colorArgb == this.colorArgb &&
+          other.iconKey == this.iconKey &&
+          other.defaultSplitMethod == this.defaultSplitMethod &&
+          other.isArchived == this.isArchived &&
+          other.sortOrder == this.sortOrder &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class SplitGroupsCompanion extends UpdateCompanion<SplitGroupRow> {
+  final Value<String> id;
+  final Value<String> name;
+  final Value<String> normalizedName;
+  final Value<String?> note;
+  final Value<int?> colorArgb;
+  final Value<String?> iconKey;
+  final Value<SplitMethod> defaultSplitMethod;
+  final Value<bool> isArchived;
+  final Value<int> sortOrder;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> rowid;
+  const SplitGroupsCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.normalizedName = const Value.absent(),
+    this.note = const Value.absent(),
+    this.colorArgb = const Value.absent(),
+    this.iconKey = const Value.absent(),
+    this.defaultSplitMethod = const Value.absent(),
+    this.isArchived = const Value.absent(),
+    this.sortOrder = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SplitGroupsCompanion.insert({
+    required String id,
+    required String name,
+    required String normalizedName,
+    this.note = const Value.absent(),
+    this.colorArgb = const Value.absent(),
+    this.iconKey = const Value.absent(),
+    required SplitMethod defaultSplitMethod,
+    required bool isArchived,
+    required int sortOrder,
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       name = Value(name),
+       normalizedName = Value(normalizedName),
+       defaultSplitMethod = Value(defaultSplitMethod),
+       isArchived = Value(isArchived),
+       sortOrder = Value(sortOrder),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<SplitGroupRow> custom({
+    Expression<String>? id,
+    Expression<String>? name,
+    Expression<String>? normalizedName,
+    Expression<String>? note,
+    Expression<int>? colorArgb,
+    Expression<String>? iconKey,
+    Expression<String>? defaultSplitMethod,
+    Expression<bool>? isArchived,
+    Expression<int>? sortOrder,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (normalizedName != null) 'normalized_name': normalizedName,
+      if (note != null) 'note': note,
+      if (colorArgb != null) 'color_argb': colorArgb,
+      if (iconKey != null) 'icon_key': iconKey,
+      if (defaultSplitMethod != null)
+        'default_split_method': defaultSplitMethod,
+      if (isArchived != null) 'is_archived': isArchived,
+      if (sortOrder != null) 'sort_order': sortOrder,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SplitGroupsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? name,
+    Value<String>? normalizedName,
+    Value<String?>? note,
+    Value<int?>? colorArgb,
+    Value<String?>? iconKey,
+    Value<SplitMethod>? defaultSplitMethod,
+    Value<bool>? isArchived,
+    Value<int>? sortOrder,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return SplitGroupsCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      normalizedName: normalizedName ?? this.normalizedName,
+      note: note ?? this.note,
+      colorArgb: colorArgb ?? this.colorArgb,
+      iconKey: iconKey ?? this.iconKey,
+      defaultSplitMethod: defaultSplitMethod ?? this.defaultSplitMethod,
+      isArchived: isArchived ?? this.isArchived,
+      sortOrder: sortOrder ?? this.sortOrder,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (normalizedName.present) {
+      map['normalized_name'] = Variable<String>(normalizedName.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    if (colorArgb.present) {
+      map['color_argb'] = Variable<int>(colorArgb.value);
+    }
+    if (iconKey.present) {
+      map['icon_key'] = Variable<String>(iconKey.value);
+    }
+    if (defaultSplitMethod.present) {
+      map['default_split_method'] = Variable<String>(
+        $SplitGroupsTable.$converterdefaultSplitMethod.toSql(
+          defaultSplitMethod.value,
+        ),
+      );
+    }
+    if (isArchived.present) {
+      map['is_archived'] = Variable<bool>(isArchived.value);
+    }
+    if (sortOrder.present) {
+      map['sort_order'] = Variable<int>(sortOrder.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SplitGroupsCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('note: $note, ')
+          ..write('colorArgb: $colorArgb, ')
+          ..write('iconKey: $iconKey, ')
+          ..write('defaultSplitMethod: $defaultSplitMethod, ')
+          ..write('isArchived: $isArchived, ')
+          ..write('sortOrder: $sortOrder, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SplitMembersTable extends SplitMembers
+    with TableInfo<$SplitMembersTable, SplitMemberRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SplitMembersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _groupIdMeta = const VerificationMeta(
+    'groupId',
+  );
+  @override
+  late final GeneratedColumn<String> groupId = GeneratedColumn<String>(
+    'group_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES split_groups (id)',
+    ),
+  );
+  static const VerificationMeta _payeeIdMeta = const VerificationMeta(
+    'payeeId',
+  );
+  @override
+  late final GeneratedColumn<String> payeeId = GeneratedColumn<String>(
+    'payee_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES payees (id)',
+    ),
+  );
+  static const VerificationMeta _defaultWeightBasisPointsMeta =
+      const VerificationMeta('defaultWeightBasisPoints');
+  @override
+  late final GeneratedColumn<int> defaultWeightBasisPoints =
+      GeneratedColumn<int>(
+        'default_weight_basis_points',
+        aliasedName,
+        true,
+        type: DriftSqlType.int,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _sortOrderMeta = const VerificationMeta(
+    'sortOrder',
+  );
+  @override
+  late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
+    'sort_order',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    groupId,
+    payeeId,
+    defaultWeightBasisPoints,
+    sortOrder,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'split_members';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SplitMemberRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('group_id')) {
+      context.handle(
+        _groupIdMeta,
+        groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_groupIdMeta);
+    }
+    if (data.containsKey('payee_id')) {
+      context.handle(
+        _payeeIdMeta,
+        payeeId.isAcceptableOrUnknown(data['payee_id']!, _payeeIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_payeeIdMeta);
+    }
+    if (data.containsKey('default_weight_basis_points')) {
+      context.handle(
+        _defaultWeightBasisPointsMeta,
+        defaultWeightBasisPoints.isAcceptableOrUnknown(
+          data['default_weight_basis_points']!,
+          _defaultWeightBasisPointsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('sort_order')) {
+      context.handle(
+        _sortOrderMeta,
+        sortOrder.isAcceptableOrUnknown(data['sort_order']!, _sortOrderMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sortOrderMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SplitMemberRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SplitMemberRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      groupId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}group_id'],
+      )!,
+      payeeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payee_id'],
+      )!,
+      defaultWeightBasisPoints: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}default_weight_basis_points'],
+      ),
+      sortOrder: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sort_order'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $SplitMembersTable createAlias(String alias) {
+    return $SplitMembersTable(attachedDatabase, alias);
+  }
+}
+
+class SplitMemberRow extends DataClass implements Insertable<SplitMemberRow> {
+  /// Row identifier, UUIDv7.
+  final String id;
+
+  /// The group.
+  final String groupId;
+
+  /// The person, as a payee.
+  final String payeeId;
+
+  /// This member's default weight within the group, in basis points.
+  ///
+  /// Nullable because most groups split equally and storing `3333` three times would invite the
+  /// question of why they do not sum to 10,000. Set it once for `40/30/30` and the editor stops
+  /// asking.
+  final int? defaultWeightBasisPoints;
+
+  /// Manual ordering within the group.
+  final int sortOrder;
+
+  /// Creation instant, epoch millis UTC.
+  final int createdAt;
+
+  /// Last-modification instant, epoch millis UTC.
+  final int updatedAt;
+
+  /// Soft-delete instant, epoch millis UTC. Null means active.
+  final int? deletedAt;
+  const SplitMemberRow({
+    required this.id,
+    required this.groupId,
+    required this.payeeId,
+    this.defaultWeightBasisPoints,
+    required this.sortOrder,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['group_id'] = Variable<String>(groupId);
+    map['payee_id'] = Variable<String>(payeeId);
+    if (!nullToAbsent || defaultWeightBasisPoints != null) {
+      map['default_weight_basis_points'] = Variable<int>(
+        defaultWeightBasisPoints,
+      );
+    }
+    map['sort_order'] = Variable<int>(sortOrder);
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    return map;
+  }
+
+  SplitMembersCompanion toCompanion(bool nullToAbsent) {
+    return SplitMembersCompanion(
+      id: Value(id),
+      groupId: Value(groupId),
+      payeeId: Value(payeeId),
+      defaultWeightBasisPoints: defaultWeightBasisPoints == null && nullToAbsent
+          ? const Value.absent()
+          : Value(defaultWeightBasisPoints),
+      sortOrder: Value(sortOrder),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory SplitMemberRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SplitMemberRow(
+      id: serializer.fromJson<String>(json['id']),
+      groupId: serializer.fromJson<String>(json['groupId']),
+      payeeId: serializer.fromJson<String>(json['payeeId']),
+      defaultWeightBasisPoints: serializer.fromJson<int?>(
+        json['defaultWeightBasisPoints'],
+      ),
+      sortOrder: serializer.fromJson<int>(json['sortOrder']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'groupId': serializer.toJson<String>(groupId),
+      'payeeId': serializer.toJson<String>(payeeId),
+      'defaultWeightBasisPoints': serializer.toJson<int?>(
+        defaultWeightBasisPoints,
+      ),
+      'sortOrder': serializer.toJson<int>(sortOrder),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+    };
+  }
+
+  SplitMemberRow copyWith({
+    String? id,
+    String? groupId,
+    String? payeeId,
+    Value<int?> defaultWeightBasisPoints = const Value.absent(),
+    int? sortOrder,
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+  }) => SplitMemberRow(
+    id: id ?? this.id,
+    groupId: groupId ?? this.groupId,
+    payeeId: payeeId ?? this.payeeId,
+    defaultWeightBasisPoints: defaultWeightBasisPoints.present
+        ? defaultWeightBasisPoints.value
+        : this.defaultWeightBasisPoints,
+    sortOrder: sortOrder ?? this.sortOrder,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  SplitMemberRow copyWithCompanion(SplitMembersCompanion data) {
+    return SplitMemberRow(
+      id: data.id.present ? data.id.value : this.id,
+      groupId: data.groupId.present ? data.groupId.value : this.groupId,
+      payeeId: data.payeeId.present ? data.payeeId.value : this.payeeId,
+      defaultWeightBasisPoints: data.defaultWeightBasisPoints.present
+          ? data.defaultWeightBasisPoints.value
+          : this.defaultWeightBasisPoints,
+      sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SplitMemberRow(')
+          ..write('id: $id, ')
+          ..write('groupId: $groupId, ')
+          ..write('payeeId: $payeeId, ')
+          ..write('defaultWeightBasisPoints: $defaultWeightBasisPoints, ')
+          ..write('sortOrder: $sortOrder, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    groupId,
+    payeeId,
+    defaultWeightBasisPoints,
+    sortOrder,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SplitMemberRow &&
+          other.id == this.id &&
+          other.groupId == this.groupId &&
+          other.payeeId == this.payeeId &&
+          other.defaultWeightBasisPoints == this.defaultWeightBasisPoints &&
+          other.sortOrder == this.sortOrder &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class SplitMembersCompanion extends UpdateCompanion<SplitMemberRow> {
+  final Value<String> id;
+  final Value<String> groupId;
+  final Value<String> payeeId;
+  final Value<int?> defaultWeightBasisPoints;
+  final Value<int> sortOrder;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> rowid;
+  const SplitMembersCompanion({
+    this.id = const Value.absent(),
+    this.groupId = const Value.absent(),
+    this.payeeId = const Value.absent(),
+    this.defaultWeightBasisPoints = const Value.absent(),
+    this.sortOrder = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SplitMembersCompanion.insert({
+    required String id,
+    required String groupId,
+    required String payeeId,
+    this.defaultWeightBasisPoints = const Value.absent(),
+    required int sortOrder,
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       groupId = Value(groupId),
+       payeeId = Value(payeeId),
+       sortOrder = Value(sortOrder),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<SplitMemberRow> custom({
+    Expression<String>? id,
+    Expression<String>? groupId,
+    Expression<String>? payeeId,
+    Expression<int>? defaultWeightBasisPoints,
+    Expression<int>? sortOrder,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (groupId != null) 'group_id': groupId,
+      if (payeeId != null) 'payee_id': payeeId,
+      if (defaultWeightBasisPoints != null)
+        'default_weight_basis_points': defaultWeightBasisPoints,
+      if (sortOrder != null) 'sort_order': sortOrder,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SplitMembersCompanion copyWith({
+    Value<String>? id,
+    Value<String>? groupId,
+    Value<String>? payeeId,
+    Value<int?>? defaultWeightBasisPoints,
+    Value<int>? sortOrder,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return SplitMembersCompanion(
+      id: id ?? this.id,
+      groupId: groupId ?? this.groupId,
+      payeeId: payeeId ?? this.payeeId,
+      defaultWeightBasisPoints:
+          defaultWeightBasisPoints ?? this.defaultWeightBasisPoints,
+      sortOrder: sortOrder ?? this.sortOrder,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (groupId.present) {
+      map['group_id'] = Variable<String>(groupId.value);
+    }
+    if (payeeId.present) {
+      map['payee_id'] = Variable<String>(payeeId.value);
+    }
+    if (defaultWeightBasisPoints.present) {
+      map['default_weight_basis_points'] = Variable<int>(
+        defaultWeightBasisPoints.value,
+      );
+    }
+    if (sortOrder.present) {
+      map['sort_order'] = Variable<int>(sortOrder.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SplitMembersCompanion(')
+          ..write('id: $id, ')
+          ..write('groupId: $groupId, ')
+          ..write('payeeId: $payeeId, ')
+          ..write('defaultWeightBasisPoints: $defaultWeightBasisPoints, ')
+          ..write('sortOrder: $sortOrder, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SplitExpensesTable extends SplitExpenses
+    with TableInfo<$SplitExpensesTable, SplitExpenseRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SplitExpensesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _groupIdMeta = const VerificationMeta(
+    'groupId',
+  );
+  @override
+  late final GeneratedColumn<String> groupId = GeneratedColumn<String>(
+    'group_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES split_groups (id)',
+    ),
+  );
+  static const VerificationMeta _transactionIdMeta = const VerificationMeta(
+    'transactionId',
+  );
+  @override
+  late final GeneratedColumn<String> transactionId = GeneratedColumn<String>(
+    'transaction_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES transactions (id)',
+    ),
+  );
+  static const VerificationMeta _paidByPayeeIdMeta = const VerificationMeta(
+    'paidByPayeeId',
+  );
+  @override
+  late final GeneratedColumn<String> paidByPayeeId = GeneratedColumn<String>(
+    'paid_by_payee_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES payees (id)',
+    ),
+  );
+  static const VerificationMeta _totalAmountMinorMeta = const VerificationMeta(
+    'totalAmountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> totalAmountMinor = GeneratedColumn<int>(
+    'total_amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currencyCodeMeta = const VerificationMeta(
+    'currencyCode',
+  );
+  @override
+  late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
+    'currency_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES currencies (code)',
+    ),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateKey, int> dateKey =
+      GeneratedColumn<int>(
+        'date_key',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateKey>($SplitExpensesTable.$converterdateKey);
+  static const VerificationMeta _monthKeyMeta = const VerificationMeta(
+    'monthKey',
+  );
+  @override
+  late final GeneratedColumn<int> monthKey = GeneratedColumn<int>(
+    'month_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _placeMeta = const VerificationMeta('place');
+  @override
+  late final GeneratedColumn<String> place = GeneratedColumn<String>(
+    'place',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _occasionMeta = const VerificationMeta(
+    'occasion',
+  );
+  @override
+  late final GeneratedColumn<String> occasion = GeneratedColumn<String>(
+    'occasion',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+    'note',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<SplitMethod, String> splitMethod =
+      GeneratedColumn<String>(
+        'split_method',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<SplitMethod>($SplitExpensesTable.$convertersplitMethod);
+  @override
+  late final GeneratedColumnWithTypeConverter<DateKey?, int> settleByDateKey =
+      GeneratedColumn<int>(
+        'settle_by_date_key',
+        aliasedName,
+        true,
+        type: DriftSqlType.int,
+        requiredDuringInsert: false,
+      ).withConverter<DateKey?>($SplitExpensesTable.$convertersettleByDateKeyn);
+  static const VerificationMeta _convertedAmountMinorMeta =
+      const VerificationMeta('convertedAmountMinor');
+  @override
+  late final GeneratedColumn<int> convertedAmountMinor = GeneratedColumn<int>(
+    'converted_amount_minor',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _convertedCurrencyCodeMeta =
+      const VerificationMeta('convertedCurrencyCode');
+  @override
+  late final GeneratedColumn<String> convertedCurrencyCode =
+      GeneratedColumn<String>(
+        'converted_currency_code',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES currencies (code)',
+        ),
+      );
+  static const VerificationMeta _conversionRateMeta = const VerificationMeta(
+    'conversionRate',
+  );
+  @override
+  late final GeneratedColumn<String> conversionRate = GeneratedColumn<String>(
+    'conversion_rate',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _conversionRateRawMeta = const VerificationMeta(
+    'conversionRateRaw',
+  );
+  @override
+  late final GeneratedColumn<String> conversionRateRaw =
+      GeneratedColumn<String>(
+        'conversion_rate_raw',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateKey?, int> conversionDateKey =
+      GeneratedColumn<int>(
+        'conversion_date_key',
+        aliasedName,
+        true,
+        type: DriftSqlType.int,
+        requiredDuringInsert: false,
+      ).withConverter<DateKey?>(
+        $SplitExpensesTable.$converterconversionDateKeyn,
+      );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    groupId,
+    transactionId,
+    paidByPayeeId,
+    totalAmountMinor,
+    currencyCode,
+    dateKey,
+    monthKey,
+    title,
+    place,
+    occasion,
+    note,
+    splitMethod,
+    settleByDateKey,
+    convertedAmountMinor,
+    convertedCurrencyCode,
+    conversionRate,
+    conversionRateRaw,
+    conversionDateKey,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'split_expenses';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SplitExpenseRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('group_id')) {
+      context.handle(
+        _groupIdMeta,
+        groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta),
+      );
+    }
+    if (data.containsKey('transaction_id')) {
+      context.handle(
+        _transactionIdMeta,
+        transactionId.isAcceptableOrUnknown(
+          data['transaction_id']!,
+          _transactionIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('paid_by_payee_id')) {
+      context.handle(
+        _paidByPayeeIdMeta,
+        paidByPayeeId.isAcceptableOrUnknown(
+          data['paid_by_payee_id']!,
+          _paidByPayeeIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_paidByPayeeIdMeta);
+    }
+    if (data.containsKey('total_amount_minor')) {
+      context.handle(
+        _totalAmountMinorMeta,
+        totalAmountMinor.isAcceptableOrUnknown(
+          data['total_amount_minor']!,
+          _totalAmountMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_totalAmountMinorMeta);
+    }
+    if (data.containsKey('currency_code')) {
+      context.handle(
+        _currencyCodeMeta,
+        currencyCode.isAcceptableOrUnknown(
+          data['currency_code']!,
+          _currencyCodeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_currencyCodeMeta);
+    }
+    if (data.containsKey('month_key')) {
+      context.handle(
+        _monthKeyMeta,
+        monthKey.isAcceptableOrUnknown(data['month_key']!, _monthKeyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_monthKeyMeta);
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
+    }
+    if (data.containsKey('place')) {
+      context.handle(
+        _placeMeta,
+        place.isAcceptableOrUnknown(data['place']!, _placeMeta),
+      );
+    }
+    if (data.containsKey('occasion')) {
+      context.handle(
+        _occasionMeta,
+        occasion.isAcceptableOrUnknown(data['occasion']!, _occasionMeta),
+      );
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+        _noteMeta,
+        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
+      );
+    }
+    if (data.containsKey('converted_amount_minor')) {
+      context.handle(
+        _convertedAmountMinorMeta,
+        convertedAmountMinor.isAcceptableOrUnknown(
+          data['converted_amount_minor']!,
+          _convertedAmountMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('converted_currency_code')) {
+      context.handle(
+        _convertedCurrencyCodeMeta,
+        convertedCurrencyCode.isAcceptableOrUnknown(
+          data['converted_currency_code']!,
+          _convertedCurrencyCodeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('conversion_rate')) {
+      context.handle(
+        _conversionRateMeta,
+        conversionRate.isAcceptableOrUnknown(
+          data['conversion_rate']!,
+          _conversionRateMeta,
+        ),
+      );
+    }
+    if (data.containsKey('conversion_rate_raw')) {
+      context.handle(
+        _conversionRateRawMeta,
+        conversionRateRaw.isAcceptableOrUnknown(
+          data['conversion_rate_raw']!,
+          _conversionRateRawMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SplitExpenseRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SplitExpenseRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      groupId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}group_id'],
+      ),
+      transactionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}transaction_id'],
+      ),
+      paidByPayeeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}paid_by_payee_id'],
+      )!,
+      totalAmountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_amount_minor'],
+      )!,
+      currencyCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency_code'],
+      )!,
+      dateKey: $SplitExpensesTable.$converterdateKey.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}date_key'],
+        )!,
+      ),
+      monthKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}month_key'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      ),
+      place: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}place'],
+      ),
+      occasion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}occasion'],
+      ),
+      note: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}note'],
+      ),
+      splitMethod: $SplitExpensesTable.$convertersplitMethod.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}split_method'],
+        )!,
+      ),
+      settleByDateKey: $SplitExpensesTable.$convertersettleByDateKeyn.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}settle_by_date_key'],
+        ),
+      ),
+      convertedAmountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}converted_amount_minor'],
+      ),
+      convertedCurrencyCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}converted_currency_code'],
+      ),
+      conversionRate: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}conversion_rate'],
+      ),
+      conversionRateRaw: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}conversion_rate_raw'],
+      ),
+      conversionDateKey: $SplitExpensesTable.$converterconversionDateKeyn
+          .fromSql(
+            attachedDatabase.typeMapping.read(
+              DriftSqlType.int,
+              data['${effectivePrefix}conversion_date_key'],
+            ),
+          ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $SplitExpensesTable createAlias(String alias) {
+    return $SplitExpensesTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<DateKey, int> $converterdateKey =
+      const DateKeyConverter();
+  static TypeConverter<SplitMethod, String> $convertersplitMethod =
+      const SplitMethodConverter();
+  static TypeConverter<DateKey, int> $convertersettleByDateKey =
+      const DateKeyConverter();
+  static TypeConverter<DateKey?, int?> $convertersettleByDateKeyn =
+      NullAwareTypeConverter.wrap($convertersettleByDateKey);
+  static TypeConverter<DateKey, int> $converterconversionDateKey =
+      const DateKeyConverter();
+  static TypeConverter<DateKey?, int?> $converterconversionDateKeyn =
+      NullAwareTypeConverter.wrap($converterconversionDateKey);
+}
+
+class SplitExpenseRow extends DataClass implements Insertable<SplitExpenseRow> {
+  /// Row identifier, UUIDv7.
+  final String id;
+
+  /// The group this belongs to, or null for a one-off split with one person.
+  final String? groupId;
+
+  /// The transaction that moved your money, or null when somebody else paid.
+  final String? transactionId;
+
+  /// Who actually paid the bill.
+  final String paidByPayeeId;
+
+  /// What the whole bill came to, in minor units.
+  final int totalAmountMinor;
+
+  /// The currency the bill was in.
+  final String currencyCode;
+
+  /// The civil date the expense happened on.
+  final DateKey dateKey;
+
+  /// `dateKey`'s month, denormalised for month-grouped reads — the same pattern
+  /// `transactions.monthKey` uses.
+  final int monthKey;
+
+  /// What it was — `Dinner at Olive`, `October rent`.
+  final String? title;
+
+  /// Where it happened. An analytics dimension, not decoration: "what do we spend in Goa" is a
+  /// question no split app answers.
+  final String? place;
+
+  /// What the occasion was — `Diwali`, `Ravi's birthday`.
+  final String? occasion;
+
+  /// Optional free-text note.
+  final String? note;
+
+  /// How the shares were specified.
+  final SplitMethod splitMethod;
+
+  /// An optional date to settle by, which feeds the calendar and the daily digest.
+  final DateKey? settleByDateKey;
+
+  /// The amount converted into the home currency, in minor units.
+  ///
+  /// A **frozen snapshot** taken when the expense was recorded (Law L9), not a live conversion. A
+  /// holiday split in THB must keep the rate it was entered at, or last March's trip re-prices
+  /// itself every time the rate table updates.
+  final int? convertedAmountMinor;
+
+  /// The currency [convertedAmountMinor] is in.
+  final String? convertedCurrencyCode;
+
+  /// The rate used, as a display string. Kept so the conversion can be explained, never re-derived.
+  final String? conversionRate;
+
+  /// The raw rate as fetched, before any rounding, for audit.
+  final String? conversionRateRaw;
+
+  /// The civil date the rate was valid on.
+  final DateKey? conversionDateKey;
+
+  /// Creation instant, epoch millis UTC.
+  final int createdAt;
+
+  /// Last-modification instant, epoch millis UTC.
+  final int updatedAt;
+
+  /// Soft-delete instant, epoch millis UTC. Null means active.
+  final int? deletedAt;
+  const SplitExpenseRow({
+    required this.id,
+    this.groupId,
+    this.transactionId,
+    required this.paidByPayeeId,
+    required this.totalAmountMinor,
+    required this.currencyCode,
+    required this.dateKey,
+    required this.monthKey,
+    this.title,
+    this.place,
+    this.occasion,
+    this.note,
+    required this.splitMethod,
+    this.settleByDateKey,
+    this.convertedAmountMinor,
+    this.convertedCurrencyCode,
+    this.conversionRate,
+    this.conversionRateRaw,
+    this.conversionDateKey,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    if (!nullToAbsent || groupId != null) {
+      map['group_id'] = Variable<String>(groupId);
+    }
+    if (!nullToAbsent || transactionId != null) {
+      map['transaction_id'] = Variable<String>(transactionId);
+    }
+    map['paid_by_payee_id'] = Variable<String>(paidByPayeeId);
+    map['total_amount_minor'] = Variable<int>(totalAmountMinor);
+    map['currency_code'] = Variable<String>(currencyCode);
+    {
+      map['date_key'] = Variable<int>(
+        $SplitExpensesTable.$converterdateKey.toSql(dateKey),
+      );
+    }
+    map['month_key'] = Variable<int>(monthKey);
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String>(title);
+    }
+    if (!nullToAbsent || place != null) {
+      map['place'] = Variable<String>(place);
+    }
+    if (!nullToAbsent || occasion != null) {
+      map['occasion'] = Variable<String>(occasion);
+    }
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    {
+      map['split_method'] = Variable<String>(
+        $SplitExpensesTable.$convertersplitMethod.toSql(splitMethod),
+      );
+    }
+    if (!nullToAbsent || settleByDateKey != null) {
+      map['settle_by_date_key'] = Variable<int>(
+        $SplitExpensesTable.$convertersettleByDateKeyn.toSql(settleByDateKey),
+      );
+    }
+    if (!nullToAbsent || convertedAmountMinor != null) {
+      map['converted_amount_minor'] = Variable<int>(convertedAmountMinor);
+    }
+    if (!nullToAbsent || convertedCurrencyCode != null) {
+      map['converted_currency_code'] = Variable<String>(convertedCurrencyCode);
+    }
+    if (!nullToAbsent || conversionRate != null) {
+      map['conversion_rate'] = Variable<String>(conversionRate);
+    }
+    if (!nullToAbsent || conversionRateRaw != null) {
+      map['conversion_rate_raw'] = Variable<String>(conversionRateRaw);
+    }
+    if (!nullToAbsent || conversionDateKey != null) {
+      map['conversion_date_key'] = Variable<int>(
+        $SplitExpensesTable.$converterconversionDateKeyn.toSql(
+          conversionDateKey,
+        ),
+      );
+    }
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    return map;
+  }
+
+  SplitExpensesCompanion toCompanion(bool nullToAbsent) {
+    return SplitExpensesCompanion(
+      id: Value(id),
+      groupId: groupId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(groupId),
+      transactionId: transactionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(transactionId),
+      paidByPayeeId: Value(paidByPayeeId),
+      totalAmountMinor: Value(totalAmountMinor),
+      currencyCode: Value(currencyCode),
+      dateKey: Value(dateKey),
+      monthKey: Value(monthKey),
+      title: title == null && nullToAbsent
+          ? const Value.absent()
+          : Value(title),
+      place: place == null && nullToAbsent
+          ? const Value.absent()
+          : Value(place),
+      occasion: occasion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(occasion),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+      splitMethod: Value(splitMethod),
+      settleByDateKey: settleByDateKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(settleByDateKey),
+      convertedAmountMinor: convertedAmountMinor == null && nullToAbsent
+          ? const Value.absent()
+          : Value(convertedAmountMinor),
+      convertedCurrencyCode: convertedCurrencyCode == null && nullToAbsent
+          ? const Value.absent()
+          : Value(convertedCurrencyCode),
+      conversionRate: conversionRate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(conversionRate),
+      conversionRateRaw: conversionRateRaw == null && nullToAbsent
+          ? const Value.absent()
+          : Value(conversionRateRaw),
+      conversionDateKey: conversionDateKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(conversionDateKey),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory SplitExpenseRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SplitExpenseRow(
+      id: serializer.fromJson<String>(json['id']),
+      groupId: serializer.fromJson<String?>(json['groupId']),
+      transactionId: serializer.fromJson<String?>(json['transactionId']),
+      paidByPayeeId: serializer.fromJson<String>(json['paidByPayeeId']),
+      totalAmountMinor: serializer.fromJson<int>(json['totalAmountMinor']),
+      currencyCode: serializer.fromJson<String>(json['currencyCode']),
+      dateKey: serializer.fromJson<DateKey>(json['dateKey']),
+      monthKey: serializer.fromJson<int>(json['monthKey']),
+      title: serializer.fromJson<String?>(json['title']),
+      place: serializer.fromJson<String?>(json['place']),
+      occasion: serializer.fromJson<String?>(json['occasion']),
+      note: serializer.fromJson<String?>(json['note']),
+      splitMethod: serializer.fromJson<SplitMethod>(json['splitMethod']),
+      settleByDateKey: serializer.fromJson<DateKey?>(json['settleByDateKey']),
+      convertedAmountMinor: serializer.fromJson<int?>(
+        json['convertedAmountMinor'],
+      ),
+      convertedCurrencyCode: serializer.fromJson<String?>(
+        json['convertedCurrencyCode'],
+      ),
+      conversionRate: serializer.fromJson<String?>(json['conversionRate']),
+      conversionRateRaw: serializer.fromJson<String?>(
+        json['conversionRateRaw'],
+      ),
+      conversionDateKey: serializer.fromJson<DateKey?>(
+        json['conversionDateKey'],
+      ),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'groupId': serializer.toJson<String?>(groupId),
+      'transactionId': serializer.toJson<String?>(transactionId),
+      'paidByPayeeId': serializer.toJson<String>(paidByPayeeId),
+      'totalAmountMinor': serializer.toJson<int>(totalAmountMinor),
+      'currencyCode': serializer.toJson<String>(currencyCode),
+      'dateKey': serializer.toJson<DateKey>(dateKey),
+      'monthKey': serializer.toJson<int>(monthKey),
+      'title': serializer.toJson<String?>(title),
+      'place': serializer.toJson<String?>(place),
+      'occasion': serializer.toJson<String?>(occasion),
+      'note': serializer.toJson<String?>(note),
+      'splitMethod': serializer.toJson<SplitMethod>(splitMethod),
+      'settleByDateKey': serializer.toJson<DateKey?>(settleByDateKey),
+      'convertedAmountMinor': serializer.toJson<int?>(convertedAmountMinor),
+      'convertedCurrencyCode': serializer.toJson<String?>(
+        convertedCurrencyCode,
+      ),
+      'conversionRate': serializer.toJson<String?>(conversionRate),
+      'conversionRateRaw': serializer.toJson<String?>(conversionRateRaw),
+      'conversionDateKey': serializer.toJson<DateKey?>(conversionDateKey),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+    };
+  }
+
+  SplitExpenseRow copyWith({
+    String? id,
+    Value<String?> groupId = const Value.absent(),
+    Value<String?> transactionId = const Value.absent(),
+    String? paidByPayeeId,
+    int? totalAmountMinor,
+    String? currencyCode,
+    DateKey? dateKey,
+    int? monthKey,
+    Value<String?> title = const Value.absent(),
+    Value<String?> place = const Value.absent(),
+    Value<String?> occasion = const Value.absent(),
+    Value<String?> note = const Value.absent(),
+    SplitMethod? splitMethod,
+    Value<DateKey?> settleByDateKey = const Value.absent(),
+    Value<int?> convertedAmountMinor = const Value.absent(),
+    Value<String?> convertedCurrencyCode = const Value.absent(),
+    Value<String?> conversionRate = const Value.absent(),
+    Value<String?> conversionRateRaw = const Value.absent(),
+    Value<DateKey?> conversionDateKey = const Value.absent(),
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+  }) => SplitExpenseRow(
+    id: id ?? this.id,
+    groupId: groupId.present ? groupId.value : this.groupId,
+    transactionId: transactionId.present
+        ? transactionId.value
+        : this.transactionId,
+    paidByPayeeId: paidByPayeeId ?? this.paidByPayeeId,
+    totalAmountMinor: totalAmountMinor ?? this.totalAmountMinor,
+    currencyCode: currencyCode ?? this.currencyCode,
+    dateKey: dateKey ?? this.dateKey,
+    monthKey: monthKey ?? this.monthKey,
+    title: title.present ? title.value : this.title,
+    place: place.present ? place.value : this.place,
+    occasion: occasion.present ? occasion.value : this.occasion,
+    note: note.present ? note.value : this.note,
+    splitMethod: splitMethod ?? this.splitMethod,
+    settleByDateKey: settleByDateKey.present
+        ? settleByDateKey.value
+        : this.settleByDateKey,
+    convertedAmountMinor: convertedAmountMinor.present
+        ? convertedAmountMinor.value
+        : this.convertedAmountMinor,
+    convertedCurrencyCode: convertedCurrencyCode.present
+        ? convertedCurrencyCode.value
+        : this.convertedCurrencyCode,
+    conversionRate: conversionRate.present
+        ? conversionRate.value
+        : this.conversionRate,
+    conversionRateRaw: conversionRateRaw.present
+        ? conversionRateRaw.value
+        : this.conversionRateRaw,
+    conversionDateKey: conversionDateKey.present
+        ? conversionDateKey.value
+        : this.conversionDateKey,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  SplitExpenseRow copyWithCompanion(SplitExpensesCompanion data) {
+    return SplitExpenseRow(
+      id: data.id.present ? data.id.value : this.id,
+      groupId: data.groupId.present ? data.groupId.value : this.groupId,
+      transactionId: data.transactionId.present
+          ? data.transactionId.value
+          : this.transactionId,
+      paidByPayeeId: data.paidByPayeeId.present
+          ? data.paidByPayeeId.value
+          : this.paidByPayeeId,
+      totalAmountMinor: data.totalAmountMinor.present
+          ? data.totalAmountMinor.value
+          : this.totalAmountMinor,
+      currencyCode: data.currencyCode.present
+          ? data.currencyCode.value
+          : this.currencyCode,
+      dateKey: data.dateKey.present ? data.dateKey.value : this.dateKey,
+      monthKey: data.monthKey.present ? data.monthKey.value : this.monthKey,
+      title: data.title.present ? data.title.value : this.title,
+      place: data.place.present ? data.place.value : this.place,
+      occasion: data.occasion.present ? data.occasion.value : this.occasion,
+      note: data.note.present ? data.note.value : this.note,
+      splitMethod: data.splitMethod.present
+          ? data.splitMethod.value
+          : this.splitMethod,
+      settleByDateKey: data.settleByDateKey.present
+          ? data.settleByDateKey.value
+          : this.settleByDateKey,
+      convertedAmountMinor: data.convertedAmountMinor.present
+          ? data.convertedAmountMinor.value
+          : this.convertedAmountMinor,
+      convertedCurrencyCode: data.convertedCurrencyCode.present
+          ? data.convertedCurrencyCode.value
+          : this.convertedCurrencyCode,
+      conversionRate: data.conversionRate.present
+          ? data.conversionRate.value
+          : this.conversionRate,
+      conversionRateRaw: data.conversionRateRaw.present
+          ? data.conversionRateRaw.value
+          : this.conversionRateRaw,
+      conversionDateKey: data.conversionDateKey.present
+          ? data.conversionDateKey.value
+          : this.conversionDateKey,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SplitExpenseRow(')
+          ..write('id: $id, ')
+          ..write('groupId: $groupId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('paidByPayeeId: $paidByPayeeId, ')
+          ..write('totalAmountMinor: $totalAmountMinor, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('dateKey: $dateKey, ')
+          ..write('monthKey: $monthKey, ')
+          ..write('title: $title, ')
+          ..write('place: $place, ')
+          ..write('occasion: $occasion, ')
+          ..write('note: $note, ')
+          ..write('splitMethod: $splitMethod, ')
+          ..write('settleByDateKey: $settleByDateKey, ')
+          ..write('convertedAmountMinor: $convertedAmountMinor, ')
+          ..write('convertedCurrencyCode: $convertedCurrencyCode, ')
+          ..write('conversionRate: $conversionRate, ')
+          ..write('conversionRateRaw: $conversionRateRaw, ')
+          ..write('conversionDateKey: $conversionDateKey, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+    id,
+    groupId,
+    transactionId,
+    paidByPayeeId,
+    totalAmountMinor,
+    currencyCode,
+    dateKey,
+    monthKey,
+    title,
+    place,
+    occasion,
+    note,
+    splitMethod,
+    settleByDateKey,
+    convertedAmountMinor,
+    convertedCurrencyCode,
+    conversionRate,
+    conversionRateRaw,
+    conversionDateKey,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ]);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SplitExpenseRow &&
+          other.id == this.id &&
+          other.groupId == this.groupId &&
+          other.transactionId == this.transactionId &&
+          other.paidByPayeeId == this.paidByPayeeId &&
+          other.totalAmountMinor == this.totalAmountMinor &&
+          other.currencyCode == this.currencyCode &&
+          other.dateKey == this.dateKey &&
+          other.monthKey == this.monthKey &&
+          other.title == this.title &&
+          other.place == this.place &&
+          other.occasion == this.occasion &&
+          other.note == this.note &&
+          other.splitMethod == this.splitMethod &&
+          other.settleByDateKey == this.settleByDateKey &&
+          other.convertedAmountMinor == this.convertedAmountMinor &&
+          other.convertedCurrencyCode == this.convertedCurrencyCode &&
+          other.conversionRate == this.conversionRate &&
+          other.conversionRateRaw == this.conversionRateRaw &&
+          other.conversionDateKey == this.conversionDateKey &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class SplitExpensesCompanion extends UpdateCompanion<SplitExpenseRow> {
+  final Value<String> id;
+  final Value<String?> groupId;
+  final Value<String?> transactionId;
+  final Value<String> paidByPayeeId;
+  final Value<int> totalAmountMinor;
+  final Value<String> currencyCode;
+  final Value<DateKey> dateKey;
+  final Value<int> monthKey;
+  final Value<String?> title;
+  final Value<String?> place;
+  final Value<String?> occasion;
+  final Value<String?> note;
+  final Value<SplitMethod> splitMethod;
+  final Value<DateKey?> settleByDateKey;
+  final Value<int?> convertedAmountMinor;
+  final Value<String?> convertedCurrencyCode;
+  final Value<String?> conversionRate;
+  final Value<String?> conversionRateRaw;
+  final Value<DateKey?> conversionDateKey;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> rowid;
+  const SplitExpensesCompanion({
+    this.id = const Value.absent(),
+    this.groupId = const Value.absent(),
+    this.transactionId = const Value.absent(),
+    this.paidByPayeeId = const Value.absent(),
+    this.totalAmountMinor = const Value.absent(),
+    this.currencyCode = const Value.absent(),
+    this.dateKey = const Value.absent(),
+    this.monthKey = const Value.absent(),
+    this.title = const Value.absent(),
+    this.place = const Value.absent(),
+    this.occasion = const Value.absent(),
+    this.note = const Value.absent(),
+    this.splitMethod = const Value.absent(),
+    this.settleByDateKey = const Value.absent(),
+    this.convertedAmountMinor = const Value.absent(),
+    this.convertedCurrencyCode = const Value.absent(),
+    this.conversionRate = const Value.absent(),
+    this.conversionRateRaw = const Value.absent(),
+    this.conversionDateKey = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SplitExpensesCompanion.insert({
+    required String id,
+    this.groupId = const Value.absent(),
+    this.transactionId = const Value.absent(),
+    required String paidByPayeeId,
+    required int totalAmountMinor,
+    required String currencyCode,
+    required DateKey dateKey,
+    required int monthKey,
+    this.title = const Value.absent(),
+    this.place = const Value.absent(),
+    this.occasion = const Value.absent(),
+    this.note = const Value.absent(),
+    required SplitMethod splitMethod,
+    this.settleByDateKey = const Value.absent(),
+    this.convertedAmountMinor = const Value.absent(),
+    this.convertedCurrencyCode = const Value.absent(),
+    this.conversionRate = const Value.absent(),
+    this.conversionRateRaw = const Value.absent(),
+    this.conversionDateKey = const Value.absent(),
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       paidByPayeeId = Value(paidByPayeeId),
+       totalAmountMinor = Value(totalAmountMinor),
+       currencyCode = Value(currencyCode),
+       dateKey = Value(dateKey),
+       monthKey = Value(monthKey),
+       splitMethod = Value(splitMethod),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<SplitExpenseRow> custom({
+    Expression<String>? id,
+    Expression<String>? groupId,
+    Expression<String>? transactionId,
+    Expression<String>? paidByPayeeId,
+    Expression<int>? totalAmountMinor,
+    Expression<String>? currencyCode,
+    Expression<int>? dateKey,
+    Expression<int>? monthKey,
+    Expression<String>? title,
+    Expression<String>? place,
+    Expression<String>? occasion,
+    Expression<String>? note,
+    Expression<String>? splitMethod,
+    Expression<int>? settleByDateKey,
+    Expression<int>? convertedAmountMinor,
+    Expression<String>? convertedCurrencyCode,
+    Expression<String>? conversionRate,
+    Expression<String>? conversionRateRaw,
+    Expression<int>? conversionDateKey,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (groupId != null) 'group_id': groupId,
+      if (transactionId != null) 'transaction_id': transactionId,
+      if (paidByPayeeId != null) 'paid_by_payee_id': paidByPayeeId,
+      if (totalAmountMinor != null) 'total_amount_minor': totalAmountMinor,
+      if (currencyCode != null) 'currency_code': currencyCode,
+      if (dateKey != null) 'date_key': dateKey,
+      if (monthKey != null) 'month_key': monthKey,
+      if (title != null) 'title': title,
+      if (place != null) 'place': place,
+      if (occasion != null) 'occasion': occasion,
+      if (note != null) 'note': note,
+      if (splitMethod != null) 'split_method': splitMethod,
+      if (settleByDateKey != null) 'settle_by_date_key': settleByDateKey,
+      if (convertedAmountMinor != null)
+        'converted_amount_minor': convertedAmountMinor,
+      if (convertedCurrencyCode != null)
+        'converted_currency_code': convertedCurrencyCode,
+      if (conversionRate != null) 'conversion_rate': conversionRate,
+      if (conversionRateRaw != null) 'conversion_rate_raw': conversionRateRaw,
+      if (conversionDateKey != null) 'conversion_date_key': conversionDateKey,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SplitExpensesCompanion copyWith({
+    Value<String>? id,
+    Value<String?>? groupId,
+    Value<String?>? transactionId,
+    Value<String>? paidByPayeeId,
+    Value<int>? totalAmountMinor,
+    Value<String>? currencyCode,
+    Value<DateKey>? dateKey,
+    Value<int>? monthKey,
+    Value<String?>? title,
+    Value<String?>? place,
+    Value<String?>? occasion,
+    Value<String?>? note,
+    Value<SplitMethod>? splitMethod,
+    Value<DateKey?>? settleByDateKey,
+    Value<int?>? convertedAmountMinor,
+    Value<String?>? convertedCurrencyCode,
+    Value<String?>? conversionRate,
+    Value<String?>? conversionRateRaw,
+    Value<DateKey?>? conversionDateKey,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return SplitExpensesCompanion(
+      id: id ?? this.id,
+      groupId: groupId ?? this.groupId,
+      transactionId: transactionId ?? this.transactionId,
+      paidByPayeeId: paidByPayeeId ?? this.paidByPayeeId,
+      totalAmountMinor: totalAmountMinor ?? this.totalAmountMinor,
+      currencyCode: currencyCode ?? this.currencyCode,
+      dateKey: dateKey ?? this.dateKey,
+      monthKey: monthKey ?? this.monthKey,
+      title: title ?? this.title,
+      place: place ?? this.place,
+      occasion: occasion ?? this.occasion,
+      note: note ?? this.note,
+      splitMethod: splitMethod ?? this.splitMethod,
+      settleByDateKey: settleByDateKey ?? this.settleByDateKey,
+      convertedAmountMinor: convertedAmountMinor ?? this.convertedAmountMinor,
+      convertedCurrencyCode:
+          convertedCurrencyCode ?? this.convertedCurrencyCode,
+      conversionRate: conversionRate ?? this.conversionRate,
+      conversionRateRaw: conversionRateRaw ?? this.conversionRateRaw,
+      conversionDateKey: conversionDateKey ?? this.conversionDateKey,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (groupId.present) {
+      map['group_id'] = Variable<String>(groupId.value);
+    }
+    if (transactionId.present) {
+      map['transaction_id'] = Variable<String>(transactionId.value);
+    }
+    if (paidByPayeeId.present) {
+      map['paid_by_payee_id'] = Variable<String>(paidByPayeeId.value);
+    }
+    if (totalAmountMinor.present) {
+      map['total_amount_minor'] = Variable<int>(totalAmountMinor.value);
+    }
+    if (currencyCode.present) {
+      map['currency_code'] = Variable<String>(currencyCode.value);
+    }
+    if (dateKey.present) {
+      map['date_key'] = Variable<int>(
+        $SplitExpensesTable.$converterdateKey.toSql(dateKey.value),
+      );
+    }
+    if (monthKey.present) {
+      map['month_key'] = Variable<int>(monthKey.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (place.present) {
+      map['place'] = Variable<String>(place.value);
+    }
+    if (occasion.present) {
+      map['occasion'] = Variable<String>(occasion.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    if (splitMethod.present) {
+      map['split_method'] = Variable<String>(
+        $SplitExpensesTable.$convertersplitMethod.toSql(splitMethod.value),
+      );
+    }
+    if (settleByDateKey.present) {
+      map['settle_by_date_key'] = Variable<int>(
+        $SplitExpensesTable.$convertersettleByDateKeyn.toSql(
+          settleByDateKey.value,
+        ),
+      );
+    }
+    if (convertedAmountMinor.present) {
+      map['converted_amount_minor'] = Variable<int>(convertedAmountMinor.value);
+    }
+    if (convertedCurrencyCode.present) {
+      map['converted_currency_code'] = Variable<String>(
+        convertedCurrencyCode.value,
+      );
+    }
+    if (conversionRate.present) {
+      map['conversion_rate'] = Variable<String>(conversionRate.value);
+    }
+    if (conversionRateRaw.present) {
+      map['conversion_rate_raw'] = Variable<String>(conversionRateRaw.value);
+    }
+    if (conversionDateKey.present) {
+      map['conversion_date_key'] = Variable<int>(
+        $SplitExpensesTable.$converterconversionDateKeyn.toSql(
+          conversionDateKey.value,
+        ),
+      );
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SplitExpensesCompanion(')
+          ..write('id: $id, ')
+          ..write('groupId: $groupId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('paidByPayeeId: $paidByPayeeId, ')
+          ..write('totalAmountMinor: $totalAmountMinor, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('dateKey: $dateKey, ')
+          ..write('monthKey: $monthKey, ')
+          ..write('title: $title, ')
+          ..write('place: $place, ')
+          ..write('occasion: $occasion, ')
+          ..write('note: $note, ')
+          ..write('splitMethod: $splitMethod, ')
+          ..write('settleByDateKey: $settleByDateKey, ')
+          ..write('convertedAmountMinor: $convertedAmountMinor, ')
+          ..write('convertedCurrencyCode: $convertedCurrencyCode, ')
+          ..write('conversionRate: $conversionRate, ')
+          ..write('conversionRateRaw: $conversionRateRaw, ')
+          ..write('conversionDateKey: $conversionDateKey, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SplitSharesTable extends SplitShares
+    with TableInfo<$SplitSharesTable, SplitShareRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SplitSharesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _splitExpenseIdMeta = const VerificationMeta(
+    'splitExpenseId',
+  );
+  @override
+  late final GeneratedColumn<String> splitExpenseId = GeneratedColumn<String>(
+    'split_expense_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES split_expenses (id)',
+    ),
+  );
+  static const VerificationMeta _payeeIdMeta = const VerificationMeta(
+    'payeeId',
+  );
+  @override
+  late final GeneratedColumn<String> payeeId = GeneratedColumn<String>(
+    'payee_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES payees (id)',
+    ),
+  );
+  static const VerificationMeta _transactionLineNoMeta = const VerificationMeta(
+    'transactionLineNo',
+  );
+  @override
+  late final GeneratedColumn<int> transactionLineNo = GeneratedColumn<int>(
+    'transaction_line_no',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _shareAmountMinorMeta = const VerificationMeta(
+    'shareAmountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> shareAmountMinor = GeneratedColumn<int>(
+    'share_amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<ShareInputKind, String>
+  inputKind = GeneratedColumn<String>(
+    'input_kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  ).withConverter<ShareInputKind>($SplitSharesTable.$converterinputKind);
+  static const VerificationMeta _inputValueMeta = const VerificationMeta(
+    'inputValue',
+  );
+  @override
+  late final GeneratedColumn<int> inputValue = GeneratedColumn<int>(
+    'input_value',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    splitExpenseId,
+    payeeId,
+    transactionLineNo,
+    shareAmountMinor,
+    inputKind,
+    inputValue,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'split_shares';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SplitShareRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('split_expense_id')) {
+      context.handle(
+        _splitExpenseIdMeta,
+        splitExpenseId.isAcceptableOrUnknown(
+          data['split_expense_id']!,
+          _splitExpenseIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_splitExpenseIdMeta);
+    }
+    if (data.containsKey('payee_id')) {
+      context.handle(
+        _payeeIdMeta,
+        payeeId.isAcceptableOrUnknown(data['payee_id']!, _payeeIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_payeeIdMeta);
+    }
+    if (data.containsKey('transaction_line_no')) {
+      context.handle(
+        _transactionLineNoMeta,
+        transactionLineNo.isAcceptableOrUnknown(
+          data['transaction_line_no']!,
+          _transactionLineNoMeta,
+        ),
+      );
+    }
+    if (data.containsKey('share_amount_minor')) {
+      context.handle(
+        _shareAmountMinorMeta,
+        shareAmountMinor.isAcceptableOrUnknown(
+          data['share_amount_minor']!,
+          _shareAmountMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_shareAmountMinorMeta);
+    }
+    if (data.containsKey('input_value')) {
+      context.handle(
+        _inputValueMeta,
+        inputValue.isAcceptableOrUnknown(data['input_value']!, _inputValueMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SplitShareRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SplitShareRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      splitExpenseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}split_expense_id'],
+      )!,
+      payeeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payee_id'],
+      )!,
+      transactionLineNo: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}transaction_line_no'],
+      ),
+      shareAmountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}share_amount_minor'],
+      )!,
+      inputKind: $SplitSharesTable.$converterinputKind.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}input_kind'],
+        )!,
+      ),
+      inputValue: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}input_value'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $SplitSharesTable createAlias(String alias) {
+    return $SplitSharesTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<ShareInputKind, String> $converterinputKind =
+      const ShareInputKindConverter();
+}
+
+class SplitShareRow extends DataClass implements Insertable<SplitShareRow> {
+  /// Row identifier, UUIDv7.
+  final String id;
+
+  /// The expense being split.
+  final String splitExpenseId;
+
+  /// Who owes this share.
+  final String payeeId;
+
+  /// The `transaction_lines.lineNo` this share is against, or null for a share of the whole expense.
+  ///
+  /// **This column is the itemised split** — the ₹400 dessert is one line with one participant while
+  /// the ₹1,200 platter is one line split four ways, and each person's total becomes a sum over lines
+  /// rather than a division of the bill.
+  ///
+  /// Only meaningful when the expense has a transaction, which the CHECK below enforces.
+  final int? transactionLineNo;
+
+  /// The exact amount owed, in minor units. Sums with its siblings to the allocated total.
+  final int shareAmountMinor;
+
+  /// How this share was specified.
+  final ShareInputKind inputKind;
+
+  /// The typed value behind [inputKind] — minor units for `exact`, basis points for `percent`, a
+  /// weight for `shares`, and null for `equal`.
+  final int? inputValue;
+
+  /// Creation instant, epoch millis UTC.
+  final int createdAt;
+
+  /// Last-modification instant, epoch millis UTC.
+  final int updatedAt;
+
+  /// Soft-delete instant, epoch millis UTC. Null means active.
+  final int? deletedAt;
+  const SplitShareRow({
+    required this.id,
+    required this.splitExpenseId,
+    required this.payeeId,
+    this.transactionLineNo,
+    required this.shareAmountMinor,
+    required this.inputKind,
+    this.inputValue,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['split_expense_id'] = Variable<String>(splitExpenseId);
+    map['payee_id'] = Variable<String>(payeeId);
+    if (!nullToAbsent || transactionLineNo != null) {
+      map['transaction_line_no'] = Variable<int>(transactionLineNo);
+    }
+    map['share_amount_minor'] = Variable<int>(shareAmountMinor);
+    {
+      map['input_kind'] = Variable<String>(
+        $SplitSharesTable.$converterinputKind.toSql(inputKind),
+      );
+    }
+    if (!nullToAbsent || inputValue != null) {
+      map['input_value'] = Variable<int>(inputValue);
+    }
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    return map;
+  }
+
+  SplitSharesCompanion toCompanion(bool nullToAbsent) {
+    return SplitSharesCompanion(
+      id: Value(id),
+      splitExpenseId: Value(splitExpenseId),
+      payeeId: Value(payeeId),
+      transactionLineNo: transactionLineNo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(transactionLineNo),
+      shareAmountMinor: Value(shareAmountMinor),
+      inputKind: Value(inputKind),
+      inputValue: inputValue == null && nullToAbsent
+          ? const Value.absent()
+          : Value(inputValue),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory SplitShareRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SplitShareRow(
+      id: serializer.fromJson<String>(json['id']),
+      splitExpenseId: serializer.fromJson<String>(json['splitExpenseId']),
+      payeeId: serializer.fromJson<String>(json['payeeId']),
+      transactionLineNo: serializer.fromJson<int?>(json['transactionLineNo']),
+      shareAmountMinor: serializer.fromJson<int>(json['shareAmountMinor']),
+      inputKind: serializer.fromJson<ShareInputKind>(json['inputKind']),
+      inputValue: serializer.fromJson<int?>(json['inputValue']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'splitExpenseId': serializer.toJson<String>(splitExpenseId),
+      'payeeId': serializer.toJson<String>(payeeId),
+      'transactionLineNo': serializer.toJson<int?>(transactionLineNo),
+      'shareAmountMinor': serializer.toJson<int>(shareAmountMinor),
+      'inputKind': serializer.toJson<ShareInputKind>(inputKind),
+      'inputValue': serializer.toJson<int?>(inputValue),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+    };
+  }
+
+  SplitShareRow copyWith({
+    String? id,
+    String? splitExpenseId,
+    String? payeeId,
+    Value<int?> transactionLineNo = const Value.absent(),
+    int? shareAmountMinor,
+    ShareInputKind? inputKind,
+    Value<int?> inputValue = const Value.absent(),
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+  }) => SplitShareRow(
+    id: id ?? this.id,
+    splitExpenseId: splitExpenseId ?? this.splitExpenseId,
+    payeeId: payeeId ?? this.payeeId,
+    transactionLineNo: transactionLineNo.present
+        ? transactionLineNo.value
+        : this.transactionLineNo,
+    shareAmountMinor: shareAmountMinor ?? this.shareAmountMinor,
+    inputKind: inputKind ?? this.inputKind,
+    inputValue: inputValue.present ? inputValue.value : this.inputValue,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  SplitShareRow copyWithCompanion(SplitSharesCompanion data) {
+    return SplitShareRow(
+      id: data.id.present ? data.id.value : this.id,
+      splitExpenseId: data.splitExpenseId.present
+          ? data.splitExpenseId.value
+          : this.splitExpenseId,
+      payeeId: data.payeeId.present ? data.payeeId.value : this.payeeId,
+      transactionLineNo: data.transactionLineNo.present
+          ? data.transactionLineNo.value
+          : this.transactionLineNo,
+      shareAmountMinor: data.shareAmountMinor.present
+          ? data.shareAmountMinor.value
+          : this.shareAmountMinor,
+      inputKind: data.inputKind.present ? data.inputKind.value : this.inputKind,
+      inputValue: data.inputValue.present
+          ? data.inputValue.value
+          : this.inputValue,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SplitShareRow(')
+          ..write('id: $id, ')
+          ..write('splitExpenseId: $splitExpenseId, ')
+          ..write('payeeId: $payeeId, ')
+          ..write('transactionLineNo: $transactionLineNo, ')
+          ..write('shareAmountMinor: $shareAmountMinor, ')
+          ..write('inputKind: $inputKind, ')
+          ..write('inputValue: $inputValue, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    splitExpenseId,
+    payeeId,
+    transactionLineNo,
+    shareAmountMinor,
+    inputKind,
+    inputValue,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SplitShareRow &&
+          other.id == this.id &&
+          other.splitExpenseId == this.splitExpenseId &&
+          other.payeeId == this.payeeId &&
+          other.transactionLineNo == this.transactionLineNo &&
+          other.shareAmountMinor == this.shareAmountMinor &&
+          other.inputKind == this.inputKind &&
+          other.inputValue == this.inputValue &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class SplitSharesCompanion extends UpdateCompanion<SplitShareRow> {
+  final Value<String> id;
+  final Value<String> splitExpenseId;
+  final Value<String> payeeId;
+  final Value<int?> transactionLineNo;
+  final Value<int> shareAmountMinor;
+  final Value<ShareInputKind> inputKind;
+  final Value<int?> inputValue;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> rowid;
+  const SplitSharesCompanion({
+    this.id = const Value.absent(),
+    this.splitExpenseId = const Value.absent(),
+    this.payeeId = const Value.absent(),
+    this.transactionLineNo = const Value.absent(),
+    this.shareAmountMinor = const Value.absent(),
+    this.inputKind = const Value.absent(),
+    this.inputValue = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SplitSharesCompanion.insert({
+    required String id,
+    required String splitExpenseId,
+    required String payeeId,
+    this.transactionLineNo = const Value.absent(),
+    required int shareAmountMinor,
+    required ShareInputKind inputKind,
+    this.inputValue = const Value.absent(),
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       splitExpenseId = Value(splitExpenseId),
+       payeeId = Value(payeeId),
+       shareAmountMinor = Value(shareAmountMinor),
+       inputKind = Value(inputKind),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<SplitShareRow> custom({
+    Expression<String>? id,
+    Expression<String>? splitExpenseId,
+    Expression<String>? payeeId,
+    Expression<int>? transactionLineNo,
+    Expression<int>? shareAmountMinor,
+    Expression<String>? inputKind,
+    Expression<int>? inputValue,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (splitExpenseId != null) 'split_expense_id': splitExpenseId,
+      if (payeeId != null) 'payee_id': payeeId,
+      if (transactionLineNo != null) 'transaction_line_no': transactionLineNo,
+      if (shareAmountMinor != null) 'share_amount_minor': shareAmountMinor,
+      if (inputKind != null) 'input_kind': inputKind,
+      if (inputValue != null) 'input_value': inputValue,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SplitSharesCompanion copyWith({
+    Value<String>? id,
+    Value<String>? splitExpenseId,
+    Value<String>? payeeId,
+    Value<int?>? transactionLineNo,
+    Value<int>? shareAmountMinor,
+    Value<ShareInputKind>? inputKind,
+    Value<int?>? inputValue,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return SplitSharesCompanion(
+      id: id ?? this.id,
+      splitExpenseId: splitExpenseId ?? this.splitExpenseId,
+      payeeId: payeeId ?? this.payeeId,
+      transactionLineNo: transactionLineNo ?? this.transactionLineNo,
+      shareAmountMinor: shareAmountMinor ?? this.shareAmountMinor,
+      inputKind: inputKind ?? this.inputKind,
+      inputValue: inputValue ?? this.inputValue,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (splitExpenseId.present) {
+      map['split_expense_id'] = Variable<String>(splitExpenseId.value);
+    }
+    if (payeeId.present) {
+      map['payee_id'] = Variable<String>(payeeId.value);
+    }
+    if (transactionLineNo.present) {
+      map['transaction_line_no'] = Variable<int>(transactionLineNo.value);
+    }
+    if (shareAmountMinor.present) {
+      map['share_amount_minor'] = Variable<int>(shareAmountMinor.value);
+    }
+    if (inputKind.present) {
+      map['input_kind'] = Variable<String>(
+        $SplitSharesTable.$converterinputKind.toSql(inputKind.value),
+      );
+    }
+    if (inputValue.present) {
+      map['input_value'] = Variable<int>(inputValue.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SplitSharesCompanion(')
+          ..write('id: $id, ')
+          ..write('splitExpenseId: $splitExpenseId, ')
+          ..write('payeeId: $payeeId, ')
+          ..write('transactionLineNo: $transactionLineNo, ')
+          ..write('shareAmountMinor: $shareAmountMinor, ')
+          ..write('inputKind: $inputKind, ')
+          ..write('inputValue: $inputValue, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SplitSettlementsTable extends SplitSettlements
+    with TableInfo<$SplitSettlementsTable, SplitSettlementRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SplitSettlementsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _groupIdMeta = const VerificationMeta(
+    'groupId',
+  );
+  @override
+  late final GeneratedColumn<String> groupId = GeneratedColumn<String>(
+    'group_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES split_groups (id)',
+    ),
+  );
+  static const VerificationMeta _fromPayeeIdMeta = const VerificationMeta(
+    'fromPayeeId',
+  );
+  @override
+  late final GeneratedColumn<String> fromPayeeId = GeneratedColumn<String>(
+    'from_payee_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES payees (id)',
+    ),
+  );
+  static const VerificationMeta _toPayeeIdMeta = const VerificationMeta(
+    'toPayeeId',
+  );
+  @override
+  late final GeneratedColumn<String> toPayeeId = GeneratedColumn<String>(
+    'to_payee_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES payees (id)',
+    ),
+  );
+  static const VerificationMeta _amountMinorMeta = const VerificationMeta(
+    'amountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> amountMinor = GeneratedColumn<int>(
+    'amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currencyCodeMeta = const VerificationMeta(
+    'currencyCode',
+  );
+  @override
+  late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
+    'currency_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES currencies (code)',
+    ),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateKey, int> dateKey =
+      GeneratedColumn<int>(
+        'date_key',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateKey>($SplitSettlementsTable.$converterdateKey);
+  static const VerificationMeta _monthKeyMeta = const VerificationMeta(
+    'monthKey',
+  );
+  @override
+  late final GeneratedColumn<int> monthKey = GeneratedColumn<int>(
+    'month_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _transactionIdMeta = const VerificationMeta(
+    'transactionId',
+  );
+  @override
+  late final GeneratedColumn<String> transactionId = GeneratedColumn<String>(
+    'transaction_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES transactions (id)',
+    ),
+  );
+  static const VerificationMeta _paymentMethodIdMeta = const VerificationMeta(
+    'paymentMethodId',
+  );
+  @override
+  late final GeneratedColumn<String> paymentMethodId = GeneratedColumn<String>(
+    'payment_method_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES payment_methods (id)',
+    ),
+  );
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+    'note',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    groupId,
+    fromPayeeId,
+    toPayeeId,
+    amountMinor,
+    currencyCode,
+    dateKey,
+    monthKey,
+    transactionId,
+    paymentMethodId,
+    note,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'split_settlements';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SplitSettlementRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('group_id')) {
+      context.handle(
+        _groupIdMeta,
+        groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta),
+      );
+    }
+    if (data.containsKey('from_payee_id')) {
+      context.handle(
+        _fromPayeeIdMeta,
+        fromPayeeId.isAcceptableOrUnknown(
+          data['from_payee_id']!,
+          _fromPayeeIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_fromPayeeIdMeta);
+    }
+    if (data.containsKey('to_payee_id')) {
+      context.handle(
+        _toPayeeIdMeta,
+        toPayeeId.isAcceptableOrUnknown(data['to_payee_id']!, _toPayeeIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_toPayeeIdMeta);
+    }
+    if (data.containsKey('amount_minor')) {
+      context.handle(
+        _amountMinorMeta,
+        amountMinor.isAcceptableOrUnknown(
+          data['amount_minor']!,
+          _amountMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_amountMinorMeta);
+    }
+    if (data.containsKey('currency_code')) {
+      context.handle(
+        _currencyCodeMeta,
+        currencyCode.isAcceptableOrUnknown(
+          data['currency_code']!,
+          _currencyCodeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_currencyCodeMeta);
+    }
+    if (data.containsKey('month_key')) {
+      context.handle(
+        _monthKeyMeta,
+        monthKey.isAcceptableOrUnknown(data['month_key']!, _monthKeyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_monthKeyMeta);
+    }
+    if (data.containsKey('transaction_id')) {
+      context.handle(
+        _transactionIdMeta,
+        transactionId.isAcceptableOrUnknown(
+          data['transaction_id']!,
+          _transactionIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('payment_method_id')) {
+      context.handle(
+        _paymentMethodIdMeta,
+        paymentMethodId.isAcceptableOrUnknown(
+          data['payment_method_id']!,
+          _paymentMethodIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+        _noteMeta,
+        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SplitSettlementRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SplitSettlementRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      groupId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}group_id'],
+      ),
+      fromPayeeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}from_payee_id'],
+      )!,
+      toPayeeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}to_payee_id'],
+      )!,
+      amountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_minor'],
+      )!,
+      currencyCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency_code'],
+      )!,
+      dateKey: $SplitSettlementsTable.$converterdateKey.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}date_key'],
+        )!,
+      ),
+      monthKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}month_key'],
+      )!,
+      transactionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}transaction_id'],
+      ),
+      paymentMethodId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payment_method_id'],
+      ),
+      note: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}note'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $SplitSettlementsTable createAlias(String alias) {
+    return $SplitSettlementsTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<DateKey, int> $converterdateKey =
+      const DateKeyConverter();
+}
+
+class SplitSettlementRow extends DataClass
+    implements Insertable<SplitSettlementRow> {
+  /// Row identifier, UUIDv7.
+  final String id;
+
+  /// The group this settles within, or null for a one-off debt.
+  final String? groupId;
+
+  /// Who paid.
+  final String fromPayeeId;
+
+  /// Who was paid.
+  final String toPayeeId;
+
+  /// How much, in minor units.
+  final int amountMinor;
+
+  /// The currency.
+  final String currencyCode;
+
+  /// The civil date the money moved.
+  final DateKey dateKey;
+
+  /// `dateKey`'s month, denormalised for month-grouped reads.
+  final int monthKey;
+
+  /// The transaction this wrote into your ledger. Non-null whenever you are a party.
+  ///
+  /// **This is what makes a settlement real rather than a flag.** Splitwise's "settle up" is a
+  /// bookkeeping marker that cannot touch your bank; here the deposit or withdrawal is an ordinary
+  /// `transactions` row, so the split ledger and the account ledger cannot diverge.
+  final String? transactionId;
+
+  /// How the money travelled — UPI, cash, bank transfer.
+  final String? paymentMethodId;
+
+  /// Optional free-text note.
+  final String? note;
+
+  /// Creation instant, epoch millis UTC.
+  final int createdAt;
+
+  /// Last-modification instant, epoch millis UTC.
+  final int updatedAt;
+
+  /// Soft-delete instant, epoch millis UTC. Null means active.
+  final int? deletedAt;
+  const SplitSettlementRow({
+    required this.id,
+    this.groupId,
+    required this.fromPayeeId,
+    required this.toPayeeId,
+    required this.amountMinor,
+    required this.currencyCode,
+    required this.dateKey,
+    required this.monthKey,
+    this.transactionId,
+    this.paymentMethodId,
+    this.note,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    if (!nullToAbsent || groupId != null) {
+      map['group_id'] = Variable<String>(groupId);
+    }
+    map['from_payee_id'] = Variable<String>(fromPayeeId);
+    map['to_payee_id'] = Variable<String>(toPayeeId);
+    map['amount_minor'] = Variable<int>(amountMinor);
+    map['currency_code'] = Variable<String>(currencyCode);
+    {
+      map['date_key'] = Variable<int>(
+        $SplitSettlementsTable.$converterdateKey.toSql(dateKey),
+      );
+    }
+    map['month_key'] = Variable<int>(monthKey);
+    if (!nullToAbsent || transactionId != null) {
+      map['transaction_id'] = Variable<String>(transactionId);
+    }
+    if (!nullToAbsent || paymentMethodId != null) {
+      map['payment_method_id'] = Variable<String>(paymentMethodId);
+    }
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    return map;
+  }
+
+  SplitSettlementsCompanion toCompanion(bool nullToAbsent) {
+    return SplitSettlementsCompanion(
+      id: Value(id),
+      groupId: groupId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(groupId),
+      fromPayeeId: Value(fromPayeeId),
+      toPayeeId: Value(toPayeeId),
+      amountMinor: Value(amountMinor),
+      currencyCode: Value(currencyCode),
+      dateKey: Value(dateKey),
+      monthKey: Value(monthKey),
+      transactionId: transactionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(transactionId),
+      paymentMethodId: paymentMethodId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(paymentMethodId),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory SplitSettlementRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SplitSettlementRow(
+      id: serializer.fromJson<String>(json['id']),
+      groupId: serializer.fromJson<String?>(json['groupId']),
+      fromPayeeId: serializer.fromJson<String>(json['fromPayeeId']),
+      toPayeeId: serializer.fromJson<String>(json['toPayeeId']),
+      amountMinor: serializer.fromJson<int>(json['amountMinor']),
+      currencyCode: serializer.fromJson<String>(json['currencyCode']),
+      dateKey: serializer.fromJson<DateKey>(json['dateKey']),
+      monthKey: serializer.fromJson<int>(json['monthKey']),
+      transactionId: serializer.fromJson<String?>(json['transactionId']),
+      paymentMethodId: serializer.fromJson<String?>(json['paymentMethodId']),
+      note: serializer.fromJson<String?>(json['note']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'groupId': serializer.toJson<String?>(groupId),
+      'fromPayeeId': serializer.toJson<String>(fromPayeeId),
+      'toPayeeId': serializer.toJson<String>(toPayeeId),
+      'amountMinor': serializer.toJson<int>(amountMinor),
+      'currencyCode': serializer.toJson<String>(currencyCode),
+      'dateKey': serializer.toJson<DateKey>(dateKey),
+      'monthKey': serializer.toJson<int>(monthKey),
+      'transactionId': serializer.toJson<String?>(transactionId),
+      'paymentMethodId': serializer.toJson<String?>(paymentMethodId),
+      'note': serializer.toJson<String?>(note),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+    };
+  }
+
+  SplitSettlementRow copyWith({
+    String? id,
+    Value<String?> groupId = const Value.absent(),
+    String? fromPayeeId,
+    String? toPayeeId,
+    int? amountMinor,
+    String? currencyCode,
+    DateKey? dateKey,
+    int? monthKey,
+    Value<String?> transactionId = const Value.absent(),
+    Value<String?> paymentMethodId = const Value.absent(),
+    Value<String?> note = const Value.absent(),
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+  }) => SplitSettlementRow(
+    id: id ?? this.id,
+    groupId: groupId.present ? groupId.value : this.groupId,
+    fromPayeeId: fromPayeeId ?? this.fromPayeeId,
+    toPayeeId: toPayeeId ?? this.toPayeeId,
+    amountMinor: amountMinor ?? this.amountMinor,
+    currencyCode: currencyCode ?? this.currencyCode,
+    dateKey: dateKey ?? this.dateKey,
+    monthKey: monthKey ?? this.monthKey,
+    transactionId: transactionId.present
+        ? transactionId.value
+        : this.transactionId,
+    paymentMethodId: paymentMethodId.present
+        ? paymentMethodId.value
+        : this.paymentMethodId,
+    note: note.present ? note.value : this.note,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  SplitSettlementRow copyWithCompanion(SplitSettlementsCompanion data) {
+    return SplitSettlementRow(
+      id: data.id.present ? data.id.value : this.id,
+      groupId: data.groupId.present ? data.groupId.value : this.groupId,
+      fromPayeeId: data.fromPayeeId.present
+          ? data.fromPayeeId.value
+          : this.fromPayeeId,
+      toPayeeId: data.toPayeeId.present ? data.toPayeeId.value : this.toPayeeId,
+      amountMinor: data.amountMinor.present
+          ? data.amountMinor.value
+          : this.amountMinor,
+      currencyCode: data.currencyCode.present
+          ? data.currencyCode.value
+          : this.currencyCode,
+      dateKey: data.dateKey.present ? data.dateKey.value : this.dateKey,
+      monthKey: data.monthKey.present ? data.monthKey.value : this.monthKey,
+      transactionId: data.transactionId.present
+          ? data.transactionId.value
+          : this.transactionId,
+      paymentMethodId: data.paymentMethodId.present
+          ? data.paymentMethodId.value
+          : this.paymentMethodId,
+      note: data.note.present ? data.note.value : this.note,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SplitSettlementRow(')
+          ..write('id: $id, ')
+          ..write('groupId: $groupId, ')
+          ..write('fromPayeeId: $fromPayeeId, ')
+          ..write('toPayeeId: $toPayeeId, ')
+          ..write('amountMinor: $amountMinor, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('dateKey: $dateKey, ')
+          ..write('monthKey: $monthKey, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('paymentMethodId: $paymentMethodId, ')
+          ..write('note: $note, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    groupId,
+    fromPayeeId,
+    toPayeeId,
+    amountMinor,
+    currencyCode,
+    dateKey,
+    monthKey,
+    transactionId,
+    paymentMethodId,
+    note,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SplitSettlementRow &&
+          other.id == this.id &&
+          other.groupId == this.groupId &&
+          other.fromPayeeId == this.fromPayeeId &&
+          other.toPayeeId == this.toPayeeId &&
+          other.amountMinor == this.amountMinor &&
+          other.currencyCode == this.currencyCode &&
+          other.dateKey == this.dateKey &&
+          other.monthKey == this.monthKey &&
+          other.transactionId == this.transactionId &&
+          other.paymentMethodId == this.paymentMethodId &&
+          other.note == this.note &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class SplitSettlementsCompanion extends UpdateCompanion<SplitSettlementRow> {
+  final Value<String> id;
+  final Value<String?> groupId;
+  final Value<String> fromPayeeId;
+  final Value<String> toPayeeId;
+  final Value<int> amountMinor;
+  final Value<String> currencyCode;
+  final Value<DateKey> dateKey;
+  final Value<int> monthKey;
+  final Value<String?> transactionId;
+  final Value<String?> paymentMethodId;
+  final Value<String?> note;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> rowid;
+  const SplitSettlementsCompanion({
+    this.id = const Value.absent(),
+    this.groupId = const Value.absent(),
+    this.fromPayeeId = const Value.absent(),
+    this.toPayeeId = const Value.absent(),
+    this.amountMinor = const Value.absent(),
+    this.currencyCode = const Value.absent(),
+    this.dateKey = const Value.absent(),
+    this.monthKey = const Value.absent(),
+    this.transactionId = const Value.absent(),
+    this.paymentMethodId = const Value.absent(),
+    this.note = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SplitSettlementsCompanion.insert({
+    required String id,
+    this.groupId = const Value.absent(),
+    required String fromPayeeId,
+    required String toPayeeId,
+    required int amountMinor,
+    required String currencyCode,
+    required DateKey dateKey,
+    required int monthKey,
+    this.transactionId = const Value.absent(),
+    this.paymentMethodId = const Value.absent(),
+    this.note = const Value.absent(),
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       fromPayeeId = Value(fromPayeeId),
+       toPayeeId = Value(toPayeeId),
+       amountMinor = Value(amountMinor),
+       currencyCode = Value(currencyCode),
+       dateKey = Value(dateKey),
+       monthKey = Value(monthKey),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<SplitSettlementRow> custom({
+    Expression<String>? id,
+    Expression<String>? groupId,
+    Expression<String>? fromPayeeId,
+    Expression<String>? toPayeeId,
+    Expression<int>? amountMinor,
+    Expression<String>? currencyCode,
+    Expression<int>? dateKey,
+    Expression<int>? monthKey,
+    Expression<String>? transactionId,
+    Expression<String>? paymentMethodId,
+    Expression<String>? note,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (groupId != null) 'group_id': groupId,
+      if (fromPayeeId != null) 'from_payee_id': fromPayeeId,
+      if (toPayeeId != null) 'to_payee_id': toPayeeId,
+      if (amountMinor != null) 'amount_minor': amountMinor,
+      if (currencyCode != null) 'currency_code': currencyCode,
+      if (dateKey != null) 'date_key': dateKey,
+      if (monthKey != null) 'month_key': monthKey,
+      if (transactionId != null) 'transaction_id': transactionId,
+      if (paymentMethodId != null) 'payment_method_id': paymentMethodId,
+      if (note != null) 'note': note,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SplitSettlementsCompanion copyWith({
+    Value<String>? id,
+    Value<String?>? groupId,
+    Value<String>? fromPayeeId,
+    Value<String>? toPayeeId,
+    Value<int>? amountMinor,
+    Value<String>? currencyCode,
+    Value<DateKey>? dateKey,
+    Value<int>? monthKey,
+    Value<String?>? transactionId,
+    Value<String?>? paymentMethodId,
+    Value<String?>? note,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return SplitSettlementsCompanion(
+      id: id ?? this.id,
+      groupId: groupId ?? this.groupId,
+      fromPayeeId: fromPayeeId ?? this.fromPayeeId,
+      toPayeeId: toPayeeId ?? this.toPayeeId,
+      amountMinor: amountMinor ?? this.amountMinor,
+      currencyCode: currencyCode ?? this.currencyCode,
+      dateKey: dateKey ?? this.dateKey,
+      monthKey: monthKey ?? this.monthKey,
+      transactionId: transactionId ?? this.transactionId,
+      paymentMethodId: paymentMethodId ?? this.paymentMethodId,
+      note: note ?? this.note,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (groupId.present) {
+      map['group_id'] = Variable<String>(groupId.value);
+    }
+    if (fromPayeeId.present) {
+      map['from_payee_id'] = Variable<String>(fromPayeeId.value);
+    }
+    if (toPayeeId.present) {
+      map['to_payee_id'] = Variable<String>(toPayeeId.value);
+    }
+    if (amountMinor.present) {
+      map['amount_minor'] = Variable<int>(amountMinor.value);
+    }
+    if (currencyCode.present) {
+      map['currency_code'] = Variable<String>(currencyCode.value);
+    }
+    if (dateKey.present) {
+      map['date_key'] = Variable<int>(
+        $SplitSettlementsTable.$converterdateKey.toSql(dateKey.value),
+      );
+    }
+    if (monthKey.present) {
+      map['month_key'] = Variable<int>(monthKey.value);
+    }
+    if (transactionId.present) {
+      map['transaction_id'] = Variable<String>(transactionId.value);
+    }
+    if (paymentMethodId.present) {
+      map['payment_method_id'] = Variable<String>(paymentMethodId.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SplitSettlementsCompanion(')
+          ..write('id: $id, ')
+          ..write('groupId: $groupId, ')
+          ..write('fromPayeeId: $fromPayeeId, ')
+          ..write('toPayeeId: $toPayeeId, ')
+          ..write('amountMinor: $amountMinor, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('dateKey: $dateKey, ')
+          ..write('monthKey: $monthKey, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('paymentMethodId: $paymentMethodId, ')
+          ..write('note: $note, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class SplitExpenseSummaryRow extends DataClass {
+  final String splitExpenseId;
+  final String? groupId;
+  final String? transactionId;
+  final String paidByPayeeId;
+  final int totalAmountMinor;
+  final String currencyCode;
+  final DateKey dateKey;
+  final int monthKey;
+  final String? title;
+  final String? place;
+  final String? occasion;
+  final SplitMethod splitMethod;
+  final DateKey? settleByDateKey;
+  final int allocatedMinor;
+  final int unallocatedMinor;
+  final int? myShareMinor;
+  final int shareCount;
+  const SplitExpenseSummaryRow({
+    required this.splitExpenseId,
+    this.groupId,
+    this.transactionId,
+    required this.paidByPayeeId,
+    required this.totalAmountMinor,
+    required this.currencyCode,
+    required this.dateKey,
+    required this.monthKey,
+    this.title,
+    this.place,
+    this.occasion,
+    required this.splitMethod,
+    this.settleByDateKey,
+    required this.allocatedMinor,
+    required this.unallocatedMinor,
+    this.myShareMinor,
+    required this.shareCount,
+  });
+  factory SplitExpenseSummaryRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SplitExpenseSummaryRow(
+      splitExpenseId: serializer.fromJson<String>(json['split_expense_id']),
+      groupId: serializer.fromJson<String?>(json['group_id']),
+      transactionId: serializer.fromJson<String?>(json['transaction_id']),
+      paidByPayeeId: serializer.fromJson<String>(json['paid_by_payee_id']),
+      totalAmountMinor: serializer.fromJson<int>(json['total_amount_minor']),
+      currencyCode: serializer.fromJson<String>(json['currency_code']),
+      dateKey: serializer.fromJson<DateKey>(json['date_key']),
+      monthKey: serializer.fromJson<int>(json['month_key']),
+      title: serializer.fromJson<String?>(json['title']),
+      place: serializer.fromJson<String?>(json['place']),
+      occasion: serializer.fromJson<String?>(json['occasion']),
+      splitMethod: serializer.fromJson<SplitMethod>(json['split_method']),
+      settleByDateKey: serializer.fromJson<DateKey?>(
+        json['settle_by_date_key'],
+      ),
+      allocatedMinor: serializer.fromJson<int>(json['allocated_minor']),
+      unallocatedMinor: serializer.fromJson<int>(json['unallocated_minor']),
+      myShareMinor: serializer.fromJson<int?>(json['my_share_minor']),
+      shareCount: serializer.fromJson<int>(json['share_count']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'split_expense_id': serializer.toJson<String>(splitExpenseId),
+      'group_id': serializer.toJson<String?>(groupId),
+      'transaction_id': serializer.toJson<String?>(transactionId),
+      'paid_by_payee_id': serializer.toJson<String>(paidByPayeeId),
+      'total_amount_minor': serializer.toJson<int>(totalAmountMinor),
+      'currency_code': serializer.toJson<String>(currencyCode),
+      'date_key': serializer.toJson<DateKey>(dateKey),
+      'month_key': serializer.toJson<int>(monthKey),
+      'title': serializer.toJson<String?>(title),
+      'place': serializer.toJson<String?>(place),
+      'occasion': serializer.toJson<String?>(occasion),
+      'split_method': serializer.toJson<SplitMethod>(splitMethod),
+      'settle_by_date_key': serializer.toJson<DateKey?>(settleByDateKey),
+      'allocated_minor': serializer.toJson<int>(allocatedMinor),
+      'unallocated_minor': serializer.toJson<int>(unallocatedMinor),
+      'my_share_minor': serializer.toJson<int?>(myShareMinor),
+      'share_count': serializer.toJson<int>(shareCount),
+    };
+  }
+
+  SplitExpenseSummaryRow copyWith({
+    String? splitExpenseId,
+    Value<String?> groupId = const Value.absent(),
+    Value<String?> transactionId = const Value.absent(),
+    String? paidByPayeeId,
+    int? totalAmountMinor,
+    String? currencyCode,
+    DateKey? dateKey,
+    int? monthKey,
+    Value<String?> title = const Value.absent(),
+    Value<String?> place = const Value.absent(),
+    Value<String?> occasion = const Value.absent(),
+    SplitMethod? splitMethod,
+    Value<DateKey?> settleByDateKey = const Value.absent(),
+    int? allocatedMinor,
+    int? unallocatedMinor,
+    Value<int?> myShareMinor = const Value.absent(),
+    int? shareCount,
+  }) => SplitExpenseSummaryRow(
+    splitExpenseId: splitExpenseId ?? this.splitExpenseId,
+    groupId: groupId.present ? groupId.value : this.groupId,
+    transactionId: transactionId.present
+        ? transactionId.value
+        : this.transactionId,
+    paidByPayeeId: paidByPayeeId ?? this.paidByPayeeId,
+    totalAmountMinor: totalAmountMinor ?? this.totalAmountMinor,
+    currencyCode: currencyCode ?? this.currencyCode,
+    dateKey: dateKey ?? this.dateKey,
+    monthKey: monthKey ?? this.monthKey,
+    title: title.present ? title.value : this.title,
+    place: place.present ? place.value : this.place,
+    occasion: occasion.present ? occasion.value : this.occasion,
+    splitMethod: splitMethod ?? this.splitMethod,
+    settleByDateKey: settleByDateKey.present
+        ? settleByDateKey.value
+        : this.settleByDateKey,
+    allocatedMinor: allocatedMinor ?? this.allocatedMinor,
+    unallocatedMinor: unallocatedMinor ?? this.unallocatedMinor,
+    myShareMinor: myShareMinor.present ? myShareMinor.value : this.myShareMinor,
+    shareCount: shareCount ?? this.shareCount,
+  );
+  @override
+  String toString() {
+    return (StringBuffer('SplitExpenseSummaryRow(')
+          ..write('splitExpenseId: $splitExpenseId, ')
+          ..write('groupId: $groupId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('paidByPayeeId: $paidByPayeeId, ')
+          ..write('totalAmountMinor: $totalAmountMinor, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('dateKey: $dateKey, ')
+          ..write('monthKey: $monthKey, ')
+          ..write('title: $title, ')
+          ..write('place: $place, ')
+          ..write('occasion: $occasion, ')
+          ..write('splitMethod: $splitMethod, ')
+          ..write('settleByDateKey: $settleByDateKey, ')
+          ..write('allocatedMinor: $allocatedMinor, ')
+          ..write('unallocatedMinor: $unallocatedMinor, ')
+          ..write('myShareMinor: $myShareMinor, ')
+          ..write('shareCount: $shareCount')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    splitExpenseId,
+    groupId,
+    transactionId,
+    paidByPayeeId,
+    totalAmountMinor,
+    currencyCode,
+    dateKey,
+    monthKey,
+    title,
+    place,
+    occasion,
+    splitMethod,
+    settleByDateKey,
+    allocatedMinor,
+    unallocatedMinor,
+    myShareMinor,
+    shareCount,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SplitExpenseSummaryRow &&
+          other.splitExpenseId == this.splitExpenseId &&
+          other.groupId == this.groupId &&
+          other.transactionId == this.transactionId &&
+          other.paidByPayeeId == this.paidByPayeeId &&
+          other.totalAmountMinor == this.totalAmountMinor &&
+          other.currencyCode == this.currencyCode &&
+          other.dateKey == this.dateKey &&
+          other.monthKey == this.monthKey &&
+          other.title == this.title &&
+          other.place == this.place &&
+          other.occasion == this.occasion &&
+          other.splitMethod == this.splitMethod &&
+          other.settleByDateKey == this.settleByDateKey &&
+          other.allocatedMinor == this.allocatedMinor &&
+          other.unallocatedMinor == this.unallocatedMinor &&
+          other.myShareMinor == this.myShareMinor &&
+          other.shareCount == this.shareCount);
+}
+
+class VSplitExpenses extends ViewInfo<VSplitExpenses, SplitExpenseSummaryRow>
+    implements HasResultSet {
+  final String? _alias;
+  @override
+  final _$AlayaDatabase attachedDatabase;
+  VSplitExpenses(this.attachedDatabase, [this._alias]);
+  @override
+  List<GeneratedColumn> get $columns => [
+    splitExpenseId,
+    groupId,
+    transactionId,
+    paidByPayeeId,
+    totalAmountMinor,
+    currencyCode,
+    dateKey,
+    monthKey,
+    title,
+    place,
+    occasion,
+    splitMethod,
+    settleByDateKey,
+    allocatedMinor,
+    unallocatedMinor,
+    myShareMinor,
+    shareCount,
+  ];
+  @override
+  String get aliasedName => _alias ?? entityName;
+  @override
+  String get entityName => 'v_split_expenses';
+  @override
+  Map<SqlDialect, String> get createViewStatements => {
+    SqlDialect.sqlite:
+        'CREATE VIEW v_split_expenses AS SELECT e.id AS split_expense_id, e.group_id AS group_id, e.transaction_id AS transaction_id, e.paid_by_payee_id AS paid_by_payee_id, e.total_amount_minor AS total_amount_minor, e.currency_code AS currency_code, e.date_key AS date_key, e.month_key AS month_key, e.title AS title, e.place AS place, e.occasion AS occasion, e.split_method AS split_method, e.settle_by_date_key AS settle_by_date_key, COALESCE((SELECT SUM(s.share_amount_minor) FROM split_shares AS s WHERE s.split_expense_id = e.id AND s.deleted_at IS NULL), 0) AS allocated_minor, e.total_amount_minor - COALESCE((SELECT SUM(s.share_amount_minor) FROM split_shares AS s WHERE s.split_expense_id = e.id AND s.deleted_at IS NULL), 0) AS unallocated_minor, (SELECT SUM(s.share_amount_minor) FROM split_shares AS s JOIN app_settings AS st ON st."key" = \'split.selfPayeeId\' WHERE s.split_expense_id = e.id AND s.deleted_at IS NULL AND s.payee_id = st.value) AS my_share_minor, (SELECT COUNT(*) FROM split_shares AS s WHERE s.split_expense_id = e.id AND s.deleted_at IS NULL) AS share_count FROM split_expenses AS e WHERE e.deleted_at IS NULL',
+  };
+  @override
+  VSplitExpenses get asDslTable => this;
+  @override
+  SplitExpenseSummaryRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SplitExpenseSummaryRow(
+      splitExpenseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}split_expense_id'],
+      )!,
+      groupId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}group_id'],
+      ),
+      transactionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}transaction_id'],
+      ),
+      paidByPayeeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}paid_by_payee_id'],
+      )!,
+      totalAmountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_amount_minor'],
+      )!,
+      currencyCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency_code'],
+      )!,
+      dateKey: $SplitExpensesTable.$converterdateKey.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}date_key'],
+        )!,
+      ),
+      monthKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}month_key'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      ),
+      place: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}place'],
+      ),
+      occasion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}occasion'],
+      ),
+      splitMethod: $SplitExpensesTable.$convertersplitMethod.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}split_method'],
+        )!,
+      ),
+      settleByDateKey: $SplitExpensesTable.$convertersettleByDateKeyn.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}settle_by_date_key'],
+        ),
+      ),
+      allocatedMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}allocated_minor'],
+      )!,
+      unallocatedMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unallocated_minor'],
+      )!,
+      myShareMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}my_share_minor'],
+      ),
+      shareCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}share_count'],
+      )!,
+    );
+  }
+
+  late final GeneratedColumn<String> splitExpenseId = GeneratedColumn<String>(
+    'split_expense_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> groupId = GeneratedColumn<String>(
+    'group_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> transactionId = GeneratedColumn<String>(
+    'transaction_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> paidByPayeeId = GeneratedColumn<String>(
+    'paid_by_payee_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<int> totalAmountMinor = GeneratedColumn<int>(
+    'total_amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
+    'currency_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumnWithTypeConverter<DateKey, int> dateKey =
+      GeneratedColumn<int>(
+        'date_key',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+      ).withConverter<DateKey>($SplitExpensesTable.$converterdateKey);
+  late final GeneratedColumn<int> monthKey = GeneratedColumn<int>(
+    'month_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> place = GeneratedColumn<String>(
+    'place',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> occasion = GeneratedColumn<String>(
+    'occasion',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumnWithTypeConverter<SplitMethod, String> splitMethod =
+      GeneratedColumn<String>(
+        'split_method',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+      ).withConverter<SplitMethod>($SplitExpensesTable.$convertersplitMethod);
+  late final GeneratedColumnWithTypeConverter<DateKey?, int> settleByDateKey =
+      GeneratedColumn<int>(
+        'settle_by_date_key',
+        aliasedName,
+        true,
+        type: DriftSqlType.int,
+      ).withConverter<DateKey?>($SplitExpensesTable.$convertersettleByDateKeyn);
+  late final GeneratedColumn<int> allocatedMinor = GeneratedColumn<int>(
+    'allocated_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumn<int> unallocatedMinor = GeneratedColumn<int>(
+    'unallocated_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumn<int> myShareMinor = GeneratedColumn<int>(
+    'my_share_minor',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumn<int> shareCount = GeneratedColumn<int>(
+    'share_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+  );
+  @override
+  VSplitExpenses createAlias(String alias) {
+    return VSplitExpenses(attachedDatabase, alias);
+  }
+
+  @override
+  Query? get query => null;
+  @override
+  Set<String> get readTables => const {
+    'split_expenses',
+    'split_shares',
+    'app_settings',
+    'payees',
+    'split_groups',
+    'transactions',
+    'currencies',
+    'accounts',
+    'payment_methods',
+    'recurring_templates',
+    'recurring_occurrences',
+    'tags',
+    'assets',
+    'transaction_lines',
+    'items',
+    'units',
+    'inventory_batches',
+  };
+}
+
+class SplitBalanceRow extends DataClass {
+  final String payeeId;
+  final String currencyCode;
+  final int? owedToMeMinor;
+  final int? iOweMinor;
+  final int? netMinor;
+  final DateKey? oldestUnsettledDateKey;
+  const SplitBalanceRow({
+    required this.payeeId,
+    required this.currencyCode,
+    this.owedToMeMinor,
+    this.iOweMinor,
+    this.netMinor,
+    this.oldestUnsettledDateKey,
+  });
+  factory SplitBalanceRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SplitBalanceRow(
+      payeeId: serializer.fromJson<String>(json['payee_id']),
+      currencyCode: serializer.fromJson<String>(json['currency_code']),
+      owedToMeMinor: serializer.fromJson<int?>(json['owed_to_me_minor']),
+      iOweMinor: serializer.fromJson<int?>(json['i_owe_minor']),
+      netMinor: serializer.fromJson<int?>(json['net_minor']),
+      oldestUnsettledDateKey: serializer.fromJson<DateKey?>(
+        json['oldest_unsettled_date_key'],
+      ),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'payee_id': serializer.toJson<String>(payeeId),
+      'currency_code': serializer.toJson<String>(currencyCode),
+      'owed_to_me_minor': serializer.toJson<int?>(owedToMeMinor),
+      'i_owe_minor': serializer.toJson<int?>(iOweMinor),
+      'net_minor': serializer.toJson<int?>(netMinor),
+      'oldest_unsettled_date_key': serializer.toJson<DateKey?>(
+        oldestUnsettledDateKey,
+      ),
+    };
+  }
+
+  SplitBalanceRow copyWith({
+    String? payeeId,
+    String? currencyCode,
+    Value<int?> owedToMeMinor = const Value.absent(),
+    Value<int?> iOweMinor = const Value.absent(),
+    Value<int?> netMinor = const Value.absent(),
+    Value<DateKey?> oldestUnsettledDateKey = const Value.absent(),
+  }) => SplitBalanceRow(
+    payeeId: payeeId ?? this.payeeId,
+    currencyCode: currencyCode ?? this.currencyCode,
+    owedToMeMinor: owedToMeMinor.present
+        ? owedToMeMinor.value
+        : this.owedToMeMinor,
+    iOweMinor: iOweMinor.present ? iOweMinor.value : this.iOweMinor,
+    netMinor: netMinor.present ? netMinor.value : this.netMinor,
+    oldestUnsettledDateKey: oldestUnsettledDateKey.present
+        ? oldestUnsettledDateKey.value
+        : this.oldestUnsettledDateKey,
+  );
+  @override
+  String toString() {
+    return (StringBuffer('SplitBalanceRow(')
+          ..write('payeeId: $payeeId, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('owedToMeMinor: $owedToMeMinor, ')
+          ..write('iOweMinor: $iOweMinor, ')
+          ..write('netMinor: $netMinor, ')
+          ..write('oldestUnsettledDateKey: $oldestUnsettledDateKey')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    payeeId,
+    currencyCode,
+    owedToMeMinor,
+    iOweMinor,
+    netMinor,
+    oldestUnsettledDateKey,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SplitBalanceRow &&
+          other.payeeId == this.payeeId &&
+          other.currencyCode == this.currencyCode &&
+          other.owedToMeMinor == this.owedToMeMinor &&
+          other.iOweMinor == this.iOweMinor &&
+          other.netMinor == this.netMinor &&
+          other.oldestUnsettledDateKey == this.oldestUnsettledDateKey);
+}
+
+class VSplitBalances extends ViewInfo<VSplitBalances, SplitBalanceRow>
+    implements HasResultSet {
+  final String? _alias;
+  @override
+  final _$AlayaDatabase attachedDatabase;
+  VSplitBalances(this.attachedDatabase, [this._alias]);
+  @override
+  List<GeneratedColumn> get $columns => [
+    payeeId,
+    currencyCode,
+    owedToMeMinor,
+    iOweMinor,
+    netMinor,
+    oldestUnsettledDateKey,
+  ];
+  @override
+  String get aliasedName => _alias ?? entityName;
+  @override
+  String get entityName => 'v_split_balances';
+  @override
+  Map<SqlDialect, String> get createViewStatements => {
+    SqlDialect.sqlite:
+        'CREATE VIEW v_split_balances AS SELECT p.id AS payee_id, b.currency_code AS currency_code, SUM(b.owed_to_me_minor) AS owed_to_me_minor, SUM(b.i_owe_minor) AS i_owe_minor, SUM(b.owed_to_me_minor) - SUM(b.i_owe_minor) AS net_minor, MIN(b.oldest_date_key) AS oldest_unsettled_date_key FROM payees AS p JOIN (SELECT s.payee_id AS payee_id, e.currency_code AS currency_code, s.share_amount_minor AS owed_to_me_minor, 0 AS i_owe_minor, e.date_key AS oldest_date_key FROM split_shares AS s JOIN split_expenses AS e ON e.id = s.split_expense_id JOIN app_settings AS st ON st."key" = \'split.selfPayeeId\' WHERE s.deleted_at IS NULL AND e.deleted_at IS NULL AND e.paid_by_payee_id = st.value AND s.payee_id <> st.value UNION ALL SELECT e.paid_by_payee_id, e.currency_code, 0, s.share_amount_minor, e.date_key FROM split_shares AS s JOIN split_expenses AS e ON e.id = s.split_expense_id JOIN app_settings AS st ON st."key" = \'split.selfPayeeId\' WHERE s.deleted_at IS NULL AND e.deleted_at IS NULL AND e.paid_by_payee_id <> st.value AND s.payee_id = st.value UNION ALL SELECT t.from_payee_id, t.currency_code, -t.amount_minor, 0, NULL FROM split_settlements AS t JOIN app_settings AS st ON st."key" = \'split.selfPayeeId\' WHERE t.deleted_at IS NULL AND t.to_payee_id = st.value UNION ALL SELECT t.to_payee_id, t.currency_code, 0, -t.amount_minor, NULL FROM split_settlements AS t JOIN app_settings AS st ON st."key" = \'split.selfPayeeId\' WHERE t.deleted_at IS NULL AND t.from_payee_id = st.value) AS b ON b.payee_id = p.id WHERE p.deleted_at IS NULL GROUP BY p.id, b.currency_code',
+  };
+  @override
+  VSplitBalances get asDslTable => this;
+  @override
+  SplitBalanceRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SplitBalanceRow(
+      payeeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payee_id'],
+      )!,
+      currencyCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency_code'],
+      )!,
+      owedToMeMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}owed_to_me_minor'],
+      ),
+      iOweMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}i_owe_minor'],
+      ),
+      netMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}net_minor'],
+      ),
+      oldestUnsettledDateKey:
+          NullAwareTypeConverter.wrap(const DateKeyConverter()).fromSql(
+            attachedDatabase.typeMapping.read(
+              DriftSqlType.int,
+              data['${effectivePrefix}oldest_unsettled_date_key'],
+            ),
+          ),
+    );
+  }
+
+  late final GeneratedColumn<String> payeeId = GeneratedColumn<String>(
+    'payee_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
+    'currency_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<int> owedToMeMinor = GeneratedColumn<int>(
+    'owed_to_me_minor',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumn<int> iOweMinor = GeneratedColumn<int>(
+    'i_owe_minor',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumn<int> netMinor = GeneratedColumn<int>(
+    'net_minor',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumnWithTypeConverter<DateKey?, int>
+  oldestUnsettledDateKey =
+      GeneratedColumn<int>(
+        'oldest_unsettled_date_key',
+        aliasedName,
+        true,
+        type: DriftSqlType.int,
+      ).withConverter<DateKey?>(
+        NullAwareTypeConverter.wrap(const DateKeyConverter()),
+      );
+  @override
+  VSplitBalances createAlias(String alias) {
+    return VSplitBalances(attachedDatabase, alias);
+  }
+
+  @override
+  Query? get query => null;
+  @override
+  Set<String> get readTables => const {
+    'payees',
+    'split_shares',
+    'split_expenses',
+    'app_settings',
+    'split_settlements',
+    'split_groups',
+    'currencies',
+    'transactions',
+    'payment_methods',
+    'accounts',
+    'recurring_templates',
+    'recurring_occurrences',
+    'tags',
+    'assets',
+    'transaction_lines',
+    'items',
+    'units',
+    'inventory_batches',
+  };
+}
+
+class SplitGroupBalanceRow extends DataClass {
+  final String groupId;
+  final String payeeId;
+  final String currencyCode;
+  final int? owedToMeMinor;
+  final int? iOweMinor;
+  final int? netMinor;
+  const SplitGroupBalanceRow({
+    required this.groupId,
+    required this.payeeId,
+    required this.currencyCode,
+    this.owedToMeMinor,
+    this.iOweMinor,
+    this.netMinor,
+  });
+  factory SplitGroupBalanceRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SplitGroupBalanceRow(
+      groupId: serializer.fromJson<String>(json['group_id']),
+      payeeId: serializer.fromJson<String>(json['payee_id']),
+      currencyCode: serializer.fromJson<String>(json['currency_code']),
+      owedToMeMinor: serializer.fromJson<int?>(json['owed_to_me_minor']),
+      iOweMinor: serializer.fromJson<int?>(json['i_owe_minor']),
+      netMinor: serializer.fromJson<int?>(json['net_minor']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'group_id': serializer.toJson<String>(groupId),
+      'payee_id': serializer.toJson<String>(payeeId),
+      'currency_code': serializer.toJson<String>(currencyCode),
+      'owed_to_me_minor': serializer.toJson<int?>(owedToMeMinor),
+      'i_owe_minor': serializer.toJson<int?>(iOweMinor),
+      'net_minor': serializer.toJson<int?>(netMinor),
+    };
+  }
+
+  SplitGroupBalanceRow copyWith({
+    String? groupId,
+    String? payeeId,
+    String? currencyCode,
+    Value<int?> owedToMeMinor = const Value.absent(),
+    Value<int?> iOweMinor = const Value.absent(),
+    Value<int?> netMinor = const Value.absent(),
+  }) => SplitGroupBalanceRow(
+    groupId: groupId ?? this.groupId,
+    payeeId: payeeId ?? this.payeeId,
+    currencyCode: currencyCode ?? this.currencyCode,
+    owedToMeMinor: owedToMeMinor.present
+        ? owedToMeMinor.value
+        : this.owedToMeMinor,
+    iOweMinor: iOweMinor.present ? iOweMinor.value : this.iOweMinor,
+    netMinor: netMinor.present ? netMinor.value : this.netMinor,
+  );
+  @override
+  String toString() {
+    return (StringBuffer('SplitGroupBalanceRow(')
+          ..write('groupId: $groupId, ')
+          ..write('payeeId: $payeeId, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('owedToMeMinor: $owedToMeMinor, ')
+          ..write('iOweMinor: $iOweMinor, ')
+          ..write('netMinor: $netMinor')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    groupId,
+    payeeId,
+    currencyCode,
+    owedToMeMinor,
+    iOweMinor,
+    netMinor,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SplitGroupBalanceRow &&
+          other.groupId == this.groupId &&
+          other.payeeId == this.payeeId &&
+          other.currencyCode == this.currencyCode &&
+          other.owedToMeMinor == this.owedToMeMinor &&
+          other.iOweMinor == this.iOweMinor &&
+          other.netMinor == this.netMinor);
+}
+
+class VSplitGroupBalances
+    extends ViewInfo<VSplitGroupBalances, SplitGroupBalanceRow>
+    implements HasResultSet {
+  final String? _alias;
+  @override
+  final _$AlayaDatabase attachedDatabase;
+  VSplitGroupBalances(this.attachedDatabase, [this._alias]);
+  @override
+  List<GeneratedColumn> get $columns => [
+    groupId,
+    payeeId,
+    currencyCode,
+    owedToMeMinor,
+    iOweMinor,
+    netMinor,
+  ];
+  @override
+  String get aliasedName => _alias ?? entityName;
+  @override
+  String get entityName => 'v_split_group_balances';
+  @override
+  Map<SqlDialect, String> get createViewStatements => {
+    SqlDialect.sqlite:
+        'CREATE VIEW v_split_group_balances AS SELECT g.id AS group_id, b.payee_id AS payee_id, b.currency_code AS currency_code, SUM(b.owed_to_me_minor) AS owed_to_me_minor, SUM(b.i_owe_minor) AS i_owe_minor, SUM(b.owed_to_me_minor) - SUM(b.i_owe_minor) AS net_minor FROM split_groups AS g JOIN (SELECT e.group_id AS group_id, s.payee_id AS payee_id, e.currency_code AS currency_code, s.share_amount_minor AS owed_to_me_minor, 0 AS i_owe_minor FROM split_shares AS s JOIN split_expenses AS e ON e.id = s.split_expense_id JOIN app_settings AS st ON st."key" = \'split.selfPayeeId\' WHERE s.deleted_at IS NULL AND e.deleted_at IS NULL AND e.group_id IS NOT NULL AND e.paid_by_payee_id = st.value AND s.payee_id <> st.value UNION ALL SELECT e.group_id, e.paid_by_payee_id, e.currency_code, 0, s.share_amount_minor FROM split_shares AS s JOIN split_expenses AS e ON e.id = s.split_expense_id JOIN app_settings AS st ON st."key" = \'split.selfPayeeId\' WHERE s.deleted_at IS NULL AND e.deleted_at IS NULL AND e.group_id IS NOT NULL AND e.paid_by_payee_id <> st.value AND s.payee_id = st.value UNION ALL SELECT t.group_id, t.from_payee_id, t.currency_code, -t.amount_minor, 0 FROM split_settlements AS t JOIN app_settings AS st ON st."key" = \'split.selfPayeeId\' WHERE t.deleted_at IS NULL AND t.group_id IS NOT NULL AND t.to_payee_id = st.value UNION ALL SELECT t.group_id, t.to_payee_id, t.currency_code, 0, -t.amount_minor FROM split_settlements AS t JOIN app_settings AS st ON st."key" = \'split.selfPayeeId\' WHERE t.deleted_at IS NULL AND t.group_id IS NOT NULL AND t.from_payee_id = st.value) AS b ON b.group_id = g.id WHERE g.deleted_at IS NULL GROUP BY g.id, b.payee_id, b.currency_code',
+  };
+  @override
+  VSplitGroupBalances get asDslTable => this;
+  @override
+  SplitGroupBalanceRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SplitGroupBalanceRow(
+      groupId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}group_id'],
+      )!,
+      payeeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payee_id'],
+      )!,
+      currencyCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency_code'],
+      )!,
+      owedToMeMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}owed_to_me_minor'],
+      ),
+      iOweMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}i_owe_minor'],
+      ),
+      netMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}net_minor'],
+      ),
+    );
+  }
+
+  late final GeneratedColumn<String> groupId = GeneratedColumn<String>(
+    'group_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> payeeId = GeneratedColumn<String>(
+    'payee_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
+    'currency_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<int> owedToMeMinor = GeneratedColumn<int>(
+    'owed_to_me_minor',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumn<int> iOweMinor = GeneratedColumn<int>(
+    'i_owe_minor',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumn<int> netMinor = GeneratedColumn<int>(
+    'net_minor',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+  );
+  @override
+  VSplitGroupBalances createAlias(String alias) {
+    return VSplitGroupBalances(attachedDatabase, alias);
+  }
+
+  @override
+  Query? get query => null;
+  @override
+  Set<String> get readTables => const {
+    'split_groups',
+    'split_shares',
+    'split_expenses',
+    'app_settings',
+    'split_settlements',
+    'payees',
+    'currencies',
+    'transactions',
+    'payment_methods',
+    'accounts',
+    'recurring_templates',
+    'recurring_occurrences',
+    'tags',
+    'assets',
+    'transaction_lines',
+    'items',
+    'units',
+    'inventory_batches',
+  };
+}
+
+class SplitActivityRow extends DataClass {
+  final String refId;
+  final String activityKind;
+  final String? groupId;
+  final DateKey dateKey;
+  final int amountMinor;
+  final String currencyCode;
+  final String payeeId;
+  final String? label;
+  const SplitActivityRow({
+    required this.refId,
+    required this.activityKind,
+    this.groupId,
+    required this.dateKey,
+    required this.amountMinor,
+    required this.currencyCode,
+    required this.payeeId,
+    this.label,
+  });
+  factory SplitActivityRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SplitActivityRow(
+      refId: serializer.fromJson<String>(json['ref_id']),
+      activityKind: serializer.fromJson<String>(json['activity_kind']),
+      groupId: serializer.fromJson<String?>(json['group_id']),
+      dateKey: serializer.fromJson<DateKey>(json['date_key']),
+      amountMinor: serializer.fromJson<int>(json['amount_minor']),
+      currencyCode: serializer.fromJson<String>(json['currency_code']),
+      payeeId: serializer.fromJson<String>(json['payee_id']),
+      label: serializer.fromJson<String?>(json['label']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'ref_id': serializer.toJson<String>(refId),
+      'activity_kind': serializer.toJson<String>(activityKind),
+      'group_id': serializer.toJson<String?>(groupId),
+      'date_key': serializer.toJson<DateKey>(dateKey),
+      'amount_minor': serializer.toJson<int>(amountMinor),
+      'currency_code': serializer.toJson<String>(currencyCode),
+      'payee_id': serializer.toJson<String>(payeeId),
+      'label': serializer.toJson<String?>(label),
+    };
+  }
+
+  SplitActivityRow copyWith({
+    String? refId,
+    String? activityKind,
+    Value<String?> groupId = const Value.absent(),
+    DateKey? dateKey,
+    int? amountMinor,
+    String? currencyCode,
+    String? payeeId,
+    Value<String?> label = const Value.absent(),
+  }) => SplitActivityRow(
+    refId: refId ?? this.refId,
+    activityKind: activityKind ?? this.activityKind,
+    groupId: groupId.present ? groupId.value : this.groupId,
+    dateKey: dateKey ?? this.dateKey,
+    amountMinor: amountMinor ?? this.amountMinor,
+    currencyCode: currencyCode ?? this.currencyCode,
+    payeeId: payeeId ?? this.payeeId,
+    label: label.present ? label.value : this.label,
+  );
+  @override
+  String toString() {
+    return (StringBuffer('SplitActivityRow(')
+          ..write('refId: $refId, ')
+          ..write('activityKind: $activityKind, ')
+          ..write('groupId: $groupId, ')
+          ..write('dateKey: $dateKey, ')
+          ..write('amountMinor: $amountMinor, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('payeeId: $payeeId, ')
+          ..write('label: $label')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    refId,
+    activityKind,
+    groupId,
+    dateKey,
+    amountMinor,
+    currencyCode,
+    payeeId,
+    label,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SplitActivityRow &&
+          other.refId == this.refId &&
+          other.activityKind == this.activityKind &&
+          other.groupId == this.groupId &&
+          other.dateKey == this.dateKey &&
+          other.amountMinor == this.amountMinor &&
+          other.currencyCode == this.currencyCode &&
+          other.payeeId == this.payeeId &&
+          other.label == this.label);
+}
+
+class VSplitActivity extends ViewInfo<VSplitActivity, SplitActivityRow>
+    implements HasResultSet {
+  final String? _alias;
+  @override
+  final _$AlayaDatabase attachedDatabase;
+  VSplitActivity(this.attachedDatabase, [this._alias]);
+  @override
+  List<GeneratedColumn> get $columns => [
+    refId,
+    activityKind,
+    groupId,
+    dateKey,
+    amountMinor,
+    currencyCode,
+    payeeId,
+    label,
+  ];
+  @override
+  String get aliasedName => _alias ?? entityName;
+  @override
+  String get entityName => 'v_split_activity';
+  @override
+  Map<SqlDialect, String> get createViewStatements => {
+    SqlDialect.sqlite:
+        'CREATE VIEW v_split_activity AS SELECT e.id AS ref_id, \'expense\' AS activity_kind, e.group_id AS group_id, e.date_key AS date_key, e.total_amount_minor AS amount_minor, e.currency_code AS currency_code, e.paid_by_payee_id AS payee_id, COALESCE(e.title, e.occasion, e.place) AS label FROM split_expenses AS e WHERE e.deleted_at IS NULL UNION ALL SELECT t.id, \'settlement\', t.group_id, t.date_key, t.amount_minor, t.currency_code, t.from_payee_id, t.note FROM split_settlements AS t WHERE t.deleted_at IS NULL',
+  };
+  @override
+  VSplitActivity get asDslTable => this;
+  @override
+  SplitActivityRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SplitActivityRow(
+      refId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ref_id'],
+      )!,
+      activityKind: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}activity_kind'],
+      )!,
+      groupId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}group_id'],
+      ),
+      dateKey: $SplitExpensesTable.$converterdateKey.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}date_key'],
+        )!,
+      ),
+      amountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_minor'],
+      )!,
+      currencyCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency_code'],
+      )!,
+      payeeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payee_id'],
+      )!,
+      label: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label'],
+      ),
+    );
+  }
+
+  late final GeneratedColumn<String> refId = GeneratedColumn<String>(
+    'ref_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> activityKind = GeneratedColumn<String>(
+    'activity_kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> groupId = GeneratedColumn<String>(
+    'group_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumnWithTypeConverter<DateKey, int> dateKey =
+      GeneratedColumn<int>(
+        'date_key',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+      ).withConverter<DateKey>($SplitExpensesTable.$converterdateKey);
+  late final GeneratedColumn<int> amountMinor = GeneratedColumn<int>(
+    'amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+  );
+  late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
+    'currency_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> payeeId = GeneratedColumn<String>(
+    'payee_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+  );
+  late final GeneratedColumn<String> label = GeneratedColumn<String>(
+    'label',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+  );
+  @override
+  VSplitActivity createAlias(String alias) {
+    return VSplitActivity(attachedDatabase, alias);
+  }
+
+  @override
+  Query? get query => null;
+  @override
+  Set<String> get readTables => const {
+    'split_expenses',
+    'split_settlements',
+    'split_groups',
+    'payees',
+    'currencies',
+    'transactions',
+    'payment_methods',
+    'accounts',
+    'recurring_templates',
+    'recurring_occurrences',
+    'tags',
+    'assets',
+    'transaction_lines',
+    'items',
+    'units',
+    'inventory_batches',
+  };
+}
+
 class CalendarEventRow extends DataClass {
   final DateKey? dateKey;
   final String eventType;
@@ -19551,7 +25042,7 @@ class VCalendarEvents extends ViewInfo<VCalendarEvents, CalendarEventRow>
   @override
   Map<SqlDialect, String> get createViewStatements => {
     SqlDialect.sqlite:
-        'CREATE VIEW v_calendar_events AS SELECT t.date_key AS date_key, \'transaction\' AS event_type, \'transaction\' AS ref_type, t.id AS ref_id, COALESCE(p.name, t.note, t.subtype) AS title, t.original_amount_minor AS amount_minor, t.original_currency_code AS currency_code, \'info\' AS severity FROM transactions AS t LEFT JOIN payees AS p ON p.id = t.payee_id WHERE t.deleted_at IS NULL UNION ALL SELECT o.due_date_key, \'recurringDue\', \'recurringOccurrence\', o.id, rt.name, COALESCE(o.paid_amount_minor, rt.default_amount_minor), rt.currency_code, \'warning\' FROM recurring_occurrences AS o JOIN recurring_templates AS rt ON rt.id = o.template_id WHERE o.deleted_at IS NULL AND o.status = \'due\' AND rt.deleted_at IS NULL UNION ALL SELECT b.expiry_date_key, \'batchExpiry\', \'inventoryBatch\', b.id, i.name, NULL, NULL, \'warning\' FROM inventory_batches AS b JOIN items AS i ON i.id = b.item_id WHERE b.deleted_at IS NULL AND b.expiry_date_key IS NOT NULL AND b.remaining_quantity_milli > 0 AND i.deleted_at IS NULL UNION ALL SELECT a.warranty_end_date_key, \'warrantyEnd\', \'asset\', a.id, a.name, NULL, NULL, \'warning\' FROM assets AS a WHERE a.deleted_at IS NULL AND a.warranty_end_date_key IS NOT NULL AND a.status <> \'disposed\' UNION ALL SELECT a.next_service_due_date_key, \'serviceDue\', \'asset\', a.id, a.name, NULL, NULL, \'warning\' FROM assets AS a WHERE a.deleted_at IS NULL AND a.next_service_due_date_key IS NOT NULL AND a.status <> \'disposed\' UNION ALL SELECT sr.next_due_date_key, \'serviceDue\', \'serviceRecord\', sr.id, a.name, NULL, NULL, \'warning\' FROM service_records AS sr JOIN assets AS a ON a.id = sr.asset_id WHERE sr.deleted_at IS NULL AND sr.next_due_date_key IS NOT NULL AND a.deleted_at IS NULL UNION ALL SELECT sl.target_date_key, \'shoppingTarget\', \'shoppingList\', sl.id, sl.name, NULL, NULL, \'info\' FROM shopping_lists AS sl WHERE sl.deleted_at IS NULL AND sl.target_date_key IS NOT NULL AND sl.is_archived = 0',
+        'CREATE VIEW v_calendar_events AS SELECT t.date_key AS date_key, \'transaction\' AS event_type, \'transaction\' AS ref_type, t.id AS ref_id, COALESCE(p.name, t.note, t.subtype) AS title, t.original_amount_minor AS amount_minor, t.original_currency_code AS currency_code, \'info\' AS severity FROM transactions AS t LEFT JOIN payees AS p ON p.id = t.payee_id WHERE t.deleted_at IS NULL UNION ALL SELECT o.due_date_key, \'recurringDue\', \'recurringOccurrence\', o.id, rt.name, COALESCE(o.paid_amount_minor, rt.default_amount_minor), rt.currency_code, \'warning\' FROM recurring_occurrences AS o JOIN recurring_templates AS rt ON rt.id = o.template_id WHERE o.deleted_at IS NULL AND o.status = \'due\' AND rt.deleted_at IS NULL UNION ALL SELECT b.expiry_date_key, \'batchExpiry\', \'inventoryBatch\', b.id, i.name, NULL, NULL, \'warning\' FROM inventory_batches AS b JOIN items AS i ON i.id = b.item_id WHERE b.deleted_at IS NULL AND b.expiry_date_key IS NOT NULL AND b.remaining_quantity_milli > 0 AND i.deleted_at IS NULL UNION ALL SELECT a.warranty_end_date_key, \'warrantyEnd\', \'asset\', a.id, a.name, NULL, NULL, \'warning\' FROM assets AS a WHERE a.deleted_at IS NULL AND a.warranty_end_date_key IS NOT NULL AND a.status <> \'disposed\' UNION ALL SELECT a.next_service_due_date_key, \'serviceDue\', \'asset\', a.id, a.name, NULL, NULL, \'warning\' FROM assets AS a WHERE a.deleted_at IS NULL AND a.next_service_due_date_key IS NOT NULL AND a.status <> \'disposed\' UNION ALL SELECT sr.next_due_date_key, \'serviceDue\', \'serviceRecord\', sr.id, a.name, NULL, NULL, \'warning\' FROM service_records AS sr JOIN assets AS a ON a.id = sr.asset_id WHERE sr.deleted_at IS NULL AND sr.next_due_date_key IS NOT NULL AND a.deleted_at IS NULL UNION ALL SELECT sl.target_date_key, \'shoppingTarget\', \'shoppingList\', sl.id, sl.name, NULL, NULL, \'info\' FROM shopping_lists AS sl WHERE sl.deleted_at IS NULL AND sl.target_date_key IS NOT NULL AND sl.is_archived = 0 UNION ALL SELECT e.settle_by_date_key, \'splitSettleBy\', \'splitExpense\', e.id, COALESCE(e.title, e.occasion, e.place, g.name, p.name, e.split_method), e.total_amount_minor, e.currency_code, \'warning\' FROM split_expenses AS e LEFT JOIN split_groups AS g ON g.id = e.group_id LEFT JOIN payees AS p ON p.id = e.paid_by_payee_id WHERE e.deleted_at IS NULL AND e.settle_by_date_key IS NOT NULL',
   };
   @override
   VCalendarEvents get asDslTable => this;
@@ -19665,12 +25156,14 @@ class VCalendarEvents extends ViewInfo<VCalendarEvents, CalendarEventRow>
     'assets',
     'service_records',
     'shopping_lists',
+    'split_expenses',
+    'split_groups',
     'currencies',
     'transaction_lines',
     'units',
+    'tags',
     'accounts',
     'payment_methods',
-    'tags',
   };
 }
 
@@ -22618,6 +28111,2596 @@ class VAccountBalances extends ViewInfo<VAccountBalances, AccountBalanceRow>
   };
 }
 
+class $RecipesTable extends Recipes with TableInfo<$RecipesTable, RecipeRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RecipesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _normalizedNameMeta = const VerificationMeta(
+    'normalizedName',
+  );
+  @override
+  late final GeneratedColumn<String> normalizedName = GeneratedColumn<String>(
+    'normalized_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _servingsMeta = const VerificationMeta(
+    'servings',
+  );
+  @override
+  late final GeneratedColumn<int> servings = GeneratedColumn<int>(
+    'servings',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _prepMinutesMeta = const VerificationMeta(
+    'prepMinutes',
+  );
+  @override
+  late final GeneratedColumn<int> prepMinutes = GeneratedColumn<int>(
+    'prep_minutes',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _cookMinutesMeta = const VerificationMeta(
+    'cookMinutes',
+  );
+  @override
+  late final GeneratedColumn<int> cookMinutes = GeneratedColumn<int>(
+    'cook_minutes',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isFavoriteMeta = const VerificationMeta(
+    'isFavorite',
+  );
+  @override
+  late final GeneratedColumn<bool> isFavorite = GeneratedColumn<bool>(
+    'is_favorite',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_favorite" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    normalizedName,
+    servings,
+    prepMinutes,
+    cookMinutes,
+    isFavorite,
+    notes,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'recipes';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<RecipeRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('normalized_name')) {
+      context.handle(
+        _normalizedNameMeta,
+        normalizedName.isAcceptableOrUnknown(
+          data['normalized_name']!,
+          _normalizedNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_normalizedNameMeta);
+    }
+    if (data.containsKey('servings')) {
+      context.handle(
+        _servingsMeta,
+        servings.isAcceptableOrUnknown(data['servings']!, _servingsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_servingsMeta);
+    }
+    if (data.containsKey('prep_minutes')) {
+      context.handle(
+        _prepMinutesMeta,
+        prepMinutes.isAcceptableOrUnknown(
+          data['prep_minutes']!,
+          _prepMinutesMeta,
+        ),
+      );
+    }
+    if (data.containsKey('cook_minutes')) {
+      context.handle(
+        _cookMinutesMeta,
+        cookMinutes.isAcceptableOrUnknown(
+          data['cook_minutes']!,
+          _cookMinutesMeta,
+        ),
+      );
+    }
+    if (data.containsKey('is_favorite')) {
+      context.handle(
+        _isFavoriteMeta,
+        isFavorite.isAcceptableOrUnknown(data['is_favorite']!, _isFavoriteMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_isFavoriteMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RecipeRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RecipeRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      normalizedName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}normalized_name'],
+      )!,
+      servings: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}servings'],
+      )!,
+      prepMinutes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}prep_minutes'],
+      ),
+      cookMinutes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}cook_minutes'],
+      ),
+      isFavorite: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_favorite'],
+      )!,
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $RecipesTable createAlias(String alias) {
+    return $RecipesTable(attachedDatabase, alias);
+  }
+}
+
+class RecipeRow extends DataClass implements Insertable<RecipeRow> {
+  /// Row identifier, UUIDv7.
+  final String id;
+
+  /// Display name.
+  final String name;
+
+  /// Casefolded, accent-stripped name for search and duplicate detection. Mirrors [Items] and
+  /// [Tags], so "Pav Bhaji" and "pav bhaji" collide the same way everywhere in the app.
+  final String normalizedName;
+
+  /// How many servings the stored ingredient quantities describe. Never zero — the engine divides
+  /// by it.
+  final int servings;
+
+  /// Hands-on time before cooking starts.
+  final int? prepMinutes;
+
+  /// Time on the heat.
+  final int? cookMinutes;
+
+  /// Pinned by the user.
+  final bool isFavorite;
+
+  /// Free-form notes: a source, a variation, who liked it.
+  final String? notes;
+
+  /// Creation instant, epoch millis UTC.
+  final int createdAt;
+
+  /// Last-modification instant, epoch millis UTC.
+  final int updatedAt;
+
+  /// Soft-delete instant, epoch millis UTC. Null means active.
+  final int? deletedAt;
+  const RecipeRow({
+    required this.id,
+    required this.name,
+    required this.normalizedName,
+    required this.servings,
+    this.prepMinutes,
+    this.cookMinutes,
+    required this.isFavorite,
+    this.notes,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    map['normalized_name'] = Variable<String>(normalizedName);
+    map['servings'] = Variable<int>(servings);
+    if (!nullToAbsent || prepMinutes != null) {
+      map['prep_minutes'] = Variable<int>(prepMinutes);
+    }
+    if (!nullToAbsent || cookMinutes != null) {
+      map['cook_minutes'] = Variable<int>(cookMinutes);
+    }
+    map['is_favorite'] = Variable<bool>(isFavorite);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    return map;
+  }
+
+  RecipesCompanion toCompanion(bool nullToAbsent) {
+    return RecipesCompanion(
+      id: Value(id),
+      name: Value(name),
+      normalizedName: Value(normalizedName),
+      servings: Value(servings),
+      prepMinutes: prepMinutes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(prepMinutes),
+      cookMinutes: cookMinutes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cookMinutes),
+      isFavorite: Value(isFavorite),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory RecipeRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RecipeRow(
+      id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      normalizedName: serializer.fromJson<String>(json['normalizedName']),
+      servings: serializer.fromJson<int>(json['servings']),
+      prepMinutes: serializer.fromJson<int?>(json['prepMinutes']),
+      cookMinutes: serializer.fromJson<int?>(json['cookMinutes']),
+      isFavorite: serializer.fromJson<bool>(json['isFavorite']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
+      'normalizedName': serializer.toJson<String>(normalizedName),
+      'servings': serializer.toJson<int>(servings),
+      'prepMinutes': serializer.toJson<int?>(prepMinutes),
+      'cookMinutes': serializer.toJson<int?>(cookMinutes),
+      'isFavorite': serializer.toJson<bool>(isFavorite),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+    };
+  }
+
+  RecipeRow copyWith({
+    String? id,
+    String? name,
+    String? normalizedName,
+    int? servings,
+    Value<int?> prepMinutes = const Value.absent(),
+    Value<int?> cookMinutes = const Value.absent(),
+    bool? isFavorite,
+    Value<String?> notes = const Value.absent(),
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+  }) => RecipeRow(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    normalizedName: normalizedName ?? this.normalizedName,
+    servings: servings ?? this.servings,
+    prepMinutes: prepMinutes.present ? prepMinutes.value : this.prepMinutes,
+    cookMinutes: cookMinutes.present ? cookMinutes.value : this.cookMinutes,
+    isFavorite: isFavorite ?? this.isFavorite,
+    notes: notes.present ? notes.value : this.notes,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  RecipeRow copyWithCompanion(RecipesCompanion data) {
+    return RecipeRow(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      normalizedName: data.normalizedName.present
+          ? data.normalizedName.value
+          : this.normalizedName,
+      servings: data.servings.present ? data.servings.value : this.servings,
+      prepMinutes: data.prepMinutes.present
+          ? data.prepMinutes.value
+          : this.prepMinutes,
+      cookMinutes: data.cookMinutes.present
+          ? data.cookMinutes.value
+          : this.cookMinutes,
+      isFavorite: data.isFavorite.present
+          ? data.isFavorite.value
+          : this.isFavorite,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecipeRow(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('servings: $servings, ')
+          ..write('prepMinutes: $prepMinutes, ')
+          ..write('cookMinutes: $cookMinutes, ')
+          ..write('isFavorite: $isFavorite, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    normalizedName,
+    servings,
+    prepMinutes,
+    cookMinutes,
+    isFavorite,
+    notes,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RecipeRow &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.normalizedName == this.normalizedName &&
+          other.servings == this.servings &&
+          other.prepMinutes == this.prepMinutes &&
+          other.cookMinutes == this.cookMinutes &&
+          other.isFavorite == this.isFavorite &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class RecipesCompanion extends UpdateCompanion<RecipeRow> {
+  final Value<String> id;
+  final Value<String> name;
+  final Value<String> normalizedName;
+  final Value<int> servings;
+  final Value<int?> prepMinutes;
+  final Value<int?> cookMinutes;
+  final Value<bool> isFavorite;
+  final Value<String?> notes;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> rowid;
+  const RecipesCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.normalizedName = const Value.absent(),
+    this.servings = const Value.absent(),
+    this.prepMinutes = const Value.absent(),
+    this.cookMinutes = const Value.absent(),
+    this.isFavorite = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  RecipesCompanion.insert({
+    required String id,
+    required String name,
+    required String normalizedName,
+    required int servings,
+    this.prepMinutes = const Value.absent(),
+    this.cookMinutes = const Value.absent(),
+    required bool isFavorite,
+    this.notes = const Value.absent(),
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       name = Value(name),
+       normalizedName = Value(normalizedName),
+       servings = Value(servings),
+       isFavorite = Value(isFavorite),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<RecipeRow> custom({
+    Expression<String>? id,
+    Expression<String>? name,
+    Expression<String>? normalizedName,
+    Expression<int>? servings,
+    Expression<int>? prepMinutes,
+    Expression<int>? cookMinutes,
+    Expression<bool>? isFavorite,
+    Expression<String>? notes,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (normalizedName != null) 'normalized_name': normalizedName,
+      if (servings != null) 'servings': servings,
+      if (prepMinutes != null) 'prep_minutes': prepMinutes,
+      if (cookMinutes != null) 'cook_minutes': cookMinutes,
+      if (isFavorite != null) 'is_favorite': isFavorite,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  RecipesCompanion copyWith({
+    Value<String>? id,
+    Value<String>? name,
+    Value<String>? normalizedName,
+    Value<int>? servings,
+    Value<int?>? prepMinutes,
+    Value<int?>? cookMinutes,
+    Value<bool>? isFavorite,
+    Value<String?>? notes,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return RecipesCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      normalizedName: normalizedName ?? this.normalizedName,
+      servings: servings ?? this.servings,
+      prepMinutes: prepMinutes ?? this.prepMinutes,
+      cookMinutes: cookMinutes ?? this.cookMinutes,
+      isFavorite: isFavorite ?? this.isFavorite,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (normalizedName.present) {
+      map['normalized_name'] = Variable<String>(normalizedName.value);
+    }
+    if (servings.present) {
+      map['servings'] = Variable<int>(servings.value);
+    }
+    if (prepMinutes.present) {
+      map['prep_minutes'] = Variable<int>(prepMinutes.value);
+    }
+    if (cookMinutes.present) {
+      map['cook_minutes'] = Variable<int>(cookMinutes.value);
+    }
+    if (isFavorite.present) {
+      map['is_favorite'] = Variable<bool>(isFavorite.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecipesCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('servings: $servings, ')
+          ..write('prepMinutes: $prepMinutes, ')
+          ..write('cookMinutes: $cookMinutes, ')
+          ..write('isFavorite: $isFavorite, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RecipeIngredientsTable extends RecipeIngredients
+    with TableInfo<$RecipeIngredientsTable, RecipeIngredientRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RecipeIngredientsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _recipeIdMeta = const VerificationMeta(
+    'recipeId',
+  );
+  @override
+  late final GeneratedColumn<String> recipeId = GeneratedColumn<String>(
+    'recipe_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recipes (id)',
+    ),
+  );
+  static const VerificationMeta _itemIdMeta = const VerificationMeta('itemId');
+  @override
+  late final GeneratedColumn<String> itemId = GeneratedColumn<String>(
+    'item_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES items (id)',
+    ),
+  );
+  static const VerificationMeta _freeTextMeta = const VerificationMeta(
+    'freeText',
+  );
+  @override
+  late final GeneratedColumn<String> freeText = GeneratedColumn<String>(
+    'free_text',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _quantityMilliMeta = const VerificationMeta(
+    'quantityMilli',
+  );
+  @override
+  late final GeneratedColumn<int> quantityMilli = GeneratedColumn<int>(
+    'quantity_milli',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _unitCodeMeta = const VerificationMeta(
+    'unitCode',
+  );
+  @override
+  late final GeneratedColumn<String> unitCode = GeneratedColumn<String>(
+    'unit_code',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES units (code)',
+    ),
+  );
+  static const VerificationMeta _isOptionalMeta = const VerificationMeta(
+    'isOptional',
+  );
+  @override
+  late final GeneratedColumn<bool> isOptional = GeneratedColumn<bool>(
+    'is_optional',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_optional" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+    'note',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _sortOrderMeta = const VerificationMeta(
+    'sortOrder',
+  );
+  @override
+  late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
+    'sort_order',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    recipeId,
+    itemId,
+    freeText,
+    quantityMilli,
+    unitCode,
+    isOptional,
+    note,
+    sortOrder,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'recipe_ingredients';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<RecipeIngredientRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('recipe_id')) {
+      context.handle(
+        _recipeIdMeta,
+        recipeId.isAcceptableOrUnknown(data['recipe_id']!, _recipeIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_recipeIdMeta);
+    }
+    if (data.containsKey('item_id')) {
+      context.handle(
+        _itemIdMeta,
+        itemId.isAcceptableOrUnknown(data['item_id']!, _itemIdMeta),
+      );
+    }
+    if (data.containsKey('free_text')) {
+      context.handle(
+        _freeTextMeta,
+        freeText.isAcceptableOrUnknown(data['free_text']!, _freeTextMeta),
+      );
+    }
+    if (data.containsKey('quantity_milli')) {
+      context.handle(
+        _quantityMilliMeta,
+        quantityMilli.isAcceptableOrUnknown(
+          data['quantity_milli']!,
+          _quantityMilliMeta,
+        ),
+      );
+    }
+    if (data.containsKey('unit_code')) {
+      context.handle(
+        _unitCodeMeta,
+        unitCode.isAcceptableOrUnknown(data['unit_code']!, _unitCodeMeta),
+      );
+    }
+    if (data.containsKey('is_optional')) {
+      context.handle(
+        _isOptionalMeta,
+        isOptional.isAcceptableOrUnknown(data['is_optional']!, _isOptionalMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_isOptionalMeta);
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+        _noteMeta,
+        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
+      );
+    }
+    if (data.containsKey('sort_order')) {
+      context.handle(
+        _sortOrderMeta,
+        sortOrder.isAcceptableOrUnknown(data['sort_order']!, _sortOrderMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sortOrderMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RecipeIngredientRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RecipeIngredientRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      recipeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recipe_id'],
+      )!,
+      itemId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}item_id'],
+      ),
+      freeText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}free_text'],
+      ),
+      quantityMilli: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity_milli'],
+      ),
+      unitCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unit_code'],
+      ),
+      isOptional: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_optional'],
+      )!,
+      note: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}note'],
+      ),
+      sortOrder: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sort_order'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $RecipeIngredientsTable createAlias(String alias) {
+    return $RecipeIngredientsTable(attachedDatabase, alias);
+  }
+}
+
+class RecipeIngredientRow extends DataClass
+    implements Insertable<RecipeIngredientRow> {
+  /// Row identifier, UUIDv7.
+  final String id;
+
+  /// The recipe this line belongs to.
+  final String recipeId;
+
+  /// The catalogued item, when this ingredient refers to one. Null for anything untracked.
+  final String? itemId;
+
+  /// What the ingredient is, when there is no [itemId].
+  final String? freeText;
+
+  /// How much, in base-milli units of [unitCode]'s category. Null for "to taste" — which is a real
+  /// ingredient with no quantity, not a quantity of zero.
+  final int? quantityMilli;
+
+  /// The unit the cook reads. Null when [quantityMilli] is null.
+  final String? unitCode;
+
+  /// Excluded from the cookability verdict. A garnish should not make a dish uncookable.
+  final bool isOptional;
+
+  /// Preparation note: "finely chopped", "at room temperature".
+  final String? note;
+
+  /// Display order within the recipe.
+  final int sortOrder;
+
+  /// Creation instant, epoch millis UTC.
+  final int createdAt;
+
+  /// Last-modification instant, epoch millis UTC.
+  final int updatedAt;
+
+  /// Soft-delete instant, epoch millis UTC. Null means active.
+  final int? deletedAt;
+  const RecipeIngredientRow({
+    required this.id,
+    required this.recipeId,
+    this.itemId,
+    this.freeText,
+    this.quantityMilli,
+    this.unitCode,
+    required this.isOptional,
+    this.note,
+    required this.sortOrder,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['recipe_id'] = Variable<String>(recipeId);
+    if (!nullToAbsent || itemId != null) {
+      map['item_id'] = Variable<String>(itemId);
+    }
+    if (!nullToAbsent || freeText != null) {
+      map['free_text'] = Variable<String>(freeText);
+    }
+    if (!nullToAbsent || quantityMilli != null) {
+      map['quantity_milli'] = Variable<int>(quantityMilli);
+    }
+    if (!nullToAbsent || unitCode != null) {
+      map['unit_code'] = Variable<String>(unitCode);
+    }
+    map['is_optional'] = Variable<bool>(isOptional);
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    map['sort_order'] = Variable<int>(sortOrder);
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    return map;
+  }
+
+  RecipeIngredientsCompanion toCompanion(bool nullToAbsent) {
+    return RecipeIngredientsCompanion(
+      id: Value(id),
+      recipeId: Value(recipeId),
+      itemId: itemId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(itemId),
+      freeText: freeText == null && nullToAbsent
+          ? const Value.absent()
+          : Value(freeText),
+      quantityMilli: quantityMilli == null && nullToAbsent
+          ? const Value.absent()
+          : Value(quantityMilli),
+      unitCode: unitCode == null && nullToAbsent
+          ? const Value.absent()
+          : Value(unitCode),
+      isOptional: Value(isOptional),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+      sortOrder: Value(sortOrder),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory RecipeIngredientRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RecipeIngredientRow(
+      id: serializer.fromJson<String>(json['id']),
+      recipeId: serializer.fromJson<String>(json['recipeId']),
+      itemId: serializer.fromJson<String?>(json['itemId']),
+      freeText: serializer.fromJson<String?>(json['freeText']),
+      quantityMilli: serializer.fromJson<int?>(json['quantityMilli']),
+      unitCode: serializer.fromJson<String?>(json['unitCode']),
+      isOptional: serializer.fromJson<bool>(json['isOptional']),
+      note: serializer.fromJson<String?>(json['note']),
+      sortOrder: serializer.fromJson<int>(json['sortOrder']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'recipeId': serializer.toJson<String>(recipeId),
+      'itemId': serializer.toJson<String?>(itemId),
+      'freeText': serializer.toJson<String?>(freeText),
+      'quantityMilli': serializer.toJson<int?>(quantityMilli),
+      'unitCode': serializer.toJson<String?>(unitCode),
+      'isOptional': serializer.toJson<bool>(isOptional),
+      'note': serializer.toJson<String?>(note),
+      'sortOrder': serializer.toJson<int>(sortOrder),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+    };
+  }
+
+  RecipeIngredientRow copyWith({
+    String? id,
+    String? recipeId,
+    Value<String?> itemId = const Value.absent(),
+    Value<String?> freeText = const Value.absent(),
+    Value<int?> quantityMilli = const Value.absent(),
+    Value<String?> unitCode = const Value.absent(),
+    bool? isOptional,
+    Value<String?> note = const Value.absent(),
+    int? sortOrder,
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+  }) => RecipeIngredientRow(
+    id: id ?? this.id,
+    recipeId: recipeId ?? this.recipeId,
+    itemId: itemId.present ? itemId.value : this.itemId,
+    freeText: freeText.present ? freeText.value : this.freeText,
+    quantityMilli: quantityMilli.present
+        ? quantityMilli.value
+        : this.quantityMilli,
+    unitCode: unitCode.present ? unitCode.value : this.unitCode,
+    isOptional: isOptional ?? this.isOptional,
+    note: note.present ? note.value : this.note,
+    sortOrder: sortOrder ?? this.sortOrder,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  RecipeIngredientRow copyWithCompanion(RecipeIngredientsCompanion data) {
+    return RecipeIngredientRow(
+      id: data.id.present ? data.id.value : this.id,
+      recipeId: data.recipeId.present ? data.recipeId.value : this.recipeId,
+      itemId: data.itemId.present ? data.itemId.value : this.itemId,
+      freeText: data.freeText.present ? data.freeText.value : this.freeText,
+      quantityMilli: data.quantityMilli.present
+          ? data.quantityMilli.value
+          : this.quantityMilli,
+      unitCode: data.unitCode.present ? data.unitCode.value : this.unitCode,
+      isOptional: data.isOptional.present
+          ? data.isOptional.value
+          : this.isOptional,
+      note: data.note.present ? data.note.value : this.note,
+      sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecipeIngredientRow(')
+          ..write('id: $id, ')
+          ..write('recipeId: $recipeId, ')
+          ..write('itemId: $itemId, ')
+          ..write('freeText: $freeText, ')
+          ..write('quantityMilli: $quantityMilli, ')
+          ..write('unitCode: $unitCode, ')
+          ..write('isOptional: $isOptional, ')
+          ..write('note: $note, ')
+          ..write('sortOrder: $sortOrder, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    recipeId,
+    itemId,
+    freeText,
+    quantityMilli,
+    unitCode,
+    isOptional,
+    note,
+    sortOrder,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RecipeIngredientRow &&
+          other.id == this.id &&
+          other.recipeId == this.recipeId &&
+          other.itemId == this.itemId &&
+          other.freeText == this.freeText &&
+          other.quantityMilli == this.quantityMilli &&
+          other.unitCode == this.unitCode &&
+          other.isOptional == this.isOptional &&
+          other.note == this.note &&
+          other.sortOrder == this.sortOrder &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class RecipeIngredientsCompanion extends UpdateCompanion<RecipeIngredientRow> {
+  final Value<String> id;
+  final Value<String> recipeId;
+  final Value<String?> itemId;
+  final Value<String?> freeText;
+  final Value<int?> quantityMilli;
+  final Value<String?> unitCode;
+  final Value<bool> isOptional;
+  final Value<String?> note;
+  final Value<int> sortOrder;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> rowid;
+  const RecipeIngredientsCompanion({
+    this.id = const Value.absent(),
+    this.recipeId = const Value.absent(),
+    this.itemId = const Value.absent(),
+    this.freeText = const Value.absent(),
+    this.quantityMilli = const Value.absent(),
+    this.unitCode = const Value.absent(),
+    this.isOptional = const Value.absent(),
+    this.note = const Value.absent(),
+    this.sortOrder = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  RecipeIngredientsCompanion.insert({
+    required String id,
+    required String recipeId,
+    this.itemId = const Value.absent(),
+    this.freeText = const Value.absent(),
+    this.quantityMilli = const Value.absent(),
+    this.unitCode = const Value.absent(),
+    required bool isOptional,
+    this.note = const Value.absent(),
+    required int sortOrder,
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       recipeId = Value(recipeId),
+       isOptional = Value(isOptional),
+       sortOrder = Value(sortOrder),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<RecipeIngredientRow> custom({
+    Expression<String>? id,
+    Expression<String>? recipeId,
+    Expression<String>? itemId,
+    Expression<String>? freeText,
+    Expression<int>? quantityMilli,
+    Expression<String>? unitCode,
+    Expression<bool>? isOptional,
+    Expression<String>? note,
+    Expression<int>? sortOrder,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (recipeId != null) 'recipe_id': recipeId,
+      if (itemId != null) 'item_id': itemId,
+      if (freeText != null) 'free_text': freeText,
+      if (quantityMilli != null) 'quantity_milli': quantityMilli,
+      if (unitCode != null) 'unit_code': unitCode,
+      if (isOptional != null) 'is_optional': isOptional,
+      if (note != null) 'note': note,
+      if (sortOrder != null) 'sort_order': sortOrder,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  RecipeIngredientsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? recipeId,
+    Value<String?>? itemId,
+    Value<String?>? freeText,
+    Value<int?>? quantityMilli,
+    Value<String?>? unitCode,
+    Value<bool>? isOptional,
+    Value<String?>? note,
+    Value<int>? sortOrder,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return RecipeIngredientsCompanion(
+      id: id ?? this.id,
+      recipeId: recipeId ?? this.recipeId,
+      itemId: itemId ?? this.itemId,
+      freeText: freeText ?? this.freeText,
+      quantityMilli: quantityMilli ?? this.quantityMilli,
+      unitCode: unitCode ?? this.unitCode,
+      isOptional: isOptional ?? this.isOptional,
+      note: note ?? this.note,
+      sortOrder: sortOrder ?? this.sortOrder,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (recipeId.present) {
+      map['recipe_id'] = Variable<String>(recipeId.value);
+    }
+    if (itemId.present) {
+      map['item_id'] = Variable<String>(itemId.value);
+    }
+    if (freeText.present) {
+      map['free_text'] = Variable<String>(freeText.value);
+    }
+    if (quantityMilli.present) {
+      map['quantity_milli'] = Variable<int>(quantityMilli.value);
+    }
+    if (unitCode.present) {
+      map['unit_code'] = Variable<String>(unitCode.value);
+    }
+    if (isOptional.present) {
+      map['is_optional'] = Variable<bool>(isOptional.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    if (sortOrder.present) {
+      map['sort_order'] = Variable<int>(sortOrder.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecipeIngredientsCompanion(')
+          ..write('id: $id, ')
+          ..write('recipeId: $recipeId, ')
+          ..write('itemId: $itemId, ')
+          ..write('freeText: $freeText, ')
+          ..write('quantityMilli: $quantityMilli, ')
+          ..write('unitCode: $unitCode, ')
+          ..write('isOptional: $isOptional, ')
+          ..write('note: $note, ')
+          ..write('sortOrder: $sortOrder, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RecipeStepsTable extends RecipeSteps
+    with TableInfo<$RecipeStepsTable, RecipeStepRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RecipeStepsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _recipeIdMeta = const VerificationMeta(
+    'recipeId',
+  );
+  @override
+  late final GeneratedColumn<String> recipeId = GeneratedColumn<String>(
+    'recipe_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recipes (id)',
+    ),
+  );
+  static const VerificationMeta _stepNumberMeta = const VerificationMeta(
+    'stepNumber',
+  );
+  @override
+  late final GeneratedColumn<int> stepNumber = GeneratedColumn<int>(
+    'step_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _instructionMeta = const VerificationMeta(
+    'instruction',
+  );
+  @override
+  late final GeneratedColumn<String> instruction = GeneratedColumn<String>(
+    'instruction',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _durationMinutesMeta = const VerificationMeta(
+    'durationMinutes',
+  );
+  @override
+  late final GeneratedColumn<int> durationMinutes = GeneratedColumn<int>(
+    'duration_minutes',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    recipeId,
+    stepNumber,
+    instruction,
+    durationMinutes,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'recipe_steps';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<RecipeStepRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('recipe_id')) {
+      context.handle(
+        _recipeIdMeta,
+        recipeId.isAcceptableOrUnknown(data['recipe_id']!, _recipeIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_recipeIdMeta);
+    }
+    if (data.containsKey('step_number')) {
+      context.handle(
+        _stepNumberMeta,
+        stepNumber.isAcceptableOrUnknown(data['step_number']!, _stepNumberMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_stepNumberMeta);
+    }
+    if (data.containsKey('instruction')) {
+      context.handle(
+        _instructionMeta,
+        instruction.isAcceptableOrUnknown(
+          data['instruction']!,
+          _instructionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_instructionMeta);
+    }
+    if (data.containsKey('duration_minutes')) {
+      context.handle(
+        _durationMinutesMeta,
+        durationMinutes.isAcceptableOrUnknown(
+          data['duration_minutes']!,
+          _durationMinutesMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RecipeStepRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RecipeStepRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      recipeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recipe_id'],
+      )!,
+      stepNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}step_number'],
+      )!,
+      instruction: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}instruction'],
+      )!,
+      durationMinutes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}duration_minutes'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $RecipeStepsTable createAlias(String alias) {
+    return $RecipeStepsTable(attachedDatabase, alias);
+  }
+}
+
+class RecipeStepRow extends DataClass implements Insertable<RecipeStepRow> {
+  /// Row identifier, UUIDv7.
+  final String id;
+
+  /// The recipe this step belongs to.
+  final String recipeId;
+
+  /// Position in the method, from 1.
+  final int stepNumber;
+
+  /// What to do.
+  final String instruction;
+
+  /// How long this step takes, when it is worth timing.
+  final int? durationMinutes;
+
+  /// Creation instant, epoch millis UTC.
+  final int createdAt;
+
+  /// Last-modification instant, epoch millis UTC.
+  final int updatedAt;
+
+  /// Soft-delete instant, epoch millis UTC. Null means active.
+  final int? deletedAt;
+  const RecipeStepRow({
+    required this.id,
+    required this.recipeId,
+    required this.stepNumber,
+    required this.instruction,
+    this.durationMinutes,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['recipe_id'] = Variable<String>(recipeId);
+    map['step_number'] = Variable<int>(stepNumber);
+    map['instruction'] = Variable<String>(instruction);
+    if (!nullToAbsent || durationMinutes != null) {
+      map['duration_minutes'] = Variable<int>(durationMinutes);
+    }
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    return map;
+  }
+
+  RecipeStepsCompanion toCompanion(bool nullToAbsent) {
+    return RecipeStepsCompanion(
+      id: Value(id),
+      recipeId: Value(recipeId),
+      stepNumber: Value(stepNumber),
+      instruction: Value(instruction),
+      durationMinutes: durationMinutes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(durationMinutes),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory RecipeStepRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RecipeStepRow(
+      id: serializer.fromJson<String>(json['id']),
+      recipeId: serializer.fromJson<String>(json['recipeId']),
+      stepNumber: serializer.fromJson<int>(json['stepNumber']),
+      instruction: serializer.fromJson<String>(json['instruction']),
+      durationMinutes: serializer.fromJson<int?>(json['durationMinutes']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'recipeId': serializer.toJson<String>(recipeId),
+      'stepNumber': serializer.toJson<int>(stepNumber),
+      'instruction': serializer.toJson<String>(instruction),
+      'durationMinutes': serializer.toJson<int?>(durationMinutes),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+    };
+  }
+
+  RecipeStepRow copyWith({
+    String? id,
+    String? recipeId,
+    int? stepNumber,
+    String? instruction,
+    Value<int?> durationMinutes = const Value.absent(),
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+  }) => RecipeStepRow(
+    id: id ?? this.id,
+    recipeId: recipeId ?? this.recipeId,
+    stepNumber: stepNumber ?? this.stepNumber,
+    instruction: instruction ?? this.instruction,
+    durationMinutes: durationMinutes.present
+        ? durationMinutes.value
+        : this.durationMinutes,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  RecipeStepRow copyWithCompanion(RecipeStepsCompanion data) {
+    return RecipeStepRow(
+      id: data.id.present ? data.id.value : this.id,
+      recipeId: data.recipeId.present ? data.recipeId.value : this.recipeId,
+      stepNumber: data.stepNumber.present
+          ? data.stepNumber.value
+          : this.stepNumber,
+      instruction: data.instruction.present
+          ? data.instruction.value
+          : this.instruction,
+      durationMinutes: data.durationMinutes.present
+          ? data.durationMinutes.value
+          : this.durationMinutes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecipeStepRow(')
+          ..write('id: $id, ')
+          ..write('recipeId: $recipeId, ')
+          ..write('stepNumber: $stepNumber, ')
+          ..write('instruction: $instruction, ')
+          ..write('durationMinutes: $durationMinutes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    recipeId,
+    stepNumber,
+    instruction,
+    durationMinutes,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RecipeStepRow &&
+          other.id == this.id &&
+          other.recipeId == this.recipeId &&
+          other.stepNumber == this.stepNumber &&
+          other.instruction == this.instruction &&
+          other.durationMinutes == this.durationMinutes &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class RecipeStepsCompanion extends UpdateCompanion<RecipeStepRow> {
+  final Value<String> id;
+  final Value<String> recipeId;
+  final Value<int> stepNumber;
+  final Value<String> instruction;
+  final Value<int?> durationMinutes;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> rowid;
+  const RecipeStepsCompanion({
+    this.id = const Value.absent(),
+    this.recipeId = const Value.absent(),
+    this.stepNumber = const Value.absent(),
+    this.instruction = const Value.absent(),
+    this.durationMinutes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  RecipeStepsCompanion.insert({
+    required String id,
+    required String recipeId,
+    required int stepNumber,
+    required String instruction,
+    this.durationMinutes = const Value.absent(),
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       recipeId = Value(recipeId),
+       stepNumber = Value(stepNumber),
+       instruction = Value(instruction),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<RecipeStepRow> custom({
+    Expression<String>? id,
+    Expression<String>? recipeId,
+    Expression<int>? stepNumber,
+    Expression<String>? instruction,
+    Expression<int>? durationMinutes,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (recipeId != null) 'recipe_id': recipeId,
+      if (stepNumber != null) 'step_number': stepNumber,
+      if (instruction != null) 'instruction': instruction,
+      if (durationMinutes != null) 'duration_minutes': durationMinutes,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  RecipeStepsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? recipeId,
+    Value<int>? stepNumber,
+    Value<String>? instruction,
+    Value<int?>? durationMinutes,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return RecipeStepsCompanion(
+      id: id ?? this.id,
+      recipeId: recipeId ?? this.recipeId,
+      stepNumber: stepNumber ?? this.stepNumber,
+      instruction: instruction ?? this.instruction,
+      durationMinutes: durationMinutes ?? this.durationMinutes,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (recipeId.present) {
+      map['recipe_id'] = Variable<String>(recipeId.value);
+    }
+    if (stepNumber.present) {
+      map['step_number'] = Variable<int>(stepNumber.value);
+    }
+    if (instruction.present) {
+      map['instruction'] = Variable<String>(instruction.value);
+    }
+    if (durationMinutes.present) {
+      map['duration_minutes'] = Variable<int>(durationMinutes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecipeStepsCompanion(')
+          ..write('id: $id, ')
+          ..write('recipeId: $recipeId, ')
+          ..write('stepNumber: $stepNumber, ')
+          ..write('instruction: $instruction, ')
+          ..write('durationMinutes: $durationMinutes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RecipeCookLogTable extends RecipeCookLog
+    with TableInfo<$RecipeCookLogTable, RecipeCookLogRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RecipeCookLogTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _recipeIdMeta = const VerificationMeta(
+    'recipeId',
+  );
+  @override
+  late final GeneratedColumn<String> recipeId = GeneratedColumn<String>(
+    'recipe_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recipes (id)',
+    ),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateKey, int> cookedDateKey =
+      GeneratedColumn<int>(
+        'cooked_date_key',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateKey>($RecipeCookLogTable.$convertercookedDateKey);
+  static const VerificationMeta _servingsCookedMeta = const VerificationMeta(
+    'servingsCooked',
+  );
+  @override
+  late final GeneratedColumn<int> servingsCooked = GeneratedColumn<int>(
+    'servings_cooked',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deductedStockMeta = const VerificationMeta(
+    'deductedStock',
+  );
+  @override
+  late final GeneratedColumn<bool> deductedStock = GeneratedColumn<bool>(
+    'deducted_stock',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deducted_stock" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+    'note',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    recipeId,
+    cookedDateKey,
+    servingsCooked,
+    deductedStock,
+    note,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'recipe_cook_log';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<RecipeCookLogRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('recipe_id')) {
+      context.handle(
+        _recipeIdMeta,
+        recipeId.isAcceptableOrUnknown(data['recipe_id']!, _recipeIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_recipeIdMeta);
+    }
+    if (data.containsKey('servings_cooked')) {
+      context.handle(
+        _servingsCookedMeta,
+        servingsCooked.isAcceptableOrUnknown(
+          data['servings_cooked']!,
+          _servingsCookedMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_servingsCookedMeta);
+    }
+    if (data.containsKey('deducted_stock')) {
+      context.handle(
+        _deductedStockMeta,
+        deductedStock.isAcceptableOrUnknown(
+          data['deducted_stock']!,
+          _deductedStockMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_deductedStockMeta);
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+        _noteMeta,
+        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RecipeCookLogRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RecipeCookLogRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      recipeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recipe_id'],
+      )!,
+      cookedDateKey: $RecipeCookLogTable.$convertercookedDateKey.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}cooked_date_key'],
+        )!,
+      ),
+      servingsCooked: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}servings_cooked'],
+      )!,
+      deductedStock: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deducted_stock'],
+      )!,
+      note: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}note'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $RecipeCookLogTable createAlias(String alias) {
+    return $RecipeCookLogTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<DateKey, int> $convertercookedDateKey =
+      const DateKeyConverter();
+}
+
+class RecipeCookLogRow extends DataClass
+    implements Insertable<RecipeCookLogRow> {
+  /// Row identifier, UUIDv7.
+  final String id;
+
+  /// The recipe that was cooked.
+  final String recipeId;
+
+  /// The civil date it was cooked on.
+  final DateKey cookedDateKey;
+
+  /// How many servings were made, which may differ from the recipe's own [Recipes.servings].
+  final int servingsCooked;
+
+  /// Whether inventory was reduced. False when the user cooked without deducting, or when every
+  /// ingredient was untracked.
+  final bool deductedStock;
+
+  /// Free-form note: a substitution, how it turned out.
+  final String? note;
+
+  /// Creation instant, epoch millis UTC.
+  final int createdAt;
+
+  /// Last-modification instant, epoch millis UTC.
+  final int updatedAt;
+
+  /// Soft-delete instant, epoch millis UTC. Null means active.
+  final int? deletedAt;
+  const RecipeCookLogRow({
+    required this.id,
+    required this.recipeId,
+    required this.cookedDateKey,
+    required this.servingsCooked,
+    required this.deductedStock,
+    this.note,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['recipe_id'] = Variable<String>(recipeId);
+    {
+      map['cooked_date_key'] = Variable<int>(
+        $RecipeCookLogTable.$convertercookedDateKey.toSql(cookedDateKey),
+      );
+    }
+    map['servings_cooked'] = Variable<int>(servingsCooked);
+    map['deducted_stock'] = Variable<bool>(deductedStock);
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    return map;
+  }
+
+  RecipeCookLogCompanion toCompanion(bool nullToAbsent) {
+    return RecipeCookLogCompanion(
+      id: Value(id),
+      recipeId: Value(recipeId),
+      cookedDateKey: Value(cookedDateKey),
+      servingsCooked: Value(servingsCooked),
+      deductedStock: Value(deductedStock),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory RecipeCookLogRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RecipeCookLogRow(
+      id: serializer.fromJson<String>(json['id']),
+      recipeId: serializer.fromJson<String>(json['recipeId']),
+      cookedDateKey: serializer.fromJson<DateKey>(json['cookedDateKey']),
+      servingsCooked: serializer.fromJson<int>(json['servingsCooked']),
+      deductedStock: serializer.fromJson<bool>(json['deductedStock']),
+      note: serializer.fromJson<String?>(json['note']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'recipeId': serializer.toJson<String>(recipeId),
+      'cookedDateKey': serializer.toJson<DateKey>(cookedDateKey),
+      'servingsCooked': serializer.toJson<int>(servingsCooked),
+      'deductedStock': serializer.toJson<bool>(deductedStock),
+      'note': serializer.toJson<String?>(note),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+    };
+  }
+
+  RecipeCookLogRow copyWith({
+    String? id,
+    String? recipeId,
+    DateKey? cookedDateKey,
+    int? servingsCooked,
+    bool? deductedStock,
+    Value<String?> note = const Value.absent(),
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+  }) => RecipeCookLogRow(
+    id: id ?? this.id,
+    recipeId: recipeId ?? this.recipeId,
+    cookedDateKey: cookedDateKey ?? this.cookedDateKey,
+    servingsCooked: servingsCooked ?? this.servingsCooked,
+    deductedStock: deductedStock ?? this.deductedStock,
+    note: note.present ? note.value : this.note,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  RecipeCookLogRow copyWithCompanion(RecipeCookLogCompanion data) {
+    return RecipeCookLogRow(
+      id: data.id.present ? data.id.value : this.id,
+      recipeId: data.recipeId.present ? data.recipeId.value : this.recipeId,
+      cookedDateKey: data.cookedDateKey.present
+          ? data.cookedDateKey.value
+          : this.cookedDateKey,
+      servingsCooked: data.servingsCooked.present
+          ? data.servingsCooked.value
+          : this.servingsCooked,
+      deductedStock: data.deductedStock.present
+          ? data.deductedStock.value
+          : this.deductedStock,
+      note: data.note.present ? data.note.value : this.note,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecipeCookLogRow(')
+          ..write('id: $id, ')
+          ..write('recipeId: $recipeId, ')
+          ..write('cookedDateKey: $cookedDateKey, ')
+          ..write('servingsCooked: $servingsCooked, ')
+          ..write('deductedStock: $deductedStock, ')
+          ..write('note: $note, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    recipeId,
+    cookedDateKey,
+    servingsCooked,
+    deductedStock,
+    note,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RecipeCookLogRow &&
+          other.id == this.id &&
+          other.recipeId == this.recipeId &&
+          other.cookedDateKey == this.cookedDateKey &&
+          other.servingsCooked == this.servingsCooked &&
+          other.deductedStock == this.deductedStock &&
+          other.note == this.note &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class RecipeCookLogCompanion extends UpdateCompanion<RecipeCookLogRow> {
+  final Value<String> id;
+  final Value<String> recipeId;
+  final Value<DateKey> cookedDateKey;
+  final Value<int> servingsCooked;
+  final Value<bool> deductedStock;
+  final Value<String?> note;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> rowid;
+  const RecipeCookLogCompanion({
+    this.id = const Value.absent(),
+    this.recipeId = const Value.absent(),
+    this.cookedDateKey = const Value.absent(),
+    this.servingsCooked = const Value.absent(),
+    this.deductedStock = const Value.absent(),
+    this.note = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  RecipeCookLogCompanion.insert({
+    required String id,
+    required String recipeId,
+    required DateKey cookedDateKey,
+    required int servingsCooked,
+    required bool deductedStock,
+    this.note = const Value.absent(),
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       recipeId = Value(recipeId),
+       cookedDateKey = Value(cookedDateKey),
+       servingsCooked = Value(servingsCooked),
+       deductedStock = Value(deductedStock),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<RecipeCookLogRow> custom({
+    Expression<String>? id,
+    Expression<String>? recipeId,
+    Expression<int>? cookedDateKey,
+    Expression<int>? servingsCooked,
+    Expression<bool>? deductedStock,
+    Expression<String>? note,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (recipeId != null) 'recipe_id': recipeId,
+      if (cookedDateKey != null) 'cooked_date_key': cookedDateKey,
+      if (servingsCooked != null) 'servings_cooked': servingsCooked,
+      if (deductedStock != null) 'deducted_stock': deductedStock,
+      if (note != null) 'note': note,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  RecipeCookLogCompanion copyWith({
+    Value<String>? id,
+    Value<String>? recipeId,
+    Value<DateKey>? cookedDateKey,
+    Value<int>? servingsCooked,
+    Value<bool>? deductedStock,
+    Value<String?>? note,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return RecipeCookLogCompanion(
+      id: id ?? this.id,
+      recipeId: recipeId ?? this.recipeId,
+      cookedDateKey: cookedDateKey ?? this.cookedDateKey,
+      servingsCooked: servingsCooked ?? this.servingsCooked,
+      deductedStock: deductedStock ?? this.deductedStock,
+      note: note ?? this.note,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (recipeId.present) {
+      map['recipe_id'] = Variable<String>(recipeId.value);
+    }
+    if (cookedDateKey.present) {
+      map['cooked_date_key'] = Variable<int>(
+        $RecipeCookLogTable.$convertercookedDateKey.toSql(cookedDateKey.value),
+      );
+    }
+    if (servingsCooked.present) {
+      map['servings_cooked'] = Variable<int>(servingsCooked.value);
+    }
+    if (deductedStock.present) {
+      map['deducted_stock'] = Variable<bool>(deductedStock.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecipeCookLogCompanion(')
+          ..write('id: $id, ')
+          ..write('recipeId: $recipeId, ')
+          ..write('cookedDateKey: $cookedDateKey, ')
+          ..write('servingsCooked: $servingsCooked, ')
+          ..write('deductedStock: $deductedStock, ')
+          ..write('note: $note, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $NotificationScheduleTable extends NotificationSchedule
     with TableInfo<$NotificationScheduleTable, NotificationScheduleRow> {
   @override
@@ -24523,6 +32606,7 @@ abstract class _$AlayaDatabase extends GeneratedDatabase {
   _$AlayaDatabase(QueryExecutor e) : super(e);
   late final ItemsFts itemsFts = ItemsFts(this);
   late final $UnitsTable units = $UnitsTable(this);
+  late final $TagsTable tags = $TagsTable(this);
   late final $ItemsTable items = $ItemsTable(this);
   late final Trigger itemsFtsAfterInsert = Trigger(
     'CREATE TRIGGER items_fts_after_insert AFTER INSERT ON items BEGIN INSERT INTO items_fts ("rowid", name, notes) VALUES (new."rowid", new.name, new.notes);END',
@@ -24541,7 +32625,6 @@ abstract class _$AlayaDatabase extends GeneratedDatabase {
   late final $AccountsTable accounts = $AccountsTable(this);
   late final $PaymentMethodsTable paymentMethods = $PaymentMethodsTable(this);
   late final $PayeesTable payees = $PayeesTable(this);
-  late final $TagsTable tags = $TagsTable(this);
   late final $RecurringOccurrencesTable recurringOccurrences =
       $RecurringOccurrencesTable(this);
   late final $InventoryBatchesTable inventoryBatches = $InventoryBatchesTable(
@@ -24608,6 +32691,22 @@ abstract class _$AlayaDatabase extends GeneratedDatabase {
     'idx_rates_point',
     'CREATE UNIQUE INDEX idx_rates_point ON currency_rates (base_code, quote_code, rate_date_key)',
   );
+  late final $SplitGroupsTable splitGroups = $SplitGroupsTable(this);
+  late final Index idxSplitGroupsName = Index(
+    'idx_split_groups_name',
+    'CREATE UNIQUE INDEX idx_split_groups_name ON split_groups (normalized_name) WHERE deleted_at IS NULL',
+  );
+  late final $SplitMembersTable splitMembers = $SplitMembersTable(this);
+  late final Index idxSplitMember = Index(
+    'idx_split_member',
+    'CREATE UNIQUE INDEX idx_split_member ON split_members (group_id, payee_id) WHERE deleted_at IS NULL',
+  );
+  late final $SplitExpensesTable splitExpenses = $SplitExpensesTable(this);
+  late final $SplitSharesTable splitShares = $SplitSharesTable(this);
+  late final Index idxSplitShare = Index(
+    'idx_split_share',
+    'CREATE UNIQUE INDEX idx_split_share ON split_shares (split_expense_id, payee_id, transaction_line_no) WHERE deleted_at IS NULL',
+  );
   late final Index idxTxDate = Index(
     'idx_tx_date',
     'CREATE INDEX idx_tx_date ON transactions (date_key) WHERE deleted_at IS NULL',
@@ -24668,6 +32767,59 @@ abstract class _$AlayaDatabase extends GeneratedDatabase {
     'idx_asset_warranty',
     'CREATE INDEX idx_asset_warranty ON assets (warranty_end_date_key) WHERE deleted_at IS NULL',
   );
+  late final Index idxSplitExpDate = Index(
+    'idx_split_exp_date',
+    'CREATE INDEX idx_split_exp_date ON split_expenses (date_key) WHERE deleted_at IS NULL',
+  );
+  late final Index idxSplitExpMonth = Index(
+    'idx_split_exp_month',
+    'CREATE INDEX idx_split_exp_month ON split_expenses (month_key) WHERE deleted_at IS NULL',
+  );
+  late final Index idxSplitExpGroup = Index(
+    'idx_split_exp_group',
+    'CREATE INDEX idx_split_exp_group ON split_expenses (group_id) WHERE deleted_at IS NULL',
+  );
+  late final Index idxSplitExpPayer = Index(
+    'idx_split_exp_payer',
+    'CREATE INDEX idx_split_exp_payer ON split_expenses (paid_by_payee_id) WHERE deleted_at IS NULL',
+  );
+  late final Index idxSplitExpTx = Index(
+    'idx_split_exp_tx',
+    'CREATE INDEX idx_split_exp_tx ON split_expenses (transaction_id)',
+  );
+  late final Index idxSplitExpSettle = Index(
+    'idx_split_exp_settle',
+    'CREATE INDEX idx_split_exp_settle ON split_expenses (settle_by_date_key) WHERE deleted_at IS NULL',
+  );
+  late final Index idxSplitShareExp = Index(
+    'idx_split_share_exp',
+    'CREATE INDEX idx_split_share_exp ON split_shares (split_expense_id) WHERE deleted_at IS NULL',
+  );
+  late final Index idxSplitShareWho = Index(
+    'idx_split_share_who',
+    'CREATE INDEX idx_split_share_who ON split_shares (payee_id) WHERE deleted_at IS NULL',
+  );
+  late final $SplitSettlementsTable splitSettlements = $SplitSettlementsTable(
+    this,
+  );
+  late final Index idxSplitSettleFrom = Index(
+    'idx_split_settle_from',
+    'CREATE INDEX idx_split_settle_from ON split_settlements (from_payee_id, date_key)',
+  );
+  late final Index idxSplitSettleTo = Index(
+    'idx_split_settle_to',
+    'CREATE INDEX idx_split_settle_to ON split_settlements (to_payee_id, date_key)',
+  );
+  late final Index idxSplitSettleGroup = Index(
+    'idx_split_settle_group',
+    'CREATE INDEX idx_split_settle_group ON split_settlements (group_id) WHERE deleted_at IS NULL',
+  );
+  late final VSplitExpenses vSplitExpenses = VSplitExpenses(this);
+  late final VSplitBalances vSplitBalances = VSplitBalances(this);
+  late final VSplitGroupBalances vSplitGroupBalances = VSplitGroupBalances(
+    this,
+  );
+  late final VSplitActivity vSplitActivity = VSplitActivity(this);
   late final VCalendarEvents vCalendarEvents = VCalendarEvents(this);
   late final VRecurringDue vRecurringDue = VRecurringDue(this);
   late final VAssetAlerts vAssetAlerts = VAssetAlerts(this);
@@ -24682,6 +32834,11 @@ abstract class _$AlayaDatabase extends GeneratedDatabase {
   late final VMonthlyTotals vMonthlyTotals = VMonthlyTotals(this);
   late final VAccountLedger vAccountLedger = VAccountLedger(this);
   late final VAccountBalances vAccountBalances = VAccountBalances(this);
+  late final $RecipesTable recipes = $RecipesTable(this);
+  late final $RecipeIngredientsTable recipeIngredients =
+      $RecipeIngredientsTable(this);
+  late final $RecipeStepsTable recipeSteps = $RecipeStepsTable(this);
+  late final $RecipeCookLogTable recipeCookLog = $RecipeCookLogTable(this);
   late final $NotificationScheduleTable notificationSchedule =
       $NotificationScheduleTable(this);
   late final $BackupHistoryTable backupHistory = $BackupHistoryTable(this);
@@ -24693,6 +32850,7 @@ abstract class _$AlayaDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     itemsFts,
     units,
+    tags,
     items,
     itemsFtsAfterInsert,
     itemsFtsAfterDelete,
@@ -24702,7 +32860,6 @@ abstract class _$AlayaDatabase extends GeneratedDatabase {
     accounts,
     paymentMethods,
     payees,
-    tags,
     recurringOccurrences,
     inventoryBatches,
     transactionLines,
@@ -24729,6 +32886,13 @@ abstract class _$AlayaDatabase extends GeneratedDatabase {
     idxShoppingAuto,
     idxRecurringOcc,
     idxRatesPoint,
+    splitGroups,
+    idxSplitGroupsName,
+    splitMembers,
+    idxSplitMember,
+    splitExpenses,
+    splitShares,
+    idxSplitShare,
     idxTxDate,
     idxTxMonthKind,
     idxTxFrom,
@@ -24744,6 +32908,22 @@ abstract class _$AlayaDatabase extends GeneratedDatabase {
     idxOccDue,
     idxAssetService,
     idxAssetWarranty,
+    idxSplitExpDate,
+    idxSplitExpMonth,
+    idxSplitExpGroup,
+    idxSplitExpPayer,
+    idxSplitExpTx,
+    idxSplitExpSettle,
+    idxSplitShareExp,
+    idxSplitShareWho,
+    splitSettlements,
+    idxSplitSettleFrom,
+    idxSplitSettleTo,
+    idxSplitSettleGroup,
+    vSplitExpenses,
+    vSplitBalances,
+    vSplitGroupBalances,
+    vSplitActivity,
     vCalendarEvents,
     vRecurringDue,
     vAssetAlerts,
@@ -24755,6 +32935,10 @@ abstract class _$AlayaDatabase extends GeneratedDatabase {
     vMonthlyTotals,
     vAccountLedger,
     vAccountBalances,
+    recipes,
+    recipeIngredients,
+    recipeSteps,
+    recipeCookLog,
     notificationSchedule,
     backupHistory,
     analyticsCache,

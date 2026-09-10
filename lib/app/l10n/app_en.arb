@@ -160,11 +160,11 @@
   "dueTodayLabel": "Due today",
   "paidLabel": "Paid",
   "skippedLabel": "Skipped",
-  "kindDeposit": "Money in",
-  "kindWithdrawal": "Money out",
+  "kindDeposit": "Income",
+  "kindWithdrawal": "Expense",
   "kindTransfer": "Transfer",
-  "kindAdjustmentIncrease": "Correction up",
-  "kindAdjustmentDecrease": "Correction down",
+  "kindAdjustmentIncrease": "Stock added",
+  "kindAdjustmentDecrease": "Stock removed",
   "subtypeGrocery": "Groceries",
   "subtypeHousehold": "Household",
   "subtypeElectronics": "Electronics",
@@ -173,7 +173,7 @@
   "subtypeTransferOut": "Sent to someone",
   "subtypeSalaryIn": "Salary",
   "subtypeOtherIn": "Other income",
-  "subtypeOtherOut": "Other spending",
+  "subtypeOtherOut": "Other expense",
   "needsReviewBanner": "{count, plural, =1{1 transaction needs details} other{{count} transactions need details}}",
   "@needsReviewBanner": {
     "description": "Surfaces transactions.needsReview. Quick-add saves an amount and nothing else by design; without this row that deliberate shortcut becomes silent data rot.",
@@ -225,10 +225,10 @@
   "searchTransactionsHint": "Search notes",
   "transactionDeleted": "Transaction deleted",
   "quickAddTitle": "Quick add",
-  "quickAddMoneyIn": "Money in",
-  "quickAddMoneyOut": "Money out",
+  "quickAddMoneyIn": "Income",
+  "quickAddMoneyOut": "Expense",
   "quickAddSave": "Save",
-  "actionAddDetails": "Add details",
+  "actionAddDetails": "Save and add details",
   "editorTitleNew": "New transaction",
   "editorTitleEdit": "Edit transaction",
   "sectionWhatAndHowMuch": "What and how much",
@@ -240,7 +240,7 @@
   "transferOwnAccount": "To my own account",
   "transferSomeoneElse": "To someone else",
   "transferOwnAccountHelp": "Moves money between your accounts. Your total does not change.",
-  "transferSomeoneElseHelp": "Money leaves your accounts. This is a withdrawal.",
+  "transferSomeoneElseHelp": "Money leaves your accounts, so it is recorded as an expense.",
   "alsoAddToInventory": "Also add to inventory",
   "destinationNone": "Just an expense",
   "destinationInventory": "Save to Inventory",
@@ -968,11 +968,11 @@
   "@lineItemsAllocated": {
     "description": "Precedes the summed line total on the line-items page."
   },
-  "recurringOutflow": "Going out",
+  "recurringOutflow": "Expenses",
   "@recurringOutflow": {
     "description": "Group header for outflow templates."
   },
-  "recurringInflow": "Coming in",
+  "recurringInflow": "Income",
   "@recurringInflow": {
     "description": "Group header for inflow templates — salary reads as income, not a negative bill."
   },
@@ -1040,11 +1040,11 @@
   "@labelDirection": {
     "description": "Whether money goes out or comes in."
   },
-  "directionOutflow": "Money out",
+  "directionOutflow": "Expense",
   "@directionOutflow": {
     "description": "RecurringDirection.outflow."
   },
-  "directionInflow": "Money in",
+  "directionInflow": "Income",
   "@directionInflow": {
     "description": "RecurringDirection.inflow."
   },
@@ -1532,7 +1532,7 @@
   "@alsoRecordAsExpense": {
     "description": "The alsoRecordAsExpense toggle."
   },
-  "alsoRecordHelp": "Writes a withdrawal for the cost as well, so it shows in your ledger.",
+  "alsoRecordHelp": "Records an expense for the cost too, so it shows in your ledger.",
   "@alsoRecordHelp": {
     "description": "Explains what the toggle writes."
   },
@@ -1624,7 +1624,7 @@
   "@assetCreatedFromPurchase": {
     "description": "Snack after a purchase line created an asset."
   },
-  "destinationHelpNone": "Recorded as spending and nothing else.",
+  "destinationHelpNone": "Recorded as an expense and nothing else.",
   "@destinationHelpNone": {
     "description": "Explains destination none."
   },
@@ -1781,7 +1781,7 @@
       "count": {}
     }
   },
-  "fabAddIncome": "Money in",
+  "fabAddIncome": "Add income",
   "@fabAddIncome": {
     "description": "FAB action opening the editor as a deposit."
   },
@@ -1842,8 +1842,8 @@
     }
   },
   "calendarBackToToday": "Back to this month",
-  "calendarTotalOut": "Spent",
-  "calendarTotalIn": "Received",
+  "calendarTotalOut": "Expenses",
+  "calendarTotalIn": "Income",
   "dashboardOpenCalendar": "Open calendar",
   "dashboardCalendarSemantics": "{month} at a glance. Opens the calendar.",
   "@dashboardCalendarSemantics": {
@@ -1877,7 +1877,7 @@
       }
     }
   },
-  "analyticsTotalSpent": "Spent",
+  "analyticsTotalSpent": "Expenses",
   "@analyticsTotalSpent": {
     "description": "Label above the analytics screen's one displayAmount."
   },
@@ -2687,8 +2687,8 @@
   "tagParentHeader": "Group under",
   "tagParentHelp": "Optional. Grouping keeps long tag lists readable. Only one level deep.",
   "tagParentNone": "No group",
-  "tagScopeDeposit": "Money in",
-  "tagScopeDepositHelp": "Offered when you record money coming in.",
+  "tagScopeDeposit": "Income",
+  "tagScopeDepositHelp": "Offered when you record income.",
   "tagScopeInventory": "Items",
   "tagScopeInventoryHelp": "Offered on things you keep at home.",
   "tagScopeRecurring": "Recurring",
@@ -2697,8 +2697,8 @@
   "tagScopeServiceHelp": "Offered on appliances and their service records.",
   "tagScopeShopping": "Shopping lists",
   "tagScopeShoppingHelp": "Used to group a shopping list under headings.",
-  "tagScopeWithdrawal": "Money out",
-  "tagScopeWithdrawalHelp": "Offered when you record spending.",
+  "tagScopeWithdrawal": "Expenses",
+  "tagScopeWithdrawalHelp": "Offered when you record an expense.",
   "tagScopesHeader": "Where it appears",
   "tagScopesHelp": "A tag is only offered where you turn it on. This is what keeps \"Kitchen\" out of the list when you record your salary.",
   "@tagScopesHelp": {
@@ -3264,6 +3264,947 @@
       },
       "detail": {
         "type": "String"
+      }
+    }
+  },
+  "navRecipes": "Recipes",
+  "moduleRecipes": "{count, plural, =0{Nothing you can make} =1{1 you can make} other{{count} you can make}}",
+  "@moduleRecipes": {
+    "description": "The dashboard tile. A zero is worded rather than shown, like every other tile — \"0 you can make\" is a figure to interpret, \"nothing you can make\" is an answer.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeSearchHint": "Search recipes",
+  "recipeFilterCookable": "Can cook now",
+  "recipeFilterFavourites": "Favourites",
+  "recipeLoading": "Loading your recipes…",
+  "recipeEmptyTitle": "No recipes yet",
+  "recipeEmptyBody": "Add one and Alaya will tell you when you have everything for it.",
+  "recipeNoMatchTitle": "Nothing matches",
+  "recipeNoMatchBody": "Clear the filters to see every recipe.",
+  "recipeServes": "Serves {count}",
+  "@recipeServes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeServesAndTime": "Serves {count} · {minutes} min",
+  "@recipeServesAndTime": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeReady": "Ready",
+  "recipeShortBy": "{count, plural, =1{1 short} other{{count} short}}",
+  "@recipeShortBy": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeMissingCount": "{count, plural, =1{1 missing} other{{count} missing}}",
+  "@recipeMissingCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeUncheckable": "Can't tell",
+  "@recipeUncheckable": {
+    "description": "Not \"cannot cook\". The engine could not judge an ingredient — untracked, or measured in a unit that cannot be compared to what the item is counted in. Saying so is the point of the module."
+  },
+  "recipeNoIngredients": "No ingredients",
+  "recipeDetailTitle": "Recipe",
+  "recipeGoneTitle": "That recipe is gone",
+  "recipeGoneBody": "It may have been deleted. Check the trash if you want it back.",
+  "recipeServingsLabel": "Servings",
+  "recipeServingsFewer": "Fewer servings",
+  "recipeServingsMore": "More servings",
+  "recipeIngredientsHeader": "Ingredients",
+  "recipeMethodHeader": "Method",
+  "recipeNotesHeader": "Notes",
+  "recipeCheckingStock": "Checking what you have…",
+  "recipeStepMinutes": "{minutes} min",
+  "@recipeStepMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeCookAction": "Cook this",
+  "recipeCooking": "Cooking…",
+  "recipeCooked": "Cooked",
+  "recipeCookedDeducted": "{count, plural, =0{Cooked. Nothing was deducted} =1{Cooked. 1 ingredient deducted} other{Cooked. {count} ingredients deducted}}",
+  "@recipeCookedDeducted": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeCookFailed": "That could not be cooked",
+  "recipeCookWillSkip": "{count, plural, =1{1 ingredient will not be deducted — nothing tracks it} other{{count} ingredients will not be deducted — nothing tracks them}}",
+  "@recipeCookWillSkip": {
+    "description": "Said before cooking, not after. A user who learns afterwards that two ingredients were skipped has already been given a wrong impression of their stock.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeShortfall": "Not enough on hand",
+  "recipeNoneLeft": "None left",
+  "recipeUnitMismatch": "Measured differently from how you track it — can't compare",
+  "recipeNotTracked": "Not tracked",
+  "recipeLinkedIngredient": "Ingredient",
+  "recipeAddAction": "New recipe",
+  "recipeNewTitle": "New recipe",
+  "recipeEditTitle": "Edit recipe",
+  "recipeNameLabel": "Name",
+  "recipePrepLabel": "Prep min",
+  "recipeCookLabel": "Cook min",
+  "recipeAddIngredient": "Add ingredient",
+  "recipeAddStep": "Add step",
+  "recipeIngredientLabel": "Ingredient",
+  "recipeQuantityLabel": "Amount",
+  "recipeOptionalLabel": "Optional — will not stop you cooking",
+  "recipeRemoveIngredient": "Remove ingredient",
+  "recipeRemoveStep": "Remove step",
+  "recipeStepLabel": "Step {number}",
+  "@recipeStepLabel": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeFavouriteToggle": "Pin this recipe",
+  "recipeSaved": "Recipe saved",
+  "recipeSaveFailed": "That recipe could not be saved",
+  "recipeNotLinkedHelp": "Not linked to inventory — pick from the list to track it",
+  "@recipeNotLinkedHelp": {
+    "description": "Shown under an ingredient with no catalogue link. States the consequence rather than scolding: an unlinked ingredient is fine, it simply cannot be checked against stock or deducted."
+  },
+  "recipeQuantityHint": "Leave blank for \"to taste\"",
+  "@recipeQuantityHint": {
+    "description": "Placeholder in the ingredient quantity field."
+  },
+  "sectionRecipeMeasures": "Recipe measures",
+  "labelDensity": "Weight of 1 ml",
+  "densityHelp": "Lets a recipe measure this in spoons or cups. Water is 1, oil about 0.92, honey about 1.4.",
+  "@densityHelp": {
+    "description": "Three anchors rather than an explanation. A number nobody can estimate is a field nobody fills."
+  },
+  "suffixGramsPerMl": "g",
+  "labelPieceWeight": "Weight of 1 piece",
+  "pieceWeightHelp": "Lets a recipe say \"2 of these\" and still know how much to take.",
+  "suffixGrams": "g",
+  "labelGramsPerTbsp": "1 tablespoon weighs",
+  "gramsPerTbspHelp": "Flour about 8 g, sugar 12 g, oil 14 g, honey 21 g. Alaya works out teaspoons and cups from this.",
+  "@gramsPerTbspHelp": {
+    "description": "Four anchors a cook can recognise, and a sentence saying the one number covers the other measures — so nobody goes looking for a teaspoon field that does not exist."
+  },
+  "recipeAmountHint": "2, 1/2, 1 1/2",
+  "@recipeAmountHint": {
+    "description": "Three examples instead of an instruction. A cook sees at a glance that fractions are accepted, which no wording would convey as quickly."
+  },
+  "recipeSpoonsNeedWeight": "To measure this in spoons or cups, set \"1 tablespoon weighs\" on the item.",
+  "@recipeSpoonsNeedWeight": {
+    "description": "Shown when a weight-measured item has no tablespoon weight, so volume units are absent from the picker. Names the exact field rather than saying the option is unavailable — the fix is one screen away and the user should know where."
+  },
+  "recipeAmountHintVessel": "1/2, 1, 1 1/2",
+  "@recipeAmountHintVessel": {
+    "description": "Shown only when the unit is a spoon or a cup. Three examples say \"fractions work\" faster than any sentence — and the tappable sizes beside it mean most cooks never type at all."
+  },
+  "recipeAmountHintPlain": "200",
+  "@recipeAmountHintPlain": {
+    "description": "Shown for grams, millilitres, pieces. Nobody writes \"half a milligram\", and offering fractions there is what made the field confusing."
+  },
+  "recipeNeedsTbspWeight": "To measure {item} in spoons or cups, set \"1 tablespoon weighs\" on the item.",
+  "@recipeNeedsTbspWeight": {
+    "description": "Said the moment a spoon is chosen for an item that cannot convert it. Names the field, not the limitation: the fix is one screen away and the cook should know where.",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "recipeNeedsPieceWeight": "To count {item} by the piece, set \"Weight of 1 piece\" on the item.",
+  "@recipeNeedsPieceWeight": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "recipeAmountReadout": "{written} = {converted}",
+  "@recipeAmountReadout": {
+    "description": "The line restated in the measure the shelf uses: \"3 1/2 tablespoon = 51.8 ml\", or \"= 28 g\" once the item declares a tablespoon weight. This is where a cook finds out how big a tablespoon is — for the thing in their hand, not from a table they have to apply themselves.",
+    "placeholders": {
+      "written": {
+        "type": "String"
+      },
+      "converted": {
+        "type": "String"
+      }
+    }
+  },
+  "sectionMoreDetails": "More details",
+  "@sectionMoreDetails": {
+    "description": "The one door out of a capture form. \"More details\" rather than \"Advanced\": nothing behind it is advanced — a tag and a note are ordinary things, just not needed every time. \"Advanced\" would suggest they are for experts and stop people opening it."
+  },
+  "tagCount": "{count, plural, =1{1 tag} other{{count} tags}}",
+  "@tagCount": {
+    "description": "Part of the collapsed summary, so a set tag is visible without opening the section.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lineCount": "{count, plural, =1{1 item} other{{count} items}}",
+  "@lineCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@actionAddDetails": {
+    "description": "Was \"Add details\", which implied composing. It saves first, then opens the editor — deliberately, because Alaya is offline-first and U11 says record it now and refine later, so an abandoned edit still leaves the expense captured. The label should say what the button does rather than leave the user to discover it."
+  },
+  "quickAddNoteHint": "What for? (optional)",
+  "@quickAddNoteHint": {
+    "description": "Hint in the quick sheet’s note field. The question the user is actually answering, plus \"(optional)\" so an empty field never reads as something left undone. No label above it: a label would make it look like a required field in a sheet whose whole promise is one required field."
+  },
+  "remindersNothingDueTitle": "Nothing due this week",
+  "@remindersNothingDueTitle": {
+    "description": "Shown when reminders ARE on and the seven-day scan found nothing. The previous copy said \"turn on a reminder above\", which is what the user had already done — so a working feature read as a broken one."
+  },
+  "remindersNothingDueBody": "Your reminders are on. Alaya looks a week ahead and there is nothing coming up yet — you will get a message the day something does.",
+  "@remindersNothingDueBody": {
+    "description": "Confirms the setting is on before explaining the silence. The order matters: somebody who suspects the feature is broken needs the reassurance first."
+  },
+  "remindersCheckNow": "Check now",
+  "remindersChecking": "Checking…",
+  "remindersFoundCount": "{count, plural, =1{1 thing coming up} other{{count} things coming up}}",
+  "@remindersFoundCount": {
+    "description": "Result of a manual scan. Naming the number is what proves the scan ran.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "remindersFoundNothing": "Nothing coming up in the next week",
+  "@remindersFoundNothing": {
+    "description": "A result, not a failure — and the sentence that tells somebody their reminders work and their week is simply clear. This is the answer that was impossible to obtain before."
+  },
+  "remindersSendTest": "Send a test notification",
+  "@remindersSendTest": {
+    "description": "Posts one notification immediately. Exists because \"it is scheduled for tomorrow morning\" and \"the delivery path is broken\" are indistinguishable by waiting, and this separates them in two seconds."
+  },
+  "remindersTestSent": "Sent — check your notifications",
+  "@remindersTestSent": {
+    "description": "Says the app handed it to Android, not that it appeared. If the shade is empty after this, the notification is blocked in system settings rather than broken in the app."
+  },
+  "shoppingEntryDeleted": "Removed",
+  "@shoppingEntryDeleted": {
+    "description": "Undo snack after a swipe. One word, because the row has already gone and the undo button is the point of the message — a sentence explaining what happened would push the action off a 320dp screen."
+  },
+  "fundsBreakdownTitle": "Where this comes from",
+  "@fundsBreakdownTitle": {
+    "description": "Header of the sheet behind the available-funds figure. The question the user asked by tapping, not a restatement of the label they tapped."
+  },
+  "fundsNoAccountsTitle": "No accounts yet",
+  "fundsNoAccountsBody": "Add an account and its balance will show here.",
+  "fundsNotCounted": "Not counted",
+  "@fundsNotCounted": {
+    "description": "Shown instead of an amount when no exchange rate is available (anomaly A34). A zero would read as an empty account; this says the balance exists and is excluded."
+  },
+  "fundsExcludedNote": "Greyed accounts are excluded from your available funds.",
+  "@fundsExcludedNote": {
+    "description": "Explains the greyed rows. Shown only when at least one exists, so it never explains something absent."
+  },
+  "remindersZone": "Using your phone’s time zone, {zone}",
+  "@remindersZone": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "remindersZoneUnknown": "Alaya could not work out your phone’s time zone, so the daily summary may arrive at the wrong hour. Check the date and time settings on your phone.",
+  "remindersOsHolding": "Your phone has this set and will deliver it.",
+  "remindersOsMissing": "Alaya has scheduled this, but your phone is not holding it. Allow Alaya to start in the background and turn off battery saver for it, then tap Check now.",
+  "recipeScaledRounding": "Amounts are scaled for this serving count. Anything marked ≈ is rounded to the nearest measuring spoon or cup.",
+  "recipeUsesExpired": "Some of this is past its date",
+  "recipeExpiredTitle": "Use food that is past its date?",
+  "recipeExpiredBody": "{detail}\n\nAlaya will use up the good stock first and only take what it still needs from these. Check them before you cook.",
+  "@recipeExpiredBody": {
+    "placeholders": {
+      "detail": {
+        "type": "String"
+      }
+    }
+  },
+  "recipeExpiredLine": "{name}: {amount} expired {date}",
+  "@recipeExpiredLine": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "recipeExpiredMore": "and {count, plural, =1{1 more ingredient} other{{count} more ingredients}}",
+  "@recipeExpiredMore": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeExpiredConfirm": "Cook anyway",
+  "recipeCookBlockedExpired": "Some of what this needs is past its date.",
+  "splitSectionHeader": "Who owes for this",
+  "splitAdd": "Split with someone",
+  "splitEdit": "Edit split",
+  "splitRemove": "Remove split",
+  "splitUnknownPerson": "Someone",
+  "splitUnallocated": "Not assigned",
+  "splitOverAllocated": "Over by",
+  "splitSheetTitle": "Split this expense",
+  "splitMethodEqual": "Equally",
+  "splitMethodShares": "By shares",
+  "splitMethodPercent": "By percentage",
+  "splitMethodExact": "Exact amounts",
+  "splitPickPeople": "Who is sharing this?",
+  "splitPickPeopleEmpty": "Add people in Settings first, then split a bill with them.",
+  "splitGroupLabel": "Group",
+  "splitGroupNone": "No group",
+  "splitPaidByYou": "You",
+  "splitPaidByOther": "{name} paid",
+  "@splitPaidByOther": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitShareWeight": "Shares",
+  "splitSharePercent": "Percent",
+  "splitShareAmount": "Amount",
+  "splitPerPersonCount": "{count, plural, =1{1 person} other{{count} people}}",
+  "@splitPerPersonCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "splitNeedsAmount": "Enter the amount first, then choose who is sharing it.",
+  "splitApply": "Done",
+  "splitSelfPayeeUnset": "Choose which person is you in Settings before splitting a bill.",
+  "navSplit": "Split",
+  "splitGroupsTitle": "Groups",
+  "splitOwedToYou": "Owed to you",
+  "splitYouOwe": "You owe",
+  "splitAllSettledTitle": "All settled up",
+  "splitAllSettledBody": "Nobody owes anybody anything right now.",
+  "splitNoSelfTitle": "Who are you?",
+  "splitOutstandingDays": "{days, plural, =1{1 day} other{{days} days}}",
+  "@splitOutstandingDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "splitGroupNew": "New group",
+  "splitGroupEditTitle": "Edit group",
+  "splitGroupNameLabel": "Group name",
+  "splitNoGroupsTitle": "No groups yet",
+  "splitNoGroupsBody": "A group saves entering the same people every time you split a bill with them.",
+  "splitHasWeights": "Custom shares",
+  "splitArchived": "Archived",
+  "splitArchiveLabel": "Archive this group",
+  "splitArchiveHelp": "It keeps its history and its balances, and stops appearing when you split a bill.",
+  "splitDefaultShares": "Default shares",
+  "splitDefaultSharesHelp": "Set a percentage for everybody to prefill a split — like rent at 40/30/30. Leave them all blank to split equally.",
+  "splitWeightsPartial": "Set a share for everybody, or none",
+  "splitDeleteGroupTitle": "Delete this group?",
+  "splitDeleteGroupBody": "A group with expenses cannot be deleted — archive it instead and its history stays.",
+  "splitBalancesHeader": "Where you stand",
+  "splitActivityHeader": "Activity",
+  "splitGroupEmptyTitle": "Nothing here yet",
+  "splitGroupEmptyBody": "Split a bill with this group and it will show up here.",
+  "splitOwesYou": "{name} owes you",
+  "@splitOwesYou": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitYouOwePerson": "You owe {name}",
+  "@splitYouOwePerson": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitExpenseBy": "{name} paid",
+  "@splitExpenseBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitSettlementBy": "{name} settled up",
+  "@splitSettlementBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitSettleFrom": "Settle up with {name}",
+  "@splitSettleFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitSettleTo": "Pay {name}",
+  "@splitSettleTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitOutstandingLabel": "Outstanding",
+  "splitSettleAmount": "Amount",
+  "splitSettleOverpay": "More than the balance — the difference will swing the other way.",
+  "splitSettleIntoAccount": "Into which account?",
+  "splitSettleFromAccount": "From which account?",
+  "splitSettleAction": "Record payment",
+  "splitSimplifyTitle": "Settle up",
+  "splitSimplifySaves": "{before} payments become {after}",
+  "@splitSimplifySaves": {
+    "placeholders": {
+      "before": {
+        "type": "int"
+      },
+      "after": {
+        "type": "int"
+      }
+    }
+  },
+  "splitSimplifyNoBetter": "There is no shorter way — these are already the fewest payments.",
+  "splitSimplifyApproximate": "A short way, not provably the shortest",
+  "splitTransferLine": "{from} pays {to}",
+  "@splitTransferLine": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "splitClearsDebt": "clears what is owed to {name}",
+  "@splitClearsDebt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitShareTitle": "Send this summary",
+  "splitShareCopied": "Copied",
+  "splitShareAddUpi": "Add your UPI id in Settings and each line gets a link they can tap to pay you.",
+  "actionCopy": "Copy",
+  "actionShare": "Share",
+  "splitShareHeading": "Where we stand",
+  "splitShareOwesYou": "Owes you",
+  "splitShareYouOwe": "You owe",
+  "reminderKindSettlement": "Debts to settle",
+  "reminderKindSettlementHelp": "A reminder when a shared bill you agreed to settle by a date is coming up.",
+  "calendarSplitSettleBy": "Settle by",
+  "eventTypeSplitSettleBy": "Settle up",
+  "splitSettleByLabel": "Settle by",
+  "splitSettleByHelp": "Optional. Setting a date puts this on your calendar and in the daily summary.",
+  "splitSettleByHint": "No date",
+  "moduleSplit": "{count, plural, =0{all settled} =1{1 person} other{{count} people}}",
+  "@moduleSplit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "splitCardTitle": "Shared expenses",
+  "splitCardNotSpendable": "Not part of your available funds until it arrives.",
+  "splitCardOldest": "Oldest is {days} days",
+  "@splitCardOldest": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsSplit": "Shared expenses",
+  "settingsSplitUnset": "Not set up yet",
+  "settingsSplitSet": "Ready",
+  "splitSettingsWhoAreYou": "Which person is you?",
+  "splitSettingsWhoAreYouHelp": "Every balance is what somebody owes you, or what you owe them. Alaya needs to know which of these people is you.",
+  "splitSettingsNoPeople": "Add people under Payees first, then come back and pick yourself.",
+  "splitSettingsClaimed": "You are {name}",
+  "@splitSettingsClaimed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitSettingsUpi": "Your UPI id",
+  "splitSettingsUpiLabel": "UPI id",
+  "splitSettingsUpiHelp": "Optional. Add it and every summary you share carries a link people can tap to pay you.",
+  "analyticsSectionSplit": "Shared",
+  "analyticsSplitLensesTitle": "What shared bills cost you",
+  "analyticsSplitLensesSubtitle": "What left your account, and what you actually used",
+  "analyticsSplitOutflow": "Left your account",
+  "analyticsSplitOutflowHelp": "Full bills you paid",
+  "analyticsSplitMyShare": "Your share",
+  "analyticsSplitMyShareHelp": "What you actually used",
+  "analyticsSplitOutstanding": "Still out",
+  "analyticsSplitOutstandingHelp": "Paid out, not yours, not back yet",
+  "analyticsSplitEmpty": "No shared expenses in this window.",
+  "analyticsSplitNoSelf": "Choose which person is you in Settings to see your share.",
+  "analyticsSplitPartnersTitle": "Who you split with",
+  "analyticsSplitPartnersSubtitle": "By their share of the bills you paid",
+  "analyticsSplitPartnerCount": "{count, plural, =1{1 expense} other{{count} expenses}}",
+  "@analyticsSplitPartnerCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "analyticsSplitOccasionTitle": "By occasion",
+  "analyticsSplitOccasionSubtitle": "Diwali, a birthday, a trip",
+  "analyticsSplitOccasionEmpty": "Add an occasion when you split a bill and it will appear here.",
+  "analyticsSplitPlaceTitle": "By place",
+  "analyticsSplitPlaceSubtitle": "Where the money went",
+  "analyticsSplitPlaceEmpty": "Add a place when you split a bill and it will appear here.",
+  "splitBillAction": "Split a bill",
+  "splitBillAmount": "How much was it?",
+  "splitBillWhatFor": "What was it for?",
+  "splitBillWhatForHint": "Dinner at Olive",
+  "splitBillHow": "How does it split?",
+  "splitBillYourMoney": "Your money",
+  "splitBillRecordExpense": "Record this as an expense",
+  "splitBillRecordExpenseHelp": "The full bill left your account, so it belongs in your spending. Turn this off if somebody else paid, or if you have already recorded it.",
+  "splitBillSaved": "Split saved",
+  "splitAddPerson": "Add person",
+  "splitAddExtra": "Extra",
+  "splitExtraLabel": "Just for them",
+  "splitRemoveExtra": "Remove extra",
+  "splitShareBreakdown": "{share} share + {extra} just for them",
+  "@splitShareBreakdown": {
+    "placeholders": {
+      "share": {
+        "type": "String"
+      },
+      "extra": {
+        "type": "String"
+      }
+    }
+  },
+  "splitTapToSettle": "Tap anybody to record a payment",
+  "splitSettingsPayMe": "How people can pay you",
+  "splitSettingsPayMeLabel": "Payment details",
+  "splitSettingsPayMeHint": "UPI id, PayPal link, bank details, or anything else",
+  "splitSettingsPayMeHelp": "Optional, and free text — whatever works where you are. It is added to the end of any summary you share, so nobody has to ask.",
+  "splitSharePayMeAt": "Pay me at:",
+  "splitShareAddHandle": "Add your payment details so nobody has to ask.",
+  "splitHowManyPeople": "How many people?",
+  "splitHowManyPeopleHelp": "Names are optional — add them later if you want to keep this",
+  "splitPersonN": "Person {n}",
+  "@splitPersonN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "splitBillResultHint": "Send this to the table — no names needed.",
+  "splitCopyResult": "Copy the result",
+  "splitResultCopied": "Copied",
+  "splitBillKeepIt": "Keep it",
+  "splitBillKeepItHelp": "Everything below is optional. Save it only if you want the debt tracked until it is paid.",
+  "splitSaveToBalances": "Save to balances",
+  "splitNameEveryoneToSave": "{count, plural, =1{Name 1 more person to save this} other{Name {count} more people to save this}}",
+  "@splitNameEveryoneToSave": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "splitPickName": "Who is this?",
+  "splitNewPerson": "New person",
+  "splitAlreadyOnSplit": "Already on this split",
+  "splitPercentOfBill": "{percent}%",
+  "@splitPercentOfBill": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "splitTipPercent": "{percent}% tip",
+  "@splitTipPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "splitRoundUp": "Round up",
+  "splitTipAdded": "Adding",
+  "splitTipTotal": "Adding {tip} · total {total}",
+  "splitBillTheSplit": "The split",
+  "splitSaveAsGroup": "Save these people as a group",
+  "splitSaveAsGroupHelp": "So next time you split with them it is one tap.",
+  "splitSaveAsGroupHint": "Flatmates",
+  "splitSaveAsGroupWeights": "Their shares are saved too, so next time starts the same way.",
+  "splitSaveAsGroupAction": "{count, plural, =1{Save as a group} other{Save these {count} as a group}}",
+  "@splitSaveAsGroupAction": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "splitGroupNameRequired": "Give the group a name",
+  "splitMemberWithWeight": "{name} · {percent}%",
+  "@splitMemberWithWeight": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "splitGroupSaved": "Group saved",
+  "splitQuickAmount": "What was the bill?",
+  "splitQuickPeople": "How many of you?",
+  "splitQuickIPaid": "I paid it all",
+  "splitQuickEachTheirOwn": "Each their own",
+  "splitQuickEach": "Each pays",
+  "splitQuickOwed": "Owed to you",
+  "splitQuickHint": "Type an amount and it splits as you go. Names are optional.",
+  "splitQuickAddNames": "Add names",
+  "splitQuickEachPays": "Each pays {amount}",
+  "@splitQuickEachPays": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "splitQuickOwedToMe": "Owed to me: {amount}",
+  "@splitQuickOwedToMe": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "splitQuickYouAbsorb": "You cover the odd {amount}.",
+  "@splitQuickYouAbsorb": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "splitQuickLeftOver": "{amount} left over — add names to place it.",
+  "@splitQuickLeftOver": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "splitUnnamedWillBeSaved": "{count, plural, =1{1 person is unnamed — they will be saved as \"Person N\" and you can rename them any time} other{{count} people are unnamed — they will be saved as \"Person N\" and you can rename them any time}}",
+  "@splitUnnamedWillBeSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "splitNameThisPerson": "Who is this?",
+  "splitAddPersonTitle": "Add someone",
+  "splitAddPersonNameRequired": "They need a name",
+  "splitAddPersonPhoneHelp": "Optional — shown only when two people share a name, so you can tell them apart.",
+  "splitSetupTitle": "First, who are you?",
+  "splitSetupBody": "Alaya needs one name for you, so it can tell who owes whom. You can change it later in Settings.",
+  "splitSetupNameLabel": "Your name",
+  "splitSetupNameRequired": "Enter a name to continue",
+  "splitSetupAction": "That's me",
+  "splitCreateSplit": "Create a split",
+  "payeeKindSplitPlaceholder": "Unnamed on a split",
+  "onboardingNameTitle": "What should we call you?",
+  "onboardingNameBody": "Alaya uses this to know which share is yours when you split a bill, and to sign anything you share with friends.",
+  "onboardingNameLabel": "Your name",
+  "onboardingNameRequired": "Enter a name, or skip for now",
+  "splitHistoryEmptyTitle": "Nothing split yet",
+  "splitHistoryEmptyBody": "Every bill you divide and every payment you record shows up here, newest first.",
+  "splitHistoryPaidBy": "{name} paid",
+  "@splitHistoryPaidBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitHistorySettledBy": "{name} settled up",
+  "@splitHistorySettledBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitTabBalances": "Balances",
+  "splitTabHistory": "History",
+  "splitTabGroups": "Groups",
+  "splitTransferNotYours": "Between two other people — nothing for you to record.",
+  "onboardingNameOptional": "Optional — leave it blank and continue if you would rather not.",
+  "splitTipTitle": "Tip or service charge",
+  "splitTipNone": "None",
+  "splitTipPercentChip": "{percent}% tip",
+  "@splitTipPercentChip": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "splitTipCustom": "Custom %",
+  "splitTipAdds": "{percent}% of the bill",
+  "@splitTipAdds": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "@splitTipTotal": {
+    "placeholders": {
+      "tip": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "splitMethodTitle": "How it splits",
+  "splitMethodEqualHelp": "The same amount each. Anything one person owes on top goes in their row.",
+  "splitMethodSharesHelp": "Weights, not amounts — 2:1:1 means one person covers half.",
+  "splitMethodPercentHelp": "A percentage each. They needn't add to 100; anything left over is shown.",
+  "splitMethodExactHelp": "Type what each person owes. Any gap against the total is shown, never absorbed.",
+  "splitMethodPerLineHelp": "Each item on the receipt divided among whoever ordered it.",
+  "splitMethodPerLine": "Item by item",
+  "splitTipTotalLabel": "total",
+  "splitNamePlaceholderBody": "{placeholder} is a stand-in Alaya created so the split could be saved. Who was it?",
+  "@splitNamePlaceholderBody": {
+    "placeholders": {
+      "placeholder": {
+        "type": "String"
+      }
+    }
+  },
+  "splitNameSomebodyKnown": "Somebody you already have",
+  "splitNameOr": "or",
+  "splitNameSomebodyNew": "Somebody new — their name",
+  "splitNameRequired": "Enter a name, or pick somebody above",
+  "splitWhoPaid": "Who paid?",
+  "splitPaidBySomebodyElseHelp": "No money left your account, so nothing goes in your ledger until you settle up.",
+  "splitRecordTheyPaid": "They paid me back",
+  "splitRecordYouPaid": "I paid them back",
+  "splitDetailTotal": "Total",
+  "splitDetailPaidBy": "Paid by",
+  "splitDetailMethod": "Split",
+  "splitDetailPlace": "Place",
+  "splitDetailOccasion": "Occasion",
+  "splitSharePercentOf": "{percent}% of the bill",
+  "@splitSharePercentOf": {
+    "placeholders": {
+      "percent": {
+        "type": "double",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "splitShareWeightOf": "{weight} share(s)",
+  "@splitShareWeightOf": {
+    "placeholders": {
+      "weight": {
+        "type": "int"
+      }
+    }
+  },
+  "splitShareIsExtra": "Just for them",
+  "splitDeleteConfirmTitle": "Delete this split?",
+  "splitDeleteConfirmBody": "The balances it created go with it. Any expense already recorded in your ledger stays — the money did move.",
+  "splitDeleted": "Split deleted",
+  "splitEditTitle": "Edit split",
+  "splitQuickSaveHelp": "{count, plural, =1{Records that 1 person owes you.} other{Records that {count} people owe you.}} Your account balance isn't touched — use More options to record the expense too.",
+  "@splitQuickSaveHelp": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "splitQuickMoreOptions": "More options",
+  "supportActionLabel": "Support Us",
+  "splitNoteWays": "Split {count} ways",
+  "@splitNoteWays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "splitNoteWaysWith": "Split {count} ways with {names}",
+  "@splitNoteWaysWith": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "splitNoteTitled": "{title} — split {count} ways",
+  "@splitNoteTitled": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "splitNoteTitledWith": "{title} — split {count} ways with {names}",
+  "@splitNoteTitledWith": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      },
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "splitSettleNoteFrom": "{name} paid you back",
+  "@splitSettleNoteFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitSettleNoteTo": "You paid {name} back",
+  "@splitSettleNoteTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "splitSettleNoteFromIn": "{name} paid you back — {group}",
+  "@splitSettleNoteFromIn": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "splitSettleNoteToIn": "You paid {name} back — {group}",
+  "@splitSettleNoteToIn": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "lineItemRequired": "Choose an item, or add a new one",
+  "lineQuantityRequired": "Enter how much you bought, and in what unit",
+  "inventoryKindUnfiled": "No kind",
+  "inventoryKindLabel": "Kind",
+  "inventoryKindNone": "Not set",
+  "inventoryKindNew": "New kind",
+  "inventoryKindNewTitle": "Add a kind",
+  "inventoryKindNameLabel": "Name",
+  "inventoryKindNameRequired": "Enter a name",
+  "inventoryKindNameTaken": "A tag with that name already exists",
+  "tagsDeleteItemsMove": "{count, plural, =1{1 item is filed under this kind. It will move to Other.} other{{count} items are filed under this kind. They will move to Other.}}",
+  "@tagsDeleteItemsMove": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tagsDeletedItemsMoved": "{count, plural, =1{Deleted. 1 item moved to Other.} other{Deleted. {count} items moved to Other.}}",
+  "@tagsDeletedItemsMoved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
       }
     }
   }

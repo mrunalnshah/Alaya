@@ -4,6 +4,7 @@ library;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:alaya/app/providers/repository_providers.dart';
+import 'package:alaya/features/settings/providers/money_settings_providers.dart';
 
 /// What the user has typed into the settings search field.
 final settingsQueryProvider = NotifierProvider<SettingsQueryNotifier, String>(
@@ -39,10 +40,22 @@ final settingsPaymentMethodCountProvider = StreamProvider<int>(
       .map((rows) => rows.length),
 );
 
-/// How many payees exist.
+/// How many payees the branch will show.
+///
+/// **Counts what [isContactPayee] admits, which is what the list shows.** This used to count every row the
+/// repository had, while the branch it labels filtered out `PayeeKind.splitPlaceholder`. Both were correct
+/// for what they read and they disagreed by the number of unnamed split participants: the row said *3
+/// payees* above a screen listing one.
+///
+/// **Still a `StreamProvider<int>`, deliberately.** The first fix made it a `Provider<AsyncValue<int>>`
+/// reading `payeesSettingsProvider`, which shares the source but changes the type — and every test harness
+/// that overrides this with a stream stopped compiling. A shared *predicate* fixes the disagreement without
+/// touching the shape, which is what an override is written against.
 final settingsPayeeCountProvider = StreamProvider<int>(
-  (ref) =>
-      ref.watch(payeeRepositoryProvider).watchAll().map((rows) => rows.length),
+  (ref) => ref
+      .watch(payeeRepositoryProvider)
+      .watchAll()
+      .map((rows) => rows.where(isContactPayee).length),
 );
 
 /// How many tags exist.

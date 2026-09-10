@@ -31,6 +31,7 @@ class EntryRow extends StatelessWidget {
     required this.onTap,
     this.onSnooze,
     this.onDismiss,
+    this.onDelete,
     super.key,
   });
 
@@ -55,8 +56,59 @@ class EntryRow extends StatelessWidget {
   /// Dismisses a suggestion until stock recovers and drops again.
   final VoidCallback? onDismiss;
 
+  /// Removes the entry, with the caller responsible for offering an undo.
+  ///
+  /// Null makes the row undismissable, which is how the convert-to-purchase screen reuses it — deleting
+  /// a line mid-checkout would change what you are about to pay for.
+  final VoidCallback? onDelete;
+
   @override
   Widget build(BuildContext context) {
+    final delete = onDelete;
+    if (delete == null) return _content(context);
+
+    final strings = AlayaStrings.of(context);
+    final semantic = context.semantic;
+    return Dismissible(
+      // Keyed on the entry, not the position. A list that reorders while a swipe is in flight would
+      // otherwise delete whichever row slid into that index.
+      key: ValueKey<String>('shopping-entry-${entry.id}'),
+      // **`endToStart`, not "left".** It means the trailing edge, so the gesture stays natural when the
+      // locale flips — and Alaya's 1,100 ARB keys exist because RTL is on the table.
+      direction: DismissDirection.endToStart,
+      // No confirmation dialog. The caller offers an undo instead, which costs one tap to reverse rather
+      // than one tap to authorise — and the thing being removed is a line on a shopping list, not money.
+      onDismissed: (_) => delete(),
+      background: Container(
+        alignment: AlignmentDirectional.centerEnd,
+        padding: const EdgeInsets.symmetric(
+          horizontal: AlayaSpacing.screenEdge,
+        ),
+        // `surfaceSunken` behind `danger` content, rather than a saturated red panel. The swipe should
+        // read as an action being revealed, not as an alarm — and `dangerSurface` was a token I invented;
+        // the palette has `danger` and the four surfaces, nothing between them.
+        color: semantic.surfaceSunken,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.delete_outline,
+              size: AlayaIconSize.md,
+              color: semantic.danger,
+            ),
+            const SizedBox(width: AlayaSpacing.xs),
+            Text(
+              strings.actionDelete,
+              style: AlayaTypography.button.copyWith(color: semantic.danger),
+            ),
+          ],
+        ),
+      ),
+      child: _content(context),
+    );
+  }
+
+  Widget _content(BuildContext context) {
     final strings = AlayaStrings.of(context);
     final theme = Theme.of(context);
     final semantic = context.semantic;

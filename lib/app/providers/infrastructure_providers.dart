@@ -27,6 +27,7 @@ import 'package:alaya/data/daos/item_dao.dart';
 import 'package:alaya/data/daos/notification_schedule_dao.dart';
 import 'package:alaya/data/daos/payee_dao.dart';
 import 'package:alaya/data/daos/payment_method_dao.dart';
+import 'package:alaya/data/daos/recipe_dao.dart';
 import 'package:alaya/data/daos/recurring_occurrence_dao.dart';
 import 'package:alaya/data/daos/recurring_template_dao.dart';
 import 'package:alaya/data/daos/service_record_dao.dart';
@@ -38,6 +39,8 @@ import 'package:alaya/data/daos/tag_dao.dart';
 import 'package:alaya/data/daos/transaction_dao.dart';
 import 'package:alaya/data/daos/transaction_line_dao.dart';
 import 'package:alaya/data/daos/unit_dao.dart';
+import 'package:alaya/data/daos/split_dao.dart';
+import 'package:alaya/data/daos/split_view_dao.dart';
 import 'package:alaya/data/db/alaya_database.dart';
 import 'package:alaya/data/security/secure_key_value_store.dart';
 
@@ -154,6 +157,11 @@ final itemDaoProvider = Provider<ItemDao>(
   (ref) => ItemDao(ref.watch(databaseProvider)),
 );
 
+/// Recipes, their ingredients, steps and cook log.
+final recipeDaoProvider = Provider<RecipeDao>(
+  (ref) => RecipeDao(ref.watch(databaseProvider)),
+);
+
 /// The inventory-batches DAO.
 final batchDaoProvider = Provider<BatchDao>(
   (ref) => BatchDao(ref.watch(databaseProvider)),
@@ -212,4 +220,19 @@ final analyticsCacheDaoProvider = Provider<AnalyticsCacheDao>(
 /// The calendar DAO, over `v_calendar_events`.
 final calendarDaoProvider = Provider<CalendarDao>(
   (ref) => CalendarDao(ref.watch(databaseProvider)),
+);
+
+/// Split groups, members, expenses, shares and settlements.
+final splitDaoProvider = Provider<SplitDao>(
+  (ref) => SplitDao(ref.watch(databaseProvider)),
+);
+
+/// The split module's derived reads: balances, expense summaries and the activity feed.
+///
+/// A second DAO rather than more methods on [splitDaoProvider], because Law L7 says repositories read
+/// views and one class exposing both the tables and the views makes reaching for the wrong one a
+/// matter of autocomplete. `CalendarDao` stands apart from the seven tables its view unions for the
+/// same reason.
+final splitViewDaoProvider = Provider<SplitViewDao>(
+  (ref) => SplitViewDao(ref.watch(databaseProvider)),
 );

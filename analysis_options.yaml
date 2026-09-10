@@ -23,6 +23,13 @@ analyzer:
     - "**/*.g.dart"
     - "**/*.drift.dart"
     - "lib/data/db/migrations/schema/**"
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
   errors:
     # Doc comments are a project convention (one line per public API, more only when the
     # logic is genuinely non-obvious) rather than an analyzer-enforced rule.

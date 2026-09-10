@@ -6,6 +6,7 @@ import 'package:alaya/app/theme/semantic_colors.dart';
 import 'package:alaya/app/theme/tokens/alaya_durations.dart';
 import 'package:alaya/app/theme/tokens/alaya_spacing.dart';
 import 'package:alaya/app/theme/tokens/alaya_typography.dart';
+import 'package:alaya/features/dashboard/presentation/widgets/funds_breakdown_sheet.dart';
 import 'package:alaya/features/dashboard/providers/funds_providers.dart';
 import 'package:alaya/shared/widgets/alaya_card.dart';
 import 'package:alaya/shared/widgets/amount_text.dart';
@@ -38,6 +39,10 @@ class FundsHeader extends ConsumerWidget {
 
     return AlayaCard(
       padding: const EdgeInsets.all(AlayaSpacing.md),
+      // **Tappable only once there is a figure to explain.** Offering the breakdown while the rate table
+      // is still loading would open a sheet showing nothing, and offering it on an error would explain a
+      // number that is not there.
+      onTap: async.hasValue ? () => FundsBreakdownSheet.show(context) : null,
       child: async.when(
         // Its own skeleton rather than the screen's: a slow rate table must not blank the range rows or
         // the module grid beneath it (ARCH_5 §3 archetype F).

@@ -105,7 +105,6 @@ void main() {
             normalizedName: 'potatoes',
             unitCategory: UnitCategory.weight,
             defaultDisplayUnitCode: 'kg',
-            itemKind: ItemKind.food,
             isFavorite: false,
             createdAt: stamp,
             updatedAt: stamp,

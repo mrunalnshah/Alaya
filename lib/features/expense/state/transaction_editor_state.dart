@@ -3,6 +3,7 @@ import 'package:alaya/core/money/money.dart';
 import 'package:alaya/core/time/date_key.dart';
 import 'package:alaya/domain/entities/transaction.dart';
 import 'package:alaya/domain/entities/transaction_line.dart';
+import 'package:alaya/features/expense/state/split_draft.dart';
 
 /// Everything the transaction editor is holding (ARCH_5 §3 archetype B).
 ///
@@ -43,6 +44,8 @@ class TransactionEditorState {
     this.accountMissing = false,
     this.createdAssetId,
     this.sourceEntryIds = const <String>[],
+    this.split,
+    this.splitError,
   });
 
   /// The transaction being edited, or null when this is a new one.
@@ -158,6 +161,24 @@ class TransactionEditorState {
   /// Shopping entries this transaction fulfils, carried in from a draft and marked purchased on save.
   final List<String> sourceEntryIds;
 
+  /// The split being drafted, or null when this expense is not shared.
+  ///
+  /// **Held here rather than in its own provider**, because it is part of *this* draft: abandoning the
+  /// editor abandons the split with it, and `AlayaFormScaffold`'s unsaved-changes guard (Law U10) then
+  /// covers both without a second thing to remember.
+  ///
+  /// A draft rather than a `SplitExpense`, because that entity needs a transaction id and there is no
+  /// transaction until this editor saves. The service turns instructions into shares afterwards — the
+  /// same ordering the purchase fan-out already uses.
+  final SplitDraft? split;
+
+  /// Why the split could not be saved, when the transaction itself did.
+  ///
+  /// The exact shape of [fanOutError], and for the same reason: the transaction is saved either way,
+  /// and what failed is the artefact a step asked for. Saying nothing is how a shared bill silently
+  /// fails to become a debt (Law U9).
+  final String? splitError;
+
   /// Whether this is editing an existing record rather than creating one.
   bool get isEditing => id != null;
 
@@ -255,6 +276,9 @@ class TransactionEditorState {
     bool clearOccurrence = false,
     bool clearErrors = false,
     List<String>? sourceEntryIds,
+    SplitDraft? split,
+    bool clearSplit = false,
+    String? splitError,
   }) => TransactionEditorState(
     id: id ?? this.id,
     kind: kind ?? this.kind,
@@ -295,6 +319,10 @@ class TransactionEditorState {
     accountMissing: accountMissing ?? this.accountMissing,
     createdAssetId: createdAssetId ?? this.createdAssetId,
     sourceEntryIds: sourceEntryIds ?? this.sourceEntryIds,
+    split: clearSplit ? null : (split ?? this.split),
+    // Cleared by `clearErrors` alongside the other two, so `save`'s `finally` does not leave a stale
+    // reason on screen — the defect the `fanOutError` comment above records having been caught twice.
+    splitError: clearErrors ? null : (splitError ?? this.splitError),
   );
 
   /// Builds the entity this state describes.

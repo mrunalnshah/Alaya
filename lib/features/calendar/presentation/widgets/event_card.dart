@@ -20,6 +20,7 @@ extension CalendarEventTypeDisplay on CalendarEventType {
     CalendarEventType.warrantyEnd => strings.eventTypeWarrantyEnd,
     CalendarEventType.serviceDue => strings.eventTypeServiceDue,
     CalendarEventType.shoppingTarget => strings.eventTypeShoppingTarget,
+    CalendarEventType.splitSettleBy => strings.eventTypeSplitSettleBy,
   };
 
   /// The glyph for this event type.
@@ -30,6 +31,9 @@ extension CalendarEventTypeDisplay on CalendarEventType {
     CalendarEventType.warrantyEnd => Icons.verified_outlined,
     CalendarEventType.serviceDue => Icons.handyman_outlined,
     CalendarEventType.shoppingTarget => Icons.shopping_basket_outlined,
+    // A handshake rather than a wallet: the entry is a debt to close with somebody, not a payment
+    // leaving an account. `receipt_long_outlined` already means "a transaction" in this same switch.
+    CalendarEventType.splitSettleBy => Icons.handshake_outlined,
   };
 }
 

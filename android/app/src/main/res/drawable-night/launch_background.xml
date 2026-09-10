@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The dark-mode window background. Without this file a dark-mode user gets a
+    white flash before the first frame, which is the most visible rough edge a
+    Flutter app has on launch.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="#FF0E1116"/>
+    </item>
+
+    <!-- <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/ic_launcher_foreground"/>
+    </item> -->
+</layer-list>

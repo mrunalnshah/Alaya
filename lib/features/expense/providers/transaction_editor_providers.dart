@@ -22,6 +22,7 @@ import 'package:alaya/domain/entities/transaction_line.dart';
 import 'package:alaya/domain/services/purchase_fan_out_service.dart';
 import 'package:alaya/features/expense/providers/transaction_draft_provider.dart';
 import 'package:alaya/features/expense/state/transaction_draft.dart';
+import 'package:alaya/features/expense/state/split_draft.dart';
 import 'package:alaya/features/expense/state/transaction_editor_state.dart';
 import 'package:alaya/features/recurring/providers/bill_account_providers.dart';
 import 'package:alaya/features/recurring/providers/template_draft_provider.dart';
@@ -177,6 +178,17 @@ class TransactionEditorNotifier
     (s) => id == null
         ? s.copyWith(clearPaymentMethod: true)
         : s.copyWith(paymentMethodId: id),
+  );
+
+  /// Replaces the split draft, or removes it when [draft] is null.
+  ///
+  /// Clearing `splitError` on every change is deliberate: a message from a previous save describes a
+  /// draft the user has just replaced, and leaving it up is the defect `copyWith`'s own comment
+  /// records — a stale reason outliving the thing it was about.
+  void setSplit(SplitDraft? draft) => _edit(
+    (s) => draft == null
+        ? s.copyWith(clearSplit: true, splitError: null)
+        : s.copyWith(split: draft, splitError: null),
   );
 
   /// Sets the counterparty.
@@ -469,6 +481,12 @@ class TransactionEditorNotifier
             transactionId: id,
           );
     }
+    // **The split, after everything else.** It needs the transaction id, which is why it cannot run
+    // earlier; and it runs last so a split that fails never stops a batch or an asset from being
+    // created. The transaction is committed either way — what failed is the debt a step asked for,
+    // and `splitError` says so exactly as `fanOutError` does for stock (Law U9).
+    final splitError = await _applySplit(current, transactionId: id);
+
     // `clearErrors` first so a previous attempt's message cannot outlive it, then the new one.
     _edit((s) => s.copyWith(dirty: false, clearErrors: true));
     _edit(
@@ -476,9 +494,53 @@ class TransactionEditorNotifier
         fanOutError: fanned.error,
         wantsTemplate: fanned.wantsTemplate,
         createdAssetId: fanned.createdAsset,
+        splitError: splitError,
       ),
     );
     return id;
+  }
+
+  /// Writes the drafted split against a transaction that now exists, and returns why it could not.
+  ///
+  /// **Idempotent, because `_write` is.** That method's own doc records the rule: five writes, no
+  /// outer transaction, and ARCH_4 §5.1 item 17 forbids one repository owning another's — so
+  /// idempotency is the sanctioned answer, and every step has to supply its own half of it.
+  ///
+  /// Here that means looking up the split already attached to this transaction and reusing its id.
+  /// Without it, a save that got this far and then threw would mint a second `SplitExpense` on the
+  /// retry and the debt would double — the same defect the line-id comment above records, in a
+  /// different table. A transaction carries at most one split, so `expenseForTransaction` is an exact
+  /// answer rather than a heuristic.
+  Future<String?> _applySplit(
+    TransactionEditorState current, {
+    required String transactionId,
+  }) async {
+    final draft = current.split;
+    if (draft == null || !draft.isActive) return null;
+    final amount = current.amount;
+    if (amount == null) return null;
+
+    final existing = await ref
+        .read(splitLedgerRepositoryProvider)
+        .expenseForTransaction(transactionId);
+
+    final result = await ref
+        .read(splitExpenseServiceProvider)
+        .record(
+          id: existing?.id,
+          total: amount,
+          paidByPayeeId: draft.paidByPayeeId,
+          inputs: draft.inputs,
+          method: draft.method,
+          transactionId: transactionId,
+          groupId: draft.groupId,
+          // The note doubles as the split's title. A shared bill wants a name — "Dinner at Olive" —
+          // and asking for one twice on the same screen is how a field gets left blank.
+          title: current.note,
+          on: current.dateKey,
+          settleBy: draft.settleByDateKey,
+        );
+    return result.failureOrNull?.message;
   }
 
   /// Creates the batches, assets and template names the lines call for, and writes their ids back.

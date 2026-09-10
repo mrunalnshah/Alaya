@@ -9,9 +9,10 @@ import 'package:alaya/app/theme/semantic_colors.dart';
 import 'package:alaya/app/theme/tokens/alaya_icon_size.dart';
 import 'package:alaya/app/theme/tokens/alaya_spacing.dart';
 import 'package:alaya/app/theme/tokens/alaya_typography.dart';
-import 'package:alaya/core/enums/inventory_enums.dart';
 import 'package:alaya/core/time/clock.dart';
+import 'package:alaya/domain/entities/tag.dart';
 import 'package:alaya/features/inventory/presentation/widgets/item_row.dart';
+import 'package:alaya/features/inventory/presentation/widgets/kind_display.dart';
 import 'package:alaya/features/inventory/providers/inventory_list_providers.dart';
 import 'package:alaya/features/inventory/providers/item_detail_providers.dart';
 import 'package:alaya/features/inventory/state/inventory_filter.dart';
@@ -138,7 +139,23 @@ class _ActiveFilters extends ConsumerWidget {
     final strings = AlayaStrings.of(context);
     final filter = ref.watch(inventoryFilterProvider);
     final notifier = ref.read(inventoryFilterProvider.notifier);
+    // **Read after the early return, not before it.** This bar is invisible until something narrows the
+    // catalogue, and watching a provider above the `return` subscribes every screen that shows no filters at
+    // all — including every widget test that overrides `inventoryGroupsProvider` and nothing else, where the
+    // tag stream would reach a repository the harness never supplied.
     if (!filter.isNarrowed) return const SizedBox.shrink();
+
+    final kinds =
+        ref.watch(inventoryKindsProvider).valueOrNull ?? const <Tag>[];
+
+    // A loop rather than `firstOrNull`, which lives in `package:collection` and is not imported anywhere in
+    // this feature. `settle_up_sheet`'s `accountFor` is the same shape for the same reason.
+    Tag? kindById(String id) {
+      for (final kind in kinds) {
+        if (kind.id == id) return kind;
+      }
+      return null;
+    }
 
     return FilterChipBar(
       clearAllLabel: strings.filterReset,
@@ -159,10 +176,16 @@ class _ActiveFilters extends ConsumerWidget {
             label: strings.groupByFavourites,
             onRemove: () => notifier.setGroupBy(InventoryGroupBy.kind),
           ),
-        for (final kind in filter.kinds)
+        // **Resolved through the kinds list, not from the id.** `filter.kinds` holds tag ids and a chip has to
+        // show a name — so a kind deleted while its chip was on screen renders as the unfiled label rather
+        // than as a raw uuid.
+        for (final id in filter.kinds)
           ActiveFilter(
-            label: ItemKindLabel.of(strings, kind),
-            onRemove: () => notifier.toggleKind(kind),
+            label: KindDisplay.labelFor(
+              strings,
+              kindById(id),
+            ),
+            onRemove: () => notifier.toggleKind(id),
           ),
       ],
     );
@@ -212,11 +235,13 @@ class _Sections extends ConsumerWidget {
             slivers: [
               SliverToBoxAdapter(
                 child: _GroupHeader(
+                  // One helper for both, so a group header and the row beneath it cannot disagree about what
+                  // a kind is called. That is why `KindDisplay` is its own file rather than a static on this
+                  // screen — `ItemKindLabel` lived here, so the detail screen had to import a whole *screen*
+                  // to name a kind.
                   label: section.isFavourites
                       ? strings.inventoryGroupFavourites
-                      : section.kind == null
-                      ? strings.inventoryGroupUntagged
-                      : ItemKindLabel.of(strings, section.kind!),
+                      : KindDisplay.labelFor(strings, section.kind),
                 ),
               ),
               SliverList.builder(
@@ -227,6 +252,9 @@ class _Sections extends ConsumerWidget {
                     item: item,
                     stock: stocks[item.id],
                     today: today,
+                    // The section already resolved it. Handing it down beats two hundred rows each watching
+                    // the same tag stream.
+                    kind: section.kind,
                     onTap: () => context.push(Routes.itemDetail(item.id)),
                     onToggleFavourite: () async {
                       final ok = await ref
@@ -271,17 +299,4 @@ class _GroupHeader extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Resolves an [ItemKind] to its ARB label, so no screen in this feature writes the words.
-abstract final class ItemKindLabel {
-  /// The label for [kind].
-  static String of(AlayaStrings strings, ItemKind kind) => switch (kind) {
-    ItemKind.generic => strings.itemKindGeneric,
-    ItemKind.food => strings.itemKindFood,
-    ItemKind.medicine => strings.itemKindMedicine,
-    ItemKind.beauty => strings.itemKindBeauty,
-    ItemKind.household => strings.itemKindHousehold,
-    ItemKind.other => strings.itemKindOther,
-  };
 }

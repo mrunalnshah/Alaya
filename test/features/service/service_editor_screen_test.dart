@@ -169,7 +169,7 @@ void main() {
     expect(find.byType(DropdownButtonFormField<String>), findsOneWidget);
     expect(find.text('How you paid (optional)'), findsNothing);
     expect(
-      find.textContaining('Writes a withdrawal for the cost as well'),
+      find.textContaining('Records an expense for the cost too'),
       findsOneWidget,
     );
   });

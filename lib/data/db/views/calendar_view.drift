@@ -3,13 +3,19 @@ import '../tables/money_tables.dart';
 import '../tables/recurring_tables.dart';
 import '../tables/service_tables.dart';
 import '../tables/shopping_tables.dart';
+import '../tables/split_tables.dart';
 
 -- The heterogeneous calendar feed (ARCH_3 §6). A view, not a physical events table: six
 -- subsystems writing into one events table would be a permanent synchronisation-bug factory, and
 -- a UNION ALL has no synchronisation code to get wrong (anomaly A37).
 --
--- Six event types across seven arms — `serviceDue` has two sources, `assets.next_service_due_date_key`
+-- Seven event types across eight arms — the comment said "six across seven" before this change and
+-- was already off by one, which is what counting arms rather than trusting the header found — `serviceDue` has two sources, `assets.next_service_due_date_key`
 -- and `service_records.next_due_date_key`, exactly as ARCH_3 §6 specifies.
+--
+-- The `splitSettleBy` arm is the split module's. It carries `settle_by_date_key` rather than the
+-- expense's own date: the expense already appears in the feed through its `transactions` row when you
+-- paid, and repeating it would double-count. What the calendar adds is the *deadline*.
 --
 -- `severity` here is the STATIC baseline for each type. The date-relative escalation ARCH_3 §6
 -- describes (warning within 7 days, danger once past) is applied in Dart by the calendar
@@ -67,4 +73,26 @@ CREATE VIEW v_calendar_events AS CalendarEventRow AS
   SELECT sl.target_date_key, 'shoppingTarget', 'shoppingList', sl.id,
          sl.name, NULL, NULL, 'info'
     FROM shopping_lists sl
-   WHERE sl.deleted_at IS NULL AND sl.target_date_key IS NOT NULL AND sl.is_archived = 0;
+   WHERE sl.deleted_at IS NULL AND sl.target_date_key IS NOT NULL AND sl.is_archived = 0
+  UNION ALL
+  -- The COALESCE terminates in `e.split_method`, and that last argument is for drift rather than for
+  -- a reader. `title`, `occasion`, `place` and a LEFT JOIN's `g.name` are all nullable, so a chain of
+  -- them stays nullable — and because every arm shares one column, that widened `title` to `String?`
+  -- across the whole view and broke `CalendarRepositoryImpl`, where `CalendarEvent.title` is
+  -- non-null.
+  --
+  -- The transaction arm solved the same problem the same way: `COALESCE(p.name, t.note, t.subtype)`
+  -- ends in `subtype`, which is NOT NULL. An enum name is a poor title and a stable identifier, which
+  -- is the trade — a literal like 'Split' would put translatable English in a row and Law U5 forbids
+  -- it, exactly as ARCH_2 notes for `notification_schedule`.
+  --
+  -- `p.name` is the fallback that actually reads well: "Ravi" beats "equal" on a calendar. It sits
+  -- second-to-last because a LEFT JOIN makes it nullable to the type system even though the
+  -- `paid_by_payee_id` foreign key means it cannot be null in practice.
+  SELECT e.settle_by_date_key, 'splitSettleBy', 'splitExpense', e.id,
+         COALESCE(e.title, e.occasion, e.place, g.name, p.name, e.split_method),
+         e.total_amount_minor, e.currency_code, 'warning'
+    FROM split_expenses e
+    LEFT JOIN split_groups g ON g.id = e.group_id
+    LEFT JOIN payees p ON p.id = e.paid_by_payee_id
+   WHERE e.deleted_at IS NULL AND e.settle_by_date_key IS NOT NULL;

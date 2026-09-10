@@ -8,6 +8,7 @@ import 'package:alaya/core/enums/safe_enum_converter.dart';
 import 'package:alaya/core/enums/service_enums.dart';
 import 'package:alaya/core/enums/shopping_enums.dart';
 import 'package:alaya/core/quantity/unit_category.dart';
+import 'package:alaya/core/enums/split_enums.dart';
 
 /// Bridges Phase 1A's [SafeEnumConverter] into drift's [TypeConverter], so every enum column
 /// in the schema stores `Enum.name` as `TEXT` and degrades an unrecognised value to a declared
@@ -22,7 +23,8 @@ import 'package:alaya/core/quantity/unit_category.dart';
 /// that **understates** rather than overstates (money and stock), and never pick a member whose
 /// meaning is "already handled" (`paid`, `disposed`, `dismissed`), because silently marking an
 /// obligation settled is the one failure a user cannot detect.
-abstract class SafeEnumTypeConverter<T extends Enum> extends TypeConverter<T, String> {
+abstract class SafeEnumTypeConverter<T extends Enum>
+    extends TypeConverter<T, String> {
   /// Creates the converter.
   const SafeEnumTypeConverter();
 
@@ -40,24 +42,30 @@ abstract class SafeEnumTypeConverter<T extends Enum> extends TypeConverter<T, St
 
 /// Stores [TransactionKind]. Falls back to [TransactionKind.withdrawal]: it is the only choice
 /// that understates available funds, and an unreadable `kind` must never inflate a balance.
-final class TransactionKindConverter extends SafeEnumTypeConverter<TransactionKind> {
+final class TransactionKindConverter
+    extends SafeEnumTypeConverter<TransactionKind> {
   /// Creates the converter.
   const TransactionKindConverter();
 
   @override
-  SafeEnumConverter<TransactionKind> get delegate =>
-      const SafeEnumConverter(TransactionKind.values, TransactionKind.withdrawal);
+  SafeEnumConverter<TransactionKind> get delegate => const SafeEnumConverter(
+    TransactionKind.values,
+    TransactionKind.withdrawal,
+  );
 }
 
 /// Stores [TransactionSubtype]. Falls back to [TransactionSubtype.otherOut], the catch-all
 /// outflow bucket.
-final class TransactionSubtypeConverter extends SafeEnumTypeConverter<TransactionSubtype> {
+final class TransactionSubtypeConverter
+    extends SafeEnumTypeConverter<TransactionSubtype> {
   /// Creates the converter.
   const TransactionSubtypeConverter();
 
   @override
-  SafeEnumConverter<TransactionSubtype> get delegate =>
-      const SafeEnumConverter(TransactionSubtype.values, TransactionSubtype.otherOut);
+  SafeEnumConverter<TransactionSubtype> get delegate => const SafeEnumConverter(
+    TransactionSubtype.values,
+    TransactionSubtype.otherOut,
+  );
 }
 
 /// Stores [AccountKind]. Falls back to [AccountKind.other].
@@ -71,13 +79,16 @@ final class AccountKindConverter extends SafeEnumTypeConverter<AccountKind> {
 }
 
 /// Stores [PaymentMethodKind]. Falls back to [PaymentMethodKind.other].
-final class PaymentMethodKindConverter extends SafeEnumTypeConverter<PaymentMethodKind> {
+final class PaymentMethodKindConverter
+    extends SafeEnumTypeConverter<PaymentMethodKind> {
   /// Creates the converter.
   const PaymentMethodKindConverter();
 
   @override
-  SafeEnumConverter<PaymentMethodKind> get delegate =>
-      const SafeEnumConverter(PaymentMethodKind.values, PaymentMethodKind.other);
+  SafeEnumConverter<PaymentMethodKind> get delegate => const SafeEnumConverter(
+    PaymentMethodKind.values,
+    PaymentMethodKind.other,
+  );
 }
 
 /// Stores [PayeeKind]. Falls back to [PayeeKind.other].
@@ -99,10 +110,48 @@ final class TransactionLineDestinationConverter
   const TransactionLineDestinationConverter();
 
   @override
-  SafeEnumConverter<TransactionLineDestination> get delegate => const SafeEnumConverter(
-    TransactionLineDestination.values,
-    TransactionLineDestination.none,
-  );
+  SafeEnumConverter<TransactionLineDestination> get delegate =>
+      const SafeEnumConverter(
+        TransactionLineDestination.values,
+        TransactionLineDestination.none,
+      );
+}
+
+// ── Split ────────────────────────────────────────────────────────────────────────────────
+
+/// Stores [SplitMethod]. Falls back to [SplitMethod.equal].
+///
+/// The fallback follows the file's own two principles. `equal` is the member that **claims least**:
+/// it needs no `inputValue`, so a row read back through it is interpretable even if every share's
+/// own input was written by a newer build. And it is not a member whose meaning is "already
+/// handled" — there is no such member here, but `exactAmounts` would have been the wrong choice for
+/// the same reason, because it implies the amounts on the rows are authoritative when the header
+/// could not be read.
+final class SplitMethodConverter extends SafeEnumTypeConverter<SplitMethod> {
+  /// Creates the converter.
+  const SplitMethodConverter();
+
+  @override
+  SafeEnumConverter<SplitMethod> get delegate =>
+      const SafeEnumConverter(SplitMethod.values, SplitMethod.equal);
+}
+
+/// Stores [ShareInputKind]. Falls back to [ShareInputKind.exact].
+///
+/// **Deliberately not `equal`, and this is the opposite choice to the one above.** A share row
+/// always carries a resolved `share_amount_minor`; `input_kind` only says how that figure was
+/// arrived at. Falling back to `equal` would tell the editor "this was an equal split", and the
+/// editor would then recompute equal shares and overwrite an amount the user had typed by hand.
+/// `exact` says "the stored amount is the answer", which is true of every row regardless of how it
+/// was made — the reading that cannot destroy data.
+final class ShareInputKindConverter
+    extends SafeEnumTypeConverter<ShareInputKind> {
+  /// Creates the converter.
+  const ShareInputKindConverter();
+
+  @override
+  SafeEnumConverter<ShareInputKind> get delegate =>
+      const SafeEnumConverter(ShareInputKind.values, ShareInputKind.exact);
 }
 
 // ── Quantity ─────────────────────────────────────────────────────────────────────────────
@@ -117,18 +166,6 @@ final class UnitCategoryConverter extends SafeEnumTypeConverter<UnitCategory> {
   @override
   SafeEnumConverter<UnitCategory> get delegate =>
       const SafeEnumConverter(UnitCategory.values, UnitCategory.count);
-}
-
-// ── Inventory ────────────────────────────────────────────────────────────────────────────
-
-/// Stores [ItemKind]. Falls back to [ItemKind.generic], the declared "no classification" value.
-final class ItemKindConverter extends SafeEnumTypeConverter<ItemKind> {
-  /// Creates the converter.
-  const ItemKindConverter();
-
-  @override
-  SafeEnumConverter<ItemKind> get delegate =>
-      const SafeEnumConverter(ItemKind.values, ItemKind.generic);
 }
 
 /// Stores [BatchOrigin]. Falls back to [BatchOrigin.manual] — a neutral provenance that claims
@@ -149,13 +186,16 @@ final class BatchOriginConverter extends SafeEnumTypeConverter<BatchOrigin> {
 /// it understates stock (the user re-adds food rather than trusting food they do not have), and
 /// it is not `waste` or `expired`, so the food-waste analytics in ARCH_3 §5.1 query 14 stay
 /// honest rather than absorbing unclassifiable rows.
-final class StockMovementKindConverter extends SafeEnumTypeConverter<StockMovementKind> {
+final class StockMovementKindConverter
+    extends SafeEnumTypeConverter<StockMovementKind> {
   /// Creates the converter.
   const StockMovementKindConverter();
 
   @override
-  SafeEnumConverter<StockMovementKind> get delegate =>
-      const SafeEnumConverter(StockMovementKind.values, StockMovementKind.adjustOut);
+  SafeEnumConverter<StockMovementKind> get delegate => const SafeEnumConverter(
+    StockMovementKind.values,
+    StockMovementKind.adjustOut,
+  );
 }
 
 // ── Shopping ─────────────────────────────────────────────────────────────────────────────
@@ -163,13 +203,17 @@ final class StockMovementKindConverter extends SafeEnumTypeConverter<StockMoveme
 /// Stores [ShoppingEntryOrigin]. Falls back to [ShoppingEntryOrigin.manual], which the
 /// suggestion engine never auto-removes — losing a user's own entry is worse than keeping a
 /// stale generated one.
-final class ShoppingEntryOriginConverter extends SafeEnumTypeConverter<ShoppingEntryOrigin> {
+final class ShoppingEntryOriginConverter
+    extends SafeEnumTypeConverter<ShoppingEntryOrigin> {
   /// Creates the converter.
   const ShoppingEntryOriginConverter();
 
   @override
   SafeEnumConverter<ShoppingEntryOrigin> get delegate =>
-      const SafeEnumConverter(ShoppingEntryOrigin.values, ShoppingEntryOrigin.manual);
+      const SafeEnumConverter(
+        ShoppingEntryOrigin.values,
+        ShoppingEntryOrigin.manual,
+      );
 }
 
 /// Stores [ShoppingEntryAutoState]. Falls back to [ShoppingEntryAutoState.active] — a visible
@@ -180,16 +224,18 @@ final class ShoppingEntryAutoStateConverter
   const ShoppingEntryAutoStateConverter();
 
   @override
-  SafeEnumConverter<ShoppingEntryAutoState> get delegate => const SafeEnumConverter(
-    ShoppingEntryAutoState.values,
-    ShoppingEntryAutoState.active,
-  );
+  SafeEnumConverter<ShoppingEntryAutoState> get delegate =>
+      const SafeEnumConverter(
+        ShoppingEntryAutoState.values,
+        ShoppingEntryAutoState.active,
+      );
 }
 
 // ── Recurring ────────────────────────────────────────────────────────────────────────────
 
 /// Stores [RecurringKind]. Falls back to [RecurringKind.other].
-final class RecurringKindConverter extends SafeEnumTypeConverter<RecurringKind> {
+final class RecurringKindConverter
+    extends SafeEnumTypeConverter<RecurringKind> {
   /// Creates the converter.
   const RecurringKindConverter();
 
@@ -200,27 +246,32 @@ final class RecurringKindConverter extends SafeEnumTypeConverter<RecurringKind> 
 
 /// Stores [RecurringDirection]. Falls back to [RecurringDirection.outflow]: presenting an
 /// unreadable obligation as something owed is safer than presenting it as income.
-final class RecurringDirectionConverter extends SafeEnumTypeConverter<RecurringDirection> {
+final class RecurringDirectionConverter
+    extends SafeEnumTypeConverter<RecurringDirection> {
   /// Creates the converter.
   const RecurringDirectionConverter();
 
   @override
-  SafeEnumConverter<RecurringDirection> get delegate =>
-      const SafeEnumConverter(RecurringDirection.values, RecurringDirection.outflow);
+  SafeEnumConverter<RecurringDirection> get delegate => const SafeEnumConverter(
+    RecurringDirection.values,
+    RecurringDirection.outflow,
+  );
 }
 
 /// Stores [RecurringIntervalUnit]. Falls back to [RecurringIntervalUnit.month], by far the most
 /// common real interval, so a misread row lands on the most probable schedule and the user can
 /// see and correct it on the template screen.
-final class RecurringIntervalUnitConverter extends SafeEnumTypeConverter<RecurringIntervalUnit> {
+final class RecurringIntervalUnitConverter
+    extends SafeEnumTypeConverter<RecurringIntervalUnit> {
   /// Creates the converter.
   const RecurringIntervalUnitConverter();
 
   @override
-  SafeEnumConverter<RecurringIntervalUnit> get delegate => const SafeEnumConverter(
-    RecurringIntervalUnit.values,
-    RecurringIntervalUnit.month,
-  );
+  SafeEnumConverter<RecurringIntervalUnit> get delegate =>
+      const SafeEnumConverter(
+        RecurringIntervalUnit.values,
+        RecurringIntervalUnit.month,
+      );
 }
 
 /// Stores [RecurringOccurrenceStatus]. Falls back to [RecurringOccurrenceStatus.due], never
@@ -232,10 +283,11 @@ final class RecurringOccurrenceStatusConverter
   const RecurringOccurrenceStatusConverter();
 
   @override
-  SafeEnumConverter<RecurringOccurrenceStatus> get delegate => const SafeEnumConverter(
-    RecurringOccurrenceStatus.values,
-    RecurringOccurrenceStatus.due,
-  );
+  SafeEnumConverter<RecurringOccurrenceStatus> get delegate =>
+      const SafeEnumConverter(
+        RecurringOccurrenceStatus.values,
+        RecurringOccurrenceStatus.due,
+      );
 }
 
 // ── Service ──────────────────────────────────────────────────────────────────────────────
@@ -262,30 +314,38 @@ final class AssetStatusConverter extends SafeEnumTypeConverter<AssetStatus> {
 }
 
 /// Stores [AssetDisposalReason]. Falls back to [AssetDisposalReason.other].
-final class AssetDisposalReasonConverter extends SafeEnumTypeConverter<AssetDisposalReason> {
+final class AssetDisposalReasonConverter
+    extends SafeEnumTypeConverter<AssetDisposalReason> {
   /// Creates the converter.
   const AssetDisposalReasonConverter();
 
   @override
   SafeEnumConverter<AssetDisposalReason> get delegate =>
-      const SafeEnumConverter(AssetDisposalReason.values, AssetDisposalReason.other);
+      const SafeEnumConverter(
+        AssetDisposalReason.values,
+        AssetDisposalReason.other,
+      );
 }
 
 /// Stores [ServiceRecordType]. Falls back to [ServiceRecordType.other].
-final class ServiceRecordTypeConverter extends SafeEnumTypeConverter<ServiceRecordType> {
+final class ServiceRecordTypeConverter
+    extends SafeEnumTypeConverter<ServiceRecordType> {
   /// Creates the converter.
   const ServiceRecordTypeConverter();
 
   @override
-  SafeEnumConverter<ServiceRecordType> get delegate =>
-      const SafeEnumConverter(ServiceRecordType.values, ServiceRecordType.other);
+  SafeEnumConverter<ServiceRecordType> get delegate => const SafeEnumConverter(
+    ServiceRecordType.values,
+    ServiceRecordType.other,
+  );
 }
 
 // ── Ops ──────────────────────────────────────────────────────────────────────────────────
 
 /// Stores [NotificationKind]. Falls back to [NotificationKind.expiry]. Low stakes: these rows
 /// are transient scheduling records, rebuilt by the daily job in Phase 8B.
-final class NotificationKindConverter extends SafeEnumTypeConverter<NotificationKind> {
+final class NotificationKindConverter
+    extends SafeEnumTypeConverter<NotificationKind> {
   /// Creates the converter.
   const NotificationKindConverter();
 
@@ -296,13 +356,16 @@ final class NotificationKindConverter extends SafeEnumTypeConverter<Notification
 
 /// Stores [NotificationStatus]. Falls back to [NotificationStatus.cancelled], so a row whose
 /// state cannot be read is never re-fired at the user.
-final class NotificationStatusConverter extends SafeEnumTypeConverter<NotificationStatus> {
+final class NotificationStatusConverter
+    extends SafeEnumTypeConverter<NotificationStatus> {
   /// Creates the converter.
   const NotificationStatusConverter();
 
   @override
-  SafeEnumConverter<NotificationStatus> get delegate =>
-      const SafeEnumConverter(NotificationStatus.values, NotificationStatus.cancelled);
+  SafeEnumConverter<NotificationStatus> get delegate => const SafeEnumConverter(
+    NotificationStatus.values,
+    NotificationStatus.cancelled,
+  );
 }
 
 /// Stores [BackupKind]. Falls back to [BackupKind.manual].

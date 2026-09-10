@@ -68,7 +68,6 @@ const Item kItem = Item(
   normalizedName: 'atta',
   unitCategory: UnitCategory.weight,
   defaultDisplayUnitCode: 'kg',
-  itemKind: ItemKind.food,
   isFavorite: true,
 );
 

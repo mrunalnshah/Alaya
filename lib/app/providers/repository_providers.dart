@@ -49,6 +49,9 @@ import 'package:alaya/domain/repositories/payee_repository.dart';
 import 'package:alaya/domain/repositories/payment_method_repository.dart';
 import 'package:alaya/domain/repositories/recurring_repository.dart';
 import 'package:alaya/domain/repositories/service_record_repository.dart';
+import 'package:alaya/data/repositories/recipe_repository_impl.dart';
+import 'package:alaya/domain/repositories/recipe_repository.dart';
+import 'package:alaya/domain/services/recipe_cook_service.dart';
 import 'package:alaya/domain/repositories/settings_repository.dart';
 import 'package:alaya/domain/repositories/shopping_repository.dart';
 import 'package:alaya/domain/repositories/stock_repository.dart';
@@ -56,6 +59,10 @@ import 'package:alaya/domain/repositories/tag_repository.dart';
 import 'package:alaya/domain/repositories/transaction_repository.dart';
 import 'package:alaya/domain/repositories/unit_repository.dart';
 import 'package:alaya/domain/services/analytics/analytics_port.dart';
+import 'package:alaya/data/repositories/split_group_repository_impl.dart';
+import 'package:alaya/data/repositories/split_ledger_repository_impl.dart';
+import 'package:alaya/domain/repositories/split_group_repository.dart';
+import 'package:alaya/domain/repositories/split_ledger_repository.dart';
 
 /// Resolves an item's unit category, with a per-instance cache.
 ///
@@ -164,6 +171,29 @@ final itemRepositoryProvider = Provider<ItemRepository>(
       ItemRepositoryImpl(ref.watch(itemDaoProvider), ref.watch(clockProvider)),
 );
 
+/// Recipes, their ingredients and their cook log.
+final recipeRepositoryProvider = Provider<RecipeRepository>(
+  (ref) => RecipeRepositoryImpl(
+    ref.watch(recipeDaoProvider),
+    ref.watch(itemDaoProvider),
+    ref.watch(unitDaoProvider),
+    ref.watch(uidGeneratorProvider),
+    ref.watch(clockProvider),
+  ),
+);
+
+/// Cooking a recipe: deducts stock through the inventory module and records that it happened.
+///
+/// Depends on `StockRepository` rather than reimplementing consumption — FEFO ordering, the atomic
+/// application and the shortfall refusal all already live there.
+final recipeCookServiceProvider = Provider<RecipeCookService>(
+  (ref) => RecipeCookService(
+    recipes: ref.watch(recipeRepositoryProvider),
+    stock: ref.watch(stockRepositoryProvider),
+    clock: ref.watch(clockProvider),
+  ),
+);
+
 /// Inventory batches.
 final batchRepositoryProvider = Provider<BatchRepository>(
   (ref) => BatchRepositoryImpl(
@@ -254,4 +284,32 @@ final analyticsCacheRepositoryProvider = Provider<AnalyticsCacheRepository>(
 final analyticsPortProvider = Provider<AnalyticsPort>(
   (ref) =>
       AnalyticsPortImpl(ref.watch(databaseProvider), ref.watch(clockProvider)),
+);
+
+/// Split groups and their membership, plus which payee the user has claimed as themselves.
+///
+/// Takes `SettingsDao` for `split.selfPayeeId` — a setting rather than a flag on `payees`, so no two
+/// rows can claim it and a table five other modules read stays untouched.
+final splitGroupRepositoryProvider = Provider<SplitGroupRepository>(
+  (ref) => SplitGroupRepositoryImpl(
+    ref.watch(splitDaoProvider),
+    ref.watch(settingsDaoProvider),
+    ref.watch(clockProvider),
+  ),
+);
+
+/// Shared expenses, settlements, and every balance derived from them.
+///
+/// Takes `AccountDao` so a settlement can be checked against the account it claims to have moved
+/// through — the currency match in particular, which is Law L8's money-side twin. That is ordinary
+/// cross-module DAO composition: `TransactionRepositoryImpl` holds six DAOs across three modules and
+/// its own class doc calls it *"normal DAO composition, not a layering violation."*
+final splitLedgerRepositoryProvider = Provider<SplitLedgerRepository>(
+  (ref) => SplitLedgerRepositoryImpl(
+    ref.watch(splitDaoProvider),
+    ref.watch(splitViewDaoProvider),
+    ref.watch(splitGroupRepositoryProvider),
+    ref.watch(accountDaoProvider),
+    ref.watch(clockProvider),
+  ),
 );

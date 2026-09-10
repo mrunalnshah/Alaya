@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Alaya's status-bar icon.
+
+    **Only the alpha channel survives.** Android flattens a notification small icon to a white silhouette on
+    API 21 and above — colour, gradients and detail are all discarded. Pointing this at `@mipmap/ic_launcher`,
+    the Flutter default, renders a solid white square for exactly that reason.
+
+    **A silhouette needs empty space to be a silhouette.** The previous mark was a rounded rectangle filling
+    18 of the 24dp canvas, with a circular hole punched by `evenOdd`. It rendered precisely as drawn — a white
+    block with a dark dot — and read as a rendering fault rather than a glyph, because at ~18dp in a row
+    beside wifi, battery and signal, a filled block has no outline to recognise. Every icon it sits next to
+    is a distinctive shape with generous margins.
+
+    So: a house, which is what *Alaya* means, drawn as an outline. The roof and walls are one stroke and the
+    door is a second, both closed shapes rather than a fill, so most of the canvas stays transparent and the
+    form survives at small sizes.
+
+    **`android:strokeColor` rather than a hole punched with `evenOdd`.** A stroke produces alpha just as a
+    fill does, and it is far easier to keep correct: an outline drawn as two nested subpaths depends on
+    winding order, and getting it backwards yields a solid shape that looks deliberate.
+
+    Two rules if you replace this with your own mark: **white only**, and **leave the canvas mostly empty**.
+    Anything with fine detail becomes a smudge; anything that fills the frame becomes a box.
+
+    Referenced from Dart as the bare name `ic_notification` — never `@drawable/ic_notification`, which is XML
+    syntax and resolves to nothing through `getIdentifier`. And kept from the release shrinker by
+    `res/raw/keep.xml`, because a resource named only by a runtime string looks unused to it.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Roof and walls. Apex at the top centre, eaves at 3 and 21, base at 20. -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.9"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M3,11 L12,3.5 L21,11 M5,10 V20 H19 V10" />
+
+    <!-- The door: the negative space that makes it read as a house rather than a pentagon. -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.9"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M10,20 V14.5 H14 V20" />
+</vector>

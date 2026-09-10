@@ -12,15 +12,17 @@ void main() {
   Widget host() =>
       const Scaffold(body: SingleChildScrollView(child: ModuleGrid()));
 
-  testWidgets('five tiles, each naming a module the drawer also names', (
+  testWidgets('seven tiles, each naming a module the drawer also names', (
     tester,
   ) async {
     await pumpDashboard(tester, host(), overrides: dashboardOverrides());
     await tester.pumpAndSettle();
-    expect(find.byType(ModuleTile), findsNWidgets(5));
+    expect(find.byType(ModuleTile), findsNWidgets(7));
     for (final label in [
       'Expenses',
       'Inventory',
+      'Recipes',
+      'Split',
       'Shopping',
       'Recurring',
       'Services',
@@ -73,7 +75,7 @@ void main() {
     await tester.pump();
     // The tile's job is navigation and it can do that before its count lands — a spinner on a nav tile
     // would suggest the destination itself was unavailable.
-    expect(find.byType(ModuleTile), findsNWidgets(5));
+    expect(find.byType(ModuleTile), findsNWidgets(7));
     expect(find.text('Shopping'), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
@@ -88,7 +90,7 @@ void main() {
     );
     await tester.pumpAndSettle();
     // One broken count must not cost the user five destinations.
-    expect(find.byType(ModuleTile), findsNWidgets(5));
+    expect(find.byType(ModuleTile), findsNWidgets(7));
     expect(find.text('Recurring'), findsOneWidget);
   });
 

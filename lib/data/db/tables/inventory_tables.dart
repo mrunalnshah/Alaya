@@ -4,6 +4,7 @@ import 'package:alaya/data/db/converters/date_key_converter.dart';
 import 'package:alaya/data/db/converters/enum_converters.dart';
 import 'package:alaya/data/db/tables/meta_tables.dart';
 import 'package:alaya/data/db/tables/money_tables.dart';
+import 'package:alaya/data/db/tables/tag_tables.dart';
 
 /// The *kind* of consumable thing, as opposed to one acquisition of it (ARCH_1 §3.2).
 ///
@@ -30,9 +31,24 @@ class Items extends Table {
   /// The unit this item's quantities are rendered in by default.
   TextColumn get defaultDisplayUnitCode => text().references(Units, #code)();
 
-  /// Rough classification. `medicine` is what makes medicine expiry appear on the calendar with
-  /// no extra table (ARCH_3 §6).
-  TextColumn get itemKind => text().map(const ItemKindConverter())();
+  /// Which kind this item is filed under — a [Tags] row, or null.
+  ///
+  /// **A reference rather than an enum, so a user can add `Vegetables`.** `item_kind` was six fixed strings
+  /// through an `ItemKindConverter`, and nothing but a code change could add a seventh. The six are now seeded
+  /// `tags` rows with `is_system` set, scoped by [Tags.allowedInInventory], and a user's own kinds sit beside
+  /// them.
+  ///
+  /// **Nullable, and after v5's backfill never null in practice.** The migration had to add it nullable —
+  /// there was nothing to default it to until the tags existed — and then filled every row from the old
+  /// column. Making it `NOT NULL` afterwards would mean a second table rebuild for a constraint the data
+  /// already satisfies, and would leave no way to represent an item whose kind was deleted before the
+  /// Settings fallback ran.
+  ///
+  /// **The old comment claimed `medicine` was "what makes medicine expiry appear on the calendar".** It never
+  /// did: `v_calendar_events` emits `batchExpiry` for every item regardless of kind, and no view, service or
+  /// screen in the codebase branches on the value. The kind was a label and an icon. Distinguishing medicine
+  /// expiry is a real feature and an unbuilt one — recorded here so the next reader does not inherit the claim.
+  TextColumn get kindTagId => text().nullable().references(Tags, #id)();
 
   /// Below this total remaining quantity the item is low on stock and the suggestion engine may
   /// generate a shopping entry. In base-milli units. Null means no threshold set.
@@ -40,6 +56,23 @@ class Items extends Table {
 
   /// How many days before a batch's expiry to remind. Null falls back to the global setting.
   IntColumn get expiryNotifyDays => integer().nullable()();
+
+  /// How much one millilitre of this item weighs, in milli-grams. Null when unknown.
+  ///
+  /// **This is what lets a recipe say "2 tbsp" of something you weigh.** A tablespoon is a volume —
+  /// 14.787 ml, the same for everything — but turning that into grams needs to know the substance: a
+  /// tablespoon of butter is about 13.5 g and one of flour about 8 g. That is a property of the
+  /// item, not of the recipe line, so one number here serves every volume unit at once.
+  ///
+  /// Null is the honest default and nothing regresses without it: the engine keeps reporting a
+  /// cross-dimension ingredient as *unanswerable*, exactly as it does today.
+  IntColumn get densityMilliGramsPerMl => integer().nullable()();
+
+  /// What one piece of this item weighs, in milli-grams. Null when unknown.
+  ///
+  /// The count-to-weight bridge, for "2 onions" against onions kept by weight. Same argument as
+  /// [densityMilliGramsPerMl]: a fact about onions, stored once.
+  IntColumn get milliGramsPerPiece => integer().nullable()();
 
   /// Optional free-text notes. Indexed for full-text search in Phase 1C.
   TextColumn get notes => text().nullable()();
@@ -87,7 +120,8 @@ class InventoryBatches extends Table {
 
   /// Civil expiry date. Null means this batch does not expire, which also excludes it from FEFO
   /// ordering until the dated batches are exhausted (anomaly A08).
-  IntColumn get expiryDateKey => integer().map(const DateKeyConverter()).nullable()();
+  IntColumn get expiryDateKey =>
+      integer().map(const DateKeyConverter()).nullable()();
 
   /// Civil date acquired.
   IntColumn get purchasedDateKey => integer().map(const DateKeyConverter())();
@@ -97,7 +131,8 @@ class InventoryBatches extends Table {
   IntColumn get unitCostMinor => integer().nullable()();
 
   /// Currency of [unitCostMinor].
-  TextColumn get costCurrencyCode => text().nullable().references(Currencies, #code)();
+  TextColumn get costCurrencyCode =>
+      text().nullable().references(Currencies, #code)();
 
   /// The transaction line that created this batch, if it came from a purchase. Nulled rather
   /// than cascaded when that transaction is deleted (anomaly A10).
@@ -166,10 +201,12 @@ class StockMovements extends Table {
   TextColumn get note => text().nullable()();
 
   /// The transaction that caused this movement, for purchase-driven stock increases.
-  TextColumn get linkedTransactionId => text().nullable().references(Transactions, #id)();
+  TextColumn get linkedTransactionId =>
+      text().nullable().references(Transactions, #id)();
 
   /// The movement this row reverses. Non-null exactly on correction rows.
-  TextColumn get reversesMovementId => text().nullable().references(StockMovements, #id)();
+  TextColumn get reversesMovementId =>
+      text().nullable().references(StockMovements, #id)();
 
   /// Creation instant, epoch millis UTC.
   IntColumn get createdAt => integer()();

@@ -5,10 +5,11 @@ import 'package:alaya/app/theme/semantic_colors.dart';
 import 'package:alaya/app/theme/tokens/alaya_icon_size.dart';
 import 'package:alaya/app/theme/tokens/alaya_spacing.dart';
 import 'package:alaya/app/theme/tokens/alaya_typography.dart';
-import 'package:alaya/core/enums/inventory_enums.dart';
 import 'package:alaya/core/time/date_key.dart';
 import 'package:alaya/domain/entities/item.dart';
 import 'package:alaya/domain/entities/item_stock.dart';
+import 'package:alaya/domain/entities/tag.dart';
+import 'package:alaya/features/inventory/presentation/widgets/kind_display.dart';
 import 'package:alaya/shared/widgets/qty_text.dart';
 import 'package:alaya/shared/widgets/status_chip.dart';
 
@@ -30,6 +31,7 @@ class ItemRow extends StatelessWidget {
     required this.stock,
     required this.today,
     required this.onTap,
+    this.kind,
     this.onToggleFavourite,
     super.key,
   });
@@ -40,6 +42,13 @@ class ItemRow extends StatelessWidget {
   /// Its stock on hand, or null while the stock stream is still catching up.
   final ItemStock? stock;
 
+  /// The kind it is filed under, or null when it has none or the tag is missing.
+  ///
+  /// **Passed in rather than looked up here.** A row cannot resolve `item.kindTagId` on its own without
+  /// watching the tag list, and a list of two hundred rows each watching the same stream is the shape that
+  /// makes a scroll stutter. The provider already holds the resolved `Tag` on `InventoryGroup`.
+  final Tag? kind;
+
   /// Today, for expiry comparisons.
   final DateKey today;
 
@@ -48,14 +57,6 @@ class ItemRow extends StatelessWidget {
 
   /// Stars or unstars the item.
   final VoidCallback? onToggleFavourite;
-
-  static IconData _glyphFor(ItemKind kind) => switch (kind) {
-    ItemKind.food => Icons.restaurant_outlined,
-    ItemKind.medicine => Icons.medication_outlined,
-    ItemKind.beauty => Icons.spa_outlined,
-    ItemKind.household => Icons.cleaning_services_outlined,
-    ItemKind.generic || ItemKind.other => Icons.inventory_2_outlined,
-  };
 
   List<Widget> _chips(BuildContext context, AlayaStrings strings) {
     final current = stock;
@@ -118,7 +119,7 @@ class ItemRow extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(
-                _glyphFor(item.itemKind),
+                KindDisplay.glyphFor(kind),
                 size: AlayaIconSize.lg,
                 color: semantic.muted,
               ),

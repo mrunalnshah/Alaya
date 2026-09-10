@@ -745,13 +745,13 @@ abstract class AlayaStrings {
   /// No description provided for @kindDeposit.
   ///
   /// In en, this message translates to:
-  /// **'Money in'**
+  /// **'Income'**
   String get kindDeposit;
 
   /// No description provided for @kindWithdrawal.
   ///
   /// In en, this message translates to:
-  /// **'Money out'**
+  /// **'Expense'**
   String get kindWithdrawal;
 
   /// No description provided for @kindTransfer.
@@ -763,13 +763,13 @@ abstract class AlayaStrings {
   /// No description provided for @kindAdjustmentIncrease.
   ///
   /// In en, this message translates to:
-  /// **'Correction up'**
+  /// **'Stock added'**
   String get kindAdjustmentIncrease;
 
   /// No description provided for @kindAdjustmentDecrease.
   ///
   /// In en, this message translates to:
-  /// **'Correction down'**
+  /// **'Stock removed'**
   String get kindAdjustmentDecrease;
 
   /// No description provided for @subtypeGrocery.
@@ -823,7 +823,7 @@ abstract class AlayaStrings {
   /// No description provided for @subtypeOtherOut.
   ///
   /// In en, this message translates to:
-  /// **'Other spending'**
+  /// **'Other expense'**
   String get subtypeOtherOut;
 
   /// Surfaces transactions.needsReview. Quick-add saves an amount and nothing else by design; without this row that deliberate shortcut becomes silent data rot.
@@ -961,13 +961,13 @@ abstract class AlayaStrings {
   /// No description provided for @quickAddMoneyIn.
   ///
   /// In en, this message translates to:
-  /// **'Money in'**
+  /// **'Income'**
   String get quickAddMoneyIn;
 
   /// No description provided for @quickAddMoneyOut.
   ///
   /// In en, this message translates to:
-  /// **'Money out'**
+  /// **'Expense'**
   String get quickAddMoneyOut;
 
   /// No description provided for @quickAddSave.
@@ -976,10 +976,10 @@ abstract class AlayaStrings {
   /// **'Save'**
   String get quickAddSave;
 
-  /// No description provided for @actionAddDetails.
+  /// Was "Add details", which implied composing. It saves first, then opens the editor — deliberately, because Alaya is offline-first and U11 says record it now and refine later, so an abandoned edit still leaves the expense captured. The label should say what the button does rather than leave the user to discover it.
   ///
   /// In en, this message translates to:
-  /// **'Add details'**
+  /// **'Save and add details'**
   String get actionAddDetails;
 
   /// No description provided for @editorTitleNew.
@@ -1051,7 +1051,7 @@ abstract class AlayaStrings {
   /// No description provided for @transferSomeoneElseHelp.
   ///
   /// In en, this message translates to:
-  /// **'Money leaves your accounts. This is a withdrawal.'**
+  /// **'Money leaves your accounts, so it is recorded as an expense.'**
   String get transferSomeoneElseHelp;
 
   /// No description provided for @alsoAddToInventory.
@@ -2251,13 +2251,13 @@ abstract class AlayaStrings {
   /// Group header for outflow templates.
   ///
   /// In en, this message translates to:
-  /// **'Going out'**
+  /// **'Expenses'**
   String get recurringOutflow;
 
   /// Group header for inflow templates — salary reads as income, not a negative bill.
   ///
   /// In en, this message translates to:
-  /// **'Coming in'**
+  /// **'Income'**
   String get recurringInflow;
 
   /// Precedes a DateText giving the next due date.
@@ -2359,13 +2359,13 @@ abstract class AlayaStrings {
   /// RecurringDirection.outflow.
   ///
   /// In en, this message translates to:
-  /// **'Money out'**
+  /// **'Expense'**
   String get directionOutflow;
 
   /// RecurringDirection.inflow.
   ///
   /// In en, this message translates to:
-  /// **'Money in'**
+  /// **'Income'**
   String get directionInflow;
 
   /// RecurringKind.bill.
@@ -3079,7 +3079,7 @@ abstract class AlayaStrings {
   /// Explains what the toggle writes.
   ///
   /// In en, this message translates to:
-  /// **'Writes a withdrawal for the cost as well, so it shows in your ledger.'**
+  /// **'Records an expense for the cost too, so it shows in your ledger.'**
   String get alsoRecordHelp;
 
   /// Rejection when the toggle is on with no account.
@@ -3217,7 +3217,7 @@ abstract class AlayaStrings {
   /// Explains destination none.
   ///
   /// In en, this message translates to:
-  /// **'Recorded as spending and nothing else.'**
+  /// **'Recorded as an expense and nothing else.'**
   String get destinationHelpNone;
 
   /// Explains destination inventory.
@@ -3403,7 +3403,7 @@ abstract class AlayaStrings {
   /// FAB action opening the editor as a deposit.
   ///
   /// In en, this message translates to:
-  /// **'Money in'**
+  /// **'Add income'**
   String get fabAddIncome;
 
   /// FAB action opening the item editor.
@@ -3583,13 +3583,13 @@ abstract class AlayaStrings {
   /// No description provided for @calendarTotalOut.
   ///
   /// In en, this message translates to:
-  /// **'Spent'**
+  /// **'Expenses'**
   String get calendarTotalOut;
 
   /// No description provided for @calendarTotalIn.
   ///
   /// In en, this message translates to:
-  /// **'Received'**
+  /// **'Income'**
   String get calendarTotalIn;
 
   /// No description provided for @dashboardOpenCalendar.
@@ -3631,7 +3631,7 @@ abstract class AlayaStrings {
   /// Label above the analytics screen's one displayAmount.
   ///
   /// In en, this message translates to:
-  /// **'Spent'**
+  /// **'Expenses'**
   String get analyticsTotalSpent;
 
   /// Semantics label for the range chip row.
@@ -5557,13 +5557,13 @@ abstract class AlayaStrings {
   /// No description provided for @tagScopeDeposit.
   ///
   /// In en, this message translates to:
-  /// **'Money in'**
+  /// **'Income'**
   String get tagScopeDeposit;
 
   /// No description provided for @tagScopeDepositHelp.
   ///
   /// In en, this message translates to:
-  /// **'Offered when you record money coming in.'**
+  /// **'Offered when you record income.'**
   String get tagScopeDepositHelp;
 
   /// No description provided for @tagScopeInventory.
@@ -5617,13 +5617,13 @@ abstract class AlayaStrings {
   /// No description provided for @tagScopeWithdrawal.
   ///
   /// In en, this message translates to:
-  /// **'Money out'**
+  /// **'Expenses'**
   String get tagScopeWithdrawal;
 
   /// No description provided for @tagScopeWithdrawalHelp.
   ///
   /// In en, this message translates to:
-  /// **'Offered when you record spending.'**
+  /// **'Offered when you record an expense.'**
   String get tagScopeWithdrawalHelp;
 
   /// No description provided for @tagScopesHeader.
@@ -6867,6 +6867,2190 @@ abstract class AlayaStrings {
   /// In en, this message translates to:
   /// **'{title}, {amount}, {detail}'**
   String ledgerRowSemanticsDetailed(String title, String amount, String detail);
+
+  /// No description provided for @navRecipes.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipes'**
+  String get navRecipes;
+
+  /// The dashboard tile. A zero is worded rather than shown, like every other tile — "0 you can make" is a figure to interpret, "nothing you can make" is an answer.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Nothing you can make} =1{1 you can make} other{{count} you can make}}'**
+  String moduleRecipes(int count);
+
+  /// No description provided for @recipeSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search recipes'**
+  String get recipeSearchHint;
+
+  /// No description provided for @recipeFilterCookable.
+  ///
+  /// In en, this message translates to:
+  /// **'Can cook now'**
+  String get recipeFilterCookable;
+
+  /// No description provided for @recipeFilterFavourites.
+  ///
+  /// In en, this message translates to:
+  /// **'Favourites'**
+  String get recipeFilterFavourites;
+
+  /// No description provided for @recipeLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading your recipes…'**
+  String get recipeLoading;
+
+  /// No description provided for @recipeEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No recipes yet'**
+  String get recipeEmptyTitle;
+
+  /// No description provided for @recipeEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one and Alaya will tell you when you have everything for it.'**
+  String get recipeEmptyBody;
+
+  /// No description provided for @recipeNoMatchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing matches'**
+  String get recipeNoMatchTitle;
+
+  /// No description provided for @recipeNoMatchBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear the filters to see every recipe.'**
+  String get recipeNoMatchBody;
+
+  /// No description provided for @recipeServes.
+  ///
+  /// In en, this message translates to:
+  /// **'Serves {count}'**
+  String recipeServes(int count);
+
+  /// No description provided for @recipeServesAndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Serves {count} · {minutes} min'**
+  String recipeServesAndTime(int count, int minutes);
+
+  /// No description provided for @recipeReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get recipeReady;
+
+  /// No description provided for @recipeShortBy.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 short} other{{count} short}}'**
+  String recipeShortBy(int count);
+
+  /// No description provided for @recipeMissingCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 missing} other{{count} missing}}'**
+  String recipeMissingCount(int count);
+
+  /// Not "cannot cook". The engine could not judge an ingredient — untracked, or measured in a unit that cannot be compared to what the item is counted in. Saying so is the point of the module.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t tell'**
+  String get recipeUncheckable;
+
+  /// No description provided for @recipeNoIngredients.
+  ///
+  /// In en, this message translates to:
+  /// **'No ingredients'**
+  String get recipeNoIngredients;
+
+  /// No description provided for @recipeDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe'**
+  String get recipeDetailTitle;
+
+  /// No description provided for @recipeGoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'That recipe is gone'**
+  String get recipeGoneTitle;
+
+  /// No description provided for @recipeGoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It may have been deleted. Check the trash if you want it back.'**
+  String get recipeGoneBody;
+
+  /// No description provided for @recipeServingsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Servings'**
+  String get recipeServingsLabel;
+
+  /// No description provided for @recipeServingsFewer.
+  ///
+  /// In en, this message translates to:
+  /// **'Fewer servings'**
+  String get recipeServingsFewer;
+
+  /// No description provided for @recipeServingsMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More servings'**
+  String get recipeServingsMore;
+
+  /// No description provided for @recipeIngredientsHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get recipeIngredientsHeader;
+
+  /// No description provided for @recipeMethodHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Method'**
+  String get recipeMethodHeader;
+
+  /// No description provided for @recipeNotesHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get recipeNotesHeader;
+
+  /// No description provided for @recipeCheckingStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking what you have…'**
+  String get recipeCheckingStock;
+
+  /// No description provided for @recipeStepMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String recipeStepMinutes(int minutes);
+
+  /// No description provided for @recipeCookAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Cook this'**
+  String get recipeCookAction;
+
+  /// No description provided for @recipeCooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Cooking…'**
+  String get recipeCooking;
+
+  /// No description provided for @recipeCooked.
+  ///
+  /// In en, this message translates to:
+  /// **'Cooked'**
+  String get recipeCooked;
+
+  /// No description provided for @recipeCookedDeducted.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Cooked. Nothing was deducted} =1{Cooked. 1 ingredient deducted} other{Cooked. {count} ingredients deducted}}'**
+  String recipeCookedDeducted(int count);
+
+  /// No description provided for @recipeCookFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That could not be cooked'**
+  String get recipeCookFailed;
+
+  /// Said before cooking, not after. A user who learns afterwards that two ingredients were skipped has already been given a wrong impression of their stock.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 ingredient will not be deducted — nothing tracks it} other{{count} ingredients will not be deducted — nothing tracks them}}'**
+  String recipeCookWillSkip(int count);
+
+  /// No description provided for @recipeShortfall.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough on hand'**
+  String get recipeShortfall;
+
+  /// No description provided for @recipeNoneLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'None left'**
+  String get recipeNoneLeft;
+
+  /// No description provided for @recipeUnitMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Measured differently from how you track it — can\'t compare'**
+  String get recipeUnitMismatch;
+
+  /// No description provided for @recipeNotTracked.
+  ///
+  /// In en, this message translates to:
+  /// **'Not tracked'**
+  String get recipeNotTracked;
+
+  /// No description provided for @recipeLinkedIngredient.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient'**
+  String get recipeLinkedIngredient;
+
+  /// No description provided for @recipeAddAction.
+  ///
+  /// In en, this message translates to:
+  /// **'New recipe'**
+  String get recipeAddAction;
+
+  /// No description provided for @recipeNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New recipe'**
+  String get recipeNewTitle;
+
+  /// No description provided for @recipeEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit recipe'**
+  String get recipeEditTitle;
+
+  /// No description provided for @recipeNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get recipeNameLabel;
+
+  /// No description provided for @recipePrepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Prep min'**
+  String get recipePrepLabel;
+
+  /// No description provided for @recipeCookLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cook min'**
+  String get recipeCookLabel;
+
+  /// No description provided for @recipeAddIngredient.
+  ///
+  /// In en, this message translates to:
+  /// **'Add ingredient'**
+  String get recipeAddIngredient;
+
+  /// No description provided for @recipeAddStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Add step'**
+  String get recipeAddStep;
+
+  /// No description provided for @recipeIngredientLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient'**
+  String get recipeIngredientLabel;
+
+  /// No description provided for @recipeQuantityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get recipeQuantityLabel;
+
+  /// No description provided for @recipeOptionalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — will not stop you cooking'**
+  String get recipeOptionalLabel;
+
+  /// No description provided for @recipeRemoveIngredient.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove ingredient'**
+  String get recipeRemoveIngredient;
+
+  /// No description provided for @recipeRemoveStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove step'**
+  String get recipeRemoveStep;
+
+  /// No description provided for @recipeStepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {number}'**
+  String recipeStepLabel(int number);
+
+  /// No description provided for @recipeFavouriteToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin this recipe'**
+  String get recipeFavouriteToggle;
+
+  /// No description provided for @recipeSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe saved'**
+  String get recipeSaved;
+
+  /// No description provided for @recipeSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That recipe could not be saved'**
+  String get recipeSaveFailed;
+
+  /// Shown under an ingredient with no catalogue link. States the consequence rather than scolding: an unlinked ingredient is fine, it simply cannot be checked against stock or deducted.
+  ///
+  /// In en, this message translates to:
+  /// **'Not linked to inventory — pick from the list to track it'**
+  String get recipeNotLinkedHelp;
+
+  /// Placeholder in the ingredient quantity field.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave blank for \"to taste\"'**
+  String get recipeQuantityHint;
+
+  /// No description provided for @sectionRecipeMeasures.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe measures'**
+  String get sectionRecipeMeasures;
+
+  /// No description provided for @labelDensity.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight of 1 ml'**
+  String get labelDensity;
+
+  /// Three anchors rather than an explanation. A number nobody can estimate is a field nobody fills.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets a recipe measure this in spoons or cups. Water is 1, oil about 0.92, honey about 1.4.'**
+  String get densityHelp;
+
+  /// No description provided for @suffixGramsPerMl.
+  ///
+  /// In en, this message translates to:
+  /// **'g'**
+  String get suffixGramsPerMl;
+
+  /// No description provided for @labelPieceWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight of 1 piece'**
+  String get labelPieceWeight;
+
+  /// No description provided for @pieceWeightHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets a recipe say \"2 of these\" and still know how much to take.'**
+  String get pieceWeightHelp;
+
+  /// No description provided for @suffixGrams.
+  ///
+  /// In en, this message translates to:
+  /// **'g'**
+  String get suffixGrams;
+
+  /// No description provided for @labelGramsPerTbsp.
+  ///
+  /// In en, this message translates to:
+  /// **'1 tablespoon weighs'**
+  String get labelGramsPerTbsp;
+
+  /// Four anchors a cook can recognise, and a sentence saying the one number covers the other measures — so nobody goes looking for a teaspoon field that does not exist.
+  ///
+  /// In en, this message translates to:
+  /// **'Flour about 8 g, sugar 12 g, oil 14 g, honey 21 g. Alaya works out teaspoons and cups from this.'**
+  String get gramsPerTbspHelp;
+
+  /// Three examples instead of an instruction. A cook sees at a glance that fractions are accepted, which no wording would convey as quickly.
+  ///
+  /// In en, this message translates to:
+  /// **'2, 1/2, 1 1/2'**
+  String get recipeAmountHint;
+
+  /// Shown when a weight-measured item has no tablespoon weight, so volume units are absent from the picker. Names the exact field rather than saying the option is unavailable — the fix is one screen away and the user should know where.
+  ///
+  /// In en, this message translates to:
+  /// **'To measure this in spoons or cups, set \"1 tablespoon weighs\" on the item.'**
+  String get recipeSpoonsNeedWeight;
+
+  /// Shown only when the unit is a spoon or a cup. Three examples say "fractions work" faster than any sentence — and the tappable sizes beside it mean most cooks never type at all.
+  ///
+  /// In en, this message translates to:
+  /// **'1/2, 1, 1 1/2'**
+  String get recipeAmountHintVessel;
+
+  /// Shown for grams, millilitres, pieces. Nobody writes "half a milligram", and offering fractions there is what made the field confusing.
+  ///
+  /// In en, this message translates to:
+  /// **'200'**
+  String get recipeAmountHintPlain;
+
+  /// Said the moment a spoon is chosen for an item that cannot convert it. Names the field, not the limitation: the fix is one screen away and the cook should know where.
+  ///
+  /// In en, this message translates to:
+  /// **'To measure {item} in spoons or cups, set \"1 tablespoon weighs\" on the item.'**
+  String recipeNeedsTbspWeight(String item);
+
+  /// No description provided for @recipeNeedsPieceWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'To count {item} by the piece, set \"Weight of 1 piece\" on the item.'**
+  String recipeNeedsPieceWeight(String item);
+
+  /// The line restated in the measure the shelf uses: "3 1/2 tablespoon = 51.8 ml", or "= 28 g" once the item declares a tablespoon weight. This is where a cook finds out how big a tablespoon is — for the thing in their hand, not from a table they have to apply themselves.
+  ///
+  /// In en, this message translates to:
+  /// **'{written} = {converted}'**
+  String recipeAmountReadout(String written, String converted);
+
+  /// The one door out of a capture form. "More details" rather than "Advanced": nothing behind it is advanced — a tag and a note are ordinary things, just not needed every time. "Advanced" would suggest they are for experts and stop people opening it.
+  ///
+  /// In en, this message translates to:
+  /// **'More details'**
+  String get sectionMoreDetails;
+
+  /// Part of the collapsed summary, so a set tag is visible without opening the section.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 tag} other{{count} tags}}'**
+  String tagCount(int count);
+
+  /// No description provided for @lineCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 item} other{{count} items}}'**
+  String lineCount(int count);
+
+  /// Hint in the quick sheet’s note field. The question the user is actually answering, plus "(optional)" so an empty field never reads as something left undone. No label above it: a label would make it look like a required field in a sheet whose whole promise is one required field.
+  ///
+  /// In en, this message translates to:
+  /// **'What for? (optional)'**
+  String get quickAddNoteHint;
+
+  /// Shown when reminders ARE on and the seven-day scan found nothing. The previous copy said "turn on a reminder above", which is what the user had already done — so a working feature read as a broken one.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing due this week'**
+  String get remindersNothingDueTitle;
+
+  /// Confirms the setting is on before explaining the silence. The order matters: somebody who suspects the feature is broken needs the reassurance first.
+  ///
+  /// In en, this message translates to:
+  /// **'Your reminders are on. Alaya looks a week ahead and there is nothing coming up yet — you will get a message the day something does.'**
+  String get remindersNothingDueBody;
+
+  /// No description provided for @remindersCheckNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Check now'**
+  String get remindersCheckNow;
+
+  /// No description provided for @remindersChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get remindersChecking;
+
+  /// Result of a manual scan. Naming the number is what proves the scan ran.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 thing coming up} other{{count} things coming up}}'**
+  String remindersFoundCount(int count);
+
+  /// A result, not a failure — and the sentence that tells somebody their reminders work and their week is simply clear. This is the answer that was impossible to obtain before.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing coming up in the next week'**
+  String get remindersFoundNothing;
+
+  /// Posts one notification immediately. Exists because "it is scheduled for tomorrow morning" and "the delivery path is broken" are indistinguishable by waiting, and this separates them in two seconds.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a test notification'**
+  String get remindersSendTest;
+
+  /// Says the app handed it to Android, not that it appeared. If the shade is empty after this, the notification is blocked in system settings rather than broken in the app.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent — check your notifications'**
+  String get remindersTestSent;
+
+  /// Undo snack after a swipe. One word, because the row has already gone and the undo button is the point of the message — a sentence explaining what happened would push the action off a 320dp screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed'**
+  String get shoppingEntryDeleted;
+
+  /// Header of the sheet behind the available-funds figure. The question the user asked by tapping, not a restatement of the label they tapped.
+  ///
+  /// In en, this message translates to:
+  /// **'Where this comes from'**
+  String get fundsBreakdownTitle;
+
+  /// No description provided for @fundsNoAccountsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No accounts yet'**
+  String get fundsNoAccountsTitle;
+
+  /// No description provided for @fundsNoAccountsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an account and its balance will show here.'**
+  String get fundsNoAccountsBody;
+
+  /// Shown instead of an amount when no exchange rate is available (anomaly A34). A zero would read as an empty account; this says the balance exists and is excluded.
+  ///
+  /// In en, this message translates to:
+  /// **'Not counted'**
+  String get fundsNotCounted;
+
+  /// Explains the greyed rows. Shown only when at least one exists, so it never explains something absent.
+  ///
+  /// In en, this message translates to:
+  /// **'Greyed accounts are excluded from your available funds.'**
+  String get fundsExcludedNote;
+
+  /// No description provided for @remindersZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Using your phone’s time zone, {zone}'**
+  String remindersZone(String zone);
+
+  /// No description provided for @remindersZoneUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Alaya could not work out your phone’s time zone, so the daily summary may arrive at the wrong hour. Check the date and time settings on your phone.'**
+  String get remindersZoneUnknown;
+
+  /// No description provided for @remindersOsHolding.
+  ///
+  /// In en, this message translates to:
+  /// **'Your phone has this set and will deliver it.'**
+  String get remindersOsHolding;
+
+  /// No description provided for @remindersOsMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Alaya has scheduled this, but your phone is not holding it. Allow Alaya to start in the background and turn off battery saver for it, then tap Check now.'**
+  String get remindersOsMissing;
+
+  /// No description provided for @recipeScaledRounding.
+  ///
+  /// In en, this message translates to:
+  /// **'Amounts are scaled for this serving count. Anything marked ≈ is rounded to the nearest measuring spoon or cup.'**
+  String get recipeScaledRounding;
+
+  /// No description provided for @recipeUsesExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Some of this is past its date'**
+  String get recipeUsesExpired;
+
+  /// No description provided for @recipeExpiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use food that is past its date?'**
+  String get recipeExpiredTitle;
+
+  /// No description provided for @recipeExpiredBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{detail}\n\nAlaya will use up the good stock first and only take what it still needs from these. Check them before you cook.'**
+  String recipeExpiredBody(String detail);
+
+  /// No description provided for @recipeExpiredLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}: {amount} expired {date}'**
+  String recipeExpiredLine(String name, String amount, String date);
+
+  /// No description provided for @recipeExpiredMore.
+  ///
+  /// In en, this message translates to:
+  /// **'and {count, plural, =1{1 more ingredient} other{{count} more ingredients}}'**
+  String recipeExpiredMore(int count);
+
+  /// No description provided for @recipeExpiredConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Cook anyway'**
+  String get recipeExpiredConfirm;
+
+  /// No description provided for @recipeCookBlockedExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Some of what this needs is past its date.'**
+  String get recipeCookBlockedExpired;
+
+  /// No description provided for @splitSectionHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Who owes for this'**
+  String get splitSectionHeader;
+
+  /// No description provided for @splitAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Split with someone'**
+  String get splitAdd;
+
+  /// No description provided for @splitEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit split'**
+  String get splitEdit;
+
+  /// No description provided for @splitRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove split'**
+  String get splitRemove;
+
+  /// No description provided for @splitUnknownPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone'**
+  String get splitUnknownPerson;
+
+  /// No description provided for @splitUnallocated.
+  ///
+  /// In en, this message translates to:
+  /// **'Not assigned'**
+  String get splitUnallocated;
+
+  /// No description provided for @splitOverAllocated.
+  ///
+  /// In en, this message translates to:
+  /// **'Over by'**
+  String get splitOverAllocated;
+
+  /// No description provided for @splitSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Split this expense'**
+  String get splitSheetTitle;
+
+  /// No description provided for @splitMethodEqual.
+  ///
+  /// In en, this message translates to:
+  /// **'Equally'**
+  String get splitMethodEqual;
+
+  /// No description provided for @splitMethodShares.
+  ///
+  /// In en, this message translates to:
+  /// **'By shares'**
+  String get splitMethodShares;
+
+  /// No description provided for @splitMethodPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'By percentage'**
+  String get splitMethodPercent;
+
+  /// No description provided for @splitMethodExact.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact amounts'**
+  String get splitMethodExact;
+
+  /// No description provided for @splitPickPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'Who is sharing this?'**
+  String get splitPickPeople;
+
+  /// No description provided for @splitPickPeopleEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Add people in Settings first, then split a bill with them.'**
+  String get splitPickPeopleEmpty;
+
+  /// No description provided for @splitGroupLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Group'**
+  String get splitGroupLabel;
+
+  /// No description provided for @splitGroupNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No group'**
+  String get splitGroupNone;
+
+  /// No description provided for @splitPaidByYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get splitPaidByYou;
+
+  /// No description provided for @splitPaidByOther.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} paid'**
+  String splitPaidByOther(String name);
+
+  /// No description provided for @splitShareWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Shares'**
+  String get splitShareWeight;
+
+  /// No description provided for @splitSharePercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Percent'**
+  String get splitSharePercent;
+
+  /// No description provided for @splitShareAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get splitShareAmount;
+
+  /// No description provided for @splitPerPersonCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 person} other{{count} people}}'**
+  String splitPerPersonCount(int count);
+
+  /// No description provided for @splitNeedsAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the amount first, then choose who is sharing it.'**
+  String get splitNeedsAmount;
+
+  /// No description provided for @splitApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get splitApply;
+
+  /// No description provided for @splitSelfPayeeUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose which person is you in Settings before splitting a bill.'**
+  String get splitSelfPayeeUnset;
+
+  /// No description provided for @navSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Split'**
+  String get navSplit;
+
+  /// No description provided for @splitGroupsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Groups'**
+  String get splitGroupsTitle;
+
+  /// No description provided for @splitOwedToYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Owed to you'**
+  String get splitOwedToYou;
+
+  /// No description provided for @splitYouOwe.
+  ///
+  /// In en, this message translates to:
+  /// **'You owe'**
+  String get splitYouOwe;
+
+  /// No description provided for @splitAllSettledTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'All settled up'**
+  String get splitAllSettledTitle;
+
+  /// No description provided for @splitAllSettledBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody owes anybody anything right now.'**
+  String get splitAllSettledBody;
+
+  /// No description provided for @splitNoSelfTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Who are you?'**
+  String get splitNoSelfTitle;
+
+  /// No description provided for @splitOutstandingDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =1{1 day} other{{days} days}}'**
+  String splitOutstandingDays(int days);
+
+  /// No description provided for @splitGroupNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New group'**
+  String get splitGroupNew;
+
+  /// No description provided for @splitGroupEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit group'**
+  String get splitGroupEditTitle;
+
+  /// No description provided for @splitGroupNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Group name'**
+  String get splitGroupNameLabel;
+
+  /// No description provided for @splitNoGroupsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No groups yet'**
+  String get splitNoGroupsTitle;
+
+  /// No description provided for @splitNoGroupsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A group saves entering the same people every time you split a bill with them.'**
+  String get splitNoGroupsBody;
+
+  /// No description provided for @splitHasWeights.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom shares'**
+  String get splitHasWeights;
+
+  /// No description provided for @splitArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived'**
+  String get splitArchived;
+
+  /// No description provided for @splitArchiveLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive this group'**
+  String get splitArchiveLabel;
+
+  /// No description provided for @splitArchiveHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'It keeps its history and its balances, and stops appearing when you split a bill.'**
+  String get splitArchiveHelp;
+
+  /// No description provided for @splitDefaultShares.
+  ///
+  /// In en, this message translates to:
+  /// **'Default shares'**
+  String get splitDefaultShares;
+
+  /// No description provided for @splitDefaultSharesHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a percentage for everybody to prefill a split — like rent at 40/30/30. Leave them all blank to split equally.'**
+  String get splitDefaultSharesHelp;
+
+  /// No description provided for @splitWeightsPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a share for everybody, or none'**
+  String get splitWeightsPartial;
+
+  /// No description provided for @splitDeleteGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this group?'**
+  String get splitDeleteGroupTitle;
+
+  /// No description provided for @splitDeleteGroupBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A group with expenses cannot be deleted — archive it instead and its history stays.'**
+  String get splitDeleteGroupBody;
+
+  /// No description provided for @splitBalancesHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Where you stand'**
+  String get splitBalancesHeader;
+
+  /// No description provided for @splitActivityHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity'**
+  String get splitActivityHeader;
+
+  /// No description provided for @splitGroupEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet'**
+  String get splitGroupEmptyTitle;
+
+  /// No description provided for @splitGroupEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Split a bill with this group and it will show up here.'**
+  String get splitGroupEmptyBody;
+
+  /// No description provided for @splitOwesYou.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} owes you'**
+  String splitOwesYou(String name);
+
+  /// No description provided for @splitYouOwePerson.
+  ///
+  /// In en, this message translates to:
+  /// **'You owe {name}'**
+  String splitYouOwePerson(String name);
+
+  /// No description provided for @splitExpenseBy.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} paid'**
+  String splitExpenseBy(String name);
+
+  /// No description provided for @splitSettlementBy.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} settled up'**
+  String splitSettlementBy(String name);
+
+  /// No description provided for @splitSettleFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Settle up with {name}'**
+  String splitSettleFrom(String name);
+
+  /// No description provided for @splitSettleTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay {name}'**
+  String splitSettleTo(String name);
+
+  /// No description provided for @splitOutstandingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding'**
+  String get splitOutstandingLabel;
+
+  /// No description provided for @splitSettleAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get splitSettleAmount;
+
+  /// No description provided for @splitSettleOverpay.
+  ///
+  /// In en, this message translates to:
+  /// **'More than the balance — the difference will swing the other way.'**
+  String get splitSettleOverpay;
+
+  /// No description provided for @splitSettleIntoAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Into which account?'**
+  String get splitSettleIntoAccount;
+
+  /// No description provided for @splitSettleFromAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'From which account?'**
+  String get splitSettleFromAccount;
+
+  /// No description provided for @splitSettleAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Record payment'**
+  String get splitSettleAction;
+
+  /// No description provided for @splitSimplifyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settle up'**
+  String get splitSimplifyTitle;
+
+  /// No description provided for @splitSimplifySaves.
+  ///
+  /// In en, this message translates to:
+  /// **'{before} payments become {after}'**
+  String splitSimplifySaves(int before, int after);
+
+  /// No description provided for @splitSimplifyNoBetter.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no shorter way — these are already the fewest payments.'**
+  String get splitSimplifyNoBetter;
+
+  /// No description provided for @splitSimplifyApproximate.
+  ///
+  /// In en, this message translates to:
+  /// **'A short way, not provably the shortest'**
+  String get splitSimplifyApproximate;
+
+  /// No description provided for @splitTransferLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} pays {to}'**
+  String splitTransferLine(String from, String to);
+
+  /// No description provided for @splitClearsDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'clears what is owed to {name}'**
+  String splitClearsDebt(String name);
+
+  /// No description provided for @splitShareTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send this summary'**
+  String get splitShareTitle;
+
+  /// No description provided for @splitShareCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get splitShareCopied;
+
+  /// No description provided for @splitShareAddUpi.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your UPI id in Settings and each line gets a link they can tap to pay you.'**
+  String get splitShareAddUpi;
+
+  /// No description provided for @actionCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get actionCopy;
+
+  /// No description provided for @actionShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get actionShare;
+
+  /// No description provided for @splitShareHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Where we stand'**
+  String get splitShareHeading;
+
+  /// No description provided for @splitShareOwesYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Owes you'**
+  String get splitShareOwesYou;
+
+  /// No description provided for @splitShareYouOwe.
+  ///
+  /// In en, this message translates to:
+  /// **'You owe'**
+  String get splitShareYouOwe;
+
+  /// No description provided for @reminderKindSettlement.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts to settle'**
+  String get reminderKindSettlement;
+
+  /// No description provided for @reminderKindSettlementHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'A reminder when a shared bill you agreed to settle by a date is coming up.'**
+  String get reminderKindSettlementHelp;
+
+  /// No description provided for @calendarSplitSettleBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Settle by'**
+  String get calendarSplitSettleBy;
+
+  /// No description provided for @eventTypeSplitSettleBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Settle up'**
+  String get eventTypeSplitSettleBy;
+
+  /// No description provided for @splitSettleByLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Settle by'**
+  String get splitSettleByLabel;
+
+  /// No description provided for @splitSettleByHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. Setting a date puts this on your calendar and in the daily summary.'**
+  String get splitSettleByHelp;
+
+  /// No description provided for @splitSettleByHint.
+  ///
+  /// In en, this message translates to:
+  /// **'No date'**
+  String get splitSettleByHint;
+
+  /// No description provided for @moduleSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{all settled} =1{1 person} other{{count} people}}'**
+  String moduleSplit(int count);
+
+  /// No description provided for @splitCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared expenses'**
+  String get splitCardTitle;
+
+  /// No description provided for @splitCardNotSpendable.
+  ///
+  /// In en, this message translates to:
+  /// **'Not part of your available funds until it arrives.'**
+  String get splitCardNotSpendable;
+
+  /// No description provided for @splitCardOldest.
+  ///
+  /// In en, this message translates to:
+  /// **'Oldest is {days} days'**
+  String splitCardOldest(int days);
+
+  /// No description provided for @settingsSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared expenses'**
+  String get settingsSplit;
+
+  /// No description provided for @settingsSplitUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set up yet'**
+  String get settingsSplitUnset;
+
+  /// No description provided for @settingsSplitSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get settingsSplitSet;
+
+  /// No description provided for @splitSettingsWhoAreYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Which person is you?'**
+  String get splitSettingsWhoAreYou;
+
+  /// No description provided for @splitSettingsWhoAreYouHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Every balance is what somebody owes you, or what you owe them. Alaya needs to know which of these people is you.'**
+  String get splitSettingsWhoAreYouHelp;
+
+  /// No description provided for @splitSettingsNoPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'Add people under Payees first, then come back and pick yourself.'**
+  String get splitSettingsNoPeople;
+
+  /// No description provided for @splitSettingsClaimed.
+  ///
+  /// In en, this message translates to:
+  /// **'You are {name}'**
+  String splitSettingsClaimed(String name);
+
+  /// No description provided for @splitSettingsUpi.
+  ///
+  /// In en, this message translates to:
+  /// **'Your UPI id'**
+  String get splitSettingsUpi;
+
+  /// No description provided for @splitSettingsUpiLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'UPI id'**
+  String get splitSettingsUpiLabel;
+
+  /// No description provided for @splitSettingsUpiHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. Add it and every summary you share carries a link people can tap to pay you.'**
+  String get splitSettingsUpiHelp;
+
+  /// No description provided for @analyticsSectionSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared'**
+  String get analyticsSectionSplit;
+
+  /// No description provided for @analyticsSplitLensesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What shared bills cost you'**
+  String get analyticsSplitLensesTitle;
+
+  /// No description provided for @analyticsSplitLensesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What left your account, and what you actually used'**
+  String get analyticsSplitLensesSubtitle;
+
+  /// No description provided for @analyticsSplitOutflow.
+  ///
+  /// In en, this message translates to:
+  /// **'Left your account'**
+  String get analyticsSplitOutflow;
+
+  /// No description provided for @analyticsSplitOutflowHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Full bills you paid'**
+  String get analyticsSplitOutflowHelp;
+
+  /// No description provided for @analyticsSplitMyShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Your share'**
+  String get analyticsSplitMyShare;
+
+  /// No description provided for @analyticsSplitMyShareHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'What you actually used'**
+  String get analyticsSplitMyShareHelp;
+
+  /// No description provided for @analyticsSplitOutstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Still out'**
+  String get analyticsSplitOutstanding;
+
+  /// No description provided for @analyticsSplitOutstandingHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid out, not yours, not back yet'**
+  String get analyticsSplitOutstandingHelp;
+
+  /// No description provided for @analyticsSplitEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No shared expenses in this window.'**
+  String get analyticsSplitEmpty;
+
+  /// No description provided for @analyticsSplitNoSelf.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose which person is you in Settings to see your share.'**
+  String get analyticsSplitNoSelf;
+
+  /// No description provided for @analyticsSplitPartnersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Who you split with'**
+  String get analyticsSplitPartnersTitle;
+
+  /// No description provided for @analyticsSplitPartnersSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'By their share of the bills you paid'**
+  String get analyticsSplitPartnersSubtitle;
+
+  /// No description provided for @analyticsSplitPartnerCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 expense} other{{count} expenses}}'**
+  String analyticsSplitPartnerCount(int count);
+
+  /// No description provided for @analyticsSplitOccasionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'By occasion'**
+  String get analyticsSplitOccasionTitle;
+
+  /// No description provided for @analyticsSplitOccasionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Diwali, a birthday, a trip'**
+  String get analyticsSplitOccasionSubtitle;
+
+  /// No description provided for @analyticsSplitOccasionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an occasion when you split a bill and it will appear here.'**
+  String get analyticsSplitOccasionEmpty;
+
+  /// No description provided for @analyticsSplitPlaceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'By place'**
+  String get analyticsSplitPlaceTitle;
+
+  /// No description provided for @analyticsSplitPlaceSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where the money went'**
+  String get analyticsSplitPlaceSubtitle;
+
+  /// No description provided for @analyticsSplitPlaceEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a place when you split a bill and it will appear here.'**
+  String get analyticsSplitPlaceEmpty;
+
+  /// No description provided for @splitBillAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Split a bill'**
+  String get splitBillAction;
+
+  /// No description provided for @splitBillAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'How much was it?'**
+  String get splitBillAmount;
+
+  /// No description provided for @splitBillWhatFor.
+  ///
+  /// In en, this message translates to:
+  /// **'What was it for?'**
+  String get splitBillWhatFor;
+
+  /// No description provided for @splitBillWhatForHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner at Olive'**
+  String get splitBillWhatForHint;
+
+  /// No description provided for @splitBillHow.
+  ///
+  /// In en, this message translates to:
+  /// **'How does it split?'**
+  String get splitBillHow;
+
+  /// No description provided for @splitBillYourMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Your money'**
+  String get splitBillYourMoney;
+
+  /// No description provided for @splitBillRecordExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Record this as an expense'**
+  String get splitBillRecordExpense;
+
+  /// No description provided for @splitBillRecordExpenseHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'The full bill left your account, so it belongs in your spending. Turn this off if somebody else paid, or if you have already recorded it.'**
+  String get splitBillRecordExpenseHelp;
+
+  /// No description provided for @splitBillSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Split saved'**
+  String get splitBillSaved;
+
+  /// No description provided for @splitAddPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'Add person'**
+  String get splitAddPerson;
+
+  /// No description provided for @splitAddExtra.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra'**
+  String get splitAddExtra;
+
+  /// No description provided for @splitExtraLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Just for them'**
+  String get splitExtraLabel;
+
+  /// No description provided for @splitRemoveExtra.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove extra'**
+  String get splitRemoveExtra;
+
+  /// No description provided for @splitShareBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'{share} share + {extra} just for them'**
+  String splitShareBreakdown(String share, String extra);
+
+  /// No description provided for @splitTapToSettle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap anybody to record a payment'**
+  String get splitTapToSettle;
+
+  /// No description provided for @splitSettingsPayMe.
+  ///
+  /// In en, this message translates to:
+  /// **'How people can pay you'**
+  String get splitSettingsPayMe;
+
+  /// No description provided for @splitSettingsPayMeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment details'**
+  String get splitSettingsPayMeLabel;
+
+  /// No description provided for @splitSettingsPayMeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'UPI id, PayPal link, bank details, or anything else'**
+  String get splitSettingsPayMeHint;
+
+  /// No description provided for @splitSettingsPayMeHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional, and free text — whatever works where you are. It is added to the end of any summary you share, so nobody has to ask.'**
+  String get splitSettingsPayMeHelp;
+
+  /// No description provided for @splitSharePayMeAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay me at:'**
+  String get splitSharePayMeAt;
+
+  /// No description provided for @splitShareAddHandle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your payment details so nobody has to ask.'**
+  String get splitShareAddHandle;
+
+  /// No description provided for @splitHowManyPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'How many people?'**
+  String get splitHowManyPeople;
+
+  /// No description provided for @splitHowManyPeopleHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Names are optional — add them later if you want to keep this'**
+  String get splitHowManyPeopleHelp;
+
+  /// No description provided for @splitPersonN.
+  ///
+  /// In en, this message translates to:
+  /// **'Person {n}'**
+  String splitPersonN(int n);
+
+  /// No description provided for @splitBillResultHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Send this to the table — no names needed.'**
+  String get splitBillResultHint;
+
+  /// No description provided for @splitCopyResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy the result'**
+  String get splitCopyResult;
+
+  /// No description provided for @splitResultCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get splitResultCopied;
+
+  /// No description provided for @splitBillKeepIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it'**
+  String get splitBillKeepIt;
+
+  /// No description provided for @splitBillKeepItHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything below is optional. Save it only if you want the debt tracked until it is paid.'**
+  String get splitBillKeepItHelp;
+
+  /// No description provided for @splitSaveToBalances.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to balances'**
+  String get splitSaveToBalances;
+
+  /// No description provided for @splitNameEveryoneToSave.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Name 1 more person to save this} other{Name {count} more people to save this}}'**
+  String splitNameEveryoneToSave(int count);
+
+  /// No description provided for @splitPickName.
+  ///
+  /// In en, this message translates to:
+  /// **'Who is this?'**
+  String get splitPickName;
+
+  /// No description provided for @splitNewPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'New person'**
+  String get splitNewPerson;
+
+  /// No description provided for @splitAlreadyOnSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Already on this split'**
+  String get splitAlreadyOnSplit;
+
+  /// No description provided for @splitPercentOfBill.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}%'**
+  String splitPercentOfBill(int percent);
+
+  /// No description provided for @splitTipPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% tip'**
+  String splitTipPercent(int percent);
+
+  /// No description provided for @splitRoundUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Round up'**
+  String get splitRoundUp;
+
+  /// No description provided for @splitTipAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Adding'**
+  String get splitTipAdded;
+
+  /// No description provided for @splitTipTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Adding {tip} · total {total}'**
+  String splitTipTotal(String tip, String total);
+
+  /// No description provided for @splitBillTheSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'The split'**
+  String get splitBillTheSplit;
+
+  /// No description provided for @splitSaveAsGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Save these people as a group'**
+  String get splitSaveAsGroup;
+
+  /// No description provided for @splitSaveAsGroupHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'So next time you split with them it is one tap.'**
+  String get splitSaveAsGroupHelp;
+
+  /// No description provided for @splitSaveAsGroupHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Flatmates'**
+  String get splitSaveAsGroupHint;
+
+  /// No description provided for @splitSaveAsGroupWeights.
+  ///
+  /// In en, this message translates to:
+  /// **'Their shares are saved too, so next time starts the same way.'**
+  String get splitSaveAsGroupWeights;
+
+  /// No description provided for @splitSaveAsGroupAction.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Save as a group} other{Save these {count} as a group}}'**
+  String splitSaveAsGroupAction(int count);
+
+  /// No description provided for @splitGroupNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Give the group a name'**
+  String get splitGroupNameRequired;
+
+  /// No description provided for @splitMemberWithWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} · {percent}%'**
+  String splitMemberWithWeight(String name, int percent);
+
+  /// No description provided for @splitGroupSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Group saved'**
+  String get splitGroupSaved;
+
+  /// No description provided for @splitQuickAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'What was the bill?'**
+  String get splitQuickAmount;
+
+  /// No description provided for @splitQuickPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'How many of you?'**
+  String get splitQuickPeople;
+
+  /// No description provided for @splitQuickIPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'I paid it all'**
+  String get splitQuickIPaid;
+
+  /// No description provided for @splitQuickEachTheirOwn.
+  ///
+  /// In en, this message translates to:
+  /// **'Each their own'**
+  String get splitQuickEachTheirOwn;
+
+  /// No description provided for @splitQuickEach.
+  ///
+  /// In en, this message translates to:
+  /// **'Each pays'**
+  String get splitQuickEach;
+
+  /// No description provided for @splitQuickOwed.
+  ///
+  /// In en, this message translates to:
+  /// **'Owed to you'**
+  String get splitQuickOwed;
+
+  /// No description provided for @splitQuickHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type an amount and it splits as you go. Names are optional.'**
+  String get splitQuickHint;
+
+  /// No description provided for @splitQuickAddNames.
+  ///
+  /// In en, this message translates to:
+  /// **'Add names'**
+  String get splitQuickAddNames;
+
+  /// No description provided for @splitQuickEachPays.
+  ///
+  /// In en, this message translates to:
+  /// **'Each pays {amount}'**
+  String splitQuickEachPays(String amount);
+
+  /// No description provided for @splitQuickOwedToMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Owed to me: {amount}'**
+  String splitQuickOwedToMe(String amount);
+
+  /// No description provided for @splitQuickYouAbsorb.
+  ///
+  /// In en, this message translates to:
+  /// **'You cover the odd {amount}.'**
+  String splitQuickYouAbsorb(String amount);
+
+  /// No description provided for @splitQuickLeftOver.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} left over — add names to place it.'**
+  String splitQuickLeftOver(String amount);
+
+  /// No description provided for @splitUnnamedWillBeSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 person is unnamed — they will be saved as \"Person N\" and you can rename them any time} other{{count} people are unnamed — they will be saved as \"Person N\" and you can rename them any time}}'**
+  String splitUnnamedWillBeSaved(int count);
+
+  /// No description provided for @splitNameThisPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'Who is this?'**
+  String get splitNameThisPerson;
+
+  /// No description provided for @splitAddPersonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add someone'**
+  String get splitAddPersonTitle;
+
+  /// No description provided for @splitAddPersonNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'They need a name'**
+  String get splitAddPersonNameRequired;
+
+  /// No description provided for @splitAddPersonPhoneHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — shown only when two people share a name, so you can tell them apart.'**
+  String get splitAddPersonPhoneHelp;
+
+  /// No description provided for @splitSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'First, who are you?'**
+  String get splitSetupTitle;
+
+  /// No description provided for @splitSetupBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Alaya needs one name for you, so it can tell who owes whom. You can change it later in Settings.'**
+  String get splitSetupBody;
+
+  /// No description provided for @splitSetupNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get splitSetupNameLabel;
+
+  /// No description provided for @splitSetupNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a name to continue'**
+  String get splitSetupNameRequired;
+
+  /// No description provided for @splitSetupAction.
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s me'**
+  String get splitSetupAction;
+
+  /// No description provided for @splitCreateSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a split'**
+  String get splitCreateSplit;
+
+  /// No description provided for @payeeKindSplitPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Unnamed on a split'**
+  String get payeeKindSplitPlaceholder;
+
+  /// No description provided for @onboardingNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we call you?'**
+  String get onboardingNameTitle;
+
+  /// No description provided for @onboardingNameBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Alaya uses this to know which share is yours when you split a bill, and to sign anything you share with friends.'**
+  String get onboardingNameBody;
+
+  /// No description provided for @onboardingNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get onboardingNameLabel;
+
+  /// No description provided for @onboardingNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a name, or skip for now'**
+  String get onboardingNameRequired;
+
+  /// No description provided for @splitHistoryEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing split yet'**
+  String get splitHistoryEmptyTitle;
+
+  /// No description provided for @splitHistoryEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every bill you divide and every payment you record shows up here, newest first.'**
+  String get splitHistoryEmptyBody;
+
+  /// No description provided for @splitHistoryPaidBy.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} paid'**
+  String splitHistoryPaidBy(String name);
+
+  /// No description provided for @splitHistorySettledBy.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} settled up'**
+  String splitHistorySettledBy(String name);
+
+  /// No description provided for @splitTabBalances.
+  ///
+  /// In en, this message translates to:
+  /// **'Balances'**
+  String get splitTabBalances;
+
+  /// No description provided for @splitTabHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get splitTabHistory;
+
+  /// No description provided for @splitTabGroups.
+  ///
+  /// In en, this message translates to:
+  /// **'Groups'**
+  String get splitTabGroups;
+
+  /// No description provided for @splitTransferNotYours.
+  ///
+  /// In en, this message translates to:
+  /// **'Between two other people — nothing for you to record.'**
+  String get splitTransferNotYours;
+
+  /// No description provided for @onboardingNameOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — leave it blank and continue if you would rather not.'**
+  String get onboardingNameOptional;
+
+  /// No description provided for @splitTipTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip or service charge'**
+  String get splitTipTitle;
+
+  /// No description provided for @splitTipNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get splitTipNone;
+
+  /// No description provided for @splitTipPercentChip.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% tip'**
+  String splitTipPercentChip(int percent);
+
+  /// No description provided for @splitTipCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom %'**
+  String get splitTipCustom;
+
+  /// No description provided for @splitTipAdds.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% of the bill'**
+  String splitTipAdds(int percent);
+
+  /// No description provided for @splitMethodTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How it splits'**
+  String get splitMethodTitle;
+
+  /// No description provided for @splitMethodEqualHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'The same amount each. Anything one person owes on top goes in their row.'**
+  String get splitMethodEqualHelp;
+
+  /// No description provided for @splitMethodSharesHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Weights, not amounts — 2:1:1 means one person covers half.'**
+  String get splitMethodSharesHelp;
+
+  /// No description provided for @splitMethodPercentHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'A percentage each. They needn\'t add to 100; anything left over is shown.'**
+  String get splitMethodPercentHelp;
+
+  /// No description provided for @splitMethodExactHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Type what each person owes. Any gap against the total is shown, never absorbed.'**
+  String get splitMethodExactHelp;
+
+  /// No description provided for @splitMethodPerLineHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Each item on the receipt divided among whoever ordered it.'**
+  String get splitMethodPerLineHelp;
+
+  /// No description provided for @splitMethodPerLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Item by item'**
+  String get splitMethodPerLine;
+
+  /// No description provided for @splitTipTotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'total'**
+  String get splitTipTotalLabel;
+
+  /// No description provided for @splitNamePlaceholderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{placeholder} is a stand-in Alaya created so the split could be saved. Who was it?'**
+  String splitNamePlaceholderBody(String placeholder);
+
+  /// No description provided for @splitNameSomebodyKnown.
+  ///
+  /// In en, this message translates to:
+  /// **'Somebody you already have'**
+  String get splitNameSomebodyKnown;
+
+  /// No description provided for @splitNameOr.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get splitNameOr;
+
+  /// No description provided for @splitNameSomebodyNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Somebody new — their name'**
+  String get splitNameSomebodyNew;
+
+  /// No description provided for @splitNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a name, or pick somebody above'**
+  String get splitNameRequired;
+
+  /// No description provided for @splitWhoPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Who paid?'**
+  String get splitWhoPaid;
+
+  /// No description provided for @splitPaidBySomebodyElseHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'No money left your account, so nothing goes in your ledger until you settle up.'**
+  String get splitPaidBySomebodyElseHelp;
+
+  /// No description provided for @splitRecordTheyPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'They paid me back'**
+  String get splitRecordTheyPaid;
+
+  /// No description provided for @splitRecordYouPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'I paid them back'**
+  String get splitRecordYouPaid;
+
+  /// No description provided for @splitDetailTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get splitDetailTotal;
+
+  /// No description provided for @splitDetailPaidBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid by'**
+  String get splitDetailPaidBy;
+
+  /// No description provided for @splitDetailMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Split'**
+  String get splitDetailMethod;
+
+  /// No description provided for @splitDetailPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Place'**
+  String get splitDetailPlace;
+
+  /// No description provided for @splitDetailOccasion.
+  ///
+  /// In en, this message translates to:
+  /// **'Occasion'**
+  String get splitDetailOccasion;
+
+  /// No description provided for @splitSharePercentOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% of the bill'**
+  String splitSharePercentOf(double percent);
+
+  /// No description provided for @splitShareWeightOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{weight} share(s)'**
+  String splitShareWeightOf(int weight);
+
+  /// No description provided for @splitShareIsExtra.
+  ///
+  /// In en, this message translates to:
+  /// **'Just for them'**
+  String get splitShareIsExtra;
+
+  /// No description provided for @splitDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this split?'**
+  String get splitDeleteConfirmTitle;
+
+  /// No description provided for @splitDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The balances it created go with it. Any expense already recorded in your ledger stays — the money did move.'**
+  String get splitDeleteConfirmBody;
+
+  /// No description provided for @splitDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Split deleted'**
+  String get splitDeleted;
+
+  /// No description provided for @splitEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit split'**
+  String get splitEditTitle;
+
+  /// No description provided for @splitQuickSaveHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Records that 1 person owes you.} other{Records that {count} people owe you.}} Your account balance isn\'t touched — use More options to record the expense too.'**
+  String splitQuickSaveHelp(int count);
+
+  /// No description provided for @splitQuickMoreOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get splitQuickMoreOptions;
+
+  /// No description provided for @supportActionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Support Us'**
+  String get supportActionLabel;
+
+  /// No description provided for @splitNoteWays.
+  ///
+  /// In en, this message translates to:
+  /// **'Split {count} ways'**
+  String splitNoteWays(int count);
+
+  /// No description provided for @splitNoteWaysWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Split {count} ways with {names}'**
+  String splitNoteWaysWith(int count, String names);
+
+  /// No description provided for @splitNoteTitled.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} — split {count} ways'**
+  String splitNoteTitled(String title, int count);
+
+  /// No description provided for @splitNoteTitledWith.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} — split {count} ways with {names}'**
+  String splitNoteTitledWith(String title, int count, String names);
+
+  /// No description provided for @splitSettleNoteFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} paid you back'**
+  String splitSettleNoteFrom(String name);
+
+  /// No description provided for @splitSettleNoteTo.
+  ///
+  /// In en, this message translates to:
+  /// **'You paid {name} back'**
+  String splitSettleNoteTo(String name);
+
+  /// No description provided for @splitSettleNoteFromIn.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} paid you back — {group}'**
+  String splitSettleNoteFromIn(String name, String group);
+
+  /// No description provided for @splitSettleNoteToIn.
+  ///
+  /// In en, this message translates to:
+  /// **'You paid {name} back — {group}'**
+  String splitSettleNoteToIn(String name, String group);
+
+  /// No description provided for @lineItemRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an item, or add a new one'**
+  String get lineItemRequired;
+
+  /// No description provided for @lineQuantityRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter how much you bought, and in what unit'**
+  String get lineQuantityRequired;
+
+  /// No description provided for @inventoryKindUnfiled.
+  ///
+  /// In en, this message translates to:
+  /// **'No kind'**
+  String get inventoryKindUnfiled;
+
+  /// No description provided for @inventoryKindLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Kind'**
+  String get inventoryKindLabel;
+
+  /// No description provided for @inventoryKindNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get inventoryKindNone;
+
+  /// No description provided for @inventoryKindNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New kind'**
+  String get inventoryKindNew;
+
+  /// No description provided for @inventoryKindNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a kind'**
+  String get inventoryKindNewTitle;
+
+  /// No description provided for @inventoryKindNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get inventoryKindNameLabel;
+
+  /// No description provided for @inventoryKindNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a name'**
+  String get inventoryKindNameRequired;
+
+  /// No description provided for @inventoryKindNameTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'A tag with that name already exists'**
+  String get inventoryKindNameTaken;
+
+  /// No description provided for @tagsDeleteItemsMove.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 item is filed under this kind. It will move to Other.} other{{count} items are filed under this kind. They will move to Other.}}'**
+  String tagsDeleteItemsMove(int count);
+
+  /// No description provided for @tagsDeletedItemsMoved.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Deleted. 1 item moved to Other.} other{Deleted. {count} items moved to Other.}}'**
+  String tagsDeletedItemsMoved(int count);
 }
 
 class _AlayaStringsDelegate extends LocalizationsDelegate<AlayaStrings> {

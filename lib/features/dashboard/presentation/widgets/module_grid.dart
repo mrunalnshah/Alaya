@@ -63,8 +63,10 @@ class ModuleGrid extends ConsumerWidget {
     final expenses = ref.watch(expenseCountProvider).valueOrNull;
     final inventory = ref.watch(inventoryCountProvider);
     final shopping = ref.watch(shoppingCountProvider).valueOrNull;
+    final recipes = ref.watch(recipeCountProvider);
     final recurring = ref.watch(recurringCountProvider).valueOrNull;
     final services = ref.watch(serviceCountProvider);
+    final split = ref.watch(splitCountProvider);
 
     // A count worth acting on is coloured; a settled one is not. Colour is the only thing distinguishing
     // "two bills due" from "two bills paid", and the wording carries the rest.
@@ -116,6 +118,24 @@ class ModuleGrid extends ConsumerWidget {
           detail: strings.moduleInventory(inventory),
           tone: toneFor(inventory),
           onTap: () => context.push(Routes.inventory),
+        ),
+        ModuleTile(
+          label: strings.navRecipes,
+          icon: Icons.restaurant_menu_outlined,
+          // A count still arriving shows the name and no number, like every other tile — the tile's job
+          // is navigation and it can do that before its count lands.
+          detail: recipes == null ? '' : strings.moduleRecipes(recipes),
+          onTap: () => context.push(Routes.recipes),
+        ),
+        ModuleTile(
+          label: strings.navSplit,
+          icon: Icons.call_split_outlined,
+          detail: split == null ? '' : strings.moduleSplit(split),
+          // Coloured like the others when there is something outstanding. An open debt is a thing to act
+          // on in the same way a bill due is — and unlike stock running low, it involves somebody else
+          // waiting.
+          tone: toneFor(split),
+          onTap: () => context.push(Routes.split),
         ),
         ModuleTile(
           label: strings.navShopping,

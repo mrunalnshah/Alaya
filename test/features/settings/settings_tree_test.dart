@@ -189,7 +189,7 @@ void main() {
       // A scope only visible after opening the editor is one nobody notices is wrong.
       expect(find.text('Items'), findsOneWidget);
       expect(find.text('Shopping lists'), findsOneWidget);
-      expect(find.text('Money in'), findsNothing);
+      expect(find.text('Income'), findsNothing);
     });
 
     testWidgets('a tag scoped nowhere is called out', (tester) async {

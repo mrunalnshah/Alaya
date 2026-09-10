@@ -7,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:alaya/app/providers/infrastructure_providers.dart';
 import 'package:alaya/app/providers/repository_providers.dart';
-import 'package:alaya/core/enums/inventory_enums.dart';
 import 'package:alaya/core/logging/logger.dart';
 import 'package:alaya/core/quantity/qty.dart';
 import 'package:alaya/core/quantity/unit_category.dart';
@@ -92,9 +91,11 @@ class ItemEditorNotifier
             unitCategory: category,
             displayUnitCode: baseUnitCode,
             thresholdUnitCode: baseUnitCode,
-            itemKind: s.itemKind,
+            kindTagId: s.kindTagId,
             isFavorite: s.isFavorite,
             expiryNotifyDays: s.expiryNotifyDays,
+            densityMilliGramsPerMl: s.densityMilliGramsPerMl,
+            milliGramsPerPiece: s.milliGramsPerPiece,
             notes: s.notes,
             dirty: true,
           ),
@@ -109,7 +110,13 @@ class ItemEditorNotifier
       _edit((s) => s.copyWith(thresholdUnitCode: unit.code));
 
   /// Sets what sort of thing this is.
-  void setKind(ItemKind kind) => _edit((s) => s.copyWith(itemKind: kind));
+  /// Files the item under [kindTagId], or clears it when null.
+  ///
+  /// **Takes an id rather than an enum, and that is the whole feature.** A kind is a `tags` row now, so the set
+  /// of valid values is whatever the user has made — including one created seconds earlier from the receipt
+  /// they are entering.
+  void setKind(String? kindTagId) =>
+      _edit((s) => s.copyWith(kindTagId: kindTagId));
 
   /// Stars or unstars it.
   void toggleFavourite() => _edit((s) => s.copyWith(isFavorite: !s.isFavorite));
@@ -126,6 +133,24 @@ class ItemEditorNotifier
     (s) => days == null
         ? s.copyWith(clearNotifyDays: true)
         : s.copyWith(expiryNotifyDays: days),
+  );
+
+  /// Sets how much one millilitre weighs, in milli-grams. Null clears it.
+  ///
+  /// **Null is a real answer, not a blank.** An item with no density keeps reporting a cross-measure
+  /// ingredient as unanswerable, which is the behaviour the recipe module is built around — so
+  /// clearing this is a deliberate state, and `clearDensity` exists so it can be reached.
+  void setDensity(int? milliGramsPerMl) => _edit(
+    (s) => milliGramsPerMl == null
+        ? s.copyWith(clearDensity: true)
+        : s.copyWith(densityMilliGramsPerMl: milliGramsPerMl),
+  );
+
+  /// Sets what one piece weighs, in milli-grams. Null clears it.
+  void setPieceWeight(int? milliGrams) => _edit(
+    (s) => milliGrams == null
+        ? s.copyWith(clearPieceWeight: true)
+        : s.copyWith(milliGramsPerPiece: milliGrams),
   );
 
   /// Sets the free notes.

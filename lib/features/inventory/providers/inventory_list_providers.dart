@@ -4,9 +4,10 @@ library;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:alaya/app/providers/repository_providers.dart';
-import 'package:alaya/core/enums/inventory_enums.dart';
+import 'package:alaya/core/enums/tag_scope.dart';
 import 'package:alaya/domain/entities/item.dart';
 import 'package:alaya/domain/entities/item_stock.dart';
+import 'package:alaya/domain/entities/tag.dart';
 import 'package:alaya/domain/entities/unit.dart';
 import 'package:alaya/features/inventory/state/inventory_filter.dart';
 
@@ -22,12 +23,27 @@ class InventoryGroup {
   /// The items in it, already sorted by name.
   final List<Item> items;
 
-  /// Which kind this group collects, or null for the favourites group.
-  final ItemKind? kind;
+  /// Which kind this group collects, or null for the favourites group and for items whose kind is missing.
+  ///
+  /// **The `Tag` itself, not its id.** A group has to render a name, and with a colour and an `iconKey` on the
+  /// same row it can render those too once something reads them. Passing an id would make every screen repeat
+  /// the same lookup — which is how two screens come to disagree about what a kind is called.
+  final Tag? kind;
 
   /// Whether this is the favourites group.
   final bool isFavourites;
 }
+
+/// The kinds an item can be filed under, in the order the user arranged them.
+///
+/// **`watchByScope`, so a `Rent` tag never appears as an inventory kind.** Scoping is what lets one `tags`
+/// table serve six pickers — ARCH_2 §14 — and it is why kinds needed no table of their own.
+///
+/// Nine of these are seeded: Food, Grocery, Vegetables, Kitchen, Household, Beauty, Medicine, Electronics and
+/// Other. The rest are the user's.
+final inventoryKindsProvider = StreamProvider<List<Tag>>(
+  (ref) => ref.watch(tagRepositoryProvider).watchByScope(TagScope.inventory),
+);
 
 /// The catalogue's current filter.
 final inventoryFilterProvider =
@@ -55,13 +71,13 @@ class InventoryFilterNotifier extends Notifier<InventoryFilter> {
   void toggleLowStockOnly() =>
       state = state.copyWith(lowStockOnly: !state.lowStockOnly);
 
-  /// Adds or removes a kind.
-  void toggleKind(ItemKind kind) {
+  /// Adds or removes a kind from the filter, by tag id.
+  void toggleKind(String kindTagId) {
     final next = {...state.kinds};
-    if (next.contains(kind)) {
-      next.remove(kind);
+    if (next.contains(kindTagId)) {
+      next.remove(kindTagId);
     } else {
-      next.add(kind);
+      next.add(kindTagId);
     }
     state = state.copyWith(kinds: next);
   }
@@ -109,18 +125,25 @@ final inventoryGroupsProvider = Provider<AsyncValue<List<InventoryGroup>>>((
   final items = ref.watch(itemsProvider);
   final stocks = ref.watch(itemStocksProvider);
   final filter = ref.watch(inventoryFilterProvider);
+  final kindsAsync = ref.watch(inventoryKindsProvider);
 
   if (items.hasError) return AsyncValue.error(items.error!, items.stackTrace!);
+  if (kindsAsync.hasError) {
+    return AsyncValue.error(kindsAsync.error!, kindsAsync.stackTrace!);
+  }
   if (stocks.hasError)
     return AsyncValue.error(stocks.error!, stocks.stackTrace!);
   final all = items.valueOrNull;
-  final byId = stocks.valueOrNull;
-  if (all == null || byId == null) return const AsyncValue.loading();
+  final stockById = stocks.valueOrNull;
+  final kinds = kindsAsync.valueOrNull;
+  if (all == null || stockById == null || kinds == null) {
+    return const AsyncValue.loading();
+  }
 
   final term = filter.query.toLowerCase();
   final visible = [
     for (final item in all)
-      if (_admits(item, byId[item.id], filter, term)) item,
+      if (_admits(item, stockById[item.id], filter, term)) item,
   ]..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
   if (filter.groupBy == InventoryGroupBy.favourite) {
@@ -139,14 +162,28 @@ final inventoryGroupsProvider = Provider<AsyncValue<List<InventoryGroup>>>((
     ]);
   }
 
-  final buckets = <ItemKind, List<Item>>{};
+  // **Group order comes from `tags.sort_order` now, not from an enum's declaration order.** It used to be
+  // `for (final kind in ItemKind.values)` — the order sections appeared in was whatever order somebody had
+  // typed the members. It is user-owned state, reorderable in Settings, and that arrived free with the move.
+  final byId = {for (final kind in kinds) kind.id: kind};
+
+  final buckets = <String?, List<Item>>{};
   for (final item in visible) {
-    buckets.putIfAbsent(item.itemKind, () => <Item>[]).add(item);
+    // **An id the scoped list does not contain buckets as null**, rather than creating a phantom group. That
+    // happens when a kind was deleted without the Settings fallback running, or when its inventory scope was
+    // turned off while items still pointed at it — and an item that renders nowhere is worse than one that
+    // renders under a heading admitting it has no kind.
+    final id = byId.containsKey(item.kindTagId) ? item.kindTagId : null;
+    buckets.putIfAbsent(id, () => <Item>[]).add(item);
   }
+
   return AsyncValue.data([
-    for (final kind in ItemKind.values)
-      if (buckets[kind] != null)
-        InventoryGroup(items: buckets[kind]!, kind: kind),
+    for (final kind in kinds)
+      if (buckets[kind.id] != null)
+        InventoryGroup(items: buckets[kind.id]!, kind: kind),
+    // Unfiled last, and only when it has something in it. `kind: null` here means "no kind", which the
+    // favourites group also uses — the screen tells them apart by `isFavourites`.
+    if (buckets[null] != null) InventoryGroup(items: buckets[null]!),
   ]);
 });
 
@@ -160,7 +197,7 @@ final lowStockCountProvider = Provider<int>((ref) {
 bool _admits(Item item, ItemStock? stock, InventoryFilter filter, String term) {
   if (filter.favouritesOnly && !item.isFavorite) return false;
   if (filter.lowStockOnly && !(stock?.isLowStock ?? false)) return false;
-  if (filter.kinds.isNotEmpty && !filter.kinds.contains(item.itemKind))
+  if (filter.kinds.isNotEmpty && !filter.kinds.contains(item.kindTagId))
     return false;
   if (term.isEmpty) return true;
   return item.normalizedName.contains(term) ||

@@ -20,6 +20,7 @@ class QuickAddState {
     this.amount,
     this.accountId,
     this.tagId,
+    this.note,
     this.submitting = false,
     this.amountMissing = false,
     this.shakeTrigger = 0,
@@ -37,6 +38,15 @@ class QuickAddState {
 
   /// An optional tag.
   final String? tagId;
+
+  /// What the money was for, in the user's own words.
+  ///
+  /// **Optional, and the reason it belongs in a five-control sheet.** A tag says *groceries*; a note says
+  /// *the birthday cake*. Three months later the tag is what you filter by and the note is what tells you
+  /// which row was which — and the moment you actually know is at the till, not when you come back to tidy
+  /// up. Law U11 keeps it optional; leaving it out of the quick path would mean the one detail nobody can
+  /// reconstruct later is the one the fast route drops.
+  final String? note;
 
   /// Whether a save is in flight.
   final bool submitting;
@@ -59,6 +69,8 @@ class QuickAddState {
     String? accountId,
     String? tagId,
     bool clearTag = false,
+    String? note,
+    bool clearNote = false,
     bool? submitting,
     bool? amountMissing,
     int? shakeTrigger,
@@ -67,6 +79,7 @@ class QuickAddState {
     amount: clearAmount ? null : (amount ?? this.amount),
     accountId: accountId ?? this.accountId,
     tagId: clearTag ? null : (tagId ?? this.tagId),
+    note: clearNote ? null : (note ?? this.note),
     submitting: submitting ?? this.submitting,
     amountMissing: amountMissing ?? this.amountMissing,
     shakeTrigger: shakeTrigger ?? this.shakeTrigger,
@@ -95,6 +108,14 @@ class QuickAddNotifier extends AutoDisposeNotifier<QuickAddState> {
   /// Chooses the account the money moves through.
   void setAccount(String accountId) =>
       state = state.copyWith(accountId: accountId);
+
+  /// Sets what the money was for. Empty clears it.
+  void setNote(String value) {
+    final trimmed = value.trim();
+    state = trimmed.isEmpty
+        ? state.copyWith(clearNote: true)
+        : state.copyWith(note: trimmed);
+  }
 
   /// Applies or removes the optional tag.
   void toggleTag(String tagId) => state = state.tagId == tagId
@@ -131,6 +152,7 @@ class QuickAddNotifier extends AutoDisposeNotifier<QuickAddState> {
       needsReview: true,
       fromAccountId: isDeposit ? null : state.accountId,
       toAccountId: isDeposit ? state.accountId : null,
+      note: state.note,
     );
 
     final tagId = state.tagId;

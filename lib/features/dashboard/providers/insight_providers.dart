@@ -186,6 +186,12 @@ UpcomingKind? _kindOf(CalendarEventType type) => switch (type) {
   CalendarEventType.batchExpiry => UpcomingKind.batch,
   CalendarEventType.transaction => null,
   CalendarEventType.shoppingTarget => null,
+  // **Null, like the two above, and it is a decision rather than an oversight.** A settle-by date is a
+  // real obligation, so the tempting move is a fifth `UpcomingKind` — but that enum is rendered by its
+  // own label and icon switches, so one member here cascades into three more files for a card the split
+  // module is getting anyway. Its own dashboard card, showing net owed and the oldest unsettled debt,
+  // says more than one row on a list of bills would.
+  CalendarEventType.splitSettleBy => null,
 };
 
 /// How far back the card reaches for things still outstanding.

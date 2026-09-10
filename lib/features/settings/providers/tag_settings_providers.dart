@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alaya/app/providers/infrastructure_providers.dart';
 import 'package:alaya/app/providers/repository_providers.dart';
 import 'package:alaya/core/enums/tag_scope.dart';
+import 'package:alaya/core/result/failure.dart';
 import 'package:alaya/domain/entities/tag.dart';
 
 /// Every tag, deleted ones excluded.
@@ -132,13 +133,70 @@ class TagEditorNotifier extends Notifier<AsyncValue<void>> {
     return _settle(result.isFailure ? result.failureOrNull : null);
   }
 
-  /// Deletes [id].
+  /// How many items are filed under [id] as their kind.
+  ///
+  /// **Asked before the confirmation, not after the delete.** A kind is `items.kind_tag_id`, and soft-deleting
+  /// the tag would leave those items pointing at a row `watchByScope` no longer returns — so they would vanish
+  /// from every group and render under "No kind" instead. The count is what turns that from a surprise into a
+  /// stated consequence: *"12 items will move to Other."*
+  ///
+  /// Zero for a tag no item uses, which is every non-inventory tag — so the confirmation for `Rent` says
+  /// nothing about items and reads exactly as it always did.
+  Future<int> itemsFiledUnder(String id) =>
+      ref.read(itemRepositoryProvider).countByKind(id);
+
+  /// Deletes [id], moving any items filed under it to `Other`.
   ///
   /// `delete`, which the repository implements as the soft delete ARCH_3 §4 requires — the row keeps its
   /// history and leaves every picker. A tag hard-removed would orphan the `transaction_tags` rows naming it.
+  ///
+  /// ## Why a kind needs more than that, and a transaction tag does not
+  ///
+  /// **A soft-deleted transaction tag is correct as it stands.** The transaction happened and was tagged that
+  /// way; leaving the link and rendering it greyed with *(deleted)* keeps history readable, which is what
+  /// ARCH_3 §4 is protecting.
+  ///
+  /// **An item is current, not historical.** Its kind is how it is filed *today*, and a reference to a
+  /// soft-deleted tag is not a fact about the past — it is an item with no working kind. So this path diverges
+  /// from the tag path deliberately: the items move to `Other` first, then the tag goes.
+  ///
+  /// **Reassign before delete, and the order is the whole of it.** Deleting first and reassigning second would
+  /// leave every one of those items unfiled if anything failed in between, with no way to recover which kind
+  /// they had — the tag is gone by then. This way a failure leaves the kind intact and the items with it.
+  ///
+  /// `Other` is found by normalized name rather than a literal id, because it is a seeded row whose id differs
+  /// between a fresh install and one upgraded through `from4To5`. It cannot be missing: `is_system` makes it
+  /// undeletable, which is the reason the fallback can be relied on at all.
   Future<bool> delete(String id) async {
     state = const AsyncLoading<void>();
-    final result = await ref.read(tagRepositoryProvider).delete(id);
+
+    final items = ref.read(itemRepositoryProvider);
+    final tags = ref.read(tagRepositoryProvider);
+
+    final affected = await items.countByKind(id);
+    if (affected > 0) {
+      final fallback = await tags.byNormalizedName('other');
+      if (fallback == null || fallback.id == id) {
+        // **Refuse rather than orphan.** Either `Other` is absent, which should be impossible, or somebody is
+        // deleting `Other` itself, which `is_system` already refuses one layer down. Moving items to nothing
+        // would be worse than declining.
+        return _settle(
+          const BusinessRuleFailure(
+            'Those items have nowhere to go.',
+            rule: 'tagKindNoFallback',
+          ),
+        );
+      }
+      final moved = await items.reassignKind(
+        fromTagId: id,
+        toTagId: fallback.id,
+      );
+      // **Bails out before touching the tag.** The move is what makes the delete safe; deleting anyway would
+      // leave those items pointing at a soft-deleted row with no record of the kind they had.
+      if (moved.isFailure) return _settle(moved.failureOrNull);
+    }
+
+    final result = await tags.delete(id);
     return _settle(result.isFailure ? result.failureOrNull : null);
   }
 

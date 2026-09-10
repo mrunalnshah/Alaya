@@ -38,6 +38,10 @@ final class TagRepositoryImpl implements TagRepository {
       (await _dao.byIdIncludingDeleted(id))?.toEntity();
 
   @override
+  Future<Tag?> byNormalizedName(String normalizedName) async =>
+      (await _dao.byNormalizedName(normalizedName))?.toEntity();
+
+  @override
   Future<Result<Tag, Failure>> save(Tag tag) async {
     final existing = await _dao.byIdIncludingDeleted(tag.id);
 

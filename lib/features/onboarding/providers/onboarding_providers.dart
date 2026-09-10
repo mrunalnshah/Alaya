@@ -10,6 +10,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:alaya/app/providers/infrastructure_providers.dart';
+import 'package:alaya/app/providers/profile_providers.dart';
 import 'package:alaya/app/providers/repository_providers.dart';
 import 'package:alaya/core/enums/money_enums.dart';
 import 'package:alaya/core/money/money.dart';
@@ -35,11 +36,12 @@ enum OnboardingPhase {
 
 /// Whether onboarding had already been finished when the app started.
 ///
-/// **Overridden by `bootstrap()` with an awaited answer**, for the same reason the lock has one — and after the
-/// same bug. A `Notifier` that starts at [OnboardingPhase.unknown] and resolves a frame later leaves the router's
-/// first decision wrong, and worse, it can miss its own correction: if `_restore()` completes before `GoRouter`
-/// attaches its `refreshListenable`, the notification lands on nobody and the redirect does not re-run until the
-/// next navigation. The symptom is a first-run flow that appears when the user opens Settings.
+/// **Overridden by `bootstrap()` with an awaited answer**, for the same reason the lock has one — and
+/// after the same bug. A `Notifier` that starts at [OnboardingPhase.unknown] and resolves a frame later
+/// leaves the router's first decision wrong, and worse, it can miss its own correction: if `_restore()`
+/// completes before `GoRouter` attaches its `refreshListenable`, the notification lands on nobody and the
+/// redirect does not re-run until the next navigation. The symptom is a first-run flow that appears when
+/// the user opens Settings.
 ///
 /// One awaited settings read before `runApp` removes both halves.
 final onboardingDoneAtStartupProvider = Provider<bool>((ref) {
@@ -59,8 +61,8 @@ final onboardingPhaseProvider =
 class OnboardingPhaseNotifier extends Notifier<OnboardingPhase> {
   @override
   OnboardingPhase build() {
-    // Synchronous, from a value `bootstrap()` already awaited — so the router's first decision is correct and
-    // does not depend on a notification arriving after a listener exists.
+    // Synchronous, from a value `bootstrap()` already awaited — so the router's first decision is correct
+    // and does not depend on a notification arriving after a listener exists.
     return ref.read(onboardingDoneAtStartupProvider)
         ? OnboardingPhase.done
         : OnboardingPhase.needed;
@@ -68,8 +70,8 @@ class OnboardingPhaseNotifier extends Notifier<OnboardingPhase> {
 
   /// Records that onboarding is over, whether finished or skipped.
   ///
-  /// The write is awaited, unlike the theme and range preferences: this is the flag that stops the
-  /// router sending the user back, and losing it would restart the flow on the next launch.
+  /// The write is awaited, unlike the theme and range preferences: this is the flag that stops the router
+  /// sending the user back, and losing it would restart the flow on the next launch.
   Future<void> complete() async {
     await ref
         .read(settingsRepositoryProvider)
@@ -84,9 +86,10 @@ class OnboardingPhaseNotifier extends Notifier<OnboardingPhase> {
 
 /// Whether the router should redirect to the first-run flow.
 ///
-/// There is no guess left to make: the phase is resolved before the first frame, so `unknown` never reaches the
-/// router. It remains on the enum only for a scope that has not been given a startup value — which now throws
-/// rather than defaulting, because a silent default is what produced the bug this replaced.
+/// There is no guess left to make: the phase is resolved before the first frame, so `unknown` never
+/// reaches the router. It remains on the enum only for a scope that has not been given a startup value —
+/// which now throws rather than defaulting, because a silent default is what produced the bug this
+/// replaced.
 final needsOnboardingProvider = Provider<bool>(
   (ref) => ref.watch(onboardingPhaseProvider) == OnboardingPhase.needed,
 );
@@ -125,7 +128,7 @@ class OnboardingController extends Notifier<OnboardingDraft> {
   OnboardingDraft build() {
     unawaited(_load());
     return const OnboardingDraft(
-      step: OnboardingStep.currency,
+      step: OnboardingStep.name,
       homeCurrencyCode: fallbackHomeCurrencyCode,
       accounts: <DraftAccount>[],
     );
@@ -137,11 +140,14 @@ class OnboardingController extends Notifier<OnboardingDraft> {
   /// from one code to another.
   static const String fallbackHomeCurrencyCode = 'INR';
 
-  /// Loads the seeded accounts and the stored step.
+  /// Loads the seeded accounts, the stored step, and any name already claimed.
   ///
   /// **The flow edits as much as it creates.** Phase 1C's seeder already inserts two accounts and a
   /// `homeCurrencyCode`, so starting from an empty list would either duplicate them or quietly ignore
   /// them — and a first-run screen that shows none of the accounts the app already has reads as broken.
+  ///
+  /// The name is read for the same reason: somebody who typed it, closed the app mid-flow and came back
+  /// should see what they already gave rather than an empty field that makes them wonder whether it saved.
   Future<void> _load() async {
     final settings = ref.read(settingsRepositoryProvider);
     final home =
@@ -151,20 +157,64 @@ class OnboardingController extends Notifier<OnboardingDraft> {
         .read(accountRepositoryProvider)
         .watchSelectable()
         .first;
-
+    final name = await ref.read(userDisplayNameProvider.future);
     state = state.copyWith(
       step: OnboardingKeys.parseStep(storedStep),
       homeCurrencyCode: home,
       accounts: [for (final account in existing) DraftAccount.from(account)],
+      displayName: name ?? '',
       isLoaded: true,
     );
   }
 
+  /// Records what the user is typing as their name.
+  ///
+  /// **Not trimmed here.** Trimming mid-typing would eat the space between a first and last name the
+  /// instant it was typed; [commitName] trims once, at the point it matters.
+  void setDisplayName(String value) {
+    state = state.copyWith(displayName: value, clearFailure: true);
+  }
+
+  /// Claims the name if one was given, then moves to the currency step.
+  ///
+  /// **A blank name advances without writing anything, and that is this step's own skip.** The app-bar
+  /// Skip abandons the whole flow, so the opening question needed a smaller exit than that — and there is
+  /// nothing to record about having declined, because every screen that wants a name already handles not
+  /// having one.
+  ///
+  /// **Delegates to [claimSelfProvider] rather than creating the payee here.** That notifier already
+  /// reuses an existing person of the same name instead of cloning them, and duplicating that rule in a
+  /// second place is how two "Ravi" rows appear with one of them being the user — the worst possible state
+  /// for a module built on who owes whom.
+  Future<bool> commitName() async {
+    final name = state.displayName.trim();
+    if (name.isEmpty) {
+      await goTo(OnboardingStep.currency);
+      return true;
+    }
+
+    state = state.copyWith(isSaving: true, clearFailure: true);
+    final claimer = ref.read(claimSelfProvider.notifier);
+    final ok = await claimer.claim(name);
+    if (!ok) {
+      state = state.copyWith(
+        isSaving: false,
+        // The repository's own sentence where there is one — a duplicate name says so, where "something
+        // went wrong" would leave somebody retyping the same thing (Law U9).
+        failureMessage: claimer.lastError,
+      );
+      return false;
+    }
+    state = state.copyWith(isSaving: false);
+    await goTo(OnboardingStep.currency);
+    return true;
+  }
+
   /// Sets the currency totals are shown in, carrying untouched accounts with it.
   ///
-  /// **Untouched accounts follow; chosen ones do not.** Somebody selecting yen on step one does not want
-  /// two rupee accounts they never asked for, and equally does not want an account they deliberately set
-  /// to rupees rewritten behind them. `DraftAccount.currencyTouched` is what separates the two.
+  /// **Untouched accounts follow; chosen ones do not.** Somebody selecting yen does not want two rupee
+  /// accounts they never asked for, and equally does not want an account they deliberately set to rupees
+  /// rewritten behind them. `DraftAccount.currencyTouched` is what separates the two.
   void setHomeCurrency(String code) {
     state = state.copyWith(
       homeCurrencyCode: code,
@@ -215,9 +265,9 @@ class OnboardingController extends Notifier<OnboardingDraft> {
 
   /// Removes the row at [index].
   ///
-  /// A row that already exists in the database is **not** deleted here — removing it from the draft
-  /// only stops this flow writing to it. Deleting an account is a destructive action with its own tier
-  /// in ARCH_5 §5.5, and burying it in a first-run screen would be the wrong place for it.
+  /// A row that already exists in the database is **not** deleted here — removing it from the draft only
+  /// stops this flow writing to it. Deleting an account is a destructive action with its own tier in
+  /// ARCH_5 §5.5, and burying it in a first-run screen would be the wrong place for it.
   void removeAccount(int index) {
     if (index < 0 || index >= state.accounts.length) return;
     final next = [...state.accounts]..removeAt(index);
@@ -238,8 +288,8 @@ class OnboardingController extends Notifier<OnboardingDraft> {
 
   /// Writes the home currency, then moves to the accounts step.
   ///
-  /// Through `writeHomeCurrencyCode` rather than `writeValue` with a key: the key lives in `data/`, which
-  /// a feature may not import, and a literal here would write to a dead key the moment `data/` renamed it.
+  /// Through `writeHomeCurrencyCode` rather than `writeValue` with a key: the key lives in `data/`, which a
+  /// feature may not import, and a literal here would write to a dead key the moment `data/` renamed it.
   Future<bool> commitCurrency() async {
     state = state.copyWith(isSaving: true, clearFailure: true);
     final result = await ref
@@ -257,7 +307,7 @@ class OnboardingController extends Notifier<OnboardingDraft> {
     return true;
   }
 
-  /// Saves every account, then moves to the security step.
+  /// Saves every account, then finishes.
   ///
   /// **Stops at the first failure rather than continuing.** Half-written accounts with the other half
   /// reported as an error is a worse state to leave someone in than nothing written, and Law L14's
@@ -267,7 +317,6 @@ class OnboardingController extends Notifier<OnboardingDraft> {
     final repository = ref.read(accountRepositoryProvider);
     final normalizer = ref.read(normalizerProvider);
     final uids = ref.read(uidGeneratorProvider);
-
     for (var i = 0; i < state.accounts.length; i++) {
       final draft = state.accounts[i];
       final account = Account(
@@ -291,14 +340,13 @@ class OnboardingController extends Notifier<OnboardingDraft> {
         return false;
       }
     }
-
     state = state.copyWith(isSaving: false);
     // **Straight to finished. There is no security step any more.**
     //
-    // Asking a first-time user to choose a PIN before they have entered a single transaction put the most
-    // abandonable question in the flow at the point they had least reason to answer it — and it was the step that
-    // needed a redirect exemption, an embedded widget and a post-frame callback to report upward. Settings ›
-    // Security offers the same thing later, when there is something worth locking.
+    // Asking a first-time user to choose a PIN before they had entered a single transaction put the most
+    // abandonable question in the flow at the point they had least reason to answer it — and it was the
+    // step that needed a redirect exemption, an embedded widget and a post-frame callback to report
+    // upward. Settings › Security offers the same thing later, when there is something worth locking.
     await finish();
     return true;
   }

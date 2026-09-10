@@ -106,11 +106,25 @@ class QuickAddSheet extends ConsumerWidget {
           child: AmountField(
             currencyCode: currency,
             decimalDigits: digits,
-            autofocus: true,
             label: strings.labelAmount,
             errorText: state.amountMissing ? strings.errorAmountInvalid : null,
             onChanged: notifier.setAmount,
           ),
+        ),
+        const SizedBox(height: AlayaSpacing.md),
+        // **Directly under the amount, because that is the order the thought arrives in:** two hundred,
+        // for the birthday cake. A tag says *groceries* and is what you filter by later; this says which
+        // row was which, and the only moment anybody knows it is now.
+        //
+        // One line, no label, hint as the question. A labelled multi-line box would be a fifth control
+        // demanding attention in a sheet built to be finished in eight seconds — this one can be ignored
+        // entirely without ever looking like an unanswered field.
+        TextFormField(
+          initialValue: state.note,
+          textCapitalization: TextCapitalization.sentences,
+          textInputAction: TextInputAction.done,
+          decoration: InputDecoration(hintText: strings.quickAddNoteHint),
+          onChanged: notifier.setNote,
         ),
         if (accounts.isNotEmpty) ...[
           const SizedBox(height: AlayaSpacing.md),

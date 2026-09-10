@@ -11,6 +11,7 @@ import 'package:alaya/core/enums/ops_enums.dart';
 import 'package:alaya/core/enums/recurring_enums.dart';
 import 'package:alaya/core/enums/service_enums.dart';
 import 'package:alaya/core/enums/shopping_enums.dart';
+import 'package:alaya/core/enums/split_enums.dart';
 import 'package:alaya/core/quantity/unit_category.dart';
 import 'package:alaya/core/time/date_key.dart';
 import 'package:alaya/data/db/converters/date_key_converter.dart';
@@ -20,9 +21,11 @@ import 'package:alaya/data/db/tables/inventory_tables.dart';
 import 'package:alaya/data/db/tables/meta_tables.dart';
 import 'package:alaya/data/db/tables/money_tables.dart';
 import 'package:alaya/data/db/tables/ops_tables.dart';
+import 'package:alaya/data/db/tables/recipe_tables.dart';
 import 'package:alaya/data/db/tables/recurring_tables.dart';
 import 'package:alaya/data/db/tables/service_tables.dart';
 import 'package:alaya/data/db/tables/shopping_tables.dart';
+import 'package:alaya/data/db/tables/split_tables.dart';
 import 'package:alaya/data/db/tables/tag_tables.dart';
 
 part 'alaya_database.g.dart';
@@ -30,9 +33,9 @@ part 'alaya_database.g.dart';
 /// The Alaya database. Plaintext by design (ARCH_1 §2.1): no SQLCipher, no `PRAGMA key`, and
 /// `android:allowBackup="false"` in the manifest is what stops Android replicating it to Drive.
 ///
-/// The `include` set is what brings the 11 views, 22 indexes and 2 FTS tables into
+/// The `include` set is what brings the 15 views, 36 indexes and 2 FTS tables into
 /// `Migrator.createAll()`. Without those entries the `.drift` files are inert: the schema would
-/// create 26 bare tables and every repository read would fail against a view that does not exist.
+/// create bare tables and every repository read would fail against a view that does not exist.
 ///
 /// Phases 2A-2C add the DAOs on top of this.
 @DriftDatabase(
@@ -67,6 +70,17 @@ part 'alaya_database.g.dart';
     // Service
     Assets,
     ServiceRecords,
+    // Recipes
+    Recipes,
+    RecipeIngredients,
+    RecipeSteps,
+    RecipeCookLog,
+    // Split
+    SplitGroups,
+    SplitMembers,
+    SplitExpenses,
+    SplitShares,
+    SplitSettlements,
     // Ops
     NotificationSchedule,
     BackupHistory,
@@ -78,6 +92,7 @@ part 'alaya_database.g.dart';
     'views/inventory_views.drift',
     'views/schedule_views.drift',
     'views/calendar_view.drift',
+    'views/split_views.drift',
     'indexes.drift',
     'fts.drift',
   },
@@ -96,8 +111,17 @@ class AlayaDatabase extends _$AlayaDatabase {
   final DatabaseSeeder? seeder;
 
   @override
-  int get schemaVersion => 1;
+  // v4 is the Split module: five tables, fourteen indexes, four new views, and one existing view
+  // that changed shape. `from3To4` in `migration_strategy.dart` is the step; it is the first in this
+  // project to create an index or drop a view, because `from1To2` only created tables and `from2To3`
+  // only added columns.
+  //
+  // The step file and the v4 snapshot are GENERATED — see the two commands in this phase's notes.
+  // Editing `schema_steps.dart` by hand puts the generated and declared schemas out of step, which
+  // drift detects only when a real device tries to migrate.
+  int get schemaVersion => 5;
 
   @override
-  MigrationStrategy get migration => buildMigrationStrategy(this, seeder: seeder);
+  MigrationStrategy get migration =>
+      buildMigrationStrategy(this, seeder: seeder);
 }

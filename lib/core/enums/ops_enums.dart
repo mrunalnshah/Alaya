@@ -16,6 +16,13 @@ enum NotificationKind {
 
   /// An Asset's warranty is ending soon.
   warrantyEnd,
+
+  /// A shared expense the user agreed to settle by a date is coming up.
+  ///
+  /// **A date, not a state**, which is what makes it eligible for a digest at all. [lowStock] is left
+  /// out of `reminderKinds` because "you are low on rice" has no day and would repeat every morning
+  /// until somebody shopped; a settle-by date has a day, so the sentence stops being true once acted on.
+  settlementDue,
 }
 
 /// The lifecycle state of one scheduled local notification.

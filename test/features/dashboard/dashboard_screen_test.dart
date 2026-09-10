@@ -9,6 +9,7 @@ import 'package:alaya/features/dashboard/presentation/widgets/insight_card.dart'
 import 'package:alaya/features/dashboard/presentation/widgets/module_grid.dart';
 import 'package:alaya/features/dashboard/presentation/widgets/range_row.dart';
 import 'package:alaya/features/dashboard/providers/insight_providers.dart';
+import 'package:alaya/features/expense/presentation/sheets/quick_add_sheet.dart';
 import 'package:alaya/shared/widgets/alaya_expandable_fab.dart';
 import 'package:alaya/shared/widgets/amount_text.dart';
 
@@ -117,8 +118,33 @@ void main() {
     await tester.tap(find.byTooltip('Add something'));
     await tester.pumpAndSettle();
     expect(find.text('Add expense'), findsOneWidget);
-    expect(find.text('Money in'), findsOneWidget);
+    expect(find.text('Add income'), findsOneWidget);
     expect(find.text('New item'), findsOneWidget);
+  });
+
+  testWidgets('adding an expense opens the quick sheet, not the full editor', (
+    tester,
+  ) async {
+    // Law U16. `QuickAddSheet` was built for this — five controls, one-handed — and for three phases
+    // nothing in the app opened it: every add action pushed the eleven-control editor instead, so the
+    // quick surface existed, passed its golden test, and was reachable only from tests.
+    //
+    // Asserted on what appears rather than on a route, because the failure was never a broken route.
+    // It was a working route to the wrong screen.
+    await pumpDashboard(
+      tester,
+      const DashboardScreen(),
+      overrides: dashboardOverrides(),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Add something'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Add expense'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(QuickAddSheet), findsOneWidget);
+    // The full editor's own heading must not be here. If it is, the FAB is pushing the editor again.
+    expect(find.text('What and how much'), findsNothing);
   });
 
   testWidgets('survives 320dp at a doubled text scale', (tester) async {

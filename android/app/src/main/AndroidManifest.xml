@@ -23,6 +23,27 @@
          it is ever taken, replace this with tools:node="remove" and update the data-safety form. -->
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
+    <!-- Phase 9. Declared explicitly for the same reason as AD_ID above: `flutter_local_notifications` adds it
+         through the manifest merger, which means it exists in the built artefact and nowhere in this project,
+         and a permission nobody can find in source is one nobody reasons about.
+
+         Required from Android 13 (API 33). Without it `requestNotificationsPermission()` returns false without
+         ever showing a dialog, which looks exactly like a user declining. ARCH_3 §7 requests it on the first
+         reminder switch-on and never on launch.
+
+         SCHEDULE_EXACT_ALARM is deliberately NOT declared: the digest uses
+         AndroidScheduleMode.inexactAllowWhileIdle, Android 14 restricts the exact permission, and Play asks
+         apps to justify it. A digest arriving at 9:07 instead of 9:00 has lost nothing. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Phase 9. Declared explicitly for the same reason as AD_ID and POST_NOTIFICATIONS above:
+         flutter_local_notifications does NOT contribute this through the merger — verified against the
+         built artefact, where both this and the receiver were absent while the plugin was present.
+         Android clears every AlarmManager alarm on reboot AND on app update, so without the receiver
+         below the daily digest stops until somebody next opens the app. An update is far more frequent
+         than a reboot. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:label="Alaya"
         android:name="${applicationName}"
@@ -61,6 +82,16 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <receiver
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
     </application>
 
     <queries>

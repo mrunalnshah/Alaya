@@ -17,7 +17,13 @@ import 'package:workmanager/workmanager.dart';
 import 'package:alaya/core/ids/uid.dart';
 import 'package:alaya/core/time/clock.dart';
 import 'package:alaya/data/daos/calendar_dao.dart';
+import 'package:alaya/data/daos/account_dao.dart';
 import 'package:alaya/data/daos/notification_schedule_dao.dart';
+import 'package:alaya/data/daos/split_dao.dart';
+import 'package:alaya/data/daos/split_view_dao.dart';
+import 'package:alaya/data/repositories/split_group_repository_impl.dart';
+import 'package:alaya/data/repositories/split_ledger_repository_impl.dart';
+import 'package:alaya/domain/services/split/split_balance_service.dart';
 import 'package:alaya/data/daos/settings_dao.dart';
 import 'package:alaya/data/db/alaya_database.dart';
 import 'package:alaya/data/db/connection/open_database.dart';
@@ -59,6 +65,56 @@ Future<void> registerDailyJob() async {
   );
 }
 
+/// Builds a [LocalNotificationScheduler] over [database].
+///
+/// **Extracted so `bootstrap()` can re-arm at launch without a fourth copy of this wiring.** Three already
+/// existed — this isolate's, the UI's `reminderPortProvider`, and none at startup — and a seven-argument
+/// constructor duplicated per caller is a place where two copies drift and only one is tested.
+///
+/// **A fresh `FlutterLocalNotificationsPlugin` every call, deliberately.** It is not a singleton across
+/// isolates: the instance the UI created does not exist in the `workmanager` isolate, and an uninitialised one
+/// fails quietly rather than throwing. `LocalNotificationScheduler` initialises whatever it is handed, lazily,
+/// which is why callers construct the scheduler rather than reaching for the plugin.
+LocalNotificationScheduler buildReminderScheduler({
+  required AlayaDatabase database,
+  required Clock clock,
+  required UidGenerator uids,
+}) {
+  final settingsDao = SettingsDao(database);
+  final splitDao = SplitDao(database);
+
+  // **The split chain, assembled here rather than injected into the scheduler.** The scheduler counts
+  // ageing debts through a one-method function; it has no business knowing what a split is, and taking
+  // `SplitBalanceService` would drag two repositories and three DAOs into a class that runs in a
+  // `workmanager` isolate. This factory already exists to assemble everything from a database, which
+  // makes it the right place and the only place — the seven-argument constructor this function replaced
+  // is exactly the duplication its own doc warns about.
+  final groups = SplitGroupRepositoryImpl(splitDao, settingsDao, clock);
+  final balances = SplitBalanceService(
+    ledger: SplitLedgerRepositoryImpl(
+      splitDao,
+      SplitViewDao(database),
+      groups,
+      AccountDao(database),
+      clock,
+    ),
+    clock: clock,
+  );
+
+  return LocalNotificationScheduler(
+    plugin: FlutterLocalNotificationsPlugin(),
+    database: database,
+    scheduleDao: NotificationScheduleDao(database),
+    calendar: CalendarAggregator(CalendarRepositoryImpl(CalendarDao(database))),
+    settings: SettingsRepositoryImpl(settingsDao, clock),
+    uids: uids,
+    clock: clock,
+    // The threshold is `SplitBalanceService.defaultAgeingThresholdDays` — fourteen days, a judgement
+    // rather than a finding, and documented as one where it is declared.
+    ageingDebts: () async => (await balances.ageingDebts()).length,
+  );
+}
+
 /// The background entry point.
 ///
 /// `@pragma('vm:entry-point')` because the isolate is started by native code with no Dart caller — without it
@@ -78,16 +134,10 @@ void alayaCallbackDispatcher() {
       final trash = TrashAdapter(database: database, clock: clock);
       await trash.purgeExpired();
 
-      final reminders = LocalNotificationScheduler(
-        plugin: FlutterLocalNotificationsPlugin(),
+      final reminders = buildReminderScheduler(
         database: database,
-        scheduleDao: NotificationScheduleDao(database),
-        calendar: CalendarAggregator(
-          CalendarRepositoryImpl(CalendarDao(database)),
-        ),
-        settings: SettingsRepositoryImpl(SettingsDao(database), clock),
-        uids: uids,
         clock: clock,
+        uids: uids,
       );
       await reminders.rescheduleAll();
       return true;

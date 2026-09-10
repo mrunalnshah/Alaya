@@ -15,6 +15,7 @@ import 'package:alaya/features/recurring/providers/template_builder_providers.da
 import 'package:alaya/features/recurring/state/template_builder_state.dart';
 import 'package:alaya/shared/feedback/undo_snack.dart';
 import 'package:alaya/shared/widgets/alaya_card.dart';
+import 'package:alaya/shared/widgets/alaya_disclosure.dart';
 import 'package:alaya/shared/widgets/alaya_form_scaffold.dart';
 import 'package:alaya/shared/widgets/alaya_list_skeleton.dart';
 import 'package:alaya/shared/widgets/amount_field.dart';
@@ -286,83 +287,130 @@ class _Form extends ConsumerWidget {
         ),
         const SizedBox(height: AlayaSpacing.md),
         FrequencyPreview(dates: dates),
-        SectionHeader(
-          label: strings.builderSectionDefaults,
-          padding: const EdgeInsets.only(
-            top: AlayaSpacing.xl,
-            bottom: AlayaSpacing.xs,
-          ),
-        ),
-        AmountField(
-          currencyCode: state.currencyCode,
-          decimalDigits: digits,
-          label: strings.labelDefaultAmount,
-          initialValue: state.amount,
-          errorText: state.issue == TemplateSaveIssue.amountMissing
-              ? strings.errorAmountInvalid
-              : null,
-          onChanged: notifier.setAmount,
-        ),
-        const SizedBox(height: AlayaSpacing.md),
-        if (accounts.isNotEmpty)
-          DropdownButtonFormField<String>(
-            key: ValueKey(selectedAccount?.id),
-            initialValue: selectedAccount?.id,
-            isExpanded: true,
-            decoration: InputDecoration(labelText: strings.labelAccount),
-            items: [
-              for (final account in accounts)
-                DropdownMenuItem(value: account.id, child: Text(account.name)),
+        AlayaDisclosure(
+          label: strings.sectionMoreDetails,
+          summary: _templateSummary(strings, state),
+          startExpanded: _hasTemplateDefaults(state),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SectionHeader(
+                label: strings.builderSectionDefaults,
+                padding: const EdgeInsets.only(
+                  top: AlayaSpacing.xl,
+                  bottom: AlayaSpacing.xs,
+                ),
+              ),
+              AmountField(
+                currencyCode: state.currencyCode,
+                decimalDigits: digits,
+                label: strings.labelDefaultAmount,
+                initialValue: state.amount,
+                errorText: state.issue == TemplateSaveIssue.amountMissing
+                    ? strings.errorAmountInvalid
+                    : null,
+                onChanged: notifier.setAmount,
+              ),
+              const SizedBox(height: AlayaSpacing.md),
+              if (accounts.isNotEmpty)
+                DropdownButtonFormField<String>(
+                  key: ValueKey(selectedAccount?.id),
+                  initialValue: selectedAccount?.id,
+                  isExpanded: true,
+                  decoration: InputDecoration(labelText: strings.labelAccount),
+                  items: [
+                    for (final account in accounts)
+                      DropdownMenuItem(
+                        value: account.id,
+                        child: Text(account.name),
+                      ),
+                  ],
+                  onChanged: notifier.setAccount,
+                ),
+              const SizedBox(height: AlayaSpacing.md),
+              SwitchListTile(
+                value: state.autoRemind,
+                contentPadding: EdgeInsets.zero,
+                title: Text(strings.labelRemindBefore),
+                secondary: Icon(
+                  state.autoRemind
+                      ? Icons.notifications_active_outlined
+                      : Icons.notifications_off_outlined,
+                  size: AlayaIconSize.md,
+                  color: semantic.muted,
+                ),
+                onChanged: (_) => notifier.toggleRemind(),
+              ),
+              if (state.autoRemind)
+                TextFormField(
+                  initialValue: '${state.remindDaysBefore}',
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: strings.labelRemindBefore,
+                  ),
+                  onChanged: (raw) => notifier.setRemindDaysBefore(
+                    int.tryParse(raw.trim()) ?? 0,
+                  ),
+                ),
+              SectionHeader(
+                label: strings.labelNote,
+                padding: const EdgeInsets.only(
+                  top: AlayaSpacing.xl,
+                  bottom: AlayaSpacing.xs,
+                ),
+              ),
+              TextFormField(
+                initialValue: state.note,
+                maxLines: 3,
+                decoration: InputDecoration(hintText: strings.hintNote),
+                onChanged: notifier.setNote,
+              ),
+              if (state.issue == TemplateSaveIssue.rejected &&
+                  state.rejection != null) ...[
+                const SizedBox(height: AlayaSpacing.md),
+                AlayaCard(
+                  padding: const EdgeInsets.all(AlayaSpacing.sm),
+                  child: Text(
+                    state.rejection!,
+                    style: AlayaTypography.body.copyWith(
+                      color: semantic.danger,
+                    ),
+                  ),
+                ),
+              ],
             ],
-            onChanged: notifier.setAccount,
-          ),
-        const SizedBox(height: AlayaSpacing.md),
-        SwitchListTile(
-          value: state.autoRemind,
-          contentPadding: EdgeInsets.zero,
-          title: Text(strings.labelRemindBefore),
-          secondary: Icon(
-            state.autoRemind
-                ? Icons.notifications_active_outlined
-                : Icons.notifications_off_outlined,
-            size: AlayaIconSize.md,
-            color: semantic.muted,
-          ),
-          onChanged: (_) => notifier.toggleRemind(),
-        ),
-        if (state.autoRemind)
-          TextFormField(
-            initialValue: '${state.remindDaysBefore}',
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(labelText: strings.labelRemindBefore),
-            onChanged: (raw) =>
-                notifier.setRemindDaysBefore(int.tryParse(raw.trim()) ?? 0),
-          ),
-        SectionHeader(
-          label: strings.labelNote,
-          padding: const EdgeInsets.only(
-            top: AlayaSpacing.xl,
-            bottom: AlayaSpacing.xs,
           ),
         ),
-        TextFormField(
-          initialValue: state.note,
-          maxLines: 3,
-          decoration: InputDecoration(hintText: strings.hintNote),
-          onChanged: notifier.setNote,
-        ),
-        if (state.issue == TemplateSaveIssue.rejected &&
-            state.rejection != null) ...[
-          const SizedBox(height: AlayaSpacing.md),
-          AlayaCard(
-            padding: const EdgeInsets.all(AlayaSpacing.sm),
-            child: Text(
-              state.rejection!,
-              style: AlayaTypography.body.copyWith(color: semantic.danger),
-            ),
-          ),
-        ],
       ],
     );
+  }
+
+  /// Whether anything behind the door is set, so it should open on arrival.
+  ///
+  /// **`autoRemind` is excluded on purpose.** ARCH_3 §7 has every reminder default to off, so it carries
+  /// a default rather than a choice — counting it would open the door on every template and the tiering
+  /// would do nothing. A reminder somebody actually set is caught by `remindDaysBefore`.
+  static bool _hasTemplateDefaults(TemplateBuilderState state) =>
+      state.payeeId != null ||
+      state.accountId != null ||
+      state.tagId != null ||
+      state.remindDaysBefore > 0 ||
+      state.endDateKey != null ||
+      (state.note ?? '').trim().isNotEmpty;
+
+  /// What is set behind the door, for the collapsed row.
+  static String? _templateSummary(
+    AlayaStrings strings,
+    TemplateBuilderState state,
+  ) {
+    final parts = <String>[];
+    if (state.accountId != null ||
+        state.payeeId != null ||
+        state.tagId != null) {
+      parts.add(strings.builderSectionDefaults);
+    }
+    if (state.remindDaysBefore > 0) parts.add(strings.labelRemindBefore);
+    if ((state.note ?? '').trim().isNotEmpty) parts.add(strings.labelNote);
+    return parts.isEmpty ? null : parts.join(' \u00B7 ');
   }
 }

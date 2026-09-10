@@ -75,7 +75,6 @@ class _PaymentMethodSheetState extends ConsumerState<PaymentMethodSheet> {
         const SizedBox(height: AlayaSpacing.md),
         TextField(
           controller: _name,
-          autofocus: true,
           decoration: InputDecoration(
             labelText: strings.paymentMethodNameLabel,
           ),

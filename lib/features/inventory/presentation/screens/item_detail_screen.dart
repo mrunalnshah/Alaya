@@ -12,9 +12,11 @@ import 'package:alaya/app/theme/tokens/alaya_typography.dart';
 import 'package:alaya/core/time/clock.dart';
 import 'package:alaya/domain/entities/batch.dart';
 import 'package:alaya/domain/entities/item.dart';
-import 'package:alaya/features/inventory/presentation/screens/inventory_list_screen.dart';
+import 'package:alaya/domain/entities/tag.dart';
 import 'package:alaya/features/inventory/presentation/sheets/consume_sheet.dart';
 import 'package:alaya/features/inventory/presentation/widgets/batch_card.dart';
+import 'package:alaya/features/inventory/presentation/widgets/kind_display.dart';
+import 'package:alaya/features/inventory/providers/inventory_list_providers.dart';
 import 'package:alaya/features/inventory/providers/item_detail_providers.dart';
 import 'package:alaya/shared/feedback/undo_snack.dart';
 import 'package:alaya/shared/widgets/alaya_card.dart';
@@ -125,6 +127,19 @@ class _Body extends ConsumerWidget {
     final stock = ref.watch(itemStockProvider(item.id)).valueOrNull;
     final batches = ref.watch(itemBatchesProvider(item.id));
     final units = ref.watch(detailUnitsByCodeProvider).valueOrNull ?? const {};
+    final kinds =
+        ref.watch(inventoryKindsProvider).valueOrNull ?? const <Tag>[];
+
+    // A loop rather than `firstOrNull`, which lives in `package:collection` and is imported nowhere in this
+    // feature. `settle_up_sheet`'s `accountFor` is the same shape for the same reason.
+    Tag? kindFor(String? id) {
+      if (id == null) return null;
+      for (final kind in kinds) {
+        if (kind.id == id) return kind;
+      }
+      return null;
+    }
+
     final threshold = item.lowStockThreshold;
     final notifyDays = item.expiryNotifyDays;
 
@@ -236,7 +251,10 @@ class _Body extends ConsumerWidget {
             SectionHeader(label: strings.detailSectionDetails),
             KeyValueRow(
               label: strings.labelItemKind,
-              value: ItemKindLabel.of(strings, item.itemKind),
+              // Resolved from the kinds list rather than read off the item, because a kind is a row now and
+              // its name can change. `KindDisplay` renders "No kind" when the item has none or its tag is
+              // gone — the same sentence the list's unfiled group uses.
+              value: KindDisplay.labelFor(strings, kindFor(item.kindTagId)),
             ),
             KeyValueRow(
               label: strings.labelDisplayUnit,

@@ -65,6 +65,9 @@ import 'package:alaya/domain/services/purchase_fan_out_service.dart';
 import 'package:alaya/domain/services/recurring_engine.dart';
 import 'package:alaya/domain/services/stock_reconciler.dart';
 import 'package:alaya/domain/services/unit_engine.dart';
+import 'package:alaya/domain/services/split/settlement_service.dart';
+import 'package:alaya/domain/services/split/split_balance_service.dart';
+import 'package:alaya/domain/services/split/split_expense_service.dart';
 
 // ── stateless engines ───────────────────────────────────────────────────────────────────
 
@@ -298,3 +301,42 @@ final analyticsServiceProvider = FutureProvider<AnalyticsService>((ref) async {
     homeCurrencyCode: home,
   );
 });
+
+/// Turning split instructions into stored shares.
+///
+/// Holds `SplitResolver` by default rather than taking one per call: the resolver is stateless and
+/// `const`, and threading it through every call site would be a parameter that never varies.
+final splitExpenseServiceProvider = Provider<SplitExpenseService>(
+  (ref) => SplitExpenseService(
+    ledger: ref.watch(splitLedgerRepositoryProvider),
+    uids: ref.watch(uidGeneratorProvider),
+    clock: ref.watch(clockProvider),
+  ),
+);
+
+/// Recording money that changed hands to settle a split debt.
+///
+/// **The one write in this module whose failure a user could not see**, which is why it goes through a
+/// single repository call that writes the settlement and its transaction in one database transaction.
+/// Splitwise's "settle up" is a marker it cannot back with anything; here the deposit or withdrawal is
+/// an ordinary `transactions` row, so the two ledgers cannot diverge.
+final settlementServiceProvider = Provider<SettlementService>(
+  (ref) => SettlementService(
+    ledger: ref.watch(splitLedgerRepositoryProvider),
+    groups: ref.watch(splitGroupRepositoryProvider),
+    uids: ref.watch(uidGeneratorProvider),
+    clock: ref.watch(clockProvider),
+  ),
+);
+
+/// Who owes what, how long they have owed it, and the shortest way to settle up.
+///
+/// Takes `Clock` because the balance views cannot: ARCH_2 §12.2 forbids any view from consulting the
+/// current time, so the ageing that the daily digest reads — *"owed for three weeks"* — is computed
+/// here against an injected clock and stays reproducible under a `FixedClock`.
+final splitBalanceServiceProvider = Provider<SplitBalanceService>(
+  (ref) => SplitBalanceService(
+    ledger: ref.watch(splitLedgerRepositoryProvider),
+    clock: ref.watch(clockProvider),
+  ),
+);

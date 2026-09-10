@@ -31,6 +31,8 @@ class AlayaDrawer extends StatelessWidget {
       Routes.dashboard => strings.navDashboard,
       Routes.expenses => strings.navExpenses,
       Routes.inventory => strings.navInventory,
+      Routes.recipes => strings.navRecipes,
+      Routes.split => strings.navSplit,
       Routes.shopping => strings.navShopping,
       Routes.recurring => strings.navRecurring,
       Routes.services => strings.navServices,
@@ -47,6 +49,12 @@ class AlayaDrawer extends StatelessWidget {
     Routes.dashboard => Icons.dashboard_outlined,
     Routes.expenses => Icons.receipt_long_outlined,
     Routes.inventory => Icons.inventory_2_outlined,
+    // A cooking pot rather than a book: the module is about what you can make from what is on
+    // hand, not about storing text.
+    Routes.recipes => Icons.restaurant_menu_outlined,
+    // A fork in a path, not a group of people: the module is about dividing a bill, and the people
+    // are labels on the division rather than the subject of it.
+    Routes.split => Icons.call_split_outlined,
     Routes.shopping => Icons.shopping_cart_outlined,
     Routes.recurring => Icons.autorenew_outlined,
     Routes.services => Icons.build_outlined,

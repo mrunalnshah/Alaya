@@ -15,6 +15,7 @@ import 'package:alaya/core/time/date_key.dart';
 import 'package:alaya/domain/entities/account.dart';
 import 'package:alaya/domain/entities/payee.dart';
 import 'package:alaya/domain/entities/transaction.dart';
+import 'package:alaya/features/expense/presentation/sheets/quick_add_sheet.dart';
 import 'package:alaya/features/expense/presentation/widgets/needs_review_banner.dart';
 import 'package:alaya/features/expense/presentation/widgets/transaction_filter_sheet.dart';
 import 'package:alaya/features/expense/presentation/widgets/transaction_row.dart';
@@ -62,7 +63,10 @@ class TransactionListScreen extends ConsumerWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.push(Routes.transactionNew),
+        // The sheet, not the editor. Capturing a purchase is the frequent act and wants five
+        // controls; the eleven-control editor is where you go when five are not enough, reached
+        // from the sheet's own "Add details".
+        onPressed: () => QuickAddSheet.show(context),
         tooltip: strings.addExpense,
         child: const Icon(Icons.add, size: AlayaIconSize.lg),
       ),
@@ -209,6 +213,11 @@ class _GroupedList extends ConsumerWidget {
             body: strings.emptyBodyNoTransactions,
             icon: Icons.receipt_long_outlined,
             actionLabel: strings.addExpense,
+            // **Deliberately still the full editor.** An empty ledger means somebody is setting up
+            // rather than capturing at a till, and the full form is the better first experience. It
+            // also keeps `Routes.transactionNew` reachable: a route nothing navigates to is the
+            // failure this whole change is fixing, and swapping it for another instance of the same
+            // mistake would be no improvement (ARCH_5 §9.2).
             onAction: () => context.push(Routes.transactionNew),
           );
         }

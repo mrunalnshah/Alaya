@@ -24,11 +24,17 @@ void main() {
   TransactionEditorState seed({
     TransactionKind kind = TransactionKind.withdrawal,
     TransactionSubtype subtype = TransactionSubtype.grocery,
+    Set<String> tagIds = const {},
+    String? note,
+    String? fromAccountId,
   }) => TransactionEditorState(
     currencyCode: 'INR',
     dateKey: kToday,
     kind: kind,
     subtype: subtype,
+    tagIds: tagIds,
+    note: note,
+    fromAccountId: fromAccountId,
   );
 
   // The override goes on the **family**, not on an instance of it. A NotifierProvider family
@@ -85,12 +91,84 @@ void main() {
     expect(find.widgetWithText(FilledButton, 'Save expense'), findsOneWidget);
   });
 
+  group('more details', () {
+    testWidgets('a blank record shows the door closed', (tester) async {
+      // Amount, date and category are what a purchase needs. The rest is behind one row — the
+      // eleven-controls-at-once density is what made this screen hard to read (ARCH_5 §2.6b).
+      await pumpExpense(
+        tester,
+        const TransactionEditorScreen(),
+        overrides: overrides(AsyncValue.data(seed())),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('More details'), findsOneWidget);
+      // 'NOTE', not 'Note': `SectionHeader` renders `label.toUpperCase()`. My first version of this
+      // assertion looked for 'Note' and therefore passed whether the door was open or shut — a
+      // vacuous check dressed as a real one.
+      expect(find.text('NOTE'), findsNothing);
+    });
+
+    testWidgets('tapping the row reveals every field, none removed', (
+      tester,
+    ) async {
+      // The functionality is unchanged — this asserts it. Nothing was deleted to make the screen
+      // calmer; it is one tap further away.
+      await pumpExpense(
+        tester,
+        const TransactionEditorScreen(),
+        overrides: overrides(AsyncValue.data(seed())),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('More details'));
+      await tester.pumpAndSettle();
+      expect(find.text('NOTE'), findsOneWidget);
+      expect(find.text('WHERE IT WENT'), findsOneWidget);
+    });
+
+    testWidgets('a record with a note opens the door on arrival', (
+      tester,
+    ) async {
+      // **The rule that makes collapsing honest.** Without it somebody sets a note, saves, reopens,
+      // and their note is behind a chevron with nothing to suggest it exists.
+      await pumpExpense(
+        tester,
+        const TransactionEditorScreen(),
+        overrides: overrides(AsyncValue.data(seed(note: 'paid in cash'))),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('NOTE'), findsOneWidget);
+    });
+
+    testWidgets('a closed door says what is behind it', (tester) async {
+      // **An account, not tags.** Tags count as content and open the door, so a summary test seeded
+      // with them can never observe the collapsed row — my first version asserted a string that only
+      // renders while closed, on a state that guarantees it is open.
+      //
+      // An account carries a settings default, so it deliberately does *not* open the door — and it
+      // still appears in the summary. That combination is exactly what this test needs.
+      await pumpExpense(
+        tester,
+        const TransactionEditorScreen(),
+        overrides: overrides(
+          AsyncValue.data(seed(fromAccountId: kAccount.id)),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('NOTE'), findsNothing, reason: 'the door must be shut');
+      expect(find.textContaining(kAccount.name), findsWidgets);
+    });
+  });
+
   testWidgets('a grocery withdrawal shows the grocery form', (tester) async {
     await pumpExpense(
       tester,
       const TransactionEditorScreen(),
       overrides: overrides(AsyncValue.data(seed())),
     );
+    // The subtype form moved behind the door in the density pass. The behaviour is unchanged —
+    // it is one tap further in, and this asserts both that the tap works and that the form is intact.
+    await tester.tap(find.text('More details'));
+    await tester.pumpAndSettle();
     expect(find.byType(GroceryForm), findsOneWidget);
     expect(find.byType(DepositForm), findsNothing);
   });
@@ -108,6 +186,10 @@ void main() {
         ),
       ),
     );
+    // The subtype form moved behind the door in the density pass. The behaviour is unchanged —
+    // it is one tap further in, and this asserts both that the tap works and that the form is intact.
+    await tester.tap(find.text('More details'));
+    await tester.pumpAndSettle();
     expect(find.byType(DepositForm), findsOneWidget);
     expect(find.byType(GroceryForm), findsNothing);
   });
@@ -127,6 +209,10 @@ void main() {
         ),
       ),
     );
+    // The subtype form moved behind the door in the density pass. The behaviour is unchanged —
+    // it is one tap further in, and this asserts both that the tap works and that the form is intact.
+    await tester.tap(find.text('More details'));
+    await tester.pumpAndSettle();
     expect(find.byType(TransferForm), findsOneWidget);
     expect(find.text('To my own account'), findsOneWidget);
     expect(find.text('To someone else'), findsOneWidget);

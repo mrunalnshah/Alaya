@@ -1,0 +1,10 @@
+{
+  "tagsDeleteItemsMove": "{count, plural, =1{1 item is filed under this kind. It will move to Other.} other{{count} items are filed under this kind. They will move to Other.}}",
+  "@tagsDeleteItemsMove": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "tagsDeletedItemsMoved": "{count, plural, =1{Deleted. 1 item moved to Other.} other{Deleted. {count} items moved to Other.}}",
+  "@tagsDeletedItemsMoved": {
+    "placeholders": { "count": { "type": "int" } }
+  }
+}

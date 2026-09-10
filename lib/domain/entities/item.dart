@@ -1,4 +1,3 @@
-import 'package:alaya/core/enums/inventory_enums.dart';
 import 'package:alaya/core/quantity/qty.dart';
 import 'package:alaya/core/quantity/unit_category.dart';
 
@@ -14,10 +13,12 @@ class Item {
     required this.normalizedName,
     required this.unitCategory,
     required this.defaultDisplayUnitCode,
-    required this.itemKind,
+    this.kindTagId,
     required this.isFavorite,
     this.lowStockThreshold,
     this.expiryNotifyDays,
+    this.densityMilliGramsPerMl,
+    this.milliGramsPerPiece,
     this.notes,
   });
 
@@ -40,9 +41,21 @@ class Item {
   /// The unit this item's quantities are rendered in by default.
   final String defaultDisplayUnitCode;
 
-  /// Rough classification. `medicine` is what puts medicine expiry on the calendar with no extra
-  /// table (ARCH_3 §6).
-  final ItemKind itemKind;
+  /// Which kind this item is filed under — a `tags` row id, or null while nothing has been chosen.
+  ///
+  /// **A tag id rather than an enum, so a user can add `Vegetables`.** The six built-ins are seeded rows with
+  /// `is_system` set; anything else is one the user made, from Settings or inline while entering a receipt.
+  ///
+  /// **Nullable in the schema and, after the v5 backfill, never null in practice.** The migration had to add
+  /// the column nullable — there was nothing to default it to before the tags existed — and then filled every
+  /// row. It stays `String?` here because the column is, and the one place that resolves null is the grouping
+  /// bucket, which sends it to *Other*. A non-null field would have forced the mapper to invent an id to
+  /// maintain the lie.
+  ///
+  /// Deleting a kind moves its items to *Other* rather than leaving them pointing at a soft-deleted row —
+  /// which is the one rule in this design that has to be remembered rather than enforced, and it lives in the
+  /// Settings delete path.
+  final String? kindTagId;
 
   /// Pinned to the top of the inventory list.
   final bool isFavorite;
@@ -52,6 +65,16 @@ class Item {
 
   /// How many days before a batch's expiry to remind, or null to use the global setting.
   final int? expiryNotifyDays;
+
+  /// How much one millilitre of this item weighs, in milli-grams. Null when unknown.
+  ///
+  /// The volume-to-weight bridge: a tablespoon is 14.787 ml for everything, but a tablespoon of
+  /// butter and one of flour weigh different amounts. That difference is a property of the item, so
+  /// one number here serves every volume unit at once.
+  final int? densityMilliGramsPerMl;
+
+  /// What one piece of this item weighs, in milli-grams. Null when unknown.
+  final int? milliGramsPerPiece;
 
   /// Optional free-text notes. Indexed for full-text search.
   final String? notes;
@@ -69,7 +92,7 @@ class Item {
     String? normalizedName,
     UnitCategory? unitCategory,
     String? defaultDisplayUnitCode,
-    ItemKind? itemKind,
+    String? kindTagId,
     bool? isFavorite,
     Qty? lowStockThreshold,
     int? expiryNotifyDays,
@@ -80,8 +103,9 @@ class Item {
       name: name ?? this.name,
       normalizedName: normalizedName ?? this.normalizedName,
       unitCategory: unitCategory ?? this.unitCategory,
-      defaultDisplayUnitCode: defaultDisplayUnitCode ?? this.defaultDisplayUnitCode,
-      itemKind: itemKind ?? this.itemKind,
+      defaultDisplayUnitCode:
+          defaultDisplayUnitCode ?? this.defaultDisplayUnitCode,
+      kindTagId: kindTagId ?? this.kindTagId,
       isFavorite: isFavorite ?? this.isFavorite,
       lowStockThreshold: lowStockThreshold ?? this.lowStockThreshold,
       expiryNotifyDays: expiryNotifyDays ?? this.expiryNotifyDays,
@@ -92,21 +116,29 @@ class Item {
   @override
   bool operator ==(Object other) =>
       other is Item &&
-          other.id == id &&
-          other.name == name &&
-          other.normalizedName == normalizedName &&
-          other.unitCategory == unitCategory &&
-          other.defaultDisplayUnitCode == defaultDisplayUnitCode &&
-          other.itemKind == itemKind &&
-          other.isFavorite == isFavorite &&
-          other.lowStockThreshold == lowStockThreshold &&
-          other.expiryNotifyDays == expiryNotifyDays &&
-          other.notes == notes;
+      other.id == id &&
+      other.name == name &&
+      other.normalizedName == normalizedName &&
+      other.unitCategory == unitCategory &&
+      other.defaultDisplayUnitCode == defaultDisplayUnitCode &&
+      other.kindTagId == kindTagId &&
+      other.isFavorite == isFavorite &&
+      other.lowStockThreshold == lowStockThreshold &&
+      other.expiryNotifyDays == expiryNotifyDays &&
+      other.notes == notes;
 
   @override
   int get hashCode => Object.hashAll([
-    id, name, normalizedName, unitCategory, defaultDisplayUnitCode, itemKind,
-    isFavorite, lowStockThreshold, expiryNotifyDays, notes,
+    id,
+    name,
+    normalizedName,
+    unitCategory,
+    defaultDisplayUnitCode,
+    kindTagId,
+    isFavorite,
+    lowStockThreshold,
+    expiryNotifyDays,
+    notes,
   ]);
 
   @override

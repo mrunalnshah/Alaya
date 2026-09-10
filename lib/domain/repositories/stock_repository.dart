@@ -5,6 +5,7 @@ import 'package:alaya/core/result/failure.dart';
 import 'package:alaya/core/result/result.dart';
 import 'package:alaya/core/time/date_key.dart';
 import 'package:alaya/domain/entities/stock_movement.dart';
+import 'package:alaya/domain/services/draw_policy.dart';
 
 /// One batch's share of a consumption run, and how much came out of it.
 class ConsumptionDraw {
@@ -46,17 +47,28 @@ class WasteTotal {
 /// There is deliberately **no delete and no edit**: a correction is a reversing movement, because a
 /// ledger you can edit is not a ledger (Law L6's stated exception).
 abstract interface class StockRepository {
-  /// Consumes [quantity] of [itemId] in FEFO order, across as many batches as needed.
+  /// Consumes [quantity] of [itemId] across as many batches as [policy] allows.
   ///
   /// Returns which batches were drawn from and by how much, so the UI can show that 600 g came out
   /// of two batches *before* confirming (anomaly A08).
   ///
-  /// Fails with a [BusinessRuleFailure] when total stock is insufficient, writing nothing — a
-  /// partial consumption would leave the ledger describing something that did not happen.
+  /// Fails with a [BusinessRuleFailure] when stock is insufficient **under [policy]**, writing nothing
+  /// — a partial consumption would leave the ledger describing something that did not happen.
+  ///
+  /// **[policy] defaults to FEFO, which is what every caller written before it existed was doing.**
+  /// FEFO orders by nearest expiry, and an expired date is the nearest date, so the default reaches for
+  /// expired stock first — correct for a waste or expiry write-off and wrong for cooking, where it
+  /// silently eats food that is already off before touching anything good. A caller that means "use
+  /// this" rather than "throw this away" passes `DrawPolicy.freshFirst`.
+  ///
+  /// Under a policy excluding expired stock, insufficiency means *insufficient good stock* — there may
+  /// be plenty on the shelf. The failure is how a caller learns that asking the user would help; see
+  /// `InventoryConsumptionService.plan`.
   Future<Result<List<ConsumptionDraw>, Failure>> consume({
     required String itemId,
     required Qty quantity,
     required StockMovementKind kind,
+    DrawPolicy policy = const DrawPolicy.fefo(),
     String? reason,
     String? note,
   });

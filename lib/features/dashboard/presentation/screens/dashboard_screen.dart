@@ -1,3 +1,4 @@
+import 'package:alaya/features/dashboard/presentation/widgets/split_balance_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,15 +9,14 @@ import 'package:alaya/app/theme/semantic_colors.dart';
 import 'package:alaya/app/theme/tokens/alaya_spacing.dart';
 import 'package:alaya/app/theme/tokens/alaya_typography.dart';
 import 'package:alaya/core/enums/money_enums.dart';
-import 'package:alaya/domain/entities/transaction_line.dart';
-import 'package:alaya/features/dashboard/presentation/widgets/funds_header.dart';
 import 'package:alaya/features/dashboard/presentation/widgets/dashboard_calendar.dart';
+import 'package:alaya/features/dashboard/presentation/widgets/funds_header.dart';
 import 'package:alaya/features/dashboard/presentation/widgets/insight_card.dart';
 import 'package:alaya/features/dashboard/presentation/widgets/module_grid.dart';
 import 'package:alaya/features/dashboard/presentation/widgets/range_row.dart';
 import 'package:alaya/features/dashboard/providers/range_providers.dart';
-import 'package:alaya/features/expense/providers/transaction_draft_provider.dart';
-import 'package:alaya/features/expense/state/transaction_draft.dart';
+import 'package:alaya/features/expense/presentation/sheets/quick_add_sheet.dart';
+import 'package:alaya/features/expense/providers/quick_add_providers.dart';
 import 'package:alaya/shared/widgets/alaya_expandable_fab.dart';
 
 /// The dashboard (ARCH_5 §3 archetype F).
@@ -36,22 +36,26 @@ class DashboardScreen extends ConsumerWidget {
   /// Creates the screen.
   const DashboardScreen({super.key});
 
-  /// Opens the transaction editor pre-set to a deposit.
+  /// Opens the quick sheet, set to money in.
   ///
-  /// **Through the draft channel Phase 6C built**, not a second route or a query parameter. `_load(null)`
-  /// already consumes a draft, so "money in" costs one provider write rather than a parallel entry point
-  /// that would then need its own maintenance (ARCH_4 P7).
+  /// **The sheet, not the full editor.** `QuickAddSheet` was built for exactly this — its own doc
+  /// comment says "one-handed, in under eight seconds" — and until now nothing in the app opened it:
+  /// every add action pushed the eleven-control editor instead. The elegant surface existed, was
+  /// golden-tested, and was reachable only from tests (ARCH_5 §9.2, one level in).
+  ///
+  /// `setKind` rather than the draft channel. The draft exists to carry a *composed* transaction into
+  /// the editor — a converted shopping list, a recurring occurrence — and a single enum is not that.
+  /// One provider write either way, and this one does not leave a draft behind if the sheet is
+  /// dismissed.
   void _addIncome(BuildContext context, WidgetRef ref) {
-    ref
-        .read(transactionDraftProvider.notifier)
-        .offer(
-          const TransactionDraft(
-            lines: <TransactionLine>[],
-            kind: TransactionKind.deposit,
-            subtype: TransactionSubtype.otherIn,
-          ),
-        );
-    context.push(Routes.transactionNew);
+    ref.read(quickAddProvider.notifier).setKind(TransactionKind.deposit);
+    QuickAddSheet.show(context);
+  }
+
+  /// Opens the quick sheet, set to money out.
+  void _addExpense(BuildContext context, WidgetRef ref) {
+    ref.read(quickAddProvider.notifier).setKind(TransactionKind.withdrawal);
+    QuickAddSheet.show(context);
   }
 
   @override
@@ -98,6 +102,8 @@ class DashboardScreen extends ConsumerWidget {
                   const DashboardCalendar(),
                   const SizedBox(height: AlayaSpacing.sm),
                   const InsightCard(),
+                  const SizedBox(height: AlayaSpacing.sm),
+                  const SplitBalanceCard(),
                   Padding(
                     padding: const EdgeInsets.only(
                       top: AlayaSpacing.xl,
@@ -126,7 +132,7 @@ class DashboardScreen extends ConsumerWidget {
           FabAction(
             label: strings.addExpense,
             icon: Icons.remove,
-            onPressed: () => context.push(Routes.transactionNew),
+            onPressed: () => _addExpense(context, ref),
           ),
           FabAction(
             label: strings.fabAddIncome,

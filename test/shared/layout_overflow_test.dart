@@ -1536,8 +1536,8 @@ void main() {
                     SwitchListTile(
                       value: i.isEven,
                       onChanged: (_) {},
-                      title: const Text('Money out'),
-                      subtitle: const Text('Offered when you record spending.'),
+                      title: const Text('Expenses'),
+                      subtitle: const Text('Offered when you record an expense.'),
                     ),
                 ],
               ),

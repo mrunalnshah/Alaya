@@ -153,6 +153,151 @@ void main() {
       expect(reminders.permissionRequests, 1);
     });
 
+    testWidgets('nothing on reads as nothing on', (tester) async {
+      await pumpOps(
+        tester,
+        const RemindersScreen(),
+        overrides: opsOverrides(reminders: FakeReminders()),
+        size: kTallViewport,
+      );
+      await tester.pumpAndSettle();
+      // Everything off: an empty schedule is correct, and switching one on is the fix.
+      expect(find.text('Nothing scheduled'), findsOneWidget);
+      expect(find.text('Check now'), findsNothing);
+    });
+
+    testWidgets('reminders on with nothing due says so, and offers a scan', (
+      tester,
+    ) async {
+      // **The case that made a working feature look broken.** `_scheduleDigest` deliberately sends
+      // nothing rather than a message reading "0 items expire this week" — so an empty schedule with
+      // reminders on is correct behaviour. The old copy said "turn on a reminder above", which is what
+      // the user had already done.
+      await pumpOps(
+        tester,
+        const RemindersScreen(),
+        overrides: opsOverrides(
+          reminders: FakeReminders(
+            settings: const ReminderSettings.fresh().copyWith(
+              enabled: {NotificationKind.expiry},
+            ),
+          ),
+        ),
+        size: kTallViewport,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Nothing due this week'), findsOneWidget);
+      expect(find.text('Nothing scheduled'), findsNothing);
+      expect(find.text('Check now'), findsOneWidget);
+    });
+
+    testWidgets('a scan that finds nothing says nothing found, not failed', (
+      tester,
+    ) async {
+      // The sentence that was impossible to obtain before: proof the reminder works and the week is
+      // simply clear. Reporting this as a failure would be the wrong answer to a correct scan.
+      final reminders = FakeReminders(
+        settings: const ReminderSettings.fresh().copyWith(
+          enabled: {NotificationKind.expiry},
+        ),
+        rescheduleCount: 0,
+      );
+      await pumpOps(
+        tester,
+        const RemindersScreen(),
+        overrides: opsOverrides(reminders: reminders),
+        size: kTallViewport,
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Check now'));
+      await tester.pumpAndSettle();
+      expect(reminders.reschedules, 1);
+      expect(
+        find.text('Nothing coming up in the next week'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('a scan that finds things names the number', (tester) async {
+      final reminders = FakeReminders(
+        settings: const ReminderSettings.fresh().copyWith(
+          enabled: {NotificationKind.expiry},
+        ),
+        rescheduleCount: 3,
+      );
+      await pumpOps(
+        tester,
+        const RemindersScreen(),
+        overrides: opsOverrides(reminders: reminders),
+        size: kTallViewport,
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Check now'));
+      await tester.pumpAndSettle();
+      // Naming the count is what proves the scan ran rather than merely returned.
+      expect(find.text('3 things coming up'), findsOneWidget);
+    });
+
+    testWidgets('a test notification can be sent whenever a reminder is on', (
+      tester,
+    ) async {
+      // **The diagnostic that was missing.** A digest scheduled for tomorrow morning and a broken
+      // delivery path look identical from outside the app, and nothing distinguished them.
+      final reminders = FakeReminders(
+        settings: const ReminderSettings.fresh().copyWith(
+          enabled: {NotificationKind.expiry},
+        ),
+      );
+      await pumpOps(
+        tester,
+        const RemindersScreen(),
+        overrides: opsOverrides(reminders: reminders),
+        size: kTallViewport,
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Send a test notification'));
+      await tester.pumpAndSettle();
+      expect(reminders.testsSent, 1);
+      expect(find.text('Sent — check your notifications'), findsOneWidget);
+    });
+
+    testWidgets('a failed test reports the reason, not a generic error', (
+      tester,
+    ) async {
+      // A missing `@drawable/ic_notification` throws at post time and nowhere else — the compiler never
+      // sees that string. Swallowing the message would discard the only diagnosis available.
+      final reminders = FakeReminders(
+        settings: const ReminderSettings.fresh().copyWith(
+          enabled: {NotificationKind.expiry},
+        ),
+      )..testFails = true;
+      await pumpOps(
+        tester,
+        const RemindersScreen(),
+        overrides: opsOverrides(reminders: reminders),
+        size: kTallViewport,
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Send a test notification'));
+      await tester.pumpAndSettle();
+      expect(
+        find.text('That test notification could not be sent.'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('the test action is hidden when nothing is on', (tester) async {
+      await pumpOps(
+        tester,
+        const RemindersScreen(),
+        overrides: opsOverrides(reminders: FakeReminders()),
+        size: kTallViewport,
+      );
+      await tester.pumpAndSettle();
+      // Nothing to test when nothing is on, and offering it would invite a false negative.
+      expect(find.text('Send a test notification'), findsNothing);
+    });
+
     testWidgets('a refused request leaves the switch off', (tester) async {
       final reminders = FakeReminders(
         permissionState: ReminderPermission.denied,

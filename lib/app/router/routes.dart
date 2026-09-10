@@ -17,6 +17,58 @@ abstract final class Routes {
   /// The inventory catalogue.
   static const String inventory = '/inventory';
 
+  /// The recipe catalogue.
+  static const String recipes = '/recipes';
+
+  /// One recipe.
+  static const String recipeDetail = '/recipes/:id';
+
+  /// Builds the path to one recipe.
+  static String recipeDetailFor(String id) => '/recipes/$id';
+
+  /// A new recipe.
+  ///
+  /// Declared before [recipeDetail] and matched before it too: `/recipes/new` would otherwise be
+  /// read as a recipe whose id is the word "new" — the same first-match ordering every nested route
+  /// in this file depends on.
+  static const String recipeNew = '/recipes/new';
+
+  /// Editing an existing recipe.
+  static const String recipeEdit = '/recipes/:id/edit';
+
+  /// Builds the path to a recipe's editor.
+  static String recipeEditFor(String id) => '/recipes/$id/edit';
+
+  /// Shared expenses, and who owes what.
+  ///
+  /// **One destination for the whole module.** `/split/groups`, `/split/groups/:groupId` and
+  /// `/split/groups/:groupId/settle` were deleted: the groups list is a tab here, and a group's balances
+  /// and its settle-up plan are bottom sheets. Nothing in any of the three was an editor, so each route
+  /// bought a back arrow, an app bar competing for a 320dp title, and a place for somebody to end up
+  /// without knowing how they got there.
+  static const String split = '/split';
+
+  /// Splitting a bill, on one screen.
+  ///
+  /// **Declared before every `/split/:something` route**, for the reason [recipeNew] and
+  /// [splitGroupNew] both record: go_router takes the first match rather than the most specific, so a
+  /// parameterised sibling declared earlier would read `new` as an id. There is no `/split/:id` route
+  /// today; this ordering is what keeps adding one from silently breaking this path.
+  static const String splitNew = '/split/new';
+
+  /// A new group.
+  ///
+  /// Declared before [splitGroupEdit] and matched before it too: `/split/groups/new` would otherwise
+  /// be read as a group whose id is the word "new" — the same first-match ordering every nested route
+  /// in this file depends on.
+  static const String splitGroupNew = '/split/groups/new';
+
+  /// Editing an existing group.
+  static const String splitGroupEdit = '/split/groups/:groupId/edit';
+
+  /// Builds the path to a group's editor.
+  static String splitGroupEditFor(String id) => '/split/groups/$id/edit';
+
   /// The shopping lists.
   static const String shopping = '/shopping';
 
@@ -35,6 +87,9 @@ abstract final class Routes {
   /// The settings.
   static const String settings = '/settings';
 
+  /// Who you are in a split, and where people can pay you.
+  static const String settingsSplit = '/settings/split';
+
   // ── outside the shell: full-screen editors and the lock ──
 
   /// The PIN gate.
@@ -49,7 +104,7 @@ abstract final class Routes {
   /// The forgotten-PIN flow: recovery code, then a new PIN.
   ///
   /// **Under `/lock`, and that placement is load-bearing.** The redirect permits anything beneath
-  /// `lockBranch` while locked; anywhere else and a locked user would be bounced back to `/lock` the
+  /// [lockBranch] while locked; anywhere else and a locked user would be bounced back to `/lock` the
   /// moment they tapped "I have forgotten my PIN", which is the one path they need.
   static const String lockRecovery = '/lock/recovery';
 
@@ -88,8 +143,8 @@ abstract final class Routes {
 
   /// Restoring from a backup file.
   ///
-  /// Under Backup rather than beside it: a restore is something you reach *from* the list of backups you have
-  /// taken, and the route saying so is what gives it a back arrow to somewhere sensible.
+  /// Under Backup rather than beside it: a restore is something you reach *from* the list of backups
+  /// you have taken, and the route saying so is what gives it a back arrow to somewhere sensible.
   static const String settingsRestore = '/settings/data/backup/restore';
 
   /// Settings › Data › Trash.
@@ -100,9 +155,10 @@ abstract final class Routes {
 
   /// Support Us — rewarded ads and a one-time tip.
   ///
-  /// **Outside every settings branch, and that is deliberate.** Ads load when this screen opens and nowhere else
-  /// (ARCH_4 §5.1); burying it under Settings › About would make it look like a disclosure rather than a choice,
-  /// and putting it in the shell would load an SDK for people who never asked.
+  /// **Outside every settings branch, and that is deliberate.** Ads load when this screen opens and
+  /// nowhere else (ARCH_4 §5.1); burying it under Settings › About would make it look like a
+  /// disclosure rather than a choice, and putting it in the shell would load an SDK for people who
+  /// never asked.
   static const String support = '/support';
 
   /// Settings › About.
@@ -209,7 +265,7 @@ abstract final class Routes {
 
   /// Path pattern for one analytics drill-down.
   ///
-  /// **Outside the shell**, unlike `calendarDayPattern`. A day is a view *of* the month, so it keeps
+  /// **Outside the shell**, unlike [calendarDayPattern]. A day is a view *of* the month, so it keeps
   /// the drawer and the grid stays behind it (Law U27); a drill-down leaves analytics for the ledger
   /// and needs a back arrow, which a shell owning a drawer can never imply (Law U18).
   ///
@@ -247,6 +303,9 @@ abstract final class Routes {
 
   /// The account parameter.
   static const String pAccountId = 'accountId';
+
+  /// The split-group id parameter.
+  static const String pGroupId = 'groupId';
 
   /// The tag parameter.
   static const String pTagId = 'tagId';
@@ -338,14 +397,21 @@ abstract final class Routes {
   static String insightsDrillDown(String kind, String value) =>
       '$insights/drill/$kind/$value';
 
-  /// The nine drawer destinations, in drawer order.
+  /// The eleven drawer destinations, in drawer order.
   ///
   /// Named for the drawer rather than the shell because `AlayaDrawer` reads it by this name — a route
   /// cannot exist in the router and be missing from the drawer without this list disagreeing.
+  ///
+  /// **`AlayaDrawer` switches on this list exhaustively, twice**, for a label and an icon, so adding a
+  /// destination fails to compile until both know about it. That is the check, and it is why the
+  /// count in this sentence is the only part of the arrangement that can go stale — it said "nine"
+  /// while the list held eleven.
   static const List<String> drawerDestinations = [
     dashboard,
     expenses,
     inventory,
+    recipes,
+    split,
     shopping,
     recurring,
     services,

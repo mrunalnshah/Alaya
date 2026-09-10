@@ -1,16 +1,18 @@
-import 'package:alaya/app/providers/infrastructure_providers.dart';
+import 'package:alaya/app/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:alaya/app/l10n/generated/app_localizations.dart';
+import 'package:alaya/app/providers/infrastructure_providers.dart';
 import 'package:alaya/app/providers/repository_providers.dart';
 import 'package:alaya/app/theme/alaya_theme.dart';
 import 'package:alaya/app/theme/palettes/presets.dart';
+import 'package:alaya/core/enums/money_enums.dart';
 import 'package:alaya/core/money/money.dart';
 import 'package:alaya/core/time/clock.dart';
 import 'package:alaya/core/time/date_key.dart';
+import 'package:alaya/domain/entities/account.dart';
 import 'package:alaya/domain/services/analytics/analytics_types.dart';
 import 'package:alaya/domain/services/balance_service.dart';
 import 'package:alaya/features/dashboard/providers/funds_providers.dart';
@@ -81,6 +83,23 @@ Concentration spendByKind({int total = 320000, int kinds = 3}) => (
   quality: exactConversion,
 );
 
+/// One account, for the funds breakdown.
+///
+/// The harness had no account constant at all — every dashboard test until now needed only totals. A
+/// breakdown needs the thing being broken down.
+const kDashAccount = Account(
+  id: 'acc-1',
+  name: 'Cash',
+  normalizedName: 'cash',
+  kind: AccountKind.cash,
+  currencyCode: 'INR',
+  openingBalance: Money(0, 'INR'),
+  openingBalanceDateKey: kToday,
+  isArchived: false,
+  includeInNetWorth: true,
+  sortOrder: 0,
+);
+
 /// Overrides every dashboard provider to a settled, harmless value.
 ///
 /// **Fixed length, always.** A conditional entry changes the override count between scopes and Riverpod
@@ -100,6 +119,7 @@ List<Override> dashboardOverrides({
   AsyncValue<int>? shopping,
   AsyncValue<int>? recurring,
   AsyncValue<Concentration>? spending,
+  AsyncValue<List<FundsRow>>? breakdown,
 }) => [
   clockProvider.overrideWithValue(kDashClock),
   // `InsightSideNotifier.build` reads settings during the first frame, so this is not optional
@@ -111,6 +131,11 @@ List<Override> dashboardOverrides({
   dashboardDigitsProvider.overrideWith((ref) async => 2),
   totalFundsProvider.overrideWith(
     (ref) => _resolve(funds ?? AsyncValue.data(netWorth())),
+  ),
+  // Fixed length, per ARCH_6 P5: a conditional entry changes the count between scopes and Riverpod
+  // refuses it. An empty list is a real state — somebody with no accounts at all.
+  fundsBreakdownProvider.overrideWith(
+    (ref) async => breakdown?.valueOrNull ?? const <FundsRow>[],
   ),
   rangeTotalsProvider.overrideWith(
     (ref, range) => _resolve(

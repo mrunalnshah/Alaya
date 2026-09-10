@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:alaya/app/app.dart';
 import 'package:alaya/app/providers/infrastructure_providers.dart';
+import 'package:alaya/core/ids/uid.dart';
 import 'package:alaya/core/time/clock.dart';
 import 'package:alaya/data/daos/settings_dao.dart';
 import 'package:alaya/data/db/alaya_database.dart';
@@ -100,6 +101,31 @@ Future<void> _start() async {
       ],
       child: const AlayaApp(),
     ),
+  );
+
+  // **Re-arm the digest, because a reboot silently disarms it.**
+  //
+  // `WorkManager` survives a restart; the `AlarmManager` alarm behind `zonedSchedule` does not. So between a
+  // reboot and the daily job's next run — up to twenty-four hours, and longer while `requiresBatteryNotLow`
+  // holds it back — there is no scheduled notification at all, and nothing in the app says so. The user's
+  // report is "it worked, then it stopped", which is indistinguishable from every other cause of silence.
+  //
+  // Opening the app is the one event that reliably follows a reboot, so it is the one place a cheap re-arm
+  // belongs. `rescheduleAll` is idempotent — the digest's Android id is a constant and its schedule row is
+  // replaced by `refType` — so doing this on every launch costs one calendar query and can never duplicate.
+  //
+  // **After `runApp` and unawaited**, for the reason the job registration above is: this reads the calendar a
+  // week ahead, and no first frame should wait on a notification nobody is looking at yet.
+  //
+  // This is a safety net rather than the fix. The correct primary is the plugin's own boot receiver declared in
+  // `AndroidManifest.xml`, which re-arms without the app being opened at all — this covers the case where it is
+  // absent, and the case where the user reboots and opens the app before Android gets round to the job.
+  unawaited(
+    buildReminderScheduler(
+      database: database,
+      clock: const SystemClock(),
+      uids: const Uuid7Generator(),
+    ).rescheduleAll(),
   );
 }
 

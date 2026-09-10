@@ -1,25 +1,29 @@
-/// A rough classification of what kind of consumable an Item is, independent of its
-/// [UnitCategory]. Drives a few UI defaults (e.g. medicine expiry surfacing on the
-/// calendar) — see ARCH_2 §5.1.
-enum ItemKind {
-  /// No more specific classification applies.
-  generic,
-
-  /// Food and groceries.
-  food,
-
-  /// Medicines and health-related consumables.
-  medicine,
-
-  /// Beauty and personal-care products.
-  beauty,
-
-  /// Household and cleaning supplies.
-  household,
-
-  /// Anything not covered by the above.
-  other,
-}
+/// Inventory enumerations.
+///
+/// **`ItemKind` used to live here and is now a row in `tags`.**
+///
+/// It was six members — generic, food, medicine, beauty, household, other — and a user who wanted
+/// `Vegetables` separated from `Cereals` had no way to say so. An enum is a decision made at compile time, and
+/// this one belonged to whoever is using the app.
+///
+/// The replacement is `items.kind_tag_id` referencing `tags`, scoped by `tags.allowed_in_inventory`. That
+/// reuses a taxonomy the schema already had — a name, a colour, an icon, a sort order and `is_system` — rather
+/// than adding a second one beside it. It is the call the split module made when it reused `payees` instead of
+/// creating a `people` table.
+///
+/// **A column rather than an `item_tags` link, and the reason is `inventoryGroupsProvider`.** That provider
+/// buckets every visible item synchronously, in memory, reading the kind off the row it already has. A link
+/// would have needed a kind *per item* — two hundred `watchForItem` streams, or a bulk read that does not
+/// exist. A link table is right for "many, looked up when I open one thing"; it is wrong for "one, needed for
+/// all of them at once to draw a list."
+///
+/// Three things came free: renaming a kind updates every item at once, group order became `tags.sort_order`
+/// rather than an enum's declaration order, and the six built-ins are protected by `tags.is_system` with no
+/// new code.
+///
+/// **What did *not* come free** — the glyph. `ItemKind` mapped to an `IconData` in a `switch`;
+/// `tags.icon_key` is a string with no reader anywhere in the app yet. Session 2 needs a registry for it.
+library;
 
 /// Where an Inventory Batch came from.
 enum BatchOrigin {

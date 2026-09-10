@@ -22,7 +22,6 @@ import 'package:alaya/app/theme/palettes/presets.dart';
 import 'package:alaya/core/enums/ops_enums.dart';
 import 'package:alaya/core/result/failure.dart';
 import 'package:alaya/core/result/result.dart';
-import 'package:alaya/core/time/date_key.dart';
 import 'package:alaya/domain/services/attachments/attachment_port.dart';
 import 'package:alaya/domain/services/backup/data_transfer_port.dart';
 import 'package:alaya/domain/services/reminders/reminder_port.dart';
@@ -223,6 +222,12 @@ class FakeReminders implements ReminderPort {
     ReminderSettings? settings,
     this.permissionState = ReminderPermission.granted,
     this.scheduled = const [],
+    this.rescheduleCount = 1,
+    this.deviceZone = const ReminderZone(
+      name: 'Asia/Kolkata',
+      matchesDevice: true,
+    ),
+    this.osPendingCount = 1,
   }) : _settings = settings ?? const ReminderSettings.fresh();
 
   ReminderSettings _settings;
@@ -230,11 +235,35 @@ class FakeReminders implements ReminderPort {
   /// What the OS reports.
   ReminderPermission permissionState;
 
+  /// Which zone the schedule was computed in.
+  ///
+  /// **A real IANA name by default, and overridable to an unmatched one.** The production bug was a zone that
+  /// silently disagreed with the device, so a fake that could only report agreement could not exercise the one
+  /// branch that matters — exactly the way `rescheduleCount` hard-coded at 1 could not exercise "nothing due".
+  ReminderZone deviceZone;
+
+  /// How many notifications the OS claims to be holding.
+  ///
+  /// **Zero is the case worth testing**, and it is the one the app could not previously represent at all: rows in
+  /// `notification_schedule` with no alarm behind them. A negative value stands for the plugin throwing, which
+  /// the screen must treat the same way as a zero rather than falling silent.
+  int osPendingCount;
+
   /// What is scheduled.
   List<ScheduledReminder> scheduled;
 
   /// How many times permission was requested.
   int permissionRequests = 0;
+
+  /// What a manual scan reports finding.
+  ///
+  /// **Zero is the interesting value**, and the fake hard-coded 1 before. Reminders on with nothing due is
+  /// the case that made a working feature look broken, and a fake that can only find something cannot
+  /// exercise it.
+  int rescheduleCount;
+
+  /// How many times a scan was run.
+  int reschedules = 0;
 
   @override
   Stream<ReminderSettings> watchSettings() => Stream.value(_settings);
@@ -272,7 +301,38 @@ class FakeReminders implements ReminderPort {
   Stream<List<ScheduledReminder>> watchScheduled() => Stream.value(scheduled);
 
   @override
-  Future<Result<int, Failure>> rescheduleAll() async => const Result.ok(1);
+  Future<ReminderZone> zone() async => deviceZone;
+
+  @override
+  Future<Result<int, Failure>> pendingCount() async => osPendingCount < 0
+      ? const Result.failure(
+          UnexpectedFailure(
+            'Your phone could not be asked what it has scheduled.',
+          ),
+        )
+      : Result.ok(osPendingCount);
+
+  @override
+  Future<Result<int, Failure>> rescheduleAll() async {
+    reschedules += 1;
+    return Result.ok(rescheduleCount);
+  }
+
+  /// How many test notifications were requested.
+  int testsSent = 0;
+
+  /// Whether a test should report failure — the missing-icon case.
+  bool testFails = false;
+
+  @override
+  Future<Result<void, Failure>> sendTest() async {
+    testsSent += 1;
+    return testFails
+        ? const Result.failure(
+            UnexpectedFailure('That test notification could not be sent.'),
+          )
+        : const Result.ok(null);
+  }
 
   @override
   Future<Result<void, Failure>> cancelAll() async => const Result.ok(null);
@@ -415,13 +475,22 @@ Attachment attachment({String id = 'at-1'}) => Attachment(
 );
 
 /// One scheduled reminder.
+///
+/// **Takes an instant, because the entity now carries one.** The old fixture took a `DateKey`, which meant no
+/// test could express the thing that was actually broken: a schedule whose *time* differed from the digest time
+/// on the settings above it. A fixture that cannot represent a bug cannot catch it, and this one could not — the
+/// screen read the date from here and the time from somewhere else entirely.
+///
+/// The default is a **local** wall time, matching `ScheduledReminder.at`'s contract. A UTC default would make
+/// assertions in this suite pass or fail depending on the machine's zone, which is the exact class of accident
+/// the production bug belonged to.
 ScheduledReminder scheduledReminder({
   NotificationKind kind = NotificationKind.expiry,
-  int dateKey = 20260812,
+  DateTime? at,
 }) => ScheduledReminder(
   id: 'ns-1',
   kind: kind,
-  on: DateKey(dateKey),
+  at: at ?? DateTime(2026, 8, 12, 9),
   androidNotificationId: 1,
 );
 

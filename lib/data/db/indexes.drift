@@ -4,6 +4,7 @@ import 'tables/money_tables.dart';
 import 'tables/recurring_tables.dart';
 import 'tables/service_tables.dart';
 import 'tables/shopping_tables.dart';
+import 'tables/split_tables.dart';
 import 'tables/tag_tables.dart';
 
 -- ARCH_2 §11 verbatim. Declared as raw SQL in a .drift file rather than through Dart
@@ -31,6 +32,21 @@ CREATE UNIQUE INDEX idx_recurring_occ
   ON recurring_occurrences(template_id, due_date_key) WHERE deleted_at IS NULL;
 CREATE UNIQUE INDEX idx_rates_point
   ON currency_rates(base_code, quote_code, rate_date_key);
+-- Partial on `deleted_at IS NULL`, like every other uniqueness index here: soft-deleting a group
+-- named "Goa trip" and re-creating it must not collide with a row the user can no longer see
+-- (anomaly A19).
+CREATE UNIQUE INDEX idx_split_groups_name
+  ON split_groups(normalized_name)                    WHERE deleted_at IS NULL;
+-- One membership per person per group. Re-adding somebody after removing them is a fresh row, and
+-- the partial clause is what lets it be.
+CREATE UNIQUE INDEX idx_split_member
+  ON split_members(group_id, payee_id)                WHERE deleted_at IS NULL;
+-- One share per person per line of one expense. `line_no` is NULL for a whole-expense share, and
+-- SQLite treats NULLs as distinct in a unique index — so this constrains itemised shares and leaves
+-- whole-expense shares to the repository, which is the same division the `perLine` CHECK draws.
+CREATE UNIQUE INDEX idx_split_share
+  ON split_shares(split_expense_id, payee_id, transaction_line_no)
+                                                      WHERE deleted_at IS NULL;
 
 -- ── read paths ───────────────────────────────────────────────────────────────────────────
 CREATE INDEX idx_tx_date        ON transactions(date_key)             WHERE deleted_at IS NULL;
@@ -48,3 +64,20 @@ CREATE INDEX idx_move_item_date ON stock_movements(item_id, date_key);
 CREATE INDEX idx_occ_due        ON recurring_occurrences(due_date_key, status);
 CREATE INDEX idx_asset_service  ON assets(next_service_due_date_key)  WHERE deleted_at IS NULL;
 CREATE INDEX idx_asset_warranty ON assets(warranty_end_date_key)      WHERE deleted_at IS NULL;
+
+-- ── split read paths ─────────────────────────────────────────────────────────────────────
+-- `v_split_balances` walks shares by expense and settlements by counterparty; both are the hot
+-- path on every screen this module has, because Law L3 means a balance is computed on every read
+-- rather than looked up.
+CREATE INDEX idx_split_exp_date   ON split_expenses(date_key)          WHERE deleted_at IS NULL;
+CREATE INDEX idx_split_exp_month  ON split_expenses(month_key)         WHERE deleted_at IS NULL;
+CREATE INDEX idx_split_exp_group  ON split_expenses(group_id)          WHERE deleted_at IS NULL;
+CREATE INDEX idx_split_exp_payer  ON split_expenses(paid_by_payee_id)  WHERE deleted_at IS NULL;
+CREATE INDEX idx_split_exp_tx     ON split_expenses(transaction_id);
+-- The calendar arm's own index, matching `idx_asset_warranty`'s shape.
+CREATE INDEX idx_split_exp_settle ON split_expenses(settle_by_date_key) WHERE deleted_at IS NULL;
+CREATE INDEX idx_split_share_exp  ON split_shares(split_expense_id)    WHERE deleted_at IS NULL;
+CREATE INDEX idx_split_share_who  ON split_shares(payee_id)            WHERE deleted_at IS NULL;
+CREATE INDEX idx_split_settle_from ON split_settlements(from_payee_id, date_key);
+CREATE INDEX idx_split_settle_to   ON split_settlements(to_payee_id, date_key);
+CREATE INDEX idx_split_settle_group ON split_settlements(group_id)     WHERE deleted_at IS NULL;

@@ -14,6 +14,7 @@ import 'package:alaya/features/service/providers/asset_editor_providers.dart';
 import 'package:alaya/features/service/state/asset_editor_state.dart';
 import 'package:alaya/shared/feedback/undo_snack.dart';
 import 'package:alaya/shared/widgets/alaya_card.dart';
+import 'package:alaya/shared/widgets/alaya_disclosure.dart';
 import 'package:alaya/shared/widgets/alaya_form_scaffold.dart';
 import 'package:alaya/shared/widgets/alaya_list_skeleton.dart';
 import 'package:alaya/shared/widgets/amount_field.dart';
@@ -241,63 +242,77 @@ class _Form extends ConsumerWidget {
             onChanged: notifier.setWarrantyProvider,
           ),
         ],
-        SectionHeader(
-          label: strings.assetSectionService,
-          padding: const EdgeInsets.only(
-            top: AlayaSpacing.xl,
-            bottom: AlayaSpacing.xs,
+        AlayaDisclosure(
+          label: strings.sectionMoreDetails,
+          summary: _assetSummary(strings, state),
+          startExpanded: _hasAssetDetails(state),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SectionHeader(
+                label: strings.assetSectionService,
+                padding: const EdgeInsets.only(
+                  top: AlayaSpacing.xl,
+                  bottom: AlayaSpacing.xs,
+                ),
+              ),
+              TextFormField(
+                initialValue: state.serviceIntervalDays?.toString(),
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: strings.labelServiceInterval,
+                  helperText: strings.serviceIntervalHelp,
+                  helperMaxLines: 3,
+                ),
+                onChanged: (raw) =>
+                    notifier.setServiceIntervalDays(int.tryParse(raw.trim())),
+              ),
+              const SizedBox(height: AlayaSpacing.md),
+              DatePickerField(
+                value: state.nextServiceDueDateKey,
+                formatted: format,
+                label: strings.labelNextService,
+                hint: strings.hintSelectDate,
+                onChanged: notifier.setNextServiceDue,
+              ),
+              SectionHeader(
+                label: strings.assetSectionContact,
+                padding: const EdgeInsets.only(
+                  top: AlayaSpacing.xl,
+                  bottom: AlayaSpacing.xs,
+                ),
+              ),
+              TextFormField(
+                initialValue: state.contactName,
+                decoration: InputDecoration(
+                  labelText: strings.labelContactName,
+                ),
+                onChanged: notifier.setContactName,
+              ),
+              const SizedBox(height: AlayaSpacing.md),
+              TextFormField(
+                initialValue: state.contactPhone,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  labelText: strings.labelContactPhone,
+                ),
+                onChanged: notifier.setContactPhone,
+              ),
+              SectionHeader(
+                label: strings.labelNote,
+                padding: const EdgeInsets.only(
+                  top: AlayaSpacing.xl,
+                  bottom: AlayaSpacing.xs,
+                ),
+              ),
+              TextFormField(
+                initialValue: state.notes,
+                maxLines: 3,
+                decoration: InputDecoration(hintText: strings.hintNote),
+                onChanged: notifier.setNotes,
+              ),
+            ],
           ),
-        ),
-        TextFormField(
-          initialValue: state.serviceIntervalDays?.toString(),
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            labelText: strings.labelServiceInterval,
-            helperText: strings.serviceIntervalHelp,
-            helperMaxLines: 3,
-          ),
-          onChanged: (raw) =>
-              notifier.setServiceIntervalDays(int.tryParse(raw.trim())),
-        ),
-        const SizedBox(height: AlayaSpacing.md),
-        DatePickerField(
-          value: state.nextServiceDueDateKey,
-          formatted: format,
-          label: strings.labelNextService,
-          hint: strings.hintSelectDate,
-          onChanged: notifier.setNextServiceDue,
-        ),
-        SectionHeader(
-          label: strings.assetSectionContact,
-          padding: const EdgeInsets.only(
-            top: AlayaSpacing.xl,
-            bottom: AlayaSpacing.xs,
-          ),
-        ),
-        TextFormField(
-          initialValue: state.contactName,
-          decoration: InputDecoration(labelText: strings.labelContactName),
-          onChanged: notifier.setContactName,
-        ),
-        const SizedBox(height: AlayaSpacing.md),
-        TextFormField(
-          initialValue: state.contactPhone,
-          keyboardType: TextInputType.phone,
-          decoration: InputDecoration(labelText: strings.labelContactPhone),
-          onChanged: notifier.setContactPhone,
-        ),
-        SectionHeader(
-          label: strings.labelNote,
-          padding: const EdgeInsets.only(
-            top: AlayaSpacing.xl,
-            bottom: AlayaSpacing.xs,
-          ),
-        ),
-        TextFormField(
-          initialValue: state.notes,
-          maxLines: 3,
-          decoration: InputDecoration(hintText: strings.hintNote),
-          onChanged: notifier.setNotes,
         ),
         if (state.issue == AssetSaveIssue.rejected &&
             state.rejection != null) ...[
@@ -312,5 +327,32 @@ class _Form extends ConsumerWidget {
         ],
       ],
     );
+  }
+
+  /// Whether anything behind the door is set, so it should open on arrival.
+  ///
+  /// Warranty is **not** listed: it lives inside the `!isPerson` branch and stays visible, because for a
+  /// physical asset it is part of what the thing is rather than a detail about it.
+  static bool _hasAssetDetails(AssetEditorState state) =>
+      state.serviceIntervalDays != null ||
+      state.nextServiceDueDateKey != null ||
+      (state.contactName ?? '').trim().isNotEmpty ||
+      (state.contactPhone ?? '').trim().isNotEmpty ||
+      (state.location ?? '').trim().isNotEmpty ||
+      (state.notes ?? '').trim().isNotEmpty;
+
+  /// What is set behind the door, for the collapsed row.
+  static String? _assetSummary(AlayaStrings strings, AssetEditorState state) {
+    final parts = <String>[];
+    if (state.serviceIntervalDays != null ||
+        state.nextServiceDueDateKey != null) {
+      parts.add(strings.assetSectionService);
+    }
+    if ((state.contactName ?? '').trim().isNotEmpty ||
+        (state.contactPhone ?? '').trim().isNotEmpty) {
+      parts.add(strings.assetSectionContact);
+    }
+    if ((state.notes ?? '').trim().isNotEmpty) parts.add(strings.labelNote);
+    return parts.isEmpty ? null : parts.join(' \u00B7 ');
   }
 }

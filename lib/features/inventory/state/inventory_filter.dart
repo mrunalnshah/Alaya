@@ -1,8 +1,6 @@
-import 'package:alaya/core/enums/inventory_enums.dart';
-
 /// The axis the catalogue groups by.
 enum InventoryGroupBy {
-  /// By `items.itemKind` — food, medicine, household.
+  /// By `items.kindTagId` — whatever kinds the user has.
   kind,
 
   /// Favourites first, everything else after.
@@ -11,19 +9,28 @@ enum InventoryGroupBy {
 
 /// What the inventory list is currently showing.
 ///
-/// **Grouping is by `itemKind`, not by tag.** Archetype D asks for "the user's own axis — tag for
-/// items", and `item_tags` is assigned to this phase in ARCH_5 §7.1 — but no contract in Phase 3A
-/// reads or writes an item's tags. `TagRepository` exposes `watchForTransaction` and nothing
-/// equivalent for items, and U19 forbids a feature declaring its own repository. `itemKind` is the
-/// nearest axis that exists, is set by the user in the editor, and needs no new contract. The tag
-/// axis is recorded as a deferral in the coverage table with the contract it waits on.
+/// **Grouping is by the user's own kinds, which is the deferral this pays off.** The note that used to sit
+/// here said `itemKind` was "the nearest axis that exists" because `TagRepository` had no equivalent of
+/// `watchForTransaction` for items, so Archetype D's "the user's own axis — tag for items" had to wait on a
+/// contract nobody had written.
+///
+/// That contract arrived — `watchForItem` and `setForItem` are on `TagRepository` and implemented — and the
+/// note went stale without anybody noticing, which is why a six-member enum outlived its reason. v5 finished
+/// the job differently than the old note predicted: a kind is `items.kind_tag_id`, one column referencing
+/// `tags`, rather than a row in `item_tags`.
+///
+/// **The column, because this filter's own provider decides it.** `inventoryGroupsProvider` buckets every
+/// visible item synchronously off the row it already holds. A link would have needed a kind per item.
+///
+/// [kinds] holds tag ids. It was already a `Set` before any of this — filtering has always been
+/// multi-select, and only grouping and the editor were ever single-valued.
 class InventoryFilter {
   /// Creates a filter.
   const InventoryFilter({
     this.groupBy = InventoryGroupBy.kind,
     this.favouritesOnly = false,
     this.lowStockOnly = false,
-    this.kinds = const <ItemKind>{},
+    this.kinds = const <String>{},
     this.query = '',
   });
 
@@ -36,8 +43,8 @@ class InventoryFilter {
   /// Whether only items below their low-stock level are shown.
   final bool lowStockOnly;
 
-  /// Which kinds are shown; empty means all.
-  final Set<ItemKind> kinds;
+  /// Which kinds are shown; empty means all. Tag ids.
+  final Set<String> kinds;
 
   /// The search term, already trimmed.
   final String query;
@@ -57,7 +64,7 @@ class InventoryFilter {
     InventoryGroupBy? groupBy,
     bool? favouritesOnly,
     bool? lowStockOnly,
-    Set<ItemKind>? kinds,
+    Set<String>? kinds,
     String? query,
   }) => InventoryFilter(
     groupBy: groupBy ?? this.groupBy,

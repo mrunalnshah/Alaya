@@ -176,6 +176,12 @@ final class CalendarAggregator {
         return daysAway <= serviceDueWarningDays
             ? CalendarSeverity.warning
             : CalendarSeverity.info;
+
+      case CalendarEventType.splitSettleBy:
+        // Warning once past, matching `recurringDue` rather than `batchExpiry`. An unsettled debt is a
+        // conversation the user has not had yet; food past its date has already cost something, which
+        // is why that stays the only type reaching danger.
+        return isPast ? CalendarSeverity.warning : CalendarSeverity.info;
     }
   }
 }

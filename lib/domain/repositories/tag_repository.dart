@@ -24,6 +24,21 @@ abstract interface class TagRepository {
   /// transactions, greyed with `(deleted)` (anomaly A36).
   Future<Tag?> byId(String id);
 
+  /// Reads the active tag whose normalized name is [normalizedName], or null.
+  ///
+  /// **`TagDao` has had this since Phase 1A and no contract exposed it.** It is the merge-or-create lookup:
+  /// `idx_tags_name` is unique on `normalized_name`, so this is how a caller learns whether a name is taken
+  /// before writing it — which is also why `NewKindSheet` can report "a tag with that name already exists"
+  /// rather than a raw conflict.
+  ///
+  /// Settings needs it for a second reason. Deleting a kind moves its items to `Other`, and `Other` is a
+  /// seeded row whose id differs between a fresh install and one upgraded through `from4To5` — so the
+  /// fallback has to be found by name. It cannot be missing: `is_system` makes it undeletable, which is the
+  /// only reason a fallback can be relied on at all.
+  ///
+  /// Active only, unlike [byId]. A soft-deleted tag is neither a name collision nor a usable fallback.
+  Future<Tag?> byNormalizedName(String normalizedName);
+
   /// Creates or updates a tag.
   ///
   /// Fails with a [BusinessRuleFailure] when nesting would exceed one level, or a

@@ -147,7 +147,6 @@ class PaySheet extends ConsumerWidget {
                 ? strings.labelActualAmountInflow
                 : strings.labelActualAmount,
             initialValue: state.amount,
-            autofocus: true,
             errorText: state.issue == PayIssue.amountMissing
                 ? strings.errorAmountInvalid
                 : null,

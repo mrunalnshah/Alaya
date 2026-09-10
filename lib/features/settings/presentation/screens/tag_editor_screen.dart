@@ -329,20 +329,41 @@ class _TagEditorScreenState extends ConsumerState<TagEditorScreen> {
 
   Future<void> _delete(Tag tag) async {
     final strings = AlayaStrings.of(context);
+    final notifier = ref.read(tagEditorProvider.notifier);
+
+    // **Counted before the sheet opens, so the sheet can say what it costs.** A tag used as an item's kind is
+    // the one case where deleting reaches data the user is not looking at: `items.kind_tag_id` points here, and
+    // those items have to go somewhere. Naming the number is the difference between a consequence and a
+    // surprise — and it is the only rule in this design enforced by code rather than by the schema.
+    final affected = await notifier.itemsFiledUnder(tag.id);
+    if (!mounted) return;
+
     // The body says what survives, because a soft delete is not what "delete" usually promises: the transactions
     // that carried this tag keep their history, and only the tag leaves the pickers (ARCH_3 §4).
+    //
+    // With items filed under it, a second sentence is added rather than the first being replaced. Both are true:
+    // the transactions keep their tag, and the items get a new kind.
     final confirmed = await ConfirmSheet.show(
       context,
       title: strings.tagsDeleteConfirmTitle,
-      body: strings.tagsDeleteConfirmBody,
+      body: affected == 0
+          ? strings.tagsDeleteConfirmBody
+          : '${strings.tagsDeleteConfirmBody}\n\n'
+                '${strings.tagsDeleteItemsMove(affected)}',
       confirmLabel: strings.tagsDelete,
       cancelLabel: strings.actionCancel,
       destructive: true,
     );
     if (!confirmed || !mounted) return;
-    final ok = await ref.read(tagEditorProvider.notifier).delete(tag.id);
+
+    final ok = await notifier.delete(tag.id);
     if (!mounted || !ok) return;
-    showResultSnack(context, message: strings.tagsDeleted);
+    showResultSnack(
+      context,
+      message: affected == 0
+          ? strings.tagsDeleted
+          : strings.tagsDeletedItemsMoved(affected),
+    );
     context.pop();
   }
 }

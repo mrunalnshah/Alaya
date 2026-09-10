@@ -215,7 +215,6 @@ class _ArmStage extends ConsumerWidget {
         ),
         const SizedBox(height: AlayaSpacing.xs),
         TextField(
-          autofocus: true,
           textCapitalization: TextCapitalization.characters,
           decoration: InputDecoration(labelText: RestoreState.confirmationWord),
           onChanged: notifier.setTyped,

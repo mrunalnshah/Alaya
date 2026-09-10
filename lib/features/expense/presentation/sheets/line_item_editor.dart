@@ -5,7 +5,6 @@ import 'package:alaya/app/l10n/generated/app_localizations.dart';
 import 'package:alaya/app/providers/infrastructure_providers.dart';
 import 'package:alaya/app/providers/repository_providers.dart';
 import 'package:alaya/app/theme/semantic_colors.dart';
-import 'package:alaya/core/enums/inventory_enums.dart';
 import 'package:alaya/app/theme/tokens/alaya_icon_size.dart';
 import 'package:alaya/app/theme/tokens/alaya_spacing.dart';
 import 'package:alaya/app/theme/tokens/alaya_typography.dart';
@@ -16,6 +15,7 @@ import 'package:alaya/core/quantity/unit_category.dart';
 import 'package:alaya/domain/entities/item.dart';
 import 'package:alaya/domain/entities/transaction_line.dart';
 import 'package:alaya/domain/entities/unit.dart';
+import 'package:alaya/features/inventory/presentation/widgets/kind_picker.dart';
 import 'package:alaya/shared/widgets/alaya_bottom_sheet.dart';
 import 'package:alaya/shared/widgets/amount_field.dart';
 import 'package:alaya/shared/widgets/qty_field.dart';
@@ -126,7 +126,23 @@ class _LineItemEditorState extends ConsumerState<LineItemEditor> {
   bool _descriptionMissing = false;
   bool _creatingItem = false;
   UnitCategory _newItemCategory = UnitCategory.count;
+
+  /// The kind chosen on the new-item form, or null.
+  String? _newItemKindTagId;
   bool _createFailed = false;
+
+  /// Whether the inventory fields were left incomplete on the last attempt.
+  ///
+  /// **Set on submit rather than watched continuously.** A line is incomplete for most of the time somebody is
+  /// filling it in, and colouring it red from the first keystroke trains people to ignore the colour.
+  bool _inventoryMissing = false;
+
+  /// The value the "new item" row carries.
+  ///
+  /// **A sentinel rather than a nullable value.** `null` in this dropdown already means "nothing chosen", and a
+  /// row that reused it could not be told apart from clearing the field. Item ids are UUIDv7, so nothing can
+  /// collide with this.
+  static const String _newItemValue = '__alaya_new_item__';
 
   Future<void> _createItem() async {
     final name = _description.text.trim();
@@ -140,7 +156,10 @@ class _LineItemEditorState extends ConsumerState<LineItemEditor> {
       normalizedName: ref.read(normalizerProvider).normalize(name),
       unitCategory: _newItemCategory,
       defaultDisplayUnitCode: _newItemCategory.baseUnitCode,
-      itemKind: ItemKind.generic,
+      // **Whatever the user chose, and null if they did not.** This hardcoded `ItemKind.generic`, which is
+      // why every item ever created from a receipt is unclassified: the field was always filled, so the form
+      // never asked. The kind picker below now asks, with "New kind" as its last row.
+      kindTagId: _newItemKindTagId,
       isFavorite: false,
     );
     final saved = await ref.read(itemRepositoryProvider).save(item);
@@ -162,10 +181,35 @@ class _LineItemEditorState extends ConsumerState<LineItemEditor> {
     super.dispose();
   }
 
+  /// What is still missing before this line can be saved, or null.
+  ///
+  /// **An inventory line needs an item, a quantity and a unit, and nothing here used to say so.** The line
+  /// saved happily, `LineItemsScreen` accepted it, and `PurchaseFanOutService._planBatch` refused it on
+  /// Continue — one screen further on, as a snackbar, about a line the user had stopped looking at. By then
+  /// there was nothing on screen to correct.
+  ///
+  /// A quantity without a unit is not a partial answer, it is a number with no dimension: `QtyField` only
+  /// appears once an item is chosen, so these three arrive together or not at all.
+  String? _whatIsMissing(AlayaStrings strings) {
+    if (_destination != TransactionLineDestination.inventory) return null;
+    if (_itemId == null) return strings.lineItemRequired;
+    if (_quantity == null || _unitCode == null) {
+      return strings.lineQuantityRequired;
+    }
+    return null;
+  }
+
   void _submit({bool addAnother = false}) {
+    final strings = AlayaStrings.of(context);
     final description = _description.text.trim();
     if (description.isEmpty) {
       setState(() => _descriptionMissing = true);
+      return;
+    }
+    // **Refused here rather than accepted and refused later.** Stopping at the field that is wrong, while the
+    // field is still on screen, is the difference between a correction and a mystery.
+    if (_whatIsMissing(strings) != null) {
+      setState(() => _inventoryMissing = true);
       return;
     }
     final existing = widget.line;
@@ -296,78 +340,132 @@ class _LineItemEditorState extends ConsumerState<LineItemEditor> {
               category: _newItemCategory,
               onCategoryChanged: (category) =>
                   setState(() => _newItemCategory = category),
+              kindTagId: _newItemKindTagId,
+              onKindChanged: (id) => setState(() => _newItemKindTagId = id),
               onCreate: _createItem,
               onCancel: () => setState(() => _creatingItem = false),
             )
           else
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: items.isEmpty
-                      ? Text(
-                          strings.itemCreateHint,
-                          style: AlayaTypography.caption.copyWith(
-                            color: context.semantic.muted,
-                          ),
-                        )
-                      : DropdownButtonFormField<String>(
-                          // **`selectedItem?.id`, not `_itemId`.** The items arrive from a stream, so on the frame
-                          // right after an inline create the state already names the new item while the list has
-                          // not re-emitted it — and a dropdown holding a value none of its items carry throws
-                          // "There should be exactly one item", which is a red screen. Deriving the value from the
-                          // list being rendered makes the mismatch unrepresentable.
-                          key: ValueKey(selectedItem?.id),
-                          initialValue: selectedItem?.id,
-                          isExpanded: true,
-                          decoration: InputDecoration(
-                            labelText: strings.labelItem,
-                          ),
-                          items: [
-                            for (final item in items)
-                              DropdownMenuItem(
-                                value: item.id,
-                                child: Text(
-                                  item.name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                          ],
-                          onChanged: (value) => setState(() {
-                            // **Picking an item fills the description.** The two are different columns — the
-                            // description is what the receipt said, `itemId` is what it stocks — but the receipt
-                            // almost always says the item's name, and making the user retype "onion" after
-                            // choosing Onion is friction with no purpose. An edit of their own is never
-                            // overwritten: the fill only happens while the field is empty or still holds the
-                            // previously-picked item's name.
-                            final previous = _nameOf(items, _itemId);
-                            _itemId = value;
-                            final picked = _nameOf(items, value);
-                            final typed = _description.text.trim();
-                            if (picked != null &&
-                                (typed.isEmpty || typed == previous)) {
-                              _description.text = picked;
-                              _descriptionMissing = false;
-                            }
-                            // The category changed, so any unit and quantity chosen against the old one is now
-                            // meaningless rather than merely stale — Law L8 has no cross-category conversion.
-                            _unitCode = null;
-                            _quantity = null;
-                          }),
+            // **Always a dropdown, even with nothing in the catalogue.** It used to show a line of grey help
+            // text instead, so somebody with no items yet had no control to press — they filled in the rest of
+            // the line, hit Continue, and met a snackbar refusing it. The way to make an item was a separate
+            // button beside a field that was not there.
+            //
+            // Now the list is never empty: it always ends with **New item**, so the first item is created from
+            // the same control that picks the hundredth.
+            Builder(
+              builder: (context) => DropdownButtonFormField<String>(
+                // **`selectedItem?.id`, not `_itemId`.** The items arrive from a stream, so on the frame
+                // right after an inline create the state already names the new item while the list has
+                // not re-emitted it — and a dropdown holding a value none of its items carry throws
+                // "There should be exactly one item", which is a red screen. Deriving the value from the
+                // list being rendered makes the mismatch unrepresentable.
+                key: ValueKey(selectedItem?.id),
+                initialValue: selectedItem?.id,
+                isExpanded: true,
+                decoration: InputDecoration(
+                  labelText: strings.labelItem,
+                  errorText: _inventoryMissing && _itemId == null
+                      ? strings.lineItemRequired
+                      : null,
+                ),
+                // **The closed field shows the name alone; the open menu shows what it is measured in.**
+                // `selectedItemBuilder` exists for exactly this, and without it the two-line option would set
+                // the height of the collapsed field as well.
+                //
+                // One entry per `DropdownMenuItem`, in the same order — including the trailing "new item" row,
+                // which is why this list ends with it too.
+                selectedItemBuilder: (context) => [
+                  for (final item in items)
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        item.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(strings.itemCreate),
+                  ),
+                ],
+                items: [
+                  for (final item in items)
+                    DropdownMenuItem(
+                      value: item.id,
+                      // **The name is not enough to choose by.** An item's identity is
+                      // `(normalized_name, unit_category)` — "Rice" by weight and "Rice" by count are two
+                      // different rows — so a list of bare names cannot answer "is this the one I mean?", and
+                      // the wrong answer costs a quantity in the wrong dimension.
+                      child: _ItemOption(item: item),
+                    ),
+                  DropdownMenuItem(
+                    value: _newItemValue,
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: AlayaSpacing.xs,
+                      children: [
+                        Icon(
+                          Icons.add,
+                          size: AlayaIconSize.sm,
+                          color: context.semantic.muted,
                         ),
-                ),
-                const SizedBox(width: AlayaSpacing.xs),
-                TextButton(
-                  onPressed: () => setState(() => _creatingItem = true),
-                  child: Text(strings.itemCreate),
-                ),
-              ],
+                        Text(strings.itemCreate),
+                      ],
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  // Choosing the last row is not choosing an item — it swaps this control for the create form,
+                  // and `_itemId` is deliberately left where it was so cancelling restores the old choice.
+                  if (value == _newItemValue) {
+                    setState(() => _creatingItem = true);
+                    return;
+                  }
+                  setState(() {
+                    // **Picking an item fills the description.** The two are different columns — the
+                    // description is what the receipt said, `itemId` is what it stocks — but the receipt
+                    // almost always says the item's name, and making the user retype "onion" after
+                    // choosing Onion is friction with no purpose. An edit of their own is never
+                    // overwritten: the fill only happens while the field is empty or still holds the
+                    // previously-picked item's name.
+                    final previous = _nameOf(items, _itemId);
+                    _itemId = value;
+                    final picked = _nameOf(items, value);
+                    final typed = _description.text.trim();
+                    if (picked != null &&
+                        (typed.isEmpty || typed == previous)) {
+                      _description.text = picked;
+                      _descriptionMissing = false;
+                    }
+                    // The category changed, so any unit and quantity chosen against the old one is now
+                    // meaningless rather than merely stale — Law L8 has no cross-category conversion.
+                    _unitCode = null;
+                    _quantity = null;
+                    // Whatever was missing is now chosen, so the red goes rather than waiting for a second
+                    // submit to clear it.
+                    _inventoryMissing = false;
+                  });
+                },
+              ),
             ),
           if (_createFailed) ...[
             const SizedBox(height: AlayaSpacing.xxs),
             Text(
               strings.errorBodyGeneric,
+              style: AlayaTypography.caption.copyWith(
+                color: context.semantic.danger,
+              ),
+            ),
+          ],
+          // The quantity half of the same rule. The item half rides on the dropdown's own `errorText`, where
+          // the reader is already looking; this one has no single field to attach to, because a quantity and
+          // its unit are one answer given through two controls.
+          if (_inventoryMissing && _itemId != null) ...[
+            const SizedBox(height: AlayaSpacing.xxs),
+            Text(
+              strings.lineQuantityRequired,
               style: AlayaTypography.caption.copyWith(
                 color: context.semantic.danger,
               ),
@@ -461,16 +559,56 @@ class _LineItemEditorState extends ConsumerState<LineItemEditor> {
   };
 }
 
+/// One item in the picker: what it is called, and what it is measured in.
+///
+/// **The second line is the point of this widget.** An item's identity in the schema is
+/// `(normalized_name, unit_category)` — `idx_items_identity` is unique on the pair — so "Rice" measured by
+/// weight and "Rice" counted in packets are two different rows that a list of names renders identically.
+/// Picking the wrong one is not a cosmetic mistake: the quantity that follows is then in the wrong dimension,
+/// and Law L8 has no conversion between categories to rescue it.
+class _ItemOption extends StatelessWidget {
+  const _ItemOption({required this.item});
+
+  final Item item;
+
+  @override
+  Widget build(BuildContext context) {
+    final strings = AlayaStrings.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(item.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+        Text(
+          _LineItemEditorState._categoryLabel(strings, item.unitCategory),
+          style: AlayaTypography.caption.copyWith(
+            color: context.semantic.muted,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _NewItemRow extends StatelessWidget {
   const _NewItemRow({
     required this.category,
     required this.onCategoryChanged,
+    required this.kindTagId,
+    required this.onKindChanged,
     required this.onCreate,
     required this.onCancel,
   });
 
   final UnitCategory category;
   final ValueChanged<UnitCategory> onCategoryChanged;
+
+  /// The kind chosen for the item being created, or null.
+  final String? kindTagId;
+
+  /// Called with a new kind's tag id, or null when it is cleared.
+  final ValueChanged<String?> onKindChanged;
+
   final VoidCallback onCreate;
   final VoidCallback onCancel;
 
@@ -499,6 +637,16 @@ class _NewItemRow extends StatelessWidget {
           showSelectedIcon: false,
           onSelectionChanged: (selection) => onCategoryChanged(selection.first),
         ),
+        const SizedBox(height: AlayaSpacing.sm),
+        // **The kind, asked for at the one moment the item exists.** This is what you wanted from the
+        // transaction editor: `Vegetables` gets created from the bottom row of this picker, without leaving the
+        // receipt. It is also the fix for every item ever made from a receipt being unclassified — the create
+        // path hardcoded a kind and so never asked.
+        //
+        // On the new-item form rather than on every line, because a kind belongs to the *item*. A line already
+        // carries a description, an item, a quantity, a unit, a price and a destination; a seventh control that
+        // does nothing for an item that already has a kind is a control in the way.
+        KindPicker(kindTagId: kindTagId, onChanged: onKindChanged),
         const SizedBox(height: AlayaSpacing.xs),
         Row(
           children: [

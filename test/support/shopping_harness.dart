@@ -70,7 +70,6 @@ const Item kOnion = Item(
   normalizedName: 'onion',
   unitCategory: UnitCategory.weight,
   defaultDisplayUnitCode: 'kg',
-  itemKind: ItemKind.food,
   isFavorite: false,
   lowStockThreshold: Qty(2000000, UnitCategory.weight),
 );

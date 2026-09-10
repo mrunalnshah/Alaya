@@ -1,3 +1,4 @@
+import 'package:alaya/features/expense/presentation/widgets/split_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +24,7 @@ import 'package:alaya/features/expense/providers/transaction_list_providers.dart
 import 'package:alaya/features/expense/state/transaction_editor_state.dart';
 import 'package:alaya/shared/feedback/undo_snack.dart';
 import 'package:alaya/shared/widgets/account_picker.dart';
+import 'package:alaya/shared/widgets/alaya_disclosure.dart';
 import 'package:alaya/shared/widgets/alaya_form_scaffold.dart';
 import 'package:alaya/shared/widgets/alaya_list_skeleton.dart';
 import 'package:alaya/shared/widgets/amount_field.dart';
@@ -257,75 +259,159 @@ class _Form extends ConsumerWidget {
           onChanged: (value) =>
               value == null ? null : notifier.setSubtype(value),
         ),
-        if (state.kind != TransactionKind.transfer) ...[
-          SectionHeader(
-            label: state.kind == TransactionKind.deposit
-                ? strings.sectionWhereItCameFrom
-                : strings.sectionWhereItWent,
-            padding: const EdgeInsets.only(
-              top: AlayaSpacing.xl,
-              bottom: AlayaSpacing.xs,
-            ),
-          ),
-          if (state.kind != TransactionKind.deposit)
-            AccountPicker(
-              accounts: accounts,
-              selected: accountFor(state.fromAccountId),
-              label: strings.labelAccount,
-              hint: strings.hintSelectAccount,
-              onChanged: (account) => notifier.setFromAccount(account.id),
-            ),
-          const SizedBox(height: AlayaSpacing.md),
-          DropdownButtonFormField<String>(
-            key: ValueKey(state.paymentMethodId),
-            initialValue: state.paymentMethodId,
-            isExpanded: true,
-            decoration: InputDecoration(labelText: strings.labelPaymentMethod),
-            items: [
-              for (final method in methods)
-                DropdownMenuItem(value: method.id, child: Text(method.name)),
-            ],
-            onChanged: notifier.setPaymentMethod,
-          ),
-          const SizedBox(height: AlayaSpacing.md),
-        ],
-        _SubtypeForm(editorId: editorId, state: state, decimalDigits: digits),
-        if (tags.isNotEmpty) ...[
-          SectionHeader(
-            label: strings.labelTags,
-            padding: const EdgeInsets.only(
-              top: AlayaSpacing.xl,
-              bottom: AlayaSpacing.xs,
-            ),
-          ),
-          Wrap(
-            spacing: AlayaSpacing.xs,
-            runSpacing: AlayaSpacing.xs,
+        // **One door, not five collapsed sections** (Law U16). Amount, date and category are what a
+        // purchase needs; account, payment method, tags, the note and the subtype-specific fields are
+        // refinements. Eleven controls at once is what made this screen hard to read — none of them is
+        // hard on its own.
+        //
+        // Opens itself whenever any of them already holds a value, so reopening a saved record shows
+        // what that record actually contains rather than a chevron with something behind it.
+        AlayaDisclosure(
+          label: strings.sectionMoreDetails,
+          summary: _detailSummary(strings, state, accounts, methods, tags),
+          startExpanded: _hasDetails(state),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              for (final tag in tags)
-                TagChip(
-                  tag: tag,
-                  selected: state.tagIds.contains(tag.id),
-                  onTap: () => notifier.toggleTag(tag.id),
+              if (state.kind != TransactionKind.transfer) ...[
+                SectionHeader(
+                  label: state.kind == TransactionKind.deposit
+                      ? strings.sectionWhereItCameFrom
+                      : strings.sectionWhereItWent,
+                  padding: const EdgeInsets.only(
+                    top: AlayaSpacing.xl,
+                    bottom: AlayaSpacing.xs,
+                  ),
                 ),
+                if (state.kind != TransactionKind.deposit)
+                  AccountPicker(
+                    accounts: accounts,
+                    selected: accountFor(state.fromAccountId),
+                    label: strings.labelAccount,
+                    hint: strings.hintSelectAccount,
+                    onChanged: (account) => notifier.setFromAccount(account.id),
+                  ),
+                const SizedBox(height: AlayaSpacing.md),
+                DropdownButtonFormField<String>(
+                  key: ValueKey(state.paymentMethodId),
+                  initialValue: state.paymentMethodId,
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    labelText: strings.labelPaymentMethod,
+                  ),
+                  items: [
+                    for (final method in methods)
+                      DropdownMenuItem(
+                        value: method.id,
+                        child: Text(method.name),
+                      ),
+                  ],
+                  onChanged: notifier.setPaymentMethod,
+                ),
+                const SizedBox(height: AlayaSpacing.md),
+              ],
+              _SubtypeForm(
+                editorId: editorId,
+                state: state,
+                decimalDigits: digits,
+              ),
+              // Only where a shared bill makes sense. A transfer between your own accounts has no
+              // counterparty to owe anything, and a deposit is money arriving — neither is a bill
+              // somebody could owe you a share of.
+              if (state.kind == TransactionKind.withdrawal)
+                SplitSection(
+                  editorId: editorId,
+                  state: state,
+                  decimalDigits: digits,
+                ),
+              if (tags.isNotEmpty) ...[
+                SectionHeader(
+                  label: strings.labelTags,
+                  padding: const EdgeInsets.only(
+                    top: AlayaSpacing.xl,
+                    bottom: AlayaSpacing.xs,
+                  ),
+                ),
+                Wrap(
+                  spacing: AlayaSpacing.xs,
+                  runSpacing: AlayaSpacing.xs,
+                  children: [
+                    for (final tag in tags)
+                      TagChip(
+                        tag: tag,
+                        selected: state.tagIds.contains(tag.id),
+                        onTap: () => notifier.toggleTag(tag.id),
+                      ),
+                  ],
+                ),
+              ],
+              SectionHeader(
+                label: strings.labelNote,
+                padding: const EdgeInsets.only(
+                  top: AlayaSpacing.xl,
+                  bottom: AlayaSpacing.xs,
+                ),
+              ),
+              TextFormField(
+                initialValue: state.note,
+                maxLines: 3,
+                decoration: InputDecoration(hintText: strings.hintNote),
+                onChanged: notifier.setNote,
+              ),
             ],
           ),
-        ],
-        SectionHeader(
-          label: strings.labelNote,
-          padding: const EdgeInsets.only(
-            top: AlayaSpacing.xl,
-            bottom: AlayaSpacing.xs,
-          ),
-        ),
-        TextFormField(
-          initialValue: state.note,
-          maxLines: 3,
-          decoration: InputDecoration(hintText: strings.hintNote),
-          onChanged: notifier.setNote,
         ),
       ],
     );
+  }
+
+  /// Whether anything behind the door is set, so it should open on arrival.
+  ///
+  /// Account and payment method are excluded deliberately: both carry a default from settings, so
+  /// treating them as content would open the door on every new record and the tiering would do nothing.
+  /// A **user-chosen** account still shows in the summary — it is visible without being a reason to
+  /// expand.
+  static bool _hasDetails(TransactionEditorState state) =>
+      state.tagIds.isNotEmpty ||
+      (state.note ?? '').trim().isNotEmpty ||
+      state.lines.isNotEmpty ||
+      state.split != null;
+
+  /// What is set behind the door, for the collapsed row.
+  ///
+  /// The values a user would go looking for, joined — not a field list. A collapsed section that gives
+  /// no account of itself is where values go to hide.
+  static String? _detailSummary(
+    AlayaStrings strings,
+    TransactionEditorState state,
+    List<Account> accounts,
+    List<PaymentMethod> methods,
+    List<Tag> tags,
+  ) {
+    final parts = <String>[];
+    for (final account in accounts) {
+      if (account.id == state.fromAccountId) {
+        parts.add(account.name);
+        break;
+      }
+    }
+    for (final method in methods) {
+      if (method.id == state.paymentMethodId) {
+        parts.add(method.name);
+        break;
+      }
+    }
+    if (state.tagIds.isNotEmpty)
+      parts.add(strings.tagCount(state.tagIds.length));
+    if ((state.note ?? '').trim().isNotEmpty) parts.add(strings.labelNote);
+    if (state.lines.isNotEmpty)
+      parts.add(strings.lineCount(state.lines.length));
+
+    final split = state.split;
+    if (split != null && split.isActive)
+      parts.add(strings.splitPerPersonCount(split.inputs.length));
+
+    return parts.isEmpty ? null : parts.join(' \u00B7 ');
   }
 }
 

@@ -24,6 +24,15 @@ enum CalendarEventType {
 
   /// A shopping list's target date.
   shoppingTarget,
+
+  /// A shared expense with a settle-by date.
+  ///
+  /// **The deadline, not the expense.** When the user paid, the bill already reaches this feed through
+  /// its own `transactions` row; carrying it twice would show one dinner as two entries on two days.
+  ///
+  /// Declared last on purpose. The day sheet groups by `CalendarEventType.values`, so declaration order
+  /// is display order — and a deadline belongs after the things that have already happened.
+  splitSettleBy,
 }
 
 /// How urgently a calendar entry should read.

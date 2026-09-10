@@ -1,3 +1,4 @@
+import 'package:alaya/features/analytics/presentation/widgets/split_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -120,6 +121,14 @@ class AnalyticsHomeScreen extends ConsumerWidget {
     const DearestPurchaseCard(),
     _gap,
     const AverageBasketCard(),
+    _header(strings.analyticsSectionSplit),
+    const SplitLensesCard(),
+    _gap,
+    const SplitPartnersCard(),
+    _gap,
+    const SplitDimensionCard(),
+    _gap,
+    const SplitDimensionCard(byPlace: true),
     ..._homeSections(strings),
   ];
 

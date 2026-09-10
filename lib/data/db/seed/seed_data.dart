@@ -42,7 +42,14 @@ final class SeedData {
       final accountIds = await _insertAccounts(db);
       await _insertShoppingList(db);
       await _insertSettings(db, defaultAccountId: accountIds.first);
-      assert(tagIds.length == 18, 'ARCH_2 §14 specifies exactly 18 system tags');
+      assert(
+        tagIds.length == 20,
+        // **20, not ARCH_2 §14's 18, and the deviation is deliberate.** `Food` and `Other` were added when
+        // `ItemKind` retired: an item's kind became a `tags` row, and those two had no tag to become.
+        // `Medicine`, `Beauty` and `Household` needed none — they were already in this matrix, and
+        // `idx_tags_name` would have refused a second row with the same name anyway.
+        'ARCH_2 §14 specified 18 system tags; v5 added Food and Other when ItemKind became a tag',
+      );
     });
   }
 
@@ -59,18 +66,20 @@ final class SeedData {
     ];
     for (var i = 0; i < rows.length; i++) {
       final (code, name, symbol, decimalDigits) = rows[i];
-      await db.into(db.currencies).insert(
-        CurrenciesCompanion.insert(
-          code: code,
-          name: name,
-          symbol: symbol,
-          decimalDigits: decimalDigits,
-          isEnabled: true,
-          sortOrder: i,
-          createdAt: _now,
-          updatedAt: _now,
-        ),
-      );
+      await db
+          .into(db.currencies)
+          .insert(
+            CurrenciesCompanion.insert(
+              code: code,
+              name: name,
+              symbol: symbol,
+              decimalDigits: decimalDigits,
+              isEnabled: true,
+              sortOrder: i,
+              createdAt: _now,
+              updatedAt: _now,
+            ),
+          );
     }
   }
 
@@ -90,21 +99,35 @@ final class SeedData {
       // which is the common case ("3 packs of noodles"). A user who means "1 pack = 8 pieces"
       // edits the factor; a user who cannot state any factor should create a separate Item.
       ('pack', UnitCategory.count, 1000, 'Pack'),
+      // Cooking measures, as volume. A tablespoon is 14.787 ml for everything in the world; what
+      // differs between butter and flour is density, which is a property of the Item and lives on
+      // `items.density_milli_grams_per_ml`.
+      //
+      // **These are also inserted by the v2 -> v3 migration, and both paths are required.**
+      // `onCreate` runs only on a fresh database and `onUpgrade` only on an existing one, so
+      // reference data added in one place reaches half the installs. Seeding without migrating
+      // leaves every current user without them; migrating without seeding — which is what shipped
+      // first — leaves every new user without them.
+      ('tsp', UnitCategory.volume, 4929, 'Teaspoon'),
+      ('tbsp', UnitCategory.volume, 14787, 'Tablespoon'),
+      ('cup', UnitCategory.volume, 240000, 'Cup'),
     ];
     for (var i = 0; i < rows.length; i++) {
       final (code, category, factor, displayName) = rows[i];
-      await db.into(db.units).insert(
-        UnitsCompanion.insert(
-          code: code,
-          category: category,
-          factorToBaseMilli: factor,
-          displayName: displayName,
-          isSystem: true,
-          sortOrder: i,
-          createdAt: _now,
-          updatedAt: _now,
-        ),
-      );
+      await db
+          .into(db.units)
+          .insert(
+            UnitsCompanion.insert(
+              code: code,
+              category: category,
+              factorToBaseMilli: factor,
+              displayName: displayName,
+              isSystem: true,
+              sortOrder: i,
+              createdAt: _now,
+              updatedAt: _now,
+            ),
+          );
     }
   }
 
@@ -118,17 +141,19 @@ final class SeedData {
     ];
     for (var i = 0; i < rows.length; i++) {
       final (name, kind) = rows[i];
-      await db.into(db.paymentMethods).insert(
-        PaymentMethodsCompanion.insert(
-          id: uids.generate(),
-          name: name,
-          kind: kind,
-          isSystem: true,
-          sortOrder: i,
-          createdAt: _now,
-          updatedAt: _now,
-        ),
-      );
+      await db
+          .into(db.paymentMethods)
+          .insert(
+            PaymentMethodsCompanion.insert(
+              id: uids.generate(),
+              name: name,
+              kind: kind,
+              isSystem: true,
+              sortOrder: i,
+              createdAt: _now,
+              updatedAt: _now,
+            ),
+          );
     }
   }
 
@@ -145,6 +170,11 @@ final class SeedData {
       ('Refund', true, false, false, false, false, false),
       ('Business', true, true, false, false, false, false),
       ('Grocery', false, true, true, true, false, false),
+      // **Food and Grocery both, independent of each other.** They overlap and that is the point: a kind is
+      // whatever the user finds useful, and forcing "Food" to mean "Grocery" is the sort of tidiness that
+      // makes somebody fight the app. `Food` is also where v5 sends items that used to carry
+      // `ItemKind.food`, so an upgraded install and a fresh one land in the same place.
+      ('Food', false, true, true, true, false, false),
       ('Vegetables', false, true, true, true, false, false),
       ('Household', false, true, true, true, false, false),
       ('Kitchen', false, false, true, true, false, false),
@@ -158,6 +188,13 @@ final class SeedData {
       ('Health', false, true, false, false, true, true),
       ('Education', false, true, false, false, true, false),
       ('Maintenance', false, true, false, false, true, true),
+      // **The fallback, and the only kind the app itself depends on by name.** Deleting a kind in Settings
+      // moves its items here rather than leaving them pointing at a soft-deleted row, and v5 sends every item
+      // that carried `generic` or `other` here — two enum members that meant the same thing.
+      //
+      // Last in the matrix, so `sortOrder` puts it at the bottom of the inventory list where a catch-all
+      // belongs. Reorderable in Settings like any other tag.
+      ('Other', false, true, true, true, false, false),
     ];
 
     final ids = <String>[];
@@ -166,28 +203,30 @@ final class SeedData {
       final (name, dep, wdr, inv, shop, rec, svc) = matrix[i];
       final id = uids.generate();
       ids.add(id);
-      await db.into(db.tags).insert(
-        TagsCompanion.insert(
-          id: id,
-          name: name,
-          // Matches Phase 1A's Normalizer for these names, all of which are single
-          // lowercase-able words with no diacritics or punctuation.
-          normalizedName: name.toLowerCase(),
-          // `Vegetables` is the one nested tag in the seed, exactly one level under
-          // `Grocery` (ARCH_2 §3). Depth beyond one level is rejected in the repository.
-          parentTagId: Value(name == 'Vegetables' ? groceryId : null),
-          allowedInDeposit: dep,
-          allowedInWithdrawal: wdr,
-          allowedInInventory: inv,
-          allowedInShopping: shop,
-          allowedInRecurring: rec,
-          allowedInService: svc,
-          isSystem: true,
-          sortOrder: i,
-          createdAt: _now,
-          updatedAt: _now,
-        ),
-      );
+      await db
+          .into(db.tags)
+          .insert(
+            TagsCompanion.insert(
+              id: id,
+              name: name,
+              // Matches Phase 1A's Normalizer for these names, all of which are single
+              // lowercase-able words with no diacritics or punctuation.
+              normalizedName: name.toLowerCase(),
+              // `Vegetables` is the one nested tag in the seed, exactly one level under
+              // `Grocery` (ARCH_2 §3). Depth beyond one level is rejected in the repository.
+              parentTagId: Value(name == 'Vegetables' ? groceryId : null),
+              allowedInDeposit: dep,
+              allowedInWithdrawal: wdr,
+              allowedInInventory: inv,
+              allowedInShopping: shop,
+              allowedInRecurring: rec,
+              allowedInService: svc,
+              isSystem: true,
+              sortOrder: i,
+              createdAt: _now,
+              updatedAt: _now,
+            ),
+          );
       if (name == 'Grocery') groceryId = id;
     }
     return ids;
@@ -210,61 +249,67 @@ final class SeedData {
       final (name, kind) = rows[i];
       final id = uids.generate();
       ids.add(id);
-      await db.into(db.accounts).insert(
-        AccountsCompanion.insert(
-          id: id,
-          name: name,
-          normalizedName: name.toLowerCase(),
-          kind: kind,
-          currencyCode: homeCurrencyCode,
-          // Zero, not unknown. Onboarding (Phase 8A) collects the user's real opening
-          // balances; until then the balance is honestly zero rather than absent
-          // (anomaly A03).
-          openingBalanceMinor: 0,
-          openingBalanceDateKey: today,
-          isArchived: false,
-          includeInNetWorth: true,
-          sortOrder: i,
-          createdAt: _now,
-          updatedAt: _now,
-        ),
-      );
+      await db
+          .into(db.accounts)
+          .insert(
+            AccountsCompanion.insert(
+              id: id,
+              name: name,
+              normalizedName: name.toLowerCase(),
+              kind: kind,
+              currencyCode: homeCurrencyCode,
+              // Zero, not unknown. Onboarding (Phase 8A) collects the user's real opening
+              // balances; until then the balance is honestly zero rather than absent
+              // (anomaly A03).
+              openingBalanceMinor: 0,
+              openingBalanceDateKey: today,
+              isArchived: false,
+              includeInNetWorth: true,
+              sortOrder: i,
+              createdAt: _now,
+              updatedAt: _now,
+            ),
+          );
     }
     return ids;
   }
 
   Future<void> _insertShoppingList(AlayaDatabase db) async {
-    await db.into(db.shoppingLists).insert(
-      ShoppingListsCompanion.insert(
-        id: uids.generate(),
-        name: 'Shopping List',
-        isDefault: true,
-        isArchived: false,
-        createdAt: _now,
-        updatedAt: _now,
-      ),
-    );
+    await db
+        .into(db.shoppingLists)
+        .insert(
+          ShoppingListsCompanion.insert(
+            id: uids.generate(),
+            name: 'Shopping List',
+            isDefault: true,
+            isArchived: false,
+            createdAt: _now,
+            updatedAt: _now,
+          ),
+        );
   }
 
   Future<void> _insertSettings(
-      AlayaDatabase db, {
-        required String defaultAccountId,
-      }) async {
+    AlayaDatabase db, {
+    required String defaultAccountId,
+  }) async {
     final settings = <String, (String, String)>{
       'homeCurrencyCode': (homeCurrencyCode, 'string'),
       'defaultAccountId': (defaultAccountId, 'string'),
     };
     for (final entry in settings.entries) {
       final (value, valueType) = entry.value;
-      await db.into(db.appSettings).insert(
-        AppSettingsCompanion.insert(
-          key: entry.key,
-          value: value,
-          valueType: valueType,
-          createdAt: _now,
-          updatedAt: _now,
-        ),
-      );
+      await db
+          .into(db.appSettings)
+          .insert(
+            AppSettingsCompanion.insert(
+              key: entry.key,
+              value: value,
+              valueType: valueType,
+              createdAt: _now,
+              updatedAt: _now,
+            ),
+          );
     }
   }
 }

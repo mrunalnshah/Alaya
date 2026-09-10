@@ -79,10 +79,12 @@ class OnboardingFlow extends ConsumerWidget {
       body: AlayaFormScaffold(
         primaryLabel: _primaryLabel(strings, draft.step),
         onPrimary: draft.isSaving ? null : () => _commit(context, ref, draft),
-        secondaryLabel: draft.step == OnboardingStep.currency
+        // **Keyed to `name` now that it is first.** Left on `currency` this would have offered Back on
+        // the opening screen, pointing at a step nobody had seen.
+        secondaryLabel: draft.step == OnboardingStep.name
             ? null
             : strings.actionBack,
-        onSecondary: draft.step == OnboardingStep.currency
+        onSecondary: draft.step == OnboardingStep.name
             ? null
             : () => controller.goTo(_previous(draft.step)),
         isSubmitting: draft.isSaving,
@@ -108,6 +110,7 @@ class OnboardingFlow extends ConsumerWidget {
               const SizedBox(height: AlayaSpacing.lg),
             ],
             switch (draft.step) {
+              OnboardingStep.name => const _NameStep(),
               OnboardingStep.currency => const _CurrencyStep(),
               OnboardingStep.accounts ||
               OnboardingStep.done => const _AccountsStep(),
@@ -125,6 +128,10 @@ class OnboardingFlow extends ConsumerWidget {
   ) async {
     final controller = ref.read(onboardingControllerProvider.notifier);
     switch (draft.step) {
+      case OnboardingStep.name:
+        // Advances whether a name was given or not — see `commitName`. A blank field is this step's own
+        // skip, since the app-bar Skip abandons the whole flow rather than one question.
+        await controller.commitName();
       case OnboardingStep.currency:
         await controller.commitCurrency();
       case OnboardingStep.accounts:
@@ -150,23 +157,26 @@ class OnboardingFlow extends ConsumerWidget {
   void _leave(BuildContext context) => context.go(Routes.dashboard);
 
   OnboardingStep _previous(OnboardingStep step) => switch (step) {
-    OnboardingStep.currency => OnboardingStep.currency,
+    OnboardingStep.name => OnboardingStep.name,
+    OnboardingStep.currency => OnboardingStep.name,
     OnboardingStep.accounts || OnboardingStep.done => OnboardingStep.currency,
   };
 
   String _stepTitle(AlayaStrings strings, OnboardingStep step) =>
       switch (step) {
+        OnboardingStep.name => strings.onboardingNameTitle,
         OnboardingStep.currency => strings.onboardingCurrencyTitle,
         OnboardingStep.accounts ||
         OnboardingStep.done => strings.onboardingAccountsTitle,
       };
 
-  String _primaryLabel(AlayaStrings strings, OnboardingStep step) =>
-      switch (step) {
-        OnboardingStep.currency => strings.onboardingNext,
-        OnboardingStep.accounts ||
-        OnboardingStep.done => strings.onboardingFinish,
-      };
+  String _primaryLabel(
+    AlayaStrings strings,
+    OnboardingStep step,
+  ) => switch (step) {
+    OnboardingStep.name || OnboardingStep.currency => strings.onboardingNext,
+    OnboardingStep.accounts || OnboardingStep.done => strings.onboardingFinish,
+  };
 }
 
 /// Which of the three steps is showing.
@@ -182,18 +192,94 @@ class _StepProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     final strings = AlayaStrings.of(context);
     final index = switch (step) {
-      OnboardingStep.currency => 1,
-      OnboardingStep.accounts || OnboardingStep.done => 2,
+      OnboardingStep.name => 1,
+      OnboardingStep.currency => 2,
+      OnboardingStep.accounts || OnboardingStep.done => 3,
     };
     return Text(
-      // Two steps now, not three: the security step moved to Settings › Security.
-      strings.onboardingStepOf(index, 2),
+      // Three again, and the third is not the old security step — that moved to Settings › Security. The
+      // name step joined the front, where the friendliest question belongs.
+      strings.onboardingStepOf(index, 3),
       style: AlayaTypography.overline.copyWith(color: context.semantic.muted),
     );
   }
 }
 
-/// Step one: the currency totals are shown in.
+/// Step one: what to call the user.
+///
+/// **A body widget, not a page.** This flow puts its primary button in a shared `AlayaFormScaffold`
+/// footer and dispatches per step, so a step contributes content and the scaffold owns Continue, Back and
+/// Skip. A self-contained page with its own button would have given the opening screen two of them.
+///
+/// **Optional, and Continue with a blank field is how you say no.** ARCH_5 §3 archetype B makes the whole
+/// flow skippable; the app-bar Skip abandons all of it, so this step needs its own smaller exit — and an
+/// empty name simply advances. Nothing is written, and nothing records that the question was declined,
+/// because there is nothing to remember about it.
+///
+/// **The name is not stored as text anywhere.** It becomes a `payees` row with `kind: person`, and
+/// `split.selfPayeeId` points at it. Somebody who renames themselves under Settings › Payees renames
+/// themselves everywhere, because there is no second copy to disagree.
+class _NameStep extends ConsumerStatefulWidget {
+  const _NameStep();
+
+  @override
+  ConsumerState<_NameStep> createState() => _NameStepState();
+}
+
+class _NameStepState extends ConsumerState<_NameStep> {
+  late final TextEditingController _name = TextEditingController(
+    // Seeded from the draft rather than left blank: `_load` fills it from the existing payee, so somebody
+    // who set a name, closed the app mid-flow and came back sees what they already gave.
+    text: ref.read(onboardingControllerProvider).displayName,
+  );
+
+  @override
+  void dispose() {
+    _name.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final strings = AlayaStrings.of(context);
+    final semantic = context.semantic;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          // Says what the answer buys. "Enter your name" is a form field; naming what it unlocks is a
+          // reason, and a reason is what makes an optional question worth answering.
+          strings.onboardingNameBody,
+          style: AlayaTypography.body.copyWith(color: semantic.muted),
+        ),
+        const SizedBox(height: AlayaSpacing.lg),
+        TextField(
+          controller: _name,
+          // **No `autofocus`, and this is the screen where it mattered most.** It is the first thing a new
+          // user sees, and the keyboard covered the Skip button in the footer — hiding the way past an
+          // optional question on the one screen where somebody has not yet decided to trust the app.
+          textCapitalization: TextCapitalization.words,
+          textInputAction: TextInputAction.done,
+          decoration: InputDecoration(labelText: strings.onboardingNameLabel),
+          // Written to the draft on every keystroke, so the footer's Continue reads the same value the
+          // field shows. Keeping it only in this widget would make the button commit whatever the draft
+          // last happened to hold.
+          onChanged: (value) => ref
+              .read(onboardingControllerProvider.notifier)
+              .setDisplayName(value),
+        ),
+        const SizedBox(height: AlayaSpacing.sm),
+        Text(
+          strings.onboardingNameOptional,
+          style: AlayaTypography.caption.copyWith(color: semantic.muted),
+        ),
+      ],
+    );
+  }
+}
+
+/// Step two: the currency totals are shown in.
 class _CurrencyStep extends ConsumerWidget {
   const _CurrencyStep();
 
@@ -251,7 +337,7 @@ class _CurrencyStep extends ConsumerWidget {
   }
 }
 
-/// Step two: the accounts, and what was in them when the user started.
+/// Step three: the accounts, and what was in them when the user started.
 class _AccountsStep extends ConsumerWidget {
   const _AccountsStep();
 

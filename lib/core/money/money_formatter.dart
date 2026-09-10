@@ -14,16 +14,29 @@ final class MoneyFormatter {
   /// Creates a formatter. Stateless — safe to use as a `const` singleton.
   const MoneyFormatter();
 
+  /// Separates the currency symbol from the digits: `INR 5,000.00`, not `INR5000.00`.
+  ///
+  /// An ISO code run hard against a number reads as one token — `INR5000` invites a glance to parse the `5`
+  /// as part of the code. A symbol like `₹` does not have that problem, which is why the convention differs
+  /// between them, but this app defaults [format]'s `symbol` to the ISO code and so needs the gap.
+  ///
+  /// **An ordinary space, not U+00A0.** A non-breaking space would be more correct typographically, and is
+  /// the wrong trade here: it is invisible in a diff, invisible in a `grep`, and would make
+  /// `find.text('INR 5,000.00')` fail in a way whose cause is not visible on screen. `AmountText` sets
+  /// `maxLines: 1`, so there is no wrap for a non-breaking space to prevent — it would buy nothing and cost
+  /// a class of silent test failure.
+  static const String symbolGap = ' ';
+
   /// Formats [money] for display. [decimalDigits] and [symbol] must come from the
   /// `currencies` table (never hardcoded — see ARCH_1 §4.1); [localeTag] controls only
   /// digit grouping and the decimal separator character.
   String format(
-      Money money, {
-        required int decimalDigits,
-        required String symbol,
-        String localeTag = 'en_IN',
-        bool showPlusSign = false,
-      }) {
+    Money money, {
+    required int decimalDigits,
+    required String symbol,
+    String localeTag = 'en_IN',
+    bool showPlusSign = false,
+  }) {
     final magnitude = money.minor.abs();
     final divisor = _pow10(decimalDigits);
     final whole = magnitude ~/ divisor;
@@ -40,9 +53,11 @@ final class MoneyFormatter {
         ? ''
         : '${symbols.DECIMAL_SEP}${frac.toString().padLeft(decimalDigits, '0')}';
 
-    final sign = money.isNegative ? '-' : (showPlusSign && money.isPositive ? '+' : '');
+    final sign = money.isNegative
+        ? '-'
+        : (showPlusSign && money.isPositive ? '+' : '');
 
-    return '$sign$symbol$groupedWhole$fracStr';
+    return '$sign$symbol$symbolGap$groupedWhole$fracStr';
   }
 
   static int _pow10(int exponent) {
@@ -64,10 +79,10 @@ final class MoneyFormatter {
   /// a final group of 3 digits, then repeating groups of 2 (Indian) or 3 (Western) moving
   /// left, joined by [groupSeparator].
   static String _groupDigits(
-      String digits, {
-        required String groupSeparator,
-        required bool useIndianGrouping,
-      }) {
+    String digits, {
+    required String groupSeparator,
+    required bool useIndianGrouping,
+  }) {
     if (groupSeparator.isEmpty || digits.length <= 3) return digits;
 
     final secondaryGroupSize = useIndianGrouping ? 2 : 3;

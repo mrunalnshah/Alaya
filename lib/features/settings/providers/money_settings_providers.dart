@@ -22,9 +22,29 @@ final paymentMethodsSettingsProvider = StreamProvider<List<PaymentMethod>>(
   (ref) => ref.watch(paymentMethodRepositoryProvider).watchAll(),
 );
 
-/// Every payee.
+/// Whether [payee] is one a person would recognise as theirs.
+///
+/// **The one place this rule is written.** Saving a split with unnamed participants has to create a payee
+/// row for each of them — `split_shares.payee_id` is `NOT NULL REFERENCES payees(id)`, so otherwise the
+/// split cannot be saved at all — and those rows are bookkeeping, not contacts.
+///
+/// Two providers need to agree about it: the list of payees, and the count on the settings row that labels
+/// that list. The first attempt filtered inside the screen, the second filtered inside one provider, and
+/// both times the other reader kept counting rows the list refused to show — a settings row saying *3
+/// payees* above a screen listing one. A predicate with a name has one definition however many callers it
+/// grows.
+bool isContactPayee(Payee payee) => payee.kind != PayeeKind.splitPlaceholder;
+
+/// Every payee a person would recognise as one.
+///
+/// Filters on [isContactPayee]. A placeholder stays reachable where it matters: a split balance row renders
+/// one in italics with a **Who is this?** button, and naming it writes `kind: person` — at which point it
+/// appears here on the next stream tick with nothing else to do.
 final payeesSettingsProvider = StreamProvider<List<Payee>>(
-  (ref) => ref.watch(payeeRepositoryProvider).watchAll(),
+  (ref) => ref
+      .watch(payeeRepositoryProvider)
+      .watchAll()
+      .map((all) => all.where(isContactPayee).toList()),
 );
 
 /// The home currency, as the default for a new account.

@@ -14,6 +14,7 @@ import 'package:alaya/data/daos/stock_movement_dao.dart';
 import 'package:alaya/data/db/alaya_database.dart';
 import 'package:alaya/data/repositories/item_category_resolver.dart';
 import 'package:alaya/data/repositories/mappers/stock_mappers.dart';
+import 'package:alaya/domain/services/draw_policy.dart';
 import 'package:alaya/domain/services/inventory_consumption_service.dart';
 import 'package:alaya/domain/entities/stock_movement.dart';
 import 'package:alaya/domain/repositories/stock_repository.dart';
@@ -44,11 +45,21 @@ final class StockRepositoryImpl implements StockRepository {
   /// read by a person, so they go through the formatter.
   static const QtyFormatter _qtyFormat = QtyFormatter();
 
+  /// The one definition of the draw order.
+  ///
+  /// This class used to implement the ordering and the draw-down itself. Phase 4B moved the algorithm
+  /// into the service so there is one definition of it — the same consolidation Phase 4A made for the
+  /// currency cross-rate, and for the same reason: two copies of an ordering rule drift apart. What
+  /// stays here is the part only a repository can do — writing every draw in one transaction.
+  static const InventoryConsumptionService _consumption =
+      InventoryConsumptionService();
+
   @override
   Future<Result<List<ConsumptionDraw>, Failure>> consume({
     required String itemId,
     required Qty quantity,
     required StockMovementKind kind,
+    DrawPolicy policy = const DrawPolicy.fefo(),
     String? reason,
     String? note,
   }) async {
@@ -74,41 +85,58 @@ final class StockRepositoryImpl implements StockRepository {
       );
     }
 
-    // FEFO order, already filtered to batches holding stock: nearest expiry first, undated last
-    // (anomaly A08). The DAO owns that ordering so it is expressed once, in SQL, where the index
-    // can serve it.
-    final batches = await _batchDao.byItemFefo(itemId);
-    final available = batches.fold<int>(
-      0,
-      (sum, b) => sum + b.remainingQuantityMilli,
-    );
+    // FEFO order from SQL, already filtered to batches holding stock (anomaly A08). The service sorts
+    // again under whichever policy applies — a pure function that trusts its input's order is one
+    // whose correctness depends on something it cannot see — so this ordering is a query optimisation
+    // rather than a guarantee the plan relies on.
+    final batches = _consumable(await _batchDao.byItemFefo(itemId), category);
 
-    if (available < quantity.milliBase) {
+    // **Counted under the policy, not over the whole shelf.** Excluding expired stock means excluding
+    // it from the total too, or the refusal would quote a figure the plan could not have reached —
+    // "only 250 g is on hand" beside a cupboard holding 550 g, 300 g of it off.
+    final available = _consumption.availableUnder(
+      batches,
+      policy: policy,
+      ofCategory: quantity,
+    );
+    if (available.milliBase < quantity.milliBase) {
       // Checked before any write, and nothing is written on this path. A partial consumption would
       // leave the ledger describing something that did not happen — worse than refusing, because
       // the user would have no way to tell how much actually came out.
       return Result.failure(
         BusinessRuleFailure(
-          'Only ${_qtyFormat.format(Qty(available, category))} is on hand, less than the '
+          'Only ${_qtyFormat.format(available)} is on hand, less than the '
           '${_qtyFormat.format(quantity)} requested.',
           rule: 'insufficientStock',
         ),
       );
     }
 
-    final plan = _planDraws(
+    final planned = _consumption.plan(
       batches: batches,
-      needed: quantity.milliBase,
-      category: category,
+      needed: quantity,
+      policy: policy,
     );
+    final plan = planned.valueOrNull;
+    if (plan == null) {
+      // **Forwarded rather than swallowed.** This used to read `plan.valueOrNull?.draws ?? const []`,
+      // on the reasoning that the caller had already checked availability so a failure was impossible.
+      // Under a policy that can legitimately refuse, that swallow would apply zero draws and report
+      // success — a consumption the user was told happened and did not.
+      return Result.failure(
+        planned.failureOrNull ??
+            const UnexpectedFailure('Stock could not be planned.'),
+      );
+    }
+
     await _applyDraws(
       itemId: itemId,
-      draws: plan,
+      draws: plan.draws,
       kind: kind,
       reason: reason,
       note: note,
     );
-    return Result.ok(plan);
+    return Result.ok(plan.draws);
   }
 
   @override
@@ -368,33 +396,22 @@ final class StockRepositoryImpl implements StockRepository {
     return result;
   }
 
-  /// Delegates FEFO planning to [InventoryConsumptionService].
+  /// Narrows DAO rows to the four fields the consumption service takes.
   ///
-  /// This method used to implement the ordering and draw-down itself. Phase 4B moved the algorithm
-  /// into the service so there is one definition of it — the same consolidation Phase 4A made for
-  /// the currency cross-rate, and for the same reason: two copies of an ordering rule drift apart.
-  /// What stays here is the part only a repository can do — writing every draw in one transaction.
-  List<ConsumptionDraw> _planDraws({
-    required List<InventoryBatchRow> batches,
-    required int needed,
-    required UnitCategory category,
-  }) {
-    const service = InventoryConsumptionService();
-    final plan = service.plan(
-      batches: batches.map(
-        (row) => ConsumableBatch(
-          batchId: row.id,
-          remaining: Qty(row.remainingQuantityMilli, category),
-          purchasedDateKey: row.purchasedDateKey,
-          expiryDateKey: row.expiryDateKey,
-        ),
+  /// [category] comes from the item rather than the row, because `inventory_batches` stores a bare
+  /// integer and Law L8 forbids reinterpreting one without knowing its dimension.
+  List<ConsumableBatch> _consumable(
+    List<InventoryBatchRow> rows,
+    UnitCategory category,
+  ) => [
+    for (final row in rows)
+      ConsumableBatch(
+        batchId: row.id,
+        remaining: Qty(row.remainingQuantityMilli, category),
+        purchasedDateKey: row.purchasedDateKey,
+        expiryDateKey: row.expiryDateKey,
       ),
-      needed: Qty(needed, category),
-    );
-    // Insufficiency is already checked by the caller before this runs, so a failure here would mean
-    // the two disagreed — return no draws rather than a partial set either way.
-    return plan.valueOrNull?.draws ?? const [];
-  }
+  ];
 
   /// Records one movement per draw, all in a single transaction (Law L14).
   Future<void> _applyDraws({

@@ -9,6 +9,7 @@ import 'package:alaya/app/theme/tokens/alaya_icon_size.dart';
 import 'package:alaya/app/theme/tokens/alaya_spacing.dart';
 import 'package:alaya/app/theme/tokens/alaya_typography.dart';
 import 'package:alaya/features/settings/providers/settings_providers.dart';
+import 'package:alaya/features/split/providers/split_providers.dart';
 import 'package:alaya/shared/widgets/alaya_search_field.dart';
 import 'package:alaya/shared/widgets/empty_state.dart';
 import 'package:alaya/shared/widgets/section_header.dart';
@@ -137,6 +138,7 @@ class SettingsScreen extends ConsumerWidget {
     final tags = ref.watch(settingsTagCountProvider).valueOrNull;
     final units = ref.watch(settingsUnitCountProvider).valueOrNull;
     final currencies = ref.watch(settingsCurrencyCountProvider).valueOrNull;
+    final self = ref.watch(splitSelfProvider).valueOrNull;
 
     return [
       (
@@ -177,6 +179,21 @@ class SettingsScreen extends ConsumerWidget {
             icon: Icons.storefront_outlined,
             route: Routes.settingsPayees,
             keywords: const ['payee', 'shop', 'merchant', 'who'],
+          ),
+          _Entry(
+            title: strings.settingsSplit,
+            // **Not a count, and the only row here that is not.** Every other subtitle says how much is
+            // in a branch; this one says whether the module works at all. Until `split.selfPayeeId` is
+            // set, nothing can tell which side of a debt the user is on — so three screens send people
+            // here, and "Not set up yet" is how they recognise the row when they arrive.
+            subtitle: self == null
+                ? strings.settingsSplitUnset
+                : strings.settingsSplitSet,
+            icon: Icons.call_split_outlined,
+            // The keywords matter more than usual: somebody sent here by a message about splitting a
+            // bill will type "split" or "who am i", neither of which appears in the title.
+            keywords: const ['split', 'share', 'owe', 'upi', 'me', 'who am i'],
+            route: Routes.settingsSplit,
           ),
         ],
       ),

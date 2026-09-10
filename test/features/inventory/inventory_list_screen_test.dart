@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:alaya/app/providers/infrastructure_providers.dart';
+import 'package:alaya/core/enums/tag_scope.dart';
 import 'package:alaya/domain/entities/item.dart';
 import 'package:alaya/domain/entities/item_stock.dart';
+import 'package:alaya/domain/entities/tag.dart';
 import 'package:alaya/features/inventory/presentation/screens/inventory_list_screen.dart';
 import 'package:alaya/features/inventory/presentation/widgets/item_row.dart';
 import 'package:alaya/features/inventory/providers/inventory_list_providers.dart';
@@ -16,6 +18,28 @@ import '../../support/inventory_harness.dart';
 
 /// Four states, 320dp at a doubled text scale, and both accessibility floors (ARCH_5 §9.1).
 void main() {
+  /// The kind the fixture is filed under.
+  ///
+  /// **`InventoryGroup.kind` is a `Tag` now, not an enum member.** A kind stopped being one of six
+  /// compile-time values and became a row in `tags`, scoped by `allowed_in_inventory` — so a user can add
+  /// `Vegetables` without a code change, and a group carries the row rather than an id so its header can
+  /// render a name the user chose without every screen repeating the lookup.
+  ///
+  /// Named `Food` because that is one of the nine seeded kinds, which is what the group-header test below
+  /// asserts. `Medicine`, `Beauty` and `Household` were already in the seed matrix; `Food` and `Other` were
+  /// added by v5 when `ItemKind` retired.
+  const kKind = Tag(
+    id: 'kind-food',
+    name: 'Food',
+    normalizedName: 'food',
+    allowedScopes: {TagScope.inventory},
+    isSystem: true,
+    sortOrder: 0,
+    // Required rather than defaulted: `Tag` is the one entity in this schema that treats deletion as real
+    // writable state, and `save` reads it to decide whether to set or clear `deleted_at`.
+    isDeleted: false,
+  );
+
   List<Override> overrides(AsyncValue<List<InventoryGroup>> groups) => [
     clockProvider.overrideWithValue(kInventoryClock),
     inventoryGroupsProvider.overrideWith((ref) => groups),
@@ -23,10 +47,19 @@ void main() {
       (ref) => Stream.value(<String, ItemStock>{kItem.id: kStock}),
     ),
     lowStockCountProvider.overrideWith((ref) => 0),
+    // **Needed by the active-filter bar**, which resolves a filtered kind's id to its name so a chip shows
+    // `Food` rather than a uuid. Without it that widget reaches `tagRepositoryProvider` and through it the
+    // database, which this harness does not supply.
+    //
+    // The screen also no longer watches this above its own early return, so a test that narrows nothing never
+    // touches it. Both halves matter: the override for the tests that filter, the reordering so the ones that
+    // do not are unaffected. ARCH_M §7 records "an unoverridden provider degrades to green" — this is the
+    // other direction, one that throws in tests with nothing to do with tags.
+    inventoryKindsProvider.overrideWith((ref) => Stream.value(const [kKind])),
   ];
 
   final populated = AsyncValue.data([
-    InventoryGroup(items: const [kItem], kind: kItem.itemKind),
+    InventoryGroup(items: const [kItem], kind: kKind),
   ]);
 
   testWidgets('loading shows a skeleton, not a spinner', (tester) async {
@@ -35,6 +68,7 @@ void main() {
       const InventoryListScreen(),
       overrides: overrides(const AsyncValue.loading()),
     );
+
     expect(find.byType(AlayaListSkeleton), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
@@ -47,6 +81,7 @@ void main() {
       const InventoryListScreen(),
       overrides: overrides(const AsyncValue.data([])),
     );
+
     expect(find.byType(EmptyState), findsOneWidget);
     expect(find.text('Add item'), findsOneWidget);
   });
@@ -59,6 +94,7 @@ void main() {
         AsyncValue.error(StateError('boom'), StackTrace.empty),
       ),
     );
+
     expect(find.byType(ErrorState), findsOneWidget);
     expect(find.text('Try again'), findsOneWidget);
   });
@@ -71,6 +107,7 @@ void main() {
       const InventoryListScreen(),
       overrides: overrides(populated),
     );
+
     expect(find.byType(ItemRow), findsOneWidget);
     expect(find.text('Atta'), findsOneWidget);
     // ARCH_1 §5.4's worked example: 250 + 2000 + 1500 + 700 grams is 4 kg 450 g, not 2 kg 450 g.
@@ -78,11 +115,15 @@ void main() {
   });
 
   testWidgets('the group header names the kind, not the table', (tester) async {
+    // **The name comes from the tag now, and this test needed no change to say so.** It used to assert an ARB
+    // string resolved from an enum member; it now asserts the name on a row somebody could have typed. The
+    // title was already the right one — a header naming the *kind* rather than the table it lives in.
     await pumpInventory(
       tester,
       const InventoryListScreen(),
       overrides: overrides(populated),
     );
+
     expect(find.text('Food'), findsOneWidget);
   });
 
@@ -94,6 +135,7 @@ void main() {
       const InventoryListScreen(),
       overrides: overrides(populated),
     );
+
     expect(find.text('Search items'), findsOneWidget);
     expect(
       find.descendant(
@@ -111,6 +153,7 @@ void main() {
       overrides: overrides(populated),
       textScale: 2,
     );
+
     expect(tester.takeException(), isNull);
   });
 
@@ -123,6 +166,7 @@ void main() {
       const InventoryListScreen(),
       overrides: overrides(populated),
     );
+
     await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
     await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
     handle.dispose();

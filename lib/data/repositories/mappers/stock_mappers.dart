@@ -24,9 +24,12 @@ extension ItemMapper on ItemRow {
     normalizedName: normalizedName,
     unitCategory: unitCategory,
     defaultDisplayUnitCode: defaultDisplayUnitCode,
-    itemKind: itemKind,
+    kindTagId: kindTagId,
     isFavorite: isFavorite,
-    lowStockThreshold: QtyColumns.readOrNull(lowStockThresholdMilli, unitCategory),
+    lowStockThreshold: QtyColumns.readOrNull(
+      lowStockThresholdMilli,
+      unitCategory,
+    ),
     expiryNotifyDays: expiryNotifyDays,
     notes: notes,
   );
@@ -34,18 +37,20 @@ extension ItemMapper on ItemRow {
 
 /// Builds the companion for [item].
 ItemsCompanion itemToCompanion(
-    Item item, {
-      required int createdAt,
-      required int updatedAt,
-    }) {
+  Item item, {
+  required int createdAt,
+  required int updatedAt,
+}) {
   return ItemsCompanion.insert(
     id: item.id,
     name: item.name,
     normalizedName: item.normalizedName,
     unitCategory: item.unitCategory,
     defaultDisplayUnitCode: item.defaultDisplayUnitCode,
-    itemKind: item.itemKind,
-    lowStockThresholdMilli: Value(QtyColumns.milliOfNullable(item.lowStockThreshold)),
+    kindTagId: Value(item.kindTagId),
+    lowStockThresholdMilli: Value(
+      QtyColumns.milliOfNullable(item.lowStockThreshold),
+    ),
     expiryNotifyDays: Value(item.expiryNotifyDays),
     notes: Value(item.notes),
     isFavorite: item.isFavorite,
@@ -81,10 +86,10 @@ extension BatchMapper on InventoryBatchRow {
 
 /// Builds the companion for [batch].
 InventoryBatchesCompanion batchToCompanion(
-    Batch batch, {
-      required int createdAt,
-      required int updatedAt,
-    }) {
+  Batch batch, {
+  required int createdAt,
+  required int updatedAt,
+}) {
   return InventoryBatchesCompanion.insert(
     id: batch.id,
     itemId: batch.itemId,
@@ -139,7 +144,10 @@ extension ItemStockMapper on ItemStockRow {
     batchCount: batchCount,
     isLowStock: isLowStock == 1,
     nearestExpiry: nearestExpiryDateKey,
-    lowStockThreshold: QtyColumns.readOrNull(lowStockThresholdMilli, unitCategory),
+    lowStockThreshold: QtyColumns.readOrNull(
+      lowStockThresholdMilli,
+      unitCategory,
+    ),
   );
 }
 
@@ -159,7 +167,10 @@ extension LowStockMapper on LowStockRow {
     batchCount: 0,
     isLowStock: true,
     nearestExpiry: nearestExpiryDateKey,
-    lowStockThreshold: QtyColumns.readOrNull(lowStockThresholdMilli, unitCategory),
+    lowStockThreshold: QtyColumns.readOrNull(
+      lowStockThresholdMilli,
+      unitCategory,
+    ),
   );
 }
 
@@ -195,12 +206,17 @@ final class MoneyByCurrency {
 
   /// Adds [minor] units of [currencyCode] to the running total.
   void add({required String currencyCode, required int minor}) {
-    _minorByCode.update(currencyCode, (existing) => existing + minor, ifAbsent: () => minor);
+    _minorByCode.update(
+      currencyCode,
+      (existing) => existing + minor,
+      ifAbsent: () => minor,
+    );
   }
 
   /// The accumulated totals, one `Money` per currency encountered.
-  Map<String, Money> get totals =>
-      {for (final e in _minorByCode.entries) e.key: Money(e.value, e.key)};
+  Map<String, Money> get totals => {
+    for (final e in _minorByCode.entries) e.key: Money(e.value, e.key),
+  };
 
   /// True when nothing has been added.
   bool get isEmpty => _minorByCode.isEmpty;

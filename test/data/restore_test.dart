@@ -68,7 +68,6 @@ void main() {
             // `food`, not `grocery` — ItemKind is generic/food/medicine/beauty/household/other.
             // `grocery` is a TransactionSubtype, which is a different axis: what the money was for
             // versus what the thing is.
-            itemKind: ItemKind.food,
             isFavorite: false,
             createdAt: 1000,
             updatedAt: updatedAt,

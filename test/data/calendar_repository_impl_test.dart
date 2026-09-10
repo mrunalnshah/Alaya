@@ -3,6 +3,7 @@ import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:alaya/core/enums/inventory_enums.dart';
+import 'package:alaya/core/enums/split_enums.dart';
 import 'package:alaya/core/enums/money_enums.dart';
 import 'package:alaya/core/enums/recurring_enums.dart';
 import 'package:alaya/core/enums/service_enums.dart';
@@ -126,7 +127,6 @@ void main() {
             normalizedName: 'yoghurt',
             unitCategory: UnitCategory.count,
             defaultDisplayUnitCode: 'pc',
-            itemKind: ItemKind.food,
             isFavorite: false,
             createdAt: stamp,
             updatedAt: stamp,
@@ -227,6 +227,50 @@ void main() {
             targetDateKey: Value(on),
           ),
         );
+
+    // The split arm. Two rows, because the view reads `split_expenses` and left-joins `split_groups`
+    // for a fallback title.
+    //
+    // `paidByPayeeId` reuses `pay-1`, whose kind is `merchant` — which a real split would never be.
+    // The view does not filter on kind, and adding a second payee would test the fixture rather than
+    // the arm.
+    await db
+        .into(db.splitGroups)
+        .insert(
+          SplitGroupsCompanion.insert(
+            id: 'sg-1',
+            name: 'Goa trip',
+            normalizedName: 'goa trip',
+            defaultSplitMethod: SplitMethod.equal,
+            isArchived: false,
+            sortOrder: 0,
+            createdAt: stamp,
+            updatedAt: stamp,
+          ),
+        );
+    await db
+        .into(db.splitExpenses)
+        .insert(
+          SplitExpensesCompanion.insert(
+            id: 'se-1',
+            paidByPayeeId: 'pay-1',
+            totalAmountMinor: 180000,
+            currencyCode: 'INR',
+            // **Dated `before`, and the settle-by date is what falls on `on`.** An expense dated `on`
+            // would reach the feed even if the arm read the wrong column, and this test would pass
+            // while the arm was broken.
+            dateKey: before,
+            // The same derived-column CHECK `transactions` carries — `date_key / 100 = month_key` —
+            // which the companion's required-field list does not mention. See the note on the
+            // transaction insert above, which records eleven tests failing for the equivalent omission.
+            monthKey: before.monthKey,
+            splitMethod: SplitMethod.equal,
+            createdAt: stamp,
+            updatedAt: stamp,
+            groupId: const Value('sg-1'),
+            settleByDateKey: Value(on),
+          ),
+        );
   }
 
   /// Adds one row well outside the tested range, so a range assertion can fail.
@@ -245,14 +289,14 @@ void main() {
       );
 
   group('CalendarRepositoryImpl', () {
-    // The point of the view, and the one thing no fake can prove: seven arms, six event types, and the
+    // The point of the view, and the one thing no fake can prove: eight arms, seven event types, and the
     // two serviceDue sources both arriving.
     test('every UNION arm reaches the feed', () async {
       await seedEveryArm();
 
       final events = await repository.forDay(anchor);
 
-      expect(events, hasLength(7));
+      expect(events, hasLength(8));
       expect(
         events.map((e) => e.type).toSet(),
         CalendarEventType.values.toSet(),
@@ -338,7 +382,7 @@ void main() {
 
       final events = await repository.watchRange(from: before, to: after).first;
 
-      expect(events, hasLength(7));
+      expect(events, hasLength(8));
       expect(events.every((e) => e.dateKey == anchor), isTrue);
     });
 
@@ -347,7 +391,7 @@ void main() {
 
       final counts = await repository.countsByDate(from: before, to: after);
 
-      expect(counts, {anchor: 7});
+      expect(counts, {anchor: 8});
     });
 
     test('an empty range is empty rather than an error', () async {
@@ -366,7 +410,7 @@ void main() {
 
       final events = await repository.forDay(anchor);
 
-      expect(events, hasLength(6));
+      expect(events, hasLength(7));
       expect(
         events.any((e) => e.type == CalendarEventType.transaction),
         isFalse,

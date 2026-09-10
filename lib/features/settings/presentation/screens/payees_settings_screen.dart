@@ -19,9 +19,16 @@ import 'package:alaya/shared/widgets/error_state.dart';
 
 /// Settings › Payees (ARCH_5 §3 archetype D, outside the shell).
 ///
-/// **The only settings branch with a search field, because it is the only one that grows without bound.** Every
-/// other list here is fixed by the app's shape — five account kinds, six payment methods, three unit categories
-/// — while payees accumulate one per shop the user ever names. A hundred rows is normal, and scanning fails.
+/// **The only settings branch with a search field, because it is the only one that grows without
+/// bound.** Every other list here is fixed by the app's shape — five account kinds, six payment
+/// methods, three unit categories — while payees accumulate one per shop the user ever names. A
+/// hundred rows is normal, and scanning fails.
+///
+/// **This screen does not filter placeholders, and it used to.** `payeesSettingsProvider` excludes
+/// [PayeeKind.splitPlaceholder] now, which is where the decision belongs: filtering here left every
+/// other consumer of that provider counting rows this list refused to show, so a payee count and a
+/// payee list disagreed by the number of unnamed split participants. One filter, one layer, and no
+/// second reader to keep in step.
 class PayeesSettingsScreen extends ConsumerStatefulWidget {
   /// Creates the screen.
   const PayeesSettingsScreen({super.key});
@@ -74,12 +81,14 @@ class _PayeesSettingsScreenState extends ConsumerState<PayeesSettingsScreen> {
               data: (rows) {
                 final matching = query.isEmpty
                     ? rows
-                    // Matched on `normalizedName`, so "cafe" finds "Café" — the same normaliser the repository
-                    // used when it stored the row, rather than a second rule that would disagree with it.
+                    // Matched on `normalizedName`, so "cafe" finds "Café" — the same normaliser the
+                    // repository used when it stored the row, rather than a second rule that would
+                    // disagree with it.
                     : [
                         for (final row in rows)
                           if (row.normalizedName.contains(query)) row,
                       ];
+
                 if (rows.isEmpty) {
                   return EmptyState(
                     title: strings.payeesEmptyTitle,
@@ -89,8 +98,8 @@ class _PayeesSettingsScreenState extends ConsumerState<PayeesSettingsScreen> {
                     onAction: () => PayeeSheet.show(context, existing: null),
                   );
                 }
-                // Two distinct empties: nothing at all, and nothing matching. The second names the search,
-                // because "no payees" in front of a list the user can see is a lie.
+                // Two distinct empties: nothing at all, and nothing matching. The second names the
+                // search, because "no payees" in front of a list the user can see is a lie.
                 if (matching.isEmpty) {
                   return EmptyState(
                     title: strings.payeesNoMatchTitle,
@@ -129,7 +138,11 @@ class _PayeeRow extends ConsumerWidget {
 
     return ListTile(
       leading: Icon(
-        Icons.storefront_outlined,
+        // A person and a shop are different things and the list said so with one icon for both. The
+        // kind is already in the subtitle; the glyph now agrees with it rather than contradicting it.
+        payee.kind == PayeeKind.person
+            ? Icons.person_outline
+            : Icons.storefront_outlined,
         size: AlayaIconSize.lg,
         color: semantic.muted,
       ),
@@ -174,10 +187,19 @@ class _PayeeRow extends ConsumerWidget {
 }
 
 /// The name of each payee kind.
+///
+/// **Exhaustive, and it refused to compile the moment `PayeeKind` gained a sixth member.** That is Law
+/// L13 working: an added member cannot fall through to a wrong label, because every switch like this
+/// one fails loudly until somebody decides what the new case means.
+///
+/// [PayeeKind.splitPlaceholder] never reaches this screen — `payeesSettingsProvider` filters those rows
+/// out — but this function is public and the compiler is right to insist. A placeholder that reaches
+/// some other caller should say what it is rather than borrow "Other".
 String payeeKindLabel(AlayaStrings strings, PayeeKind kind) => switch (kind) {
   PayeeKind.person => strings.payeeKindPerson,
   PayeeKind.merchant => strings.payeeKindMerchant,
   PayeeKind.employer => strings.payeeKindEmployer,
   PayeeKind.utility => strings.payeeKindUtility,
   PayeeKind.other => strings.payeeKindOther,
+  PayeeKind.splitPlaceholder => strings.payeeKindSplitPlaceholder,
 };

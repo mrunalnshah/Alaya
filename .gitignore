@@ -1,33 +1,30 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate.log
-
-# IntelliJ related (Android Studio)
-.idea/
-*.iml
-*.iws
-
-# Flutter/Dart/Pub related
-**/doc/api/
+# Flutter/Dart/Pub specific
 .dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
 .packages
-.pub-cache/
+.pub-deps
 .pub/
 build/
 
-# Android related
-**/android/local.properties
-**/android/key.properties
-**/android/app/**.keystore
-**/android/app/**.jks
+# IDE specific (Android Studio, VS Code, IntelliJ)
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
 
+# Android specific
+**/android/.gradle/
+**/android/local.properties
+**/android/app/build/
+**/android/.navigation/
+**/android/captures/
+**/android/compiler.xml
+**/android/build.xml
+
+# iOS/macOS specific (if applicable)
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.podspec
+**/ios/Pods/
+**/ios/Runner.xcodeproj/project.xcworkspace/
+**/ios/Runner.xcworkspace/
+.DS_Store

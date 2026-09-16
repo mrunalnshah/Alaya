@@ -1,5 +1,7 @@
 **Documentation is being written. I apologize for inconvenience.**
 
+The Project is build completely using 5 core architecture files and prompts. 
+
 # alaya
 
 A Home Management App by WildeWulf
